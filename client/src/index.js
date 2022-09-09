@@ -7,7 +7,6 @@ import store from "./Redux/Store/store";
 
 ReactDOM.render(
   <BrowserRouter>
-    <h1>RENDERIZE!!</h1>
     <Provider store={store}>
       <App />
     </Provider>
