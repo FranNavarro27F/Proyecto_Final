@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../Home/Home.module.css";
+import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 import Circulo from "./Assets/circulo/circulo";
 
