@@ -1,5 +1,5 @@
 # Proyecto_Final
-( * 🪓🩸🔪 ! Hagan una pull request si quieren modifican  algo de la rama Main o Produccion ! 🪓🩸🔪* )
+( * 🪓🩸🔪 ! Hagan una pull request si quieren modifican  algo de la rama Main o Dev ! 🪓🩸🔪* )
  - Cuando hacen pull request,  nos enteramos que estan queriendo añadir su trabajo al proyecto , asi podemos verlo y aprobarlo, luego el resto se entera que algo fue modificado y pueden descargar esos cambios 💫.
 
  - Primero creen su rama local de trabajo con su nombre: ej- Fran , luego pushean al repo-remoto esa rama local y asi cuando trabajen en algo sus cambios no afectan al trabajo de los demas, luego solicitan una "pull request" y otro miembro va a poder ver si esta todo bien para unificarlo al trabajo de todos ( mergear a produccion ) 😁.
