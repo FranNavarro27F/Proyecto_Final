@@ -13,11 +13,26 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
       
     },
+    description:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    creation_date:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     expiration_date:{
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
-    }
-
+    }, //modifique!
+    // id_dev:{
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
+    // id_client:{
+    //   type: DataTypes.STRING,
+    //   allowNull: false
+    // }
 
   });
 };
