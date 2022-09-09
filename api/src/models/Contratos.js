@@ -14,11 +14,11 @@ module.exports = (sequelize) => {
       
     },
     description:{
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     creation_date:{
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     expiration_date:{
