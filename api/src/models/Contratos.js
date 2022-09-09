@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
     expiration_date:{
         type: DataTypes.DATE,
         allowNull: false,
-    },
+    }, //modifique!
     // id_dev:{
     //   type: DataTypes.STRING,
     //   allowNull: false,
