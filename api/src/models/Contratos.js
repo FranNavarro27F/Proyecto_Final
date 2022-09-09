@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
     // },
     // id_client:{
     //   type: DataTypes.STRING,
-    //   allowNull: false,
+    //   allowNull: false
     // }
 
   });
