@@ -1,8 +1,8 @@
 # Proyecto_Final
 ( * 🪓🩸🔪 ! Hagan una pull request si quieren modifican  algo de la rama Main o Produccion ! 🪓🩸🔪* )
- - Cuando hacen pull request, el resto nos enteramos que algo fue modificado y podemos descargar esos cambios.
+ - Cuando hacen pull request,  nos enteramos que estan queriendo añadir su trabajo al proyecto , asi podemos verlo y aprobarlo, luego el resto se entera que algo fue modificado y pueden descargar esos cambios 💫.
 
- - Primero creen su rama local de trabajo con su nombre: ej- Fran , luego pushean al repo-remoto esa rama local y asi cuando trabajen en algo sus cambios no afectan al trabajo de los demas, luego solicitan una "pull request" y otro miembro va a poder ver si esta todo bien para unificarlo al trabajo de todos ( mergear a prodiccion ) 😁.
+ - Primero creen su rama local de trabajo con su nombre: ej- Fran , luego pushean al repo-remoto esa rama local y asi cuando trabajen en algo sus cambios no afectan al trabajo de los demas, luego solicitan una "pull request" y otro miembro va a poder ver si esta todo bien para unificarlo al trabajo de todos ( mergear a produccion ) 😁.
 
  - por favor mirar el Trello para poder ver cuales son las tareas que otros compañeros tienen asignadas y cuales te quieres asignar tu 🐱‍👤 asi estamos mejor organizados, tambien ayuda a que 2 personas no trabajen en lo mismo sin darse cuenta y evitamos romper el PF ✨.: https://trello.com/b/i6ckfNhW/pfscrum
 
