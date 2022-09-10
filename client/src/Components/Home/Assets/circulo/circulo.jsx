@@ -1,6 +1,6 @@
 import React from "react";
 
-import s from "./Circulo.module.css";
+import s from "./circulo.module.css";
 
 export default function Circulo() {
   return (
