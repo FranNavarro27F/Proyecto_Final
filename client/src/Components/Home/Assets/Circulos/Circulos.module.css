@@ -4,11 +4,12 @@
 }
 .circulos {
   position: absolute;
-  top: 50vh;
-  left: 50vh;
+  bottom: -95vh;
+  left: 40vh;
+  max-width: 900px;
 }
 
 .imgCirculo {
-  width: 954.99px;
-  height: 461.73px;
+  width: 120vh;
+  height: 85vh;
 }
