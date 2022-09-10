@@ -15,9 +15,9 @@ export default function Home() {
         <div>
           <Circulo />
         </div>
-        {/* <div className={s.girl}>
+        <div className={s.girl}>
           <Girl1 />
-        </div> */}
+        </div>
       </div>
     </div>
   );
