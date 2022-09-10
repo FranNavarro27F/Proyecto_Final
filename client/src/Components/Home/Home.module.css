@@ -11,26 +11,46 @@
 
 .girl {
   position: absolute;
-  width: 573px;
-  max-height: 1054px;
-  display: inline-block;
-  align-items: center;
-  justify-content: center;
+  top: 100vh;
+  left: 65vh;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  width: 620px;
+  height: 620px;
+  overflow: hidden;
 }
 .luz {
-  /* Ellipse 1 */
-
   position: absolute;
   width: 620px;
   height: 620px;
   /* max-height: 620px; */
-  top: 30vh;
+  top: 115vh;
   left: 70vh;
-
   background: radial-gradient(
     54.4% 54.4% at 31.2% 52%,
     rgba(41, 84, 163, 0.6) 0%,
     rgba(15, 16, 63, 0.6) 100%
+  );
+  filter: blur(200px);
+}
+.diamante {
+  position: absolute;
+  top: 80vh;
+  left: 90vh;
+  width: 48vh;
+  height: 51vh;
+}
+.luzDiamante {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  /* max-height: 620px; */
+  top: 110vh;
+  left: 90vh;
+  background: radial-gradient(
+    54.4% 54.4% at 31.2% 52%,
+    rgb(41, 84, 163) 0%,
+    rgb(15, 16, 63) 100%
   );
   filter: blur(200px);
 }
