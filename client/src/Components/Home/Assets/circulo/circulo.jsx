@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./circulo.module.css";
-import planetas from "../planetas/planetas.png";
+
 
 export default function Circulo() {
   return (
