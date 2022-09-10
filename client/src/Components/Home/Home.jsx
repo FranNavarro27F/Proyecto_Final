@@ -14,7 +14,7 @@ export default function Home() {
       <div className={s.body}>
         <div className={s.container}>
           <div className={s.luz}></div>
-          <div className={s.circulo}>
+          <div className={s.circulo1}>
             <Circulos />
           </div>
           <div>
