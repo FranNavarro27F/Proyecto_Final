@@ -10,20 +10,22 @@
 }
 
 .girl {
-  /* position: absolute; */
+  position: absolute;
   width: 573px;
   max-height: 1054px;
-  left: -137px;
-  top: -59px;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
 }
 .luz {
   /* Ellipse 1 */
 
   position: absolute;
-  width: 1000px;
-  height: 1000px;
-  left: 242px;
-  top: -15px;
+  width: 620px;
+  height: 620px;
+  /* max-height: 620px; */
+  top: 30vh;
+  left: 70vh;
 
   background: radial-gradient(
     54.4% 54.4% at 31.2% 52%,
@@ -32,6 +34,3 @@
   );
   filter: blur(200px);
 }
-/* .circulo1 {
-  mix-blend-mode: overlay;
-} */
