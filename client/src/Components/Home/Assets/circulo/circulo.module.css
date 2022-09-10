@@ -1,57 +1,8 @@
-/* BG Small Circle */
-
-/* position: absolute;
-width: 1022px;
-height: 495px;
-left: 161px;
-top: 343px; */
-
-/* Ellipse 1423 */
-
-position: absolute;
-left: 11.18%;
-right: 17.85%;
-top: 33.5%;
-bottom: 19.42%;
-
-mix-blend-mode: overlay;
-
-/* Ellipse 1429 */
-
-position: absolute;
-left: 11.18%;
-right: 17.85%;
-top: 33.66%;
-bottom: 19.25%;
-
-mix-blend-mode: overlay;
-
-/* Ellipse 1430 */
-
-position: absolute;
-left: 11.18%;
-right: 17.85%;
-top: 34.26%;
-bottom: 18.83%;
-
-mix-blend-mode: overlay;
-
-/* Ellipse 1431 */
-
-position: absolute;
-left: 11.18%;
-right: 17.85%;
-top: 35.07%;
-bottom: 18.16%;
-
-mix-blend-mode: overlay;
-
-/* Ellipse 1432 */
-
-position: absolute;
-left: 11.18%;
-right: 17.85%;
-top: 33.91%;
-bottom: 19.57%;
-
-mix-blend-mode: overlay;
+.body {
+  display: flex;
+}
+.circulo {
+  position: absolute;
+  top: 10vh;
+  left: 65vh;
+}
