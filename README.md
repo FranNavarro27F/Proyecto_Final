@@ -10,7 +10,7 @@
   por favor mirar el Trello para poder ver cuales son las tareas que otros compañeros tienen asignadas y cuales te quieres asignar tu 🐱‍👤 asi estamos mejor organizados, tambien ayuda a que 2 personas no trabajen en lo mismo sin darse cuenta y evitamos romper el PF ✨...
 
 - diagrama de entidad-relacion:
-  <img height="490" src="./diagrama-entidad-relacion.jpg" />
+  <img height="490" src="./api/src/models/Entidades-DB/diagrama-entidad-relacion.jpg" />
 
 - Plantilla de diseño y estilos:
   https://www.figma.com/community/file/1147874966057838522
