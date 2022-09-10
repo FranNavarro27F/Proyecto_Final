@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  background-color: #0f103f;
+  max-height: 100vh;
+  height: 100vh;
+}
+
+.girl {
+  position: absolute;
+  width: 573px;
+  max-height: 1054px;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+}
+.luz {
+  /* Ellipse 1 */
+
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  /* max-height: 620px; */
+  top: 30vh;
+  left: 70vh;
+
+  background: radial-gradient(
+    54.4% 54.4% at 31.2% 52%,
+    rgba(41, 84, 163, 0.6) 0%,
+    rgba(15, 16, 63, 0.6) 100%
+  );
+  filter: blur(200px);
+}

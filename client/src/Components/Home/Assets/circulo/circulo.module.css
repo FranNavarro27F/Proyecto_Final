@@ -1,0 +1,8 @@
+.body {
+  display: flex;
+}
+.circulo {
+  position: absolute;
+  top: 10vh;
+  left: 65vh;
+}
