@@ -23,5 +23,8 @@ router.post("/lenguajes", async (req, res) => {});
 // Ver JSON de todos los lenguajes de programación
 router.get("/lenguajes", async (req, res) => {});
 
+// Modificar un lenguaje de la DB
+router.put("/lenguajes/:id", async (req, res) => {});
+
 // Eliminar un lenguaje de la DB
 router.delete("/lenguajes/:id", async (req, res) => {});
