@@ -25,6 +25,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
+      validate: {
+        is: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, // REGEX para Email
+      },
     },
     country: {
       type: DataTypes.STRING(50),
