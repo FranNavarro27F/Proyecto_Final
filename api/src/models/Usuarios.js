@@ -102,6 +102,11 @@ module.exports = (sequelize) => {
       },
     },
 
+    speaksEnglish: {
+      type: Datatypes.BOOLEAN,
+      allowNull: true,
+    },
+
     bio: {
       type: Datatypes.TEXT,
       allowNull: true,
