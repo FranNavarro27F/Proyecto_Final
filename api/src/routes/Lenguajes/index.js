@@ -4,10 +4,12 @@ const { saveLanguages } = require("../../controllers/Lenguajes");
 
 const router = Router();
 
+const PATH = "/lenguajes";
+
 // -----------------------------------------------
 
 // Guardar Lenguajes Iniciales en la DB
-router.post("/lenguajes", async (req, res) => {
+router.post(PATH, async (req, res) => {
   try {
     const { Languages } = req.body;
     const save = await saveLanguages(Languages);
@@ -18,13 +20,13 @@ router.post("/lenguajes", async (req, res) => {
 });
 
 // Guardar un nuevo lenguaje en la DB
-router.post("/lenguajes", async (req, res) => {});
+router.post(PATH, async (req, res) => {});
 
 // Ver JSON de todos los lenguajes de programación
-router.get("/lenguajes", async (req, res) => {});
+router.get(PATH, async (req, res) => {});
 
 // Modificar un lenguaje de la DB
-router.put("/lenguajes/:id", async (req, res) => {});
+router.put(`${PATH}/:id`, async (req, res) => {});
 
 // Eliminar un lenguaje de la DB
-router.delete("/lenguajes/:id", async (req, res) => {});
+router.delete(`${PATH}/:id`, async (req, res) => {});

@@ -1,8 +1,7 @@
 const { Lenguajes } = require("../db");
 // const { Op } = require("sequelize");
 
-const PATH = "/lenguajes";
-const ERROR = "Error @ controllers/lenguajes";
+const ERROR = "Error @ controllers/Lenguajes";
 
 // -----------------------------------------------
 
