@@ -12,21 +12,30 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
     },
-    date: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    date: {
+      type: DataTypes.DATE, // DATEONLY / STRING
+      allowNull: false,
+    },
     expiration_date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE, // DATEONLY / STRING
       allowNull: false,
     },
   });
 };
 
-/* RELACIONES
+/* RELACIÓN
 
-CONTRATANTE
-CONTRATISTA
+CONTRATISTA id_dev:{
+   type: DataTypes.STRING,
+   allowNull: false,
+ },
+CONTRATANTE id_client:{
+   type: DataTypes.STRING,
+   allowNull: false
+ }
 
-
-*/
+ */
