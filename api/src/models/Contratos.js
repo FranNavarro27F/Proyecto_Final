@@ -1,32 +1,43 @@
 const { DataTypes } = require("sequelize");
-// Exportamos una función que define el modelo
-// Luego le inyectamos la conexión a sequelize.
+
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define("contratos", {
+    //
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, // Contratante-Contratista-fechaDeInicio
     },
+
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
+
     date: {
-      type: DataTypes.DATE, // DATEONLY / STRING
+      type: DataTypes.DATEONLY,
       allowNull: false,
+      validate: {
+        isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+      },
     },
+
     expiration_date: {
-      type: DataTypes.DATE, // DATEONLY / STRING
+      type: DataTypes.DATEONLY,
       allowNull: false,
+      validate: {
+        isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+      },
     },
+
     status: {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
     },
+    //
   });
 };
 
