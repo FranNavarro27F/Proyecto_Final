@@ -1,0 +1,15 @@
+/* BG Small Circle */
+.body {
+  display: flex;
+}
+.circulos {
+  position: absolute;
+  bottom: -95vh;
+  left: 40vh;
+  max-width: 900px;
+}
+
+.imgCirculo {
+  width: 120vh;
+  height: 85vh;
+}

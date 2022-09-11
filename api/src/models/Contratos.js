@@ -24,6 +24,18 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE, // DATEONLY / STRING
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    creation_date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    expiration_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   });
 };
 
