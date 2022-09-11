@@ -11,3 +11,4 @@ export default function Circulos() {
     </div>
   );
 }
+ // a ver si se arregla  
