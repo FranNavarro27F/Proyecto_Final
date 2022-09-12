@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Planeta from './Assets/Planeta/Planeta'
 import PlanetasChicos from './Assets/PlanetasChicos/PlanetasChicos'
@@ -14,7 +15,6 @@ export default function Landing() {
         <ButtonLanding/>
         
    
-
     </div>
-  )
+  );
 }
