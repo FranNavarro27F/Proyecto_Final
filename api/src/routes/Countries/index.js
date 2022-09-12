@@ -1,10 +1,10 @@
 const { Router } = require("express");
-const { Usuarios } = require("../db");
-const { getUsers } = require("../../controllers/Usuarios");
+const { Countries } = require("../db");
+const { getCountries } = require("../../controllers/Countries");
 
 const router = Router();
 
-const PATH = "/usuarios";
+const PATH = "/countries";
 
 // -----------------------------------------------
 

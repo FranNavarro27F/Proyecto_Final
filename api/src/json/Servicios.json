@@ -1,11 +1,4 @@
-const { Servicios } = require("../db");
-// const { Op } = require("sequelize");
-
-const ERROR = "Error @ controllers/Servicios";
-
-// -----------------------------------------------
-
-const SERVICIOS = [
+[
   "AR / VR",
   "Artificial Intelligence",
   "Blockchain",
@@ -31,15 +24,5 @@ const SERVICIOS = [
   "UI / UX",
   "Web (Back-end)",
   "Web (Front-end)",
-  "Web (Full Stack)",
-];
-
-// -----------------------------------------------
-
-// Ejemplo 1
-const getServicios = async () => {
-  try {
-  } catch (e) {}
-};
-
-module.exports = { getServicios };
+  "Web (Full Stack)"
+]

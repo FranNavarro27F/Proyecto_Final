@@ -1,0 +1,24 @@
+.landing{
+    background-color:#0f103f;
+    max-height: 100vh;
+    height: 100vh;
+    
+    
+}
+.planetas{
+    background-size: 80vh;
+    position: absolute;
+    width: 1115.35px;
+    height: 625.66px;
+    top: 20vh;
+    left: 120vh;
+    
+    
+   
+}
+.imgPlanet{
+    width: 560px;
+    height: 480px;
+    background: radial-gradient(33.4% 33.4% at 31.2% 44.8%, rgba(41, 84, 163, 0.6) 0%, rgba(15, 16, 63, 0.6) 98.34%);
+  
+}  
