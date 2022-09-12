@@ -93,7 +93,7 @@ module.exports = (sequelize) => {
     },
 
     dailyBudget: {
-      type: Datatypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: true,
       validate: {
         len: [1, 3], // no permitir mas de dos dígitos
@@ -102,13 +102,19 @@ module.exports = (sequelize) => {
       },
     },
 
-    speaksEnglish: {
-      type: Datatypes.BOOLEAN,
-      allowNull: true,
+    englishLevel: {
+      type: DataTypes.ENUM(
+        "Básico",
+        "Intermedio",
+        "Avanzado",
+        "Profesional",
+        "Nativo / Bilingüe"
+      ),
+      allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
     },
 
     bio: {
-      type: Datatypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     //
