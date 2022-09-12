@@ -1,5 +1,17 @@
 .img {
-  position: absolute;
-  display: flex;
+  /* position: absolute; */
+  /* display: flex; */
   margin-top: -11.5rem;
+}
+
+.body {
+  position: absolute;
+  top: 116vh;
+  left: 65vh;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  width: 620px;
+  height: 620px;
+  overflow: hidden;
+  z-index: 10;
 }
