@@ -18,13 +18,16 @@ color: #FFFFFF;
 font-family: 'Poppins';
 font-weight: 400;
 font-size: 17px;
-
+align-items: center;
+text-align: center;
+line-height: 26px;
 }
 
 .possitionLg{
     top: 55%;   
     position: absolute;
     margin-left: 40%;
+
 }
 
 .buttonLg{

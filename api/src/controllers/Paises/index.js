@@ -1,4 +1,4 @@
-const { Countries } = require("../db");
+const { Paises } = require("../db");
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Countries";

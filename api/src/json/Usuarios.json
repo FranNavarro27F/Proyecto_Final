@@ -1,6 +1,6 @@
 {
   "1": {
-    "ID": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4a",
+    "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4a",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Santiago",
     "lastName": "Ostrovsky",
@@ -16,7 +16,7 @@
     "bio": ""
   },
   "2": {
-    "ID": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4b",
+    "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4b",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Francisco",
     "lastName": "Navarro",
@@ -32,7 +32,7 @@
     "bio": ""
   },
   "3": {
-    "ID": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4c",
+    "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4c",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Ramiro",
     "lastName": "Ferradas",

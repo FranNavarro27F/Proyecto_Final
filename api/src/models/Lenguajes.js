@@ -16,3 +16,5 @@ module.exports = (sequelize) => {
     //
   });
 };
+
+// OTRA → CONTACTATE CON SOPORTE
