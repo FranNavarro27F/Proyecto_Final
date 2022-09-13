@@ -1,4 +1,4 @@
-const { Servicios } = require("../db");
+const { Servicios } = require("../../db");
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Servicios";

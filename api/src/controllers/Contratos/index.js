@@ -1,4 +1,4 @@
-const { Contratos } = require("../db");
+const { Contratos } = require("../../db");
 // const { Op } = require("sequelize");
 
 const PATH = "/contratos";
