@@ -59,3 +59,5 @@ module.exports = (sequelize) => {
 //                 - Inactivo: Estado de los contratos suscritos a futuro, aquellos que todavía no han entrado en vigencia.
 //                 - Completado: Contrato cuya fecha de finalización ha acontecido y el trabajo ha sido entregado.
 //                 - Cancelado: Contrato que ha sido cancelado de común acuerdo entre el Desarrollador y el Contratante.
+
+// 3 - BORRADO LÓGICO (CONTRATOS CANCELADOS NO DEBEN SER ELIMINADOS, SI NO DESHABILITADOS)
