@@ -1,5 +1,5 @@
-{
-  "1": {
+[
+  {
     "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4a",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Santiago",
@@ -15,7 +15,7 @@
     "englishLevel": "Profesional",
     "bio": ""
   },
-  "2": {
+  {
     "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4b",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Francisco",
@@ -31,7 +31,7 @@
     "englishLevel": "Intermedio",
     "bio": ""
   },
-  "3": {
+  {
     "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4c",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
     "name": "Ramiro",
@@ -47,4 +47,4 @@
     "englishLevel": "Básico",
     "bio": ""
   }
-}
+]
