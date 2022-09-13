@@ -1,4 +1,4 @@
-const { Tecnologias } = require("../db");
+const { Tecnologias } = require("../../db");
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Tecnologias";

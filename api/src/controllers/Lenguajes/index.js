@@ -1,4 +1,4 @@
-const { Lenguajes } = require("../db");
+const { Lenguajes } = require("../../db");
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Lenguajes";

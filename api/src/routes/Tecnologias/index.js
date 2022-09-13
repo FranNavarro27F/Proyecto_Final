@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Tecnologias } = require("../db");
+const { Tecnologias } = require("../../db");
 const { saveTechnologies } = require("../../controllers/Tecnologias");
 
 const router = Router();
@@ -16,3 +16,6 @@ router.get("/tecnologias", async (req, res) => {
     console.error(`Error --→ ${e}`);
   }
 });
+
+
+module.exports = router;
