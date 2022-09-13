@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Usuarios } = require("../../db.js");
-const { getUsers } = require("../../controllers/Usuarios");
+const { getUsers, postUsers } = require("../../controllers/Usuarios");
 
 const router = Router();
 
@@ -16,5 +16,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+
+router.post('/', async (req, res)=>{
+
+  try {
+    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes} = req.body
+
+    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes)
+
+    res.json(usuario)
+    
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
+
+})
 
 module.exports = router;

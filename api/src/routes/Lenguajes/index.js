@@ -11,8 +11,8 @@ const PATH = "/lenguajes";
 // Guardar Lenguajes Iniciales en la DB
 router.post('/', async (req, res) => {
   try {
-    const { languages } = req.body;
-    res.json(await saveLanguages(languages));
+    const { lenguajes } = req.body;
+    res.json(await saveLanguages(lenguajes));
 
   } catch (e) {
     res.status(400).json({error: e.message});

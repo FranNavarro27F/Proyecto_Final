@@ -63,10 +63,10 @@ const LENGUAJES = [
 // -----------------------------------------------
 
 // Guardar Lenguajes Iniciales en la DB
-const saveLanguages = async (languages) => {
+const saveLanguages = async (lenguajes) => {
   // try {
 
-    languages.forEach(async curr => await Lenguajes.findOrCreate({where: {name: curr}}))
+    lenguajes.forEach(async curr => await Lenguajes.findOrCreate({where: {name: curr}}))
 
     return "Lenguajes agregados correctamente"
     

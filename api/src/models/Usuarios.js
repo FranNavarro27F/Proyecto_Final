@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
 
     country: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
       validate: {
         isAlpha: true,
       },
@@ -55,10 +55,7 @@ module.exports = (sequelize) => {
 
     city: {
       type: DataTypes.STRING(50),
-      allowNull: true,
-      validate: {
-        isAlpha: true,
-      },
+      allowNull: true
     },
 
     linkedIn: {
