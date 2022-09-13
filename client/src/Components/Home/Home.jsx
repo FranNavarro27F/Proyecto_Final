@@ -5,7 +5,7 @@ import Girl1 from "./Assets/girl/girl1";
 import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
-import Circulo from "./Assets/circulo/circulo.jsx";
+import Circulo from "./Assets/Circulo/Circulo.jsx";
 
 export default function Home() {
   return (
