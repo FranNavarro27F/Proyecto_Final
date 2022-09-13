@@ -8,7 +8,7 @@ const PATH = "/usuarios";
 
 // -----------------------------------------------
 
-// Ejemplo 1
+
 router.get('/', async (req, res) => {
   try {
   } catch (e) {
