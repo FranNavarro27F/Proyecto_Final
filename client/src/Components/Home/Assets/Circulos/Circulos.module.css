@@ -1,12 +1,19 @@
 /* BG Small Circle */
 .body {
-  display: flex;
-}
-.circulos {
+  /* display: flex; */
+  overflow: hidden;
+  /* background-color: red; */
   position: absolute;
-  bottom: -95vh;
   left: 40vh;
-  max-width: 900px;
+  height: 65vh;
+  margin-top: 15rem;
+}
+
+.circulos {
+  /* bottom: -110vh; */
+  z-index: 1;
+  /* max-width: 900px; */
+  /* background-color: beige; */
 }
 
 .imgCirculo {

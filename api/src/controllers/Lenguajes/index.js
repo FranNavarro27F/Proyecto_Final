@@ -1,4 +1,4 @@
-const { Lenguajes } = require("../db");
+const { Lenguajes } = require("../../db");
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Lenguajes";
@@ -65,6 +65,7 @@ const LENGUAJES = [
 // Guardar Lenguajes Iniciales en la DB
 const saveLanguages = async (content) => {
   try {
+    
   } catch (e) {}
 };
 

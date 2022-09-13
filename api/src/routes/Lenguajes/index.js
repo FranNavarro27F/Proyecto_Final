@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Lenguajes } = require("../db");
+const { Lenguajes } = require("../../db");
 const { saveLanguages } = require("../../controllers/Lenguajes");
 
 const router = Router();
@@ -30,3 +30,6 @@ router.put(`${PATH}/:id`, async (req, res) => {});
 
 // Eliminar un lenguaje de la DB
 router.delete(`${PATH}/:id`, async (req, res) => {});
+
+
+module.exports = router;
