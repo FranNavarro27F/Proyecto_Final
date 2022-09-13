@@ -12,22 +12,23 @@ export default function Home() {
     <div>
       <Landing />
       <div className={s.body}>
-        <div className={s.container}>
-          <div className={s.luz}></div>
-          <div className={s.circulo1}>
-            <Circulos />
-          </div>
-          <div>
-            <Circulo />
-          </div>
-          <div className={s.girl}>
-            <Girl1 />
-          </div>
-          <div>
-            <img className={s.diamante} src={diamante} alt="diamante" />
-            <div className={s.luzDiamante}></div>
-          </div>
-        </div>
+        <div className={s.luz}></div>
+
+        <Circulo className={s.circulo} />
+
+        <Circulos className={s.circulos} />
+        <Girl1 />
+
+        <img className={s.diamante} src={diamante} alt="diamante" />
+        <div className={s.luzDiamante}></div>
+      </div>
+      <div className={s.divTextHome}>
+        <h2>About me</h2>
+        <p className={s.textP}>
+          A lifelong computer enthusiast and I would like to be allowed to work
+          with one of the prestigious company. I am an excellent fit for a
+          company given my passion and skills. Read more...
+        </p>
       </div>
     </div>
   );
