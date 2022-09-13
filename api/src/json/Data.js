@@ -1,4 +1,4 @@
-export const JSON = {
+module.exports = {
   usuarios: [
     {
       id: "d9b6474c-5369-47c6-9bb5-1c7274aa8d4a",
