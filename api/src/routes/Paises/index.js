@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Countries } = require("../db");
+const { Paises } = require("../db");
 const { getCountries } = require("../../controllers/Countries");
 
 const router = Router();

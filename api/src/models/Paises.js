@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("tecnologias", {
+  sequelize.define("paises", {
     //
     id: {
       type: DataTypes.UUID,
@@ -16,5 +16,3 @@ module.exports = (sequelize) => {
     //
   });
 };
-
-// OTRA → CONTACTATE CON SOPORTE
