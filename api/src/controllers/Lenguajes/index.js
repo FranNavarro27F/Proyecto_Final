@@ -63,10 +63,17 @@ const LENGUAJES = [
 // -----------------------------------------------
 
 // Guardar Lenguajes Iniciales en la DB
-const saveLanguages = async (content) => {
-  try {
+const saveLanguages = async (languages) => {
+  // try {
+
+    languages.forEach(async curr => await Lenguajes.findOrCreate({where: {name: curr}}))
+
+    return "Lenguajes agregados correctamente"
     
-  } catch (e) {}
+  // } catch (e) {
+  //   console.log(e)
+  // }
+
 };
 
 // Guardar un nuevo lenguaje en la DB
@@ -78,6 +85,8 @@ const saveLanguage = async (language) => {
 // Ver JSON de todos los lenguajes de programación
 const getLanguages = async () => {
   try {
+    let lenguajes = await Lenguajes.findAll()
+    return lenguajes
   } catch (e) {}
 };
 
