@@ -5,14 +5,25 @@ const ERROR = "Error @ controllers/Tecnologias";
 
 // -----------------------------------------------
 
-const TECNOLOGIAS = [];
+// const TECNOLOGIAS = [];
 
 // -----------------------------------------------
 
-// Ejemplo 1
-const getTechnologies = async () => {
-  try {
-  } catch (e) {}
-};
+const guardarTecnologiasDB= async (tecnologias)=>{
+  tecnologias.forEach(async cur=> await Tecnologias.findOrCreate({
+    where: {name: cur}
+  }))
+  return "tecnologias guardadas correctamente en DB :) ";
+}
 
-module.exports = { getTechnologies };
+const todasLasTecnologias= async ()=>{
+  let allTec= await Tecnologias.findAll();
+  console.log(allTec)
+  return allTec;
+
+}
+
+module.exports = {
+   guardarTecnologiasDB,
+   todasLasTecnologias,
+  };

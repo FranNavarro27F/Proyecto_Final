@@ -1,0 +1,18 @@
+.body {
+  background-color: #0f103f;
+  height: 100%;
+  width: 100%;
+}
+.cardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin-bottom: 1.5rem;
+  min-width: 1220px;
+  min-height: 570px;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.linkCard {
+  text-decoration: none;
+}
