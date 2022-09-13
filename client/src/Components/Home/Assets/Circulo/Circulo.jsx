@@ -1,6 +1,6 @@
 import React from "react";
 
-import s from "./circulo.module.css";
+import s from "./Circulo.module.css";
 
 export default function Circulo() {
   return (
@@ -38,3 +38,4 @@ export default function Circulo() {
     </div>
   );
 }
+// comentario
