@@ -18,7 +18,6 @@ const guardarTecnologiasDB= async (tecnologias)=>{
 
 const todasLasTecnologias= async ()=>{
   let allTec= await Tecnologias.findAll();
-  console.log(allTec)
   return allTec;
 
 }
