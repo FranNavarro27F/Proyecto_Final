@@ -14,8 +14,13 @@ module.exports = (sequelize) => {
       allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
     },
 
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+
     name: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(20),
       allowNull: false,
       validate: {
         isAlpha: true,
@@ -23,7 +28,7 @@ module.exports = (sequelize) => {
     },
 
     lastName: {
-      type: DataTypes.STRING(40),
+      type: DataTypes.STRING(20),
       allowNull: false,
       validate: {
         isAlpha: true,
@@ -31,7 +36,7 @@ module.exports = (sequelize) => {
     },
 
     email: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(60),
       allowNull: false,
       unique: true,
       validate: {
@@ -49,7 +54,7 @@ module.exports = (sequelize) => {
     },
 
     city: {
-      type: DataTypes.STRING(80),
+      type: DataTypes.STRING(50),
       allowNull: true,
       validate: {
         isAlpha: true,
@@ -88,6 +93,7 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         len: [1, 2], // no permitir mas de dos dígitos
+        min: 1, // valor mínimo: 1
         max: 99, // valor máximo: 99
       },
     },
@@ -126,5 +132,9 @@ module.exports = (sequelize) => {
     servicios
     lenguajes
     tecnologías
+    paises
+
+    notificaciones
+    calificaciones
 
 */
