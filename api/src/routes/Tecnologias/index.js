@@ -1,21 +1,31 @@
 const { Router } = require("express");
 const { Tecnologias } = require("../../db");
-const { saveTechnologies } = require("../../controllers/Tecnologias");
+const {guardarTecnologiasDB}= require("../../controllers/Tecnologias/index.js")
+// const { saveTechnologies } = require("../../controllers/Tecnologias");
 
 const router = Router();
 
 // -----------------------------------------------
 
-// Guardar Tecnologias en la DB
-router.get("/tecnologias", async (req, res) => {
+
+router.post("/", async (req, res)=>{
   try {
-    const { Technologies } = req.body;
-    const save = await saveTechnologies(Technologies);
-    return res.json(save);
+    let {tecnologias}= req.body;
+    res.json(await guardarTecnologiasDB(tecnologias))
   } catch (e) {
-    console.error(`Error --→ ${e}`);
+    console.log(e)
+    res.status(400).json({error: e.message});
   }
 });
 
+router.get("/", async (req, res)=>{
+  try {
+    res.json(await todasLasTecnologias())
+  } catch (e) {
+    
+  }
+})
 
-module.exports = router;
+
+
+module.exports = router; 
