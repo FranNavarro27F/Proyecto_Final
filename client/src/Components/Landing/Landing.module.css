@@ -1,1 +1,18 @@
-
+.textLanding{
+    position: absolute;
+ width: 75vh;
+height: 28vh;
+left: 55vh;
+top:32vh
+}
+.text1landing{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 6vh;
+line-height: 9vh;
+color: #FFFFFF;
+flex: none;
+order: 0;
+flex-grow: 0;
+}

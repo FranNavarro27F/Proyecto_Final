@@ -1,0 +1,12 @@
+.ellip2{
+position: absolute;
+left: 8%;
+right: 0%;
+
+}
+.imgcircu{
+height: 120vh;
+bottom: 3%;
+
+z-index: -1;
+}
