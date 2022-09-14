@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { Tecnologias } = require("../../db");
-const {guardarTecnologiasDB}= require("../../controllers/Tecnologias/index.js");
-const {todasLasTecnologias}= require("../../controllers/Tecnologias/index.js");
+const {todasLasTecnologias, guardarTecnologiasDB, eliminarTecnologia}= require("../../controllers/Tecnologias/index.js");
+
 // const { saveTechnologies } = require("../../controllers/Tecnologias");
 
 const router = Router();
@@ -26,6 +26,15 @@ router.get("/", async (req, res)=>{
     res.status(400).json({error: e.message})
   }
 });
+
+router.delete("/", async (req, res)=>{
+  try {
+    let {id}= req.query;
+    res.json(eliminarTecnologia(id))
+  } catch (e) {
+    res.status(400).json({error: e.message})
+  }
+})
 
 
 
