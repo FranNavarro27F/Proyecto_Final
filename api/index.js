@@ -20,11 +20,13 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {jsonCountris} = require('./src/controllers/Paises/index');
+const {guardarTecnologiasDB} = require('./src/controllers/Tecnologias/index.js');
 // Syncing all the models at once.
 
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     await jsonCountris();
+    await guardarTecnologiasDB();
   });
 });
