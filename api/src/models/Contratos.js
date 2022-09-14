@@ -38,6 +38,9 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
     },
     //
+  },{
+    createdAt: false,
+    updatedAt: false,
   });
 };
 
