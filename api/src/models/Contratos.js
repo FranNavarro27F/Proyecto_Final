@@ -9,9 +9,17 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
 
-    name: {
-      type: DataTypes.STRING, // Contratante-Contratista-fechaDeInicio
+    employer: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
+
+    developer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
 
     description: {
       type: DataTypes.TEXT,
@@ -38,15 +46,8 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
     },
     //
-  },{
-    createdAt: false,
-    updatedAt: false,
   });
 };
-
-// RELACIÓN
-// → ID CONTRATANTE
-// → ID CONTRATISTA
 
 // -----------------------------------------
 
