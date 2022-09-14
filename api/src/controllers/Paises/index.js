@@ -20,7 +20,7 @@ const jsonCountris = async ()=>{
 }
 const getCountries = async (req, res) => {
   try {
-    console.log('entre')
+
     datosPais = await Paises.findAll()
     res.status(200).send(datosPais);
   } catch (e) {
@@ -30,14 +30,14 @@ const getCountries = async (req, res) => {
 const postCountries = async (req, res) => {
   try {
     const {name} = req.body;
-    console.log(name);
+
     if(name){
       datosPais = await Paises.findOrCreate({
         where : {
           name,
         }
       })
-      res.status(200).send('Dato agregado corerctamente'+ datosPais);
+      res.status(200).send('Dato agregado corerctamente');
     }else{
       res.status(400).send('Error debe agregar un nombre')
     }
