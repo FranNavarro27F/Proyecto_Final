@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
 
     country: {
       type: DataTypes.STRING(50),
-      allowNull: true,
+      allowNull: false,
       validate: {
         isAlpha: true,
       },

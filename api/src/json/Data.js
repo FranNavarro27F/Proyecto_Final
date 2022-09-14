@@ -11,11 +11,12 @@ module.exports = {
       city: "Buenos Aires",
       linkedIn: "https://www.linkedin.com/in/sostro/",
       gitHub: "https://github.com/Santi-Ostrovsky",
-      website: "",
+      webSite: "",
       yearsOfExperience: 1,
       dailyBudget: 50,
       englishLevel: "Profesional",
       bio: "",
+      isAdmin: true
     },
     {
       id: "d9b6474c-5369-47c6-9bb5-1c7274aa8d4b",
@@ -28,11 +29,12 @@ module.exports = {
       city: "Mar del Plata",
       linkedIn: "https://www.linkedin.com/in/fran-navarro-/",
       gitHub: "https://github.com/FranNavarro27F",
-      website: "",
+      webSite: "",
       yearsOfExperience: 1,
       dailyBudget: 30,
       englishLevel: "Intermedio",
       bio: "",
+      isAdmin: true
     },
     {
       id: "d9b6474c-5369-47c6-9bb5-1c7274aa8d4c",
@@ -45,11 +47,12 @@ module.exports = {
       city: "Rafaela, Santa Fe",
       linkedIn: "https://www.linkedin.com/in/ramiro-ferradas-9b131522b/",
       gitHub: "https://github.com/RamiroFerradas",
-      website: "",
+      webSite: "",
       yearsOfExperience: 1,
       dailyBudget: 40,
       englishLevel: "Básico",
       bio: "",
+      isAdmin: true
     },
   ],
   paises: [
