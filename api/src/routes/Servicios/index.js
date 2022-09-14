@@ -1,18 +1,25 @@
 const { Router } = require("express");
-const {} = require("../../controllers/Servicios");
+const { guardarServiciosEnDB, todosLosServicios } = require("../../controllers/Servicios");
 const { Servicios } = require("../../db");
 
 const router = Router();
 
 const PATH = "/servicios";
 
-// -----------------------------------------------
 
-// Ejemplo 1
-router.get(PATH, async (req, res) => {
+router.post('/', async (req, res)=>{
   try {
+    res.json(await guardarServiciosEnDB())
   } catch (e) {
-    console.error(`Error --→ ${e}`);
+    res.status(400).json({error: e.message})
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    res.json(await todosLosServicios());
+  } catch (e) {
+    res.status(400).json({error: e.message});
   }
 });
 

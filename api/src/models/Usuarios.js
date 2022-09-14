@@ -121,6 +121,9 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
     //
+  }, {
+    createdAt: false,
+    updatedAt: false
   });
 };
 
