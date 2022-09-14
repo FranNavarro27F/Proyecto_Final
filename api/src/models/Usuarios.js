@@ -1,138 +1,143 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("usuarios", {
-    //
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-
-    profilePicture: {
-      type: DataTypes.STRING,
-      allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
-    },
-
-    isAdmin: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-
-    name: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      validate: {
-        isAlpha: true,
+  sequelize.define(
+    "usuarios",
+    {
+      //
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
-    },
 
-    lastName: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      validate: {
-        isAlpha: true,
+      profilePicture: {
+        type: DataTypes.STRING,
+        allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
       },
-    },
 
-    email: {
-      type: DataTypes.STRING(60),
-      allowNull: false,
-      unique: true,
-      validate: {
-        // is: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, // REGEX para Email
-        isEmail: true,
+      isAdmin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
-    },
 
-    country: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-      validate: {
-        isAlpha: true,
+      name: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: {
+          isAlpha: true,
+        },
       },
-    },
 
-    city: {
-      type: DataTypes.STRING(50),
-      allowNull: true
-    },
-
-    linkedIn: {
-      type: DataTypes.STRING(200),
-      allowNull: true,
-      unique: true,
-      validate: {
-        isUrl: true,
+      lastName: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: {
+          isAlpha: true,
+        },
       },
-    },
 
-    gitHub: {
-      type: DataTypes.STRING(200),
-      allowNull: true,
-      unique: true,
-      validate: {
-        isUrl: true,
+      // GETTER / SETTER → NAME + LAST-NAME
+      //   userName: {
+      //     type: DataTypes.STRING,
+      //     allowNull: false,
+      //   },
+
+      email: {
+        type: DataTypes.STRING(60),
+        allowNull: false,
+        unique: true,
+        validate: {
+          // is: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, // REGEX para Email
+          isEmail: true,
+        },
       },
-    },
 
-    webSite: {
-      type: DataTypes.STRING(200),
-      allowNull: true,
-      unique: true,
-      validate: {
-        isUrl: true,
+      // country: {
+      //   type: DataTypes.STRING(50),
+      //   allowNull: false,
+      //   validate: {
+      //     isAlpha: true,
+      //   },
+      // },                 (reemplazado por paiseId)
+
+      city: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
       },
-    },
 
-    yearsOfExperience: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        len: [1, 2], // no permitir mas de dos dígitos
-        min: 1, // valor mínimo: 1
-        max: 99, // valor máximo: 99
+      linkedIn: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+        unique: true,
+        validate: {
+          isUrl: true,
+        },
       },
-    },
 
-    dailyBudget: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        len: [1, 3], // no permitir mas de dos dígitos
-        min: 1, // valor mínimo: 1
-        max: 999, // valor máximo: 99
+      gitHub: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+        unique: true,
+        validate: {
+          isUrl: true,
+        },
       },
-    },
 
-    englishLevel: {
-      type: DataTypes.ENUM(
-        "Básico",
-        "Intermedio",
-        "Avanzado",
-        "Profesional",
-        "Nativo / Bilingüe"
-      ),
-      allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
-    },
+      webSite: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+        unique: true,
+        validate: {
+          isUrl: true,
+        },
+      },
 
-    bio: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+      yearsOfExperience: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          len: [1, 2], // no permitir mas de dos dígitos
+          min: 1, // valor mínimo: 1
+          max: 99, // valor máximo: 99
+        },
+      },
+
+      dailyBudget: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        validate: {
+          len: [1, 3], // no permitir mas de dos dígitos
+          min: 1, // valor mínimo: 1
+          max: 999, // valor máximo: 99
+        },
+      },
+
+      englishLevel: {
+        type: DataTypes.ENUM(
+          "Básico",
+          "Intermedio",
+          "Avanzado",
+          "Profesional",
+          "Nativo / Bilingüe"
+        ),
+        allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
+      },
+
+      bio: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      //
     },
-    //
-  }, {
-    createdAt: false,
-    updatedAt: false
-  });
+    {
+      createdAt: false,
+      updatedAt: false,
+    }
+  );
 };
 
 /* RELACIONES
-    
-    servicios
-    lenguajes
-    tecnologías
-    paises
 
     notificaciones
     calificaciones
