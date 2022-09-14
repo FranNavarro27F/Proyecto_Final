@@ -1,0 +1,21 @@
+.divcarhome{
+    width: 210vh;
+    height: 110vh;
+    background-color: #0F103F;
+}
+.titlew{
+    /* position: absolute;
+width: 260px;
+height: 45px;
+left: 513px;
+bottom: -40vh; */
+position: absolute;
+left: 90vh;
+top: 220vh;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 45px;
+color: #FFFFFF;
+}

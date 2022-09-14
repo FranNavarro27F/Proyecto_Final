@@ -10,8 +10,8 @@
 box-sizing: border-box;
 padding: 10px;
 gap: 10px;
-width: 150px;
-height: 40px;
+width: 25vh;
+height: 7vh;
 background: linear-gradient(101.81deg, #C961DE 25.84%, #3645A0 98.95%);
 border-radius: 30px;
 color: #FFFFFF;
@@ -26,7 +26,7 @@ line-height: 26px;
 .possitionLg{
     top: 55%;   
     position: absolute;
-    margin-left: 40%;
+    margin-left: 37%;
 
 }
 
@@ -38,8 +38,8 @@ justify-content: center;
 align-items: center;
 padding: 10px;
 gap: 10px;
-width: 150px;
-height: 40px;
+width: 25vh;
+height: 7vh;
 background: rgba(255, 255, 255, 0.3);
 border-radius: 30px;
 text-align: center;

@@ -7,11 +7,13 @@ import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
 import Circulo from "./Assets/Circulo/Circulo.jsx";
 import Footer from "../Footer/Footer";
+import CardHome from "../Card Home/CardHome";
 
 export default function Home() {
   return (
     <div>
       <Landing />
+      <div>
       <div className={s.body}>
         <div className={s.luz}></div>
 
@@ -31,7 +33,9 @@ export default function Home() {
           company given my passion and skills. Read more...
         </p>
       </div>
+      <CardHome/>
       <Footer/>
+      </div>
     </div>
   );
 }
