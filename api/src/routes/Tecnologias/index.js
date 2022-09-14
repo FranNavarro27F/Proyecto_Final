@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Tecnologias } = require("../../db");
-const {guardarTecnologiasDB}= require("../../controllers/Tecnologias/index.js")
+const {guardarTecnologiasDB}= require("../../controllers/Tecnologias/index.js");
+const {todasLasTecnologias}= require("../../controllers/Tecnologias/index.js");
 // const { saveTechnologies } = require("../../controllers/Tecnologias");
 
 const router = Router();
@@ -22,9 +23,9 @@ router.get("/", async (req, res)=>{
   try {
     res.json(await todasLasTecnologias())
   } catch (e) {
-    
+    res.status(400).json({error: e.message})
   }
-})
+});
 
 
 

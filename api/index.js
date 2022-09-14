@@ -21,8 +21,13 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {jsonCountris} = require('./src/controllers/Paises/index');
 // Syncing all the models at once.
+<<<<<<< HEAD
 conn.sync({ force: false }).then(() => {
   server.listen(3001,async () => {
+=======
+conn.sync({ force: true }).then(() => {
+  server.listen(3001, () => {
+>>>>>>> 290425818abd9c7d6fe41368aa09bd468b8ad2b3
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     await jsonCountris();
   });

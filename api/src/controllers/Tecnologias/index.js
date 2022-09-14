@@ -16,9 +16,13 @@ const guardarTecnologiasDB= async (tecnologias)=>{
   return "tecnologias guardadas correctamente en DB :) ";
 }
 
-// const todasLasTecnologias= async ()=>{
-//   let allTec=
+const todasLasTecnologias= async ()=>{
+  let allTec= await Tecnologias.findAll();
+  return allTec;
 
-// }
+}
 
-module.exports = { guardarTecnologiasDB, };
+module.exports = {
+   guardarTecnologiasDB,
+   todasLasTecnologias,
+  };

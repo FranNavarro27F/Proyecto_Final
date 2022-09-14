@@ -13,5 +13,10 @@ const router = Router();
 router.use('/usuarios', usuariosRouter)
 router.use('/lenguajes', lenguajesRouter)
 router.use('/tecnologias', tecnologiasRouter)
+<<<<<<< HEAD
 router.use('/paises',  paisesRouter)
+=======
+
+
+>>>>>>> 290425818abd9c7d6fe41368aa09bd468b8ad2b3
 module.exports = router;
