@@ -3,60 +3,28 @@ import Card from "./Card/Card";
 import s from "./Work.module.css";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar"
+import { data } from "../../json/Data";
 
 export default function Work() {
+  console.log(data);
+
   return (
     <div className={s.body}>
       <NavBar />
       <div className={s.cardsContainer}>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
-        <Link to={"urlll"} className={s.linkCard}>
-          <Card
-            name={"Ramiro Ferradas"}
-            technologies={"Javascript, React Js, Redux"}
-          />
-        </Link>
+        {data.usuarios.map((e) => {
+          return (
+            <div>
+              <Link to={e.id}>
+                <Card
+                  name={`${e.name} ` + e.lastName}
+                  img={e.profilePicture}
+                  technologies={e.technologies}
+                />
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

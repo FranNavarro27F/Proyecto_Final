@@ -9,5 +9,8 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
     //
+  },{
+    createdAt: false,
+    updatedAt: false,
   });
 };

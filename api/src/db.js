@@ -64,7 +64,11 @@ Lenguajes.belongsToMany(Usuarios, { through: "usuarios-lenguajes" });
 Usuarios.belongsToMany(Tecnologias, { through: "usuarios-tecnologias" });
 Tecnologias.belongsToMany(Usuarios, { through: "usuarios-tecnologias" });
 
-// USUARIOS & TECNOLOGIAS
+// USUARIOS & CONTRATOS
+Usuarios.belongsToMany(Contratos, { through: "usuarios-contratos" });
+Contratos.belongsToMany(Usuarios, { through: "usuarios-contratos" });
+
+// USUARIOS & PAISES
 Usuarios.belongsTo(Paises);
 Paises.hasMany(Usuarios);
 
