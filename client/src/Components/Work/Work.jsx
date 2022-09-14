@@ -15,17 +15,23 @@ export default function Work() {
         {data.usuarios.map((e) => {
           return (
             <div>
-              <Link to={e.id}>
-                <Card
-                  name={`${e.name} ` + e.lastName}
-                  img={e.profilePicture}
-                  technologies={e.technologies}
-                />
-              </Link>
+              {/* <Link to={e.id}> */}
+              <Card
+                name={`${e.name} ` + e.lastName}
+                img={e.profilePicture}
+                technologies={e.technologies}
+                website={e.website}
+                gitHub={e.gitHub}
+                linkedIn={e.linkedIn}
+                email={e.email}
+                id={e.id}
+              />
+              {/* </Link> */}
             </div>
           );
         })}
       </div>
     </div>
+    //aa
   );
 }
