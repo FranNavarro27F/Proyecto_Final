@@ -6,6 +6,7 @@ import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
 import Circulo from "./Assets/Circulo/Circulo.jsx";
+import Footer from "../Footer/Footer";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
           company given my passion and skills. Read more...
         </p>
       </div>
+      <Footer/>
     </div>
   );
 }
