@@ -1,73 +1,74 @@
 const { Lenguajes } = require("../../db");
+const {lenguajes} = require("../../json/Data.js")
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Lenguajes";
 
 // -----------------------------------------------
 
-const LENGUAJES = [
-  "ABAP",
-  "Ada",
-  "Apex",
-  "Assembly Language",
-  "Bash",
-  "C#",
-  "C++",
-  "C",
-  "Clojure",
-  "Cobol",
-  "D",
-  "Dart",
-  "Delphi",
-  "F#",
-  "Fortran",
-  "FoxPro",
-  "G/LabVIEW",
-  "Go",
-  "Groovy",
-  "Haskell",
-  "Java",
-  "JavaScript",
-  "Julia",
-  "Kotlin",
-  "Ladder Logic",
-  "Lisp",
-  "Logo",
-  "Lua",
-  "Matlab",
-  "Nim",
-  "Objective-C",
-  "Pascal",
-  "Perl",
-  "PHP",
-  "PL/SQL",
-  "Prolog",
-  "Python",
-  "R",
-  "Ruby",
-  "Rust",
-  "SAS",
-  "Scala",
-  "Scheme",
-  "Scratch",
-  "SQL",
-  "Swift",
-  "Transact-SQL",
-  "TypeScript",
-  "VBA",
-  "VBScript",
-  "VHDL",
-  "Visual Basic",
-];
+// const LENGUAJES = [
+//   "ABAP",
+//   "Ada",
+//   "Apex",
+//   "Assembly Language",
+//   "Bash",
+//   "C#",
+//   "C++",
+//   "C",
+//   "Clojure",
+//   "Cobol",
+//   "D",
+//   "Dart",
+//   "Delphi",
+//   "F#",
+//   "Fortran",
+//   "FoxPro",
+//   "G/LabVIEW",
+//   "Go",
+//   "Groovy",
+//   "Haskell",
+//   "Java",
+//   "JavaScript",
+//   "Julia",
+//   "Kotlin",
+//   "Ladder Logic",
+//   "Lisp",
+//   "Logo",
+//   "Lua",
+//   "Matlab",
+//   "Nim",
+//   "Objective-C",
+//   "Pascal",
+//   "Perl",
+//   "PHP",
+//   "PL/SQL",
+//   "Prolog",
+//   "Python",
+//   "R",
+//   "Ruby",
+//   "Rust",
+//   "SAS",
+//   "Scala",
+//   "Scheme",
+//   "Scratch",
+//   "SQL",
+//   "Swift",
+//   "Transact-SQL",
+//   "TypeScript",
+//   "VBA",
+//   "VBScript",
+//   "VHDL",
+//   "Visual Basic",
+// ];
 
 // -----------------------------------------------
 
 // Guardar Lenguajes Iniciales en la DB
-const saveLanguages = async (lenguajes) => {
+const saveLanguages = async () => {
   // try {
-
     lenguajes.forEach(async curr => await Lenguajes.findOrCreate({where: {name: curr}}))
-
+    
+    console.log("Lenguajes agregados correctamente")
     return "Lenguajes agregados correctamente"
     
   // } catch (e) {

@@ -1,17 +1,30 @@
 const { Servicios } = require("../../db");
 const DATA = require("../../json/Data.js");
+const {servicios} = require("../../json/Data.js")
 // const { Op } = require("sequelize");
 
-const ERROR = "Error @ controllers/Servicios";
-const SERVICIOS = DATA.servicios;
-console.log(SERVICIOS);
+// const ERROR = "Error @ controllers/Servicios";
+
+
 
 // -----------------------------------------------
 
-// Ejemplo 1
-const getServicios = async () => {
-  try {
-  } catch (e) {}
+//
+const guardarServiciosEnDB= async ()=>{
+
+  servicios.forEach(async cur=> await Servicios.findOrCreate({
+    where: {name: cur}
+  }));
+  console.log("Servicios guardadas en DB :)")
+  return "Servicios guardadas correctamente en DB :) ";
+}
+
+const todosLosServicios = async () => {
+  let servi= await Servicios.findAll();
+  return servi;
 };
 
-module.exports = { getServicios };
+module.exports = { 
+  todosLosServicios,
+  guardarServiciosEnDB
+};

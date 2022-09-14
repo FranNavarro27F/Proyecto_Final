@@ -11,8 +11,14 @@ const PATH = "/usuarios";
 
 router.get('/', async (req, res) => {
   try {
+
+    let usuarios = await getUsers()
+    
+    res.json(usuarios)
+
   } catch (e) {
-    console.error(`Error --→ ${e}`);
+
+   res.status(400).json({error: e.message});
   }
 });
 
@@ -20,12 +26,19 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res)=>{
 
   try {
-    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes} = req.body
+    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId} = req.body
 
-    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes)
+    if(!name || !lastName || !email || !country || !yearsOfExperience){
+
+      res.send(400).json("Falta alguno de los campos importantes. Por favor revisar")
+
+    }else{
+      
+    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId)
 
     res.json(usuario)
     
+    }
   } catch (e) {
     res.status(400).json({error: e.message});
   }
