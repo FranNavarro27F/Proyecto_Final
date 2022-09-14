@@ -1,0 +1,8 @@
+.planet6{
+position: absolute;
+/* width: 300vh;
+height: 300vh; */
+left: 0vh;
+top: -30vh;
+z-index: 99;
+}
