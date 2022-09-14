@@ -47,7 +47,7 @@ export const data = {
       city: "Rafaela, Santa Fe",
       linkedIn: "https://www.linkedin.com/in/ramiro-ferradas-9b131522b/",
       gitHub: "https://github.com/RamiroFerradas",
-      website: "",
+      website: "https://www.google.com",
       yearsOfExperience: 1,
       dailyBudget: 40,
       englishLevel: "Básico",
