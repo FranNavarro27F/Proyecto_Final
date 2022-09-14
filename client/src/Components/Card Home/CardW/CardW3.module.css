@@ -1,0 +1,13 @@
+.divcard3{
+    position: absolute;
+    top:220vh;
+    right: 25vh;
+}
+.backcard3{
+    width: 50vh;
+height: 32vh;
+background: rgba(96, 203, 242, 0.4);
+backdrop-filter: blur(40px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 30px;
+}
