@@ -4,7 +4,7 @@ const { Router } = require('express');
 const usuariosRouter = require('../routes/Usuarios/index.js')
 const lenguajesRouter = require('../routes/Lenguajes/index.js')
 const tecnologiasRouter= require('../routes/Tecnologias/index.js')
-
+const paisesRouter= require('../routes/Paises/index.js')
 const router = Router();
 
 // Configurar los routers
@@ -13,6 +13,6 @@ const router = Router();
 router.use('/usuarios', usuariosRouter)
 router.use('/lenguajes', lenguajesRouter)
 router.use('/tecnologias', tecnologiasRouter)
-
+router.use('/paises',  paisesRouter)
 
 module.exports = router;
