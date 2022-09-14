@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   try {
 
     let usuarios = await getUsers()
-
+    
     res.json(usuarios)
 
   } catch (e) {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res)=>{
 
   try {
-    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, paiseId} = req.body
+    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId} = req.body
 
     if(!name || !lastName || !email || !country || !yearsOfExperience){
 
@@ -34,7 +34,7 @@ router.post('/', async (req, res)=>{
 
     }else{
       
-    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, paiseId)
+    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId)
 
     res.json(usuario)
     
