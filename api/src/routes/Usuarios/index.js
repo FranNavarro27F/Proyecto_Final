@@ -17,11 +17,9 @@ router.get("/", async (req, res) => {
     let usuarios = await getUsers();
     res.json(usuarios);
   } catch (e) {
-    // res.status(400).json({ error: e.message });
     res.status(400).send(`Error --→ ${e}`);
   }
 });
-
 
 router.get("/:id", async (req, res) => {
   try {
@@ -32,28 +30,22 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 router.post("/", async (req, res) => {
   try {
-    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId} = req.body
+    let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
 
-    if(!name || !lastName || !email || !yearsOfExperience){
+    if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
+      res
+        .send(400)
+        .json("Falta alguno de los campos importantes. Por favor revisar");
+    } else {
+      let usuario = await postUsers(req.body);
 
-      res.send(400).json("Falta alguno de los campos importantes. Por favor revisar")
-
-    }else{
-      
-    let usuario = await postUsers(req.body)
-
-    res.json(usuario)
-    
+      res.json(usuario);
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
-
-
-
 
 module.exports = router;
