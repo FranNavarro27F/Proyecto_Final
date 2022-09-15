@@ -41,7 +41,7 @@ export default function DevUsersCreate() {
     webSite: "",
     yearsOfExperience: "0",
     dailyBudget: "0",
-    englishLevel: "1",
+    englishLevel: "Básico",
     // bio: "",
     // city: "",
     paiseId: [],
@@ -54,6 +54,29 @@ export default function DevUsersCreate() {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
+    });
+  };
+  const handleChangeEnglish = (e) => {
+    const ingles = () => {
+      if (e.target.value === "1") {
+        return "Básico";
+      }
+      if (e.target.value === "2") {
+        return "Intermedio";
+      }
+      if (e.target.value === "3") {
+        return "Avanzado";
+      }
+      if (e.target.value === "4") {
+        return "Profesional";
+      } else {
+        return "Nativo / Bilingüe";
+      }
+    };
+
+    setInput({
+      ...input,
+      [e.target.name]: ingles(),
     });
   };
   const handleCreate = (e) => {
@@ -79,7 +102,7 @@ export default function DevUsersCreate() {
       webSite: "",
       yearsOfExperience: "0",
       dailyBudget: "0",
-      englishLevel: "1",
+      englishLevel: "",
       // bio: "",
       // city: "",
       paiseId: [],
@@ -235,33 +258,25 @@ export default function DevUsersCreate() {
         type="range"
         min="1"
         max="5"
-        onChange={(e) => handleChangeInput(e)}
-        value={input.englishLevel}
+        onChange={(e) => handleChangeEnglish(e)}
+        // value={input.englishLevel}
         name="englishLevel"
         defaultValue="1"
       />
       <label
         className={
-          input.englishLevel === "1"
+          input.englishLevel === "Básico"
             ? s.ingles1
-            : input.englishLevel === "2"
+            : input.englishLevel === "Intermedio"
             ? s.ingles2
-            : input.englishLevel === "3"
+            : input.englishLevel === "Avanzado"
             ? s.ingles3
-            : input.englishLevel === "4"
+            : input.englishLevel === "Profesional"
             ? s.ingles4
             : s.ingles5
         }
       >
-        {input.englishLevel === "1"
-          ? "Básico"
-          : input.englishLevel === "2"
-          ? "Intermedio"
-          : input.englishLevel === "3"
-          ? "Avanzado"
-          : input.englishLevel === "4"
-          ? "Profesional"
-          : "Nativo / Bilingüe"}
+        {input.englishLevel}
       </label>
 
       <p htmlFor="pais">Pais: </p>
