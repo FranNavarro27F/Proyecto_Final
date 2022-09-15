@@ -26,7 +26,7 @@ router.post('/',async(req, res)=>{
 
 router.delete('/',async(req, res)=>{
     try {
-        const {id} = req.query;
+        const {id} = req.params;
         if (id){
             res.status(200).json(await deletePaises(id));
         }else{

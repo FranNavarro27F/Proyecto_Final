@@ -147,7 +147,6 @@ const getUserById = async (id) => {
 };
 
 const deleteUser = async (id) => {
-  console.log("id:",id)
   try {
     let toDelete= await Usuarios.findByPk(id);
     console.log(toDelete)
