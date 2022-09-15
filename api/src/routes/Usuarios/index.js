@@ -17,7 +17,8 @@ router.get("/", async (req, res) => {
     let usuarios = await getUsers();
     res.json(usuarios);
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    // res.status(400).json({ error: e.message });
+    res.status(400).send(`Error --→ ${e}`);
   }
 });
 
@@ -37,7 +38,7 @@ router.get("/:id", async (req, res) => {
     
     }
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    res.status(400).send(`Error --→ ${e}`);
   }
 });
 

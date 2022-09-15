@@ -87,22 +87,22 @@ const postUsers = async (data) => {
     const [row, created] = await Usuarios.findOrCreate({
       where: {
         email,
-        linkedIn,
-        gitHub,
+        linkedIn: linkedIn !== "" ? linkedIn : null,
+        gitHub: gitHub !== "" ? gitHub : null,
       },
       defaults: {
         name,
         lastName,
-        profilePicture,
-        isAdmin,
-        webSite,
+        profilePicture: profilePicture !== "" ? profilePicture : null,
+        isAdmin: false,
+        webSite: webSite !== "" ? webSite : null,
         yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        country,
-        city,
+        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+        englishLevel: englishLevel !== "" ? englishLevel : null,
+        bio: bio !== "" ? bio : null,
+        // country,
         paiseId,
+        city: city !== "" ? city : null,
       },
     });
 
