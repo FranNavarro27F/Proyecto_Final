@@ -17,6 +17,7 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const { jsonPaises } = require('./src/controllers/Paises/index');
@@ -24,15 +25,17 @@ const { guardarTecnologiasDB } = require('./src/controllers/Tecnologias/index.js
 const { guardarServiciosEnDB } = require('./src/controllers/Servicios/index.js');
 const { saveLanguages } = require('./src/controllers/Lenguajes/index')
 
+
 // Syncing all the models at once.
 
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
+  
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     await jsonPaises();
+
     await guardarTecnologiasDB();
     await guardarServiciosEnDB();
     await saveLanguages();
-
   });
 });
