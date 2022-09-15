@@ -112,3 +112,8 @@
   opacity: 1;
   transform: translate(-50%, -130%);
 }
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}

@@ -5,6 +5,7 @@ import Details from "./Components/Details/Details";
 import Home from "./Components/Home/Home";
 import Users from "./Components/Users/Users";
 import Work from "./Components/Work/Work";
+import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/users" element={<Users />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/create" element={<DevUsersCreate />} />
       </Routes>
     </>
   );
