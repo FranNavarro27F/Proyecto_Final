@@ -22,7 +22,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    res.json(await getUserById(id));
+  } catch (e) {
+    res.status(404).send(`Error --→ ${e}`);
+  }
+});
+
+
+router.post("/", async (req, res) => {
   try {
     let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId} = req.body
 
@@ -32,7 +43,7 @@ router.get("/:id", async (req, res) => {
 
     }else{
       
-    let usuario = await postUsers(name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId)
+    let usuario = await postUsers(req.body)
 
     res.json(usuario)
     
@@ -41,5 +52,8 @@ router.get("/:id", async (req, res) => {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
+
+
+
 
 module.exports = router;

@@ -1,18 +1,17 @@
 [
   {
-    "id": "d9b6474c-5369-47c6-9bb5-1c7274aa8d4a",
     "profilePicture": "https://pickaface.net/gallery/avatar/urmo12345495bb03d1e37.png",
-    "name": "Santiago",
-    "lastName": "Ostrovsky",
-    "email": "s.ostrovsky@hotmail.com",
-    "country": "Argentina",
-    "city": "Buenos Aires",
-    "linkedIn": "https://www.linkedin.com/in/sostro/",
-    "gitHub": "https://github.com/Santi-Ostrovsky",
-    "website": "",
+    "name": "Francisco",
+    "lastName": "Navarro",
+    "email": "fran271214201211@gmail.com",
+    "paiseId": "c1380491-9bb1-4cf2-af88-dc1ee575294b",
+    "city": "Mar del Plata",
+    "linkedIn": "",
+    "gitHub": "",
+    "webSite": "",
     "yearsOfExperience": 1,
-    "dailyBudget": 50,
-    "englishLevel": "Profesional",
+    "dailyBudget": 30,
+    "englishLevel": "Intermedio",
     "bio": ""
   },
    {
