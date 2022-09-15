@@ -4,6 +4,7 @@ const initialState = {
 
 export default function countries(state = initialState, action) {
   switch (action.type) {
+    
     case "GET_LANGUAJES":
       return {
         ...state,

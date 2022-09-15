@@ -19,7 +19,6 @@ export function getUsersBd() {
   return async function (dispatch) {
     try {
       const users = (await axios.get(`/usuarios`)).data;
-      console.log(users)
       return dispatch({
         type: "GET_USERSBD",
         payload: users
