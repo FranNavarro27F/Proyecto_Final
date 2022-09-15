@@ -17,7 +17,8 @@ module.exports = (sequelize) => {
   },{
     createdAt: false,
     updatedAt: false
-  });
+  })
+  ;
 };
 
 // OTRA → CONTACTATE CON SOPORTE

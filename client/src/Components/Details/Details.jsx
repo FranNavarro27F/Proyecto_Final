@@ -1,9 +1,12 @@
-import React from 'react'
-import s from '../Details/Details.module.css'
-
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import s from "../Details/Details.module.css";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Details() {
-  return (
-    <div>Details</div>
-  )
+  let { id } = useParams();
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  return <div>Details</div>;
 }
