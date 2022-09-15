@@ -30,7 +30,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await deleteService(id);
-    res.send(`Activity deleted successfully`);
+    res.send(`Service deleted successfully`);
   } catch (e) {
     res.status(400).send(e);
   }
