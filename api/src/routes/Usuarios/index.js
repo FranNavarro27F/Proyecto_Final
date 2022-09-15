@@ -38,9 +38,8 @@ router.post("/", async (req, res) => {
     if(!name || !lastName || !email || !paiseId || !yearsOfExperience){
 =======
     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
-      res
-        .send(400)
-        .json("Falta alguno de los campos importantes. Por favor revisar");
+      res.sendStatus(400)
+        // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
       let usuario = await postUsers(req.body);
 >>>>>>> ba15329779b62af8b5db70bde408e180af2c1541
