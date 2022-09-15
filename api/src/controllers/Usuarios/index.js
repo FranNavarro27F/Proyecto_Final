@@ -146,4 +146,17 @@ const getUserById = async (id) => {
   }
 };
 
-module.exports = { getUsers, postUsers, getUserById };
+const deleteUser = async (id) => {
+  console.log("id:",id)
+  try {
+    let toDelete= await Usuarios.findByPk(id);
+    console.log(toDelete)
+    await toDelete.destroy();
+    console.log(`User (${id}) deleted successfully`);
+    return `User (${id}) deleted successfully`;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
+}
+
+module.exports = { getUsers, postUsers, getUserById, deleteUser};
