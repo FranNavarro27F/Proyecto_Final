@@ -11,25 +11,39 @@ const ERROR = "Error @ controllers/Tecnologias";
 // -----------------------------------------------
 
 const guardarTecnologiasDB= async ()=>{
-
-  tecnologias.forEach(async cur=> await Tecnologias.findOrCreate({
-    where: {name: cur}
-  }))
-  console.log("Tecnologias guardadas en DB :)")
-  return "tecnologias guardadas correctamente en DB :) ";
+  try {
+    tecnologias.forEach(async cur=> await Tecnologias.findOrCreate({
+      where: {name: cur}
+    }))
+    console.log("Tecnologias guardadas en DB :)")
+    return "tecnologias guardadas correctamente en DB :) ";
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 }
 
 const todasLasTecnologias= async ()=>{
-  let allTec= await Tecnologias.findAll();
-  return allTec;
+  try {
+    let allTec= await Tecnologias.findAll();
+    return allTec;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 
 }
 
 const eliminarTecnologia= async (id)=>{
-  let aEliminar= await Tecnologias.findByPk(id);
-  await aEliminar.destroy();
-  return `Eliminada, correctamente tecnologias con id ${id}`;
+  try {
+    let aEliminar= await Tecnologias.findByPk(id);
+    await aEliminar.destroy();
+    console.log(`Technology (${id}) deleted successfully`);
+    return `Technology (${id}) deleted successfully`;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 }
+
+
 
 module.exports = {
    guardarTecnologiasDB,

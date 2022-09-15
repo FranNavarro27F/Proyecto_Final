@@ -7,19 +7,27 @@ const ERROR = "Error @ controllers/Servicios";
 // -----------------------------------------------
 
 const guardarServiciosEnDB = async () => {
-  servicios.forEach(
-    async (cur) =>
-      await Servicios.findOrCreate({
-        where: { name: cur },
-      })
-  );
-  console.log("Servicios guardadas en DB :)");
-  return "Servicios guardadas correctamente en DB :) ";
+  try {
+    servicios.forEach(
+      async (cur) =>
+        await Servicios.findOrCreate({
+          where: { name: cur },
+        })
+    );
+    console.log("Servicios guardadas en DB :)");
+    return "Servicios guardadas correctamente en DB :) ";
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
 
 const todosLosServicios = async () => {
-  let servi = await Servicios.findAll();
-  return servi;
+  try {
+    let servi = await Servicios.findAll();
+    return servi;
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
 
 const deleteService = async (id) => {
@@ -33,6 +41,8 @@ const deleteService = async (id) => {
     console.error(`${ERROR}/deleteService --> ${e}`);
   }
 };
+
+
 
 module.exports = {
   todosLosServicios,

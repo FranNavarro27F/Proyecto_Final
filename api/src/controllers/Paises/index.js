@@ -14,26 +14,44 @@ const jsonPaises = async () => {
     })
     console.log('Paises por default caragados en la DB')
   } catch (e) {
-    console.log(e)
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
-}
-const getPaises = async () => {
-  datosPais = await Paises.findAll();
+};
 
-  return datosPais;
+const getPaises = async () => {
+  try {
+    datosPais = await Paises.findAll();
+    return datosPais;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 };
+
 const postPaises = async (name) => {
-  datosPais = await Paises.findOrCreate({
-    where: {
-      name,
-    }
-  })
+  try {
+    datosPais = await Paises.findOrCreate({
+      where: {
+        name,
+      }
+    });
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 };
+
 const deletePaises = async (id) => {
-  await Paises.destroy({
-    where: { id }
-  })
-  return "se elimino correctamente el "+ id
+  try {
+    await Paises.destroy({
+      where: { id }
+    });
+    console.log(`Country(${id}) deleted successfully`);
+    return `Country (${id}) deleted successfully`;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
+  
 }
+
+
 
 module.exports = { getPaises, postPaises, deletePaises, jsonPaises };

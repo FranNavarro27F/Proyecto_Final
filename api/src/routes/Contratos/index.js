@@ -11,8 +11,9 @@ const PATH = "/contratos";
 // Ejemplo 1
 router.get(PATH, async (req, res) => {
   try {
+    
   } catch (e) {
-    console.error(`Error --→ ${e}`);
+    res.status(404).send(`Error --→ ${e}`);
   }
 });
 
