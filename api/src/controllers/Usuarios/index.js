@@ -77,7 +77,6 @@ const postUsers = async (data) => {
       dailyBudget,
       englishLevel,
       bio,
-      country,
       city,
       tecnologias,
       lenguajes,

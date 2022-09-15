@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -31,58 +32,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
 router.post("/", async (req, res) => {
   try {
-    let {
-      name,
-      lastName,
-      profilePicture,
-      isAdmin,
-      email,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      country,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
-      paiseId,
-    } = req.body;
-    if (!name || !lastName || !email || !country || !yearsOfExperience) {
-      res
-        .send(400)
-        .json("Falta alguno de los campos importantes. Por favor revisar");
-    } else {
-      let usuario = await postUsers(
-        name,
-        lastName,
-        profilePicture,
-        isAdmin,
-        email,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        country,
-        city,
-        tecnologias,
-        lenguajes,
-        servicios,
-        paiseId
-      );
-      res.json(usuario);
+    let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId} = req.body
+
+    if(!name || !lastName || !email || !yearsOfExperience){
+
+      res.send(400).json("Falta alguno de los campos importantes. Por favor revisar")
+
+    }else{
+      
+    let usuario = await postUsers(req.body)
+
+    res.json(usuario)
+    
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
+
+
+
 
 module.exports = router;
