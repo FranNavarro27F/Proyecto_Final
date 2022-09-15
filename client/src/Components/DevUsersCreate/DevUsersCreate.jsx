@@ -102,7 +102,7 @@ export default function DevUsersCreate() {
       webSite: "",
       yearsOfExperience: "0",
       dailyBudget: "0",
-      englishLevel: "",
+      englishLevel: "Básico",
       // bio: "",
       // city: "",
       paiseId: [],
@@ -265,7 +265,7 @@ export default function DevUsersCreate() {
       />
       <label
         className={
-          input.englishLevel === "Básico"
+           input.englishLevel === "Básico"
             ? s.ingles1
             : input.englishLevel === "Intermedio"
             ? s.ingles2
