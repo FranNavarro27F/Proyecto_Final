@@ -1,8 +1,8 @@
 
 export function filtersOrders(payload) {
-  return async function (dispatch) {
-    try {
-      return dispatch({
+      try {
+        console.log("entre al try de la acction", payload)
+      return({
         type: "FILTERS_ORDERS",
         payload: payload,
       });
@@ -13,4 +13,4 @@ export function filtersOrders(payload) {
       );
     }
   };
-}
+

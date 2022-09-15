@@ -7,8 +7,8 @@ import { getTechnologies } from '../../Redux/Actions/Technologies';
 import { getServices } from '../../Redux/Actions/Services';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLanguajes } from '../../Redux/Actions/Languajes';
-import { getDevUsers } from '../../Redux/Actions/DevUser';
 import { useState } from 'react';
+import { filtersOrders } from '../../Redux/Actions/FiltersOrders';
 
 
 export default function NavBar() {
@@ -19,17 +19,23 @@ export default function NavBar() {
     dispatch(getTechnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
-    // dispatch(getDevUsers())
   }, [dispatch]);
+  
+  
+  
+  
   const countries = useSelector((state) => state.countries.allCountries);
-
+  
   const [actualFilter, setActualFilter] = useState({
-    filterTecnologies: "",
-    filterServices: "",
-    filterLanguajes: "",
+    filterTecnologies: [],
+    filterServices: [],
+    filterLanguajes: [],
     
   })
-
+  
+  useEffect(()=>{
+    dispatch(filtersOrders(actualFilter))
+        },[dispatch,actualFilter])
   const technologies = useSelector(
     (state) => state.technologies.allTechnologies
   );

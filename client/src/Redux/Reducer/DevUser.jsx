@@ -1,22 +1,16 @@
-const initialState = {
-  devUsers: [],
+export const initialState = {
   allUsers:[]
 };
 
-export default function countries(state = initialState, action) {
+export default function devUser(state = initialState, action) {
   switch (action.type) {
     case "POST_DEVUSER":
       return {
         ...state,
-        countries: action.payload,
+        allUsers: action.payload,
       };
       
-      case "GET_DEVUSERS":
-        return{
-          ...state,
-          devUsers: action.payload,
-
-        }
+  
         case "GET_USERSBD":
         return{
           ...state,
@@ -26,3 +20,4 @@ export default function countries(state = initialState, action) {
       return state;
   }
 }
+
