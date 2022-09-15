@@ -48,9 +48,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    let {id}= req.query;
+    let {id}= req.params;
     res.json(await deleteUser(id));
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);

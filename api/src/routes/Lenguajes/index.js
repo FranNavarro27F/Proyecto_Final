@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Lenguajes } = require("../../db");
-const { saveLanguages, getLanguages } = require("../../controllers/Lenguajes");
+const { saveLanguages, getLanguages, deleteLenguajes } = require("../../controllers/Lenguajes");
 
 const router = Router();
 
@@ -41,7 +41,15 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {});
 
 // Eliminar un lenguaje de la DB/  hacer el delete por req.query <3 
-router.delete('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+  try {
+    let {id}=req.params;
+    res.json(await deleteLenguajes(id));
+  } catch (e) {
+    res.status(404).send(`Error --→ ${e}`);
+  }
+
+});
 
 
 module.exports = router;
