@@ -64,6 +64,7 @@ module.exports = (sequelize) => {
       city: {
         type: DataTypes.STRING(50),
         allowNull: true,
+        //  /^[a-zA-Z \u00f1\u00d1\u00C0-\u017F]+$/g;
       },
 
       linkedIn: {

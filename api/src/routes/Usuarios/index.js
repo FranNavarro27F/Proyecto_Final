@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
     let usuarios = await getUsers();
     res.json(usuarios);
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    res.status(400).send(`Error --→ ${e}`);
   }
 });
 
@@ -32,56 +32,19 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    let {
-      name,
-      lastName,
-      profilePicture,
-      isAdmin,
-      email,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      country,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
-      paiseId,
-    } = req.body;
-    console.log(req.body);
-    if (!name || !lastName || !email || !country || !yearsOfExperience) {
+    let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
+
+    if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
       res
         .send(400)
         .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
-      let usuario = await postUsers(
-        name,
-        lastName,
-        profilePicture,
-        isAdmin,
-        email,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        country,
-        city,
-        tecnologias,
-        lenguajes,
-        servicios,
-        paiseId
-      );
+      let usuario = await postUsers(req.body);
+
       res.json(usuario);
     }
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    res.status(400).send(`Error --→ ${e}`);
   }
 });
 
