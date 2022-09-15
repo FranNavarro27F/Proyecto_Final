@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
       servicios,
       paiseId,
     } = req.body;
+    console.log(req.body);
     if (!name || !lastName || !email || !country || !yearsOfExperience) {
       res
         .send(400)

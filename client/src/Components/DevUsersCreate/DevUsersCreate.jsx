@@ -33,7 +33,7 @@ export default function DevUsersCreate() {
   const [input, setInput] = useState({
     name: "",
     lastName: "",
-    profilePicture: "",
+    // profilePicture: "",
     // isAdmin: "",
     email: "",
     linkedIn: "",
