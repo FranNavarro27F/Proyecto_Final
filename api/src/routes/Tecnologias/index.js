@@ -32,7 +32,7 @@ router.delete("/", async (req, res)=>{
     let {id}= req.query;
     res.json(eliminarTecnologia(id))
   } catch (e) {
-    res.status(400).json({error: e.message})
+    res.status(400).json({error: e.message});
   }
 })
 

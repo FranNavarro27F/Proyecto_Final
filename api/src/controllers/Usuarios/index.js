@@ -31,16 +31,6 @@ const getUsers = async () => {
       }]
     })
     
-
-    // usuarios.forEach(curr => curr.dataValues.tecnologias = curr.dataValues.tecnologias.map(cuuu => cuuu.dataValues.name))
-    // usuarios.dataValues.tecnologias = usuarios.dataValues?.map(curr => curr)
-    // usuarios.lenguajes = usuarios.lenguajes?.map(curr => curr.name)
-    // usuarios.servicios = usuarios.servicios?.map(curr => curr.name)
-    
-    // console.log(usuarios)
-
-    // return usuarios
-
     let users = usuarios.map(curr => {
       return{
         id: curr.id,
@@ -49,7 +39,6 @@ const getUsers = async () => {
       name: curr.name,
       lastName: curr.lastName,
       email: curr.email,
-      country: curr.country,
       city: curr.city,
       linkedIn: curr.linkedIn,
       gitHub: curr.gitHub,
@@ -73,7 +62,7 @@ const getUsers = async () => {
 };
 
 
-const postUsers = async (name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId) =>{
+const postUsers = async (name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId) =>{
 
     
     const [row, created] = await Usuarios.findOrCreate({where: {
@@ -91,7 +80,6 @@ const postUsers = async (name, lastName, profilePicture, isAdmin, email, linkedI
       dailyBudget,
       englishLevel,
       bio,
-      country,
       city,
       paiseId
     }})
