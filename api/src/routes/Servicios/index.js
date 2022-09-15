@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     await deleteService(id);
     res.send(`Service deleted successfully`);
   } catch (e) {

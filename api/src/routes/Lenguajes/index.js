@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 // Modificar un lenguaje de la DB
 router.put('/:id', async (req, res) => {});
 
-// Eliminar un lenguaje de la DB
+// Eliminar un lenguaje de la DB/  hacer el delete por req.query <3 
 router.delete('/:id', async (req, res) => {});
 
 
