@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
   try {
     let {name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, city, tecnologias, lenguajes, servicios, paiseId} = req.body
 
-    if(!name || !lastName || !email || !yearsOfExperience){
+    if(!name || !lastName || !email || !paiseId || !yearsOfExperience){
 
       res.send(400).json("Falta alguno de los campos importantes. Por favor revisar")
 
