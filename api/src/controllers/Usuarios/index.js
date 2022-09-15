@@ -149,7 +149,6 @@ const getUserById = async (id) => {
 const deleteUser = async (id) => {
   try {
     let toDelete= await Usuarios.findByPk(id);
-    console.log(toDelete)
     await toDelete.destroy();
     console.log(`User (${id}) deleted successfully`);
     return `User (${id}) deleted successfully`;
