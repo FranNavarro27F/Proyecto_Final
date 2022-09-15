@@ -36,48 +36,28 @@ router.post("/", async (req, res) => {
     let {
       name,
       lastName,
-      profilePicture,
-      isAdmin,
       email,
-      linkedIn,
-      gitHub,
-      webSite,
       yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      country,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
       paiseId,
+      //   profilePicture,
+      //   isAdmin,
+      //   linkedIn,
+      //   gitHub,
+      //   webSite,
+      //   dailyBudget,
+      //   englishLevel,
+      //   bio,
+      //   city,
+      //   tecnologias,
+      //   lenguajes,
+      //   servicios,
     } = req.body;
-    if (!name || !lastName || !email || !country || !yearsOfExperience) {
+    if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
       res
         .send(400)
         .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
-      let usuario = await postUsers(
-        name,
-        lastName,
-        profilePicture,
-        isAdmin,
-        email,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        country,
-        city,
-        tecnologias,
-        lenguajes,
-        servicios,
-        paiseId
-      );
+      let usuario = await postUsers(req.body);
       res.json(usuario);
     }
   } catch (e) {
