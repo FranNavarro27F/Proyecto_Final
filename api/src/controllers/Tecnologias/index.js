@@ -25,8 +25,14 @@ const todasLasTecnologias= async ()=>{
 
 }
 
+const eliminarTecnologia= async (id)=>{
+  let aEliminar= await Tecnologias.findByPk(id);
+  await aEliminar.destroy();
+  return `Eliminada, correctamente tecnologias con id ${id}`;
+}
 
 module.exports = {
    guardarTecnologiasDB,
    todasLasTecnologias,
+   eliminarTecnologia
   };
