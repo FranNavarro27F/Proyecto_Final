@@ -17,6 +17,6 @@ router.get(PATH, async (req, res) => {
   }
 });
 
-//hacer el delete por req.query
+//hacer el delete por req.params
 
 module.exports = router;

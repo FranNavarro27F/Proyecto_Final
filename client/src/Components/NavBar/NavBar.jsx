@@ -7,7 +7,8 @@ import { getTechnologies } from '../../Redux/Actions/Technologies';
 import { getServices } from '../../Redux/Actions/Services';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLanguajes } from '../../Redux/Actions/Languajes';
-import { getDevUsers } from '../../Redux/Actions/DevUser';
+import { useState } from 'react';
+import { filtersOrders } from '../../Redux/Actions/FiltersOrders';
 
 
 export default function NavBar() {
@@ -18,27 +19,38 @@ export default function NavBar() {
     dispatch(getTechnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
-    // dispatch(getDevUsers())
   }, [dispatch]);
+  
+  
+  
+  
   const countries = useSelector((state) => state.countries.allCountries);
-
+  
+  const [actualFilter, setActualFilter] = useState({
+    filterTecnologies: [],
+    filterServices: [],
+    filterLanguajes: [],
+    
+  })
+  
+  useEffect(()=>{
+    dispatch(filtersOrders(actualFilter))
+        },[dispatch,actualFilter])
   const technologies = useSelector(
     (state) => state.technologies.allTechnologies
   );
+
    const optionsTecnologias = technologies.map((e) => {
       return {
         value: e.id,
         label: e.name,
       }
     })
+
     const services = useSelector((state) => state.services.allServices);
+
     const languajes = useSelector((state) => state.languajes.allLanguajes);
   
-  // const options = [
-  //   { value: 'web', label: 'Web Development' }, 
-  //   { value: 'strawberry', label: 'Web Design' },
-  //   { value: 'vanilla', label: 'UX/UI' }
-  // ]
   const optionsServices = services.map((e) => {
     return {
       value: e.id,
@@ -59,6 +71,17 @@ export default function NavBar() {
     };
   });
   
+  const handleSelect = (e) => {
+    setActualFilter((state) => {
+      console.log(e)
+      return {
+        ...state,
+        filterTecnologies: e.map(e => e.label)
+        
+      }
+    })
+  }
+
   return (
     <header>
         <div className={s.divGen}>
@@ -102,6 +125,7 @@ export default function NavBar() {
         
       />
       <Select 
+        onChange={(e) => handleSelect(e)}
         className={s.select}
         isDisabled={false}
         options={optionsTecnologias}
@@ -109,6 +133,7 @@ export default function NavBar() {
         isSearchable={true}
         isMulti={true}
         placeholder="Selecciona tecnologias"
+  
         
       />
 
