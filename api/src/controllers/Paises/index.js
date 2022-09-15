@@ -1,50 +1,39 @@
 const { Paises } = require("../../db");
-const {paises} = require("../../json/Paises.json")
+const { paises } = require("../../json/Paises.json")
 // const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Countries";
 
 // -----------------------------------------------
-const jsonCountris = async ()=>{
-  try{
-     paises.map(async (name)=> {
-        await Paises.findOrCreate({
-          where : {name}
-        })
-     })
-     console.log('Paises por default caragados en la DB')
-    
-  }catch(e){
-     console.log(e)
-  }  
-}
-const getCountries = async (req, res) => {
+const jsonPaises = async () => {
   try {
-
-    datosPais = await Paises.findAll()
-    res.status(200).send(datosPais);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-};
-const postCountries = async (req, res) => {
-  try {
-    const {name} = req.body;
-
-    if(name){
-      datosPais = await Paises.findOrCreate({
-        where : {
-          name,
-        }
+    paises.map(async (name) => {
+      await Paises.findOrCreate({
+        where: { name }
       })
-      res.status(200).send('Dato agregado corerctamente');
-    }else{
-      res.status(400).send('Error debe agregar un nombre')
-    }
-    
+    })
+    console.log('Paises por default caragados en la DB')
   } catch (e) {
-    res.status(400).send(e);
+    console.log(e)
   }
-};
+}
+const getPaises = async () => {
+  datosPais = await Paises.findAll();
 
-module.exports = { getCountries,postCountries,jsonCountris };
+  return datosPais;
+};
+const postPaises = async (name) => {
+  datosPais = await Paises.findOrCreate({
+    where: {
+      name,
+    }
+  })
+};
+const deletePaises = async (id) => {
+  await Paises.destroy({
+    where: { id }
+  })
+  return "se elimino correctamente el "+ id
+}
+
+module.exports = { getPaises, postPaises, deletePaises, jsonPaises };
