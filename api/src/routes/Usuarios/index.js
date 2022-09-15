@@ -45,17 +45,14 @@ router.post("/", async (req, res) => {
       dailyBudget,
       englishLevel,
       bio,
-      country,
       city,
       tecnologias,
       lenguajes,
       servicios,
       paiseId,
     } = req.body;
-    if (!name || !lastName || !email || !country || !yearsOfExperience) {
-      res
-        .send(400)
-        .json("Falta alguno de los campos importantes. Por favor revisar");
+    if (!name || !lastName || !email || !yearsOfExperience) {
+      res.sendStatus(400).json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
       let usuario = await postUsers(
         name,
@@ -70,7 +67,6 @@ router.post("/", async (req, res) => {
         dailyBudget,
         englishLevel,
         bio,
-        country,
         city,
         tecnologias,
         lenguajes,
