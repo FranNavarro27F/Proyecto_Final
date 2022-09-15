@@ -29,7 +29,7 @@ router.get("/", async (req, res)=>{
 
 router.delete("/", async (req, res)=>{
   try {
-    let {id}= req.query;
+    let {id}= req.params;
     res.json(eliminarTecnologia(id))
   } catch (e) {
     res.status(400).send(e);

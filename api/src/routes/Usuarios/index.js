@@ -4,6 +4,7 @@ const {
   getUsers,
   postUsers,
   getUserById,
+  deleteUser,
 } = require("../../controllers/Usuarios");
 
 const router = Router();
@@ -44,6 +45,15 @@ router.post("/", async (req, res) => {
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+router.delete("/", async (req, res) => {
+  try {
+    let {id}= req.query;
+    res.json(await deleteUser(id));
+  } catch (e) {
+    res.status(404).send(`Error --→ ${e}`);
   }
 });
 
