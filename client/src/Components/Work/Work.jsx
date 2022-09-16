@@ -9,10 +9,11 @@ import { getUsersBd } from "../../Redux/Actions/DevUser";
 export default function Work() {
   const dispatch = useDispatch();
 
+  const usersDb = useSelector((state) => state.devUser.filteredUsers);
+  // const usersDbAux = useSelector((state) => state.devUser.filteredUsers);
   useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
-  const usersDb = useSelector((state) => state.devUser.allUsers);
+    if (usersDb === 0) dispatch(getUsersBd());
+  }, [dispatch, usersDb]);
 
   return (
     <div className={s.body}>
