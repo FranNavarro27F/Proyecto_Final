@@ -5,7 +5,7 @@ import s from "./Card.module.css";
 export default function Card({
   name,
   img,
-  technologies,
+  tecnologies,
   website,
   gitHub,
   linkedIn,
@@ -16,7 +16,7 @@ export default function Card({
     <div>
       <div className={s.card_client}>
         <Link to={id} className={s.link}>
-          <div class="user-picture">
+          <div className={s.user_picture}>
             {img ? (
               <img src={img} alt={name} />
             ) : (
@@ -27,7 +27,7 @@ export default function Card({
           </div>
           <p className={s.name_client}>
             {name}
-            <span>{technologies} </span>
+            <span>{tecnologies?.join(", ")} </span>
             {/* <span>CEO of WritBook</span> */}
           </p>
         </Link>

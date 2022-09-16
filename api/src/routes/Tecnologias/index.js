@@ -14,8 +14,7 @@ router.post("/", async (req, res)=>{
     let {tecnologias}= req.body;
     res.json(await guardarTecnologiasDB(tecnologias))
   } catch (e) {
-    console.log(e)
-    res.status(400).json({error: e.message});
+    res.status(404).send(`Error --→ ${e}`);
   }
 });
 
@@ -23,16 +22,16 @@ router.get("/", async (req, res)=>{
   try {
     res.json(await todasLasTecnologias())
   } catch (e) {
-    res.status(400).json({error: e.message})
+    res.status(404).send(`Error --→ ${e}`);
   }
 });
 
-router.delete("/", async (req, res)=>{
+router.delete("/:id", async (req, res)=>{
   try {
-    let {id}= req.query;
-    res.json(eliminarTecnologia(id))
+    let {id}= req.params;
+    res.json(await eliminarTecnologia(id))
   } catch (e) {
-    res.status(400).send(e);
+    res.status(404).send(`Error --→ ${e}`);
   }
 })
 

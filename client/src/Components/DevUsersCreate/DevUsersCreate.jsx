@@ -7,33 +7,32 @@ import { useDispatch, useSelector } from "react-redux";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
-import { getTechnologies } from "../../Redux/Actions/Technologies";
+
 import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
+import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 
 export default function DevUsersCreate() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getTechnologies());
+    dispatch(getTecnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
   }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
 
-  const technologies = useSelector(
-    (state) => state.technologies.allTechnologies
-  );
+  const technologies = useSelector((state) => state.tecnologies.allTecnologies);
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const [input, setInput] = useState({
     name: "",
     lastName: "",
-    profilePicture: "",
+    // profilePicture: "",
     // isAdmin: "",
     email: "",
     linkedIn: "",
@@ -41,7 +40,7 @@ export default function DevUsersCreate() {
     webSite: "",
     yearsOfExperience: "0",
     dailyBudget: "0",
-    englishLevel: "1",
+    englishLevel: "Básico",
     // bio: "",
     // city: "",
     paiseId: [],
@@ -56,6 +55,29 @@ export default function DevUsersCreate() {
       [e.target.name]: e.target.value,
     });
   };
+  const handleChangeEnglish = (e) => {
+    const ingles = () => {
+      if (e.target.value === "1") {
+        return "Básico";
+      }
+      if (e.target.value === "2") {
+        return "Intermedio";
+      }
+      if (e.target.value === "3") {
+        return "Avanzado";
+      }
+      if (e.target.value === "4") {
+        return "Profesional";
+      } else {
+        return "Nativo / Bilingüe";
+      }
+    };
+
+    setInput({
+      ...input,
+      [e.target.name]: ingles(),
+    });
+  };
   const handleCreate = (e) => {
     e.preventDefault();
     dispatch(
@@ -65,9 +87,9 @@ export default function DevUsersCreate() {
       })
     );
     alert("Perfil Creado con exito... (alerta provisoria)");
-    // setTimeout(() => {
-    //   navigate("/work");
-    // }, 350);
+    setTimeout(() => {
+      navigate("/work");
+    }, 350);
     setInput({
       name: "",
       lastName: "",
@@ -79,7 +101,7 @@ export default function DevUsersCreate() {
       webSite: "",
       yearsOfExperience: "0",
       dailyBudget: "0",
-      englishLevel: "1",
+      englishLevel: "Básico",
       // bio: "",
       // city: "",
       paiseId: [],
@@ -88,27 +110,27 @@ export default function DevUsersCreate() {
       servicios: [],
     });
   };
-  // const handleReset = () => {
-  //   setInput({
-  //     name: "",
-  //     lastName: "",
-  //     profilePicture: "",
-  //     // isAdmin: "",
-  //     email: "",
-  //     linkedIn: "",
-  //     gitHub: "",
-  //     webSite: "",
-  //     yearsOfExperience: "0",
-  //     dailyBudget: "0",
-  //     englishLevel: "1",
-  //     // bio: "",
-  //     // city: "",
-  //     paiseId: [],
-  //     tecnologias: [],
-  //     lenguajes: [],
-  //     servicios: [],
-  //   });
-  // };
+  const handleReset = () => {
+    setInput({
+      name: "",
+      lastName: "",
+      profilePicture: "",
+      // isAdmin: "",
+      email: "",
+      linkedIn: "",
+      gitHub: "",
+      webSite: "",
+      yearsOfExperience: "0",
+      dailyBudget: "0",
+      englishLevel: "Básico",
+      // bio: "",
+      // city: "",
+      paiseId: [],
+      tecnologias: [],
+      lenguajes: [],
+      servicios: [],
+    });
+  };
 
   //OPCIONES DE LOS SELECTS:
 
@@ -235,33 +257,25 @@ export default function DevUsersCreate() {
         type="range"
         min="1"
         max="5"
-        onChange={(e) => handleChangeInput(e)}
-        value={input.englishLevel}
+        onChange={(e) => handleChangeEnglish(e)}
+        // value={input.englishLevel}
         name="englishLevel"
         defaultValue="1"
       />
       <label
         className={
-          input.englishLevel === "1"
+          input.englishLevel === "Básico"
             ? s.ingles1
-            : input.englishLevel === "2"
+            : input.englishLevel === "Intermedio"
             ? s.ingles2
-            : input.englishLevel === "3"
+            : input.englishLevel === "Avanzado"
             ? s.ingles3
-            : input.englishLevel === "4"
+            : input.englishLevel === "Profesional"
             ? s.ingles4
             : s.ingles5
         }
       >
-        {input.englishLevel === "1"
-          ? "Básico"
-          : input.englishLevel === "2"
-          ? "Intermedio"
-          : input.englishLevel === "3"
-          ? "Avanzado"
-          : input.englishLevel === "4"
-          ? "Profesional"
-          : "Nativo / Bilingüe"}
+        {input.englishLevel}
       </label>
 
       <p htmlFor="pais">Pais: </p>
@@ -337,10 +351,7 @@ export default function DevUsersCreate() {
         >
           <span className={s.button_top}> CREAR PERFIL</span>
         </button>
-        <button
-          className={s.buttonCreated2}
-          // onClick={(e) => handleReset(e)}
-        >
+        <button className={s.buttonCreated2} onClick={(e) => handleReset(e)}>
           <span className={s.button_top}>RESETEAR FORMULARIO</span>
         </button>
       </div>

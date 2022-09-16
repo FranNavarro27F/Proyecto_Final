@@ -1,61 +1,97 @@
-import React from 'react'
-import s from '../NavBar/NavBar.module.css'
-import Select from 'react-select';
-import {HiOutlineSearch} from "react-icons/hi";
+import React, { useEffect } from "react";
+import s from "../NavBar/NavBar.module.css";
+import Select from "react-select";
+import { HiOutlineSearch } from "react-icons/hi";
+import { getCountries } from "../../Redux/Actions/Countries";
+
+import { getServices } from "../../Redux/Actions/Services";
+import { useDispatch, useSelector } from "react-redux";
+import { getLanguajes } from "../../Redux/Actions/Languajes";
+import { useState } from "react";
+import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
+import { AiOutlineClear } from "react-icons/ai";
+import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
+import FIlterServices from "../Filters & Orders/Filters/FilterServices";
+import FIlterLenguajes from "../Filters & Orders/Filters/FeilterLenguajes";
 
 export default function NavBar() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsersBd());
+    dispatch(getCountries());
+    dispatch(getTecnologies());
+    dispatch(getServices());
+    dispatch(getLanguajes());
+  }, [dispatch]);
 
-  const optionsTec = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'vanilla2', label: 'Vanilla' },
-    { value: 'vanilla3', label: 'Vanilla' },
-    { value: 'vanilla4', label: 'Vanilla' },
-    { value: 'vanilla5', label: 'Vanilla' },
-    { value: 'vanilla6', label: 'Vanilla' }
-  ]
-  const options = [
-    { value: 'web', label: 'Web Development' }, 
-    { value: 'strawberry', label: 'Web Design' },
-    { value: 'vanilla', label: 'UX/UI' }
-  ]
-  
+  const countries = useSelector((state) => state.countries.allCountries);
+
+  const [actualFilter, setActualFilter] = useState({
+    filterTecnologies: [],
+    filterServices: [],
+    filterLanguajes: [],
+  });
+
+  const [order, setOrder] = useState("");
+
+  useEffect(() => {
+    dispatch(filtersOrders(actualFilter));
+  }, [dispatch, actualFilter]);
+
+  const optionsCountries = countries.map((e) => {
+    return {
+      value: e.id,
+      label: e.name,
+    };
+  });
+
+  const handleClear = () => {
+    document.getElementById("selectTecnologie").selectedIndex = 0;
+    // document.getElementById("selectContinent").selectedIndex = 0;
+    // document.getElementById("selectAz").selectedIndex = 0;
+    // document.getElementById("selectPop").selectedIndex = 0;
+  };
+
   return (
     <header>
-        <div className={s.divGen}>
+      <div className={s.divGen}>
         <form>
-        <input
-        className={s.searchBar}
-        type="text"
-        placeholder='Search...'
-        >
-        </input>
+          <input
+            className={s.searchBar}
+            type="text"
+            placeholder="Search..."
+          ></input>
           <HiOutlineSearch />
-      </form>
-      <Select 
-        className={s.select}
-        isDisabled={false}
-        options={options}
-        isClearable={true}
-        isSearchable={true}
-        isMulti={true}
-        placeholder="Select a service"
-        
-      />
-      <Select 
-        className={s.select}
-        isDisabled={false}
-        options={optionsTec}
-        isClearable={true}
-        isSearchable={true}
-        isMulti={true}
-        placeholder="Select a tecnology"
-        
-      />
+        </form>
 
+        <Select
+          className={s.select}
+          isDisabled={false}
+          options={optionsCountries}
+          isClearable={true}
+          isSearchable={true}
+          isMulti={true}
+          placeholder="Seleciona Paises"
+        />
+
+        <FIlterLenguajes
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+
+        <FIlterServices setOrder={setOrder} setActualFilter={setActualFilter} />
+
+        <FIlterTecnologie
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+        <button className={s.buttonClear} onClick={handleClear}>
+          <AiOutlineClear />
+        </button>
         <button className={s.puntuacion}>Puntuación</button>
-        </div>
+      </div>
     </header>
-  )
+  );
 }

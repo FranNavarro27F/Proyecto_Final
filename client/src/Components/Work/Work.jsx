@@ -1,26 +1,36 @@
 import React from "react";
 import Card from "./Card/Card";
 import s from "./Work.module.css";
-import { Link } from "react-router-dom";
-import NavBar from "../NavBar/NavBar"
-import { data } from "../../json/Data";
+import NavBar from "../NavBar/NavBar";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
 
 export default function Work() {
-  console.log(data);
+  const dispatch = useDispatch();
+
+  const usersDb = useSelector((state) => state.devUser.filteredUsers);
+  // const usersDbAux = useSelector((state) => state.devUser.filteredUsers);
+  useEffect(() => {
+    if (usersDb === 0) dispatch(getUsersBd());
+  }, [dispatch, usersDb]);
 
   return (
     <div className={s.body}>
       <NavBar />
       <div className={s.cardsContainer}>
-        {data.usuarios.map((e) => {
+        {usersDb?.map((e) => {
           return (
             <div>
               {/* <Link to={e.id}> */}
               <Card
-                name={`${e.name} ` + e.lastName}
+                name={
+                  `${e.name[0].toUpperCase() + e.name.slice(1)} ` +
+                  `${e.lastName[0].toUpperCase() + e.lastName.slice(1)}`
+                }
                 img={e.profilePicture}
-                technologies={e.technologies}
-                website={e.website}
+                tecnologies={e.tecnologias}
+                website={e.webSite}
                 gitHub={e.gitHub}
                 linkedIn={e.linkedIn}
                 email={e.email}

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export function getTechnologies() {
+export function getTecnologies() {
   return async function (dispatch) {
     try {
       return dispatch({
-        type: "GET_TECHNOLOGIES",
+        type: "GET_TECNOLOGIES",
         payload: (await axios(`/tecnologias`)).data,
       });
     } catch (error) {

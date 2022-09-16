@@ -6,75 +6,17 @@ const ERROR = "Error @ controllers/Lenguajes";
 
 // -----------------------------------------------
 
-// const LENGUAJES = [
-//   "ABAP",
-//   "Ada",
-//   "Apex",
-//   "Assembly Language",
-//   "Bash",
-//   "C#",
-//   "C++",
-//   "C",
-//   "Clojure",
-//   "Cobol",
-//   "D",
-//   "Dart",
-//   "Delphi",
-//   "F#",
-//   "Fortran",
-//   "FoxPro",
-//   "G/LabVIEW",
-//   "Go",
-//   "Groovy",
-//   "Haskell",
-//   "Java",
-//   "JavaScript",
-//   "Julia",
-//   "Kotlin",
-//   "Ladder Logic",
-//   "Lisp",
-//   "Logo",
-//   "Lua",
-//   "Matlab",
-//   "Nim",
-//   "Objective-C",
-//   "Pascal",
-//   "Perl",
-//   "PHP",
-//   "PL/SQL",
-//   "Prolog",
-//   "Python",
-//   "R",
-//   "Ruby",
-//   "Rust",
-//   "SAS",
-//   "Scala",
-//   "Scheme",
-//   "Scratch",
-//   "SQL",
-//   "Swift",
-//   "Transact-SQL",
-//   "TypeScript",
-//   "VBA",
-//   "VBScript",
-//   "VHDL",
-//   "Visual Basic",
-// ];
-
-// -----------------------------------------------
 
 // Guardar Lenguajes Iniciales en la DB
 const saveLanguages = async () => {
-  // try {
+  try {
     lenguajes.forEach(async curr => await Lenguajes.findOrCreate({where: {name: curr}}))
-    
     console.log("Lenguajes agregados correctamente")
     return "Lenguajes agregados correctamente"
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
     
-  // } catch (e) {
-  //   console.log(e)
-  // }
-
 };
 
 // Guardar un nuevo lenguaje en la DB
@@ -88,31 +30,37 @@ const getLanguages = async () => {
   try {
     let lenguajes = await Lenguajes.findAll()
     return lenguajes
-  } catch (e) {}
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
 
 // Modificar un lenguaje de la DB
 const modifyLanguage = async ({ id, content }) => {
   try {
-  } catch (e) {}
+
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
 
 // Eliminar un lenguaje de la DB
-const deleteLanguage = async (id) => {
+const deleteLenguajes = async (id) => {
   try {
-
-    let lenguDel = await Lenguajes.findByPk(id)
-    let deleteada = lenguDel.destroy();
-
-    return true
-
-  } catch (e) {}
+    let toDelete= await Lenguajes.findByPk(id);
+    await toDelete.destroy();
+    console.log(`Lenguajes(${id}) deleted successfully`);
+    return `Lenguajes (${id}) deleted successfully`;
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
+
 
 module.exports = {
   saveLanguages,
   saveLanguage,
   getLanguages,
   modifyLanguage,
-  deleteLanguage,
+  deleteLenguajes,
 };
