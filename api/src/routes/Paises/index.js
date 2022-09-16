@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getPaises, postPaises,deletePaises } = require("../../controllers/Paises/index");
+const { getPaises, postPaises,deletePaises, putPaises } = require("../../controllers/Paises/index");
 
 const router = Router();
 
@@ -37,4 +37,16 @@ router.delete('/:id',async(req, res)=>{
     }
 })
 
+router.put('/',async(req, res)=>{
+    try {
+        const {id,name} = req.body;
+        if (id){
+            res.status(200).json(await putPaises(id, name));
+        }else{
+            res.status(400).send("error debe enviar por body el id del pais para actualizar");
+        }  
+    } catch (e) {
+        res.status(404).send(`Error --→ ${e}`);
+    }
+})
 module.exports = router;
