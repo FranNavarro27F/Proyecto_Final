@@ -6,7 +6,6 @@ import s from "./FIlterTecnologie.module.css";
 
 export default function FIlterTecnologie({ setActualFilter, setOrder }) {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-  console.log(tecnologies);
 
   const optionsTecnologias = tecnologies.map((e) => {
     return {
