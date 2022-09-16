@@ -15,7 +15,7 @@ export default function Card({
   return (
     <div>
       <div className={s.card_client}>
-        <Link to={id} className={s.link}>
+        <Link to={`details/${id}`} className={s.link}>
           <div className={s.user_picture}>
             {img ? (
               <img src={img} alt={name} />

@@ -1,5 +1,6 @@
 export let initialState = {
   allUsers: [],
+  details: []
 };
 
 export default function devUser(state = initialState, action) {
@@ -32,6 +33,12 @@ export default function devUser(state = initialState, action) {
         ...state,
         allUsers: devUserFilter2,
       };
+
+      case "GET_USER_ID":
+        return{
+          ...state,
+          details: action.payload
+        }
     default:
       return state;
   }
