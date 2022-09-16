@@ -29,14 +29,17 @@ export default function devUser(state = initialState, action) {
         );
 
       if (filterServices?.length !== 0)
-        filtro = [...state.allUsers]?.filter((ele) =>
+        filtro = [...filtro]?.filter((ele) =>
           ele.servicios?.includes(filterServices.toString())
         );
 
       if (filterLanguajes?.length !== 0)
-        filtro = [...state.allUsers]?.filter((ele) =>
+        filtro = [...filtro]?.filter((ele) =>
           ele.lenguajes?.includes(filterLanguajes.toString())
         );
+
+      //funcion_a(funcion_b(funcion_c(java)))
+      //funcion_a(funcion_b(javascript, funcion_c(java)))
 
       return {
         ...state,
