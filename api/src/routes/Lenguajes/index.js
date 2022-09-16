@@ -41,7 +41,19 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {});
 
 // Eliminar un lenguaje de la DB
-router.delete('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+
+try {
+
+  let { id } = req.params
+
+  res.send(await deleteLanguage(id))
+  
+} catch (e) {
+  console.error(`Error --→ ${e}`);
+}
+
+});
 
 
 module.exports = router;

@@ -100,6 +100,12 @@ const modifyLanguage = async ({ id, content }) => {
 // Eliminar un lenguaje de la DB
 const deleteLanguage = async (id) => {
   try {
+
+    let lenguDel = await Lenguajes.findByPk(id)
+    let deleteada = lenguDel.destroy();
+
+    return true
+
   } catch (e) {}
 };
 
