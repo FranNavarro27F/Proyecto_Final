@@ -19,7 +19,7 @@ router.get("/:id", async (req, res)=>{
     } catch (e) {
         res.status(404).send(`Error --→ ${e}`);
     }
-})
+});
 
 router.post('/',async(req, res)=>{
     try {
