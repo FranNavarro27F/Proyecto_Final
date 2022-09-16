@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const { getPaises, postPaises,deletePaises, putPaises } = require("../../controllers/Paises/index");
+const { getPaises, postPaises,deletePaises, putPaises, traerPaisPorId } = require("../../controllers/Paises/index");
+const { paises } = require("../../json/Data");
 
 const router = Router();
 
@@ -10,6 +11,15 @@ router.get('/', async (req, res)=>{
         res.status(404).send(`Error --→ ${e}`);
     }
 });
+
+router.get("/:id", async (req, res)=>{
+    try {
+        let {id}=req.params;
+        res.json(await traerPaisPorId(id));
+    } catch (e) {
+        res.status(404).send(`Error --→ ${e}`);
+    }
+})
 
 router.post('/',async(req, res)=>{
     try {
