@@ -28,6 +28,7 @@ export default function FIlterTecnologie({ setActualFilter, setOrder }) {
   return (
     <div>
       <Select
+        id="selectTecnologie"
         onChange={(e) => handleTecnologies(e)}
         className={s.select}
         isDisabled={false}

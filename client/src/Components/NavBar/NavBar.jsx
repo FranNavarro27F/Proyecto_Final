@@ -10,7 +10,7 @@ import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { useState } from "react";
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
-
+import { AiOutlineClear } from "react-icons/ai";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
 import FIlterServices from "../Filters & Orders/Filters/FilterServices";
@@ -47,6 +47,13 @@ export default function NavBar() {
     };
   });
 
+  const handleClear = () => {
+    document.getElementById("selectTecnologie").selectedIndex = 0;
+    // document.getElementById("selectContinent").selectedIndex = 0;
+    // document.getElementById("selectAz").selectedIndex = 0;
+    // document.getElementById("selectPop").selectedIndex = 0;
+  };
+
   return (
     <header>
       <div className={s.divGen}>
@@ -80,7 +87,9 @@ export default function NavBar() {
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
-
+        <button className={s.buttonClear} onClick={handleClear}>
+          <AiOutlineClear />
+        </button>
         <button className={s.puntuacion}>Puntuación</button>
       </div>
     </header>
