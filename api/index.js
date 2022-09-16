@@ -29,7 +29,9 @@ const { saveLanguages } = require('./src/controllers/Lenguajes/index')
 // Syncing all the models at once.
 
 conn.sync({ force: false }).then(() => {
-  server.listen(3001, async () => {
+  const PORT= 3001;
+
+  server.listen(process.env.PORT || PORT, async () => {
   
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     await jsonPaises();

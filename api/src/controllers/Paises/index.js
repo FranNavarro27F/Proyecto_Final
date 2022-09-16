@@ -63,8 +63,16 @@ const putPaises = async (id, name) => {
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
+};
 
+const traerPaisPorId= async (id)=>{
+  try {
+    let paisPorId= await Paises.findByPk(id);
+    return paisPorId;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 }
 
 
-module.exports = { getPaises, postPaises, deletePaises, putPaises, jsonPaises };
+module.exports = { getPaises, postPaises, deletePaises, putPaises, jsonPaises, traerPaisPorId };
