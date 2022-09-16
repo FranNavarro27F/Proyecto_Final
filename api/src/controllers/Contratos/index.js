@@ -9,7 +9,10 @@ const ERROR = "Error @ controllers/Contratos";
 // Ejemplo 1
 const getContratos = async () => {
   try {
-  } catch (e) {}
+    
+  } catch (e) {
+    console.error(`${ERROR}/deleteService --> ${e}`);
+  }
 };
 
 module.exports = { getContratos };
