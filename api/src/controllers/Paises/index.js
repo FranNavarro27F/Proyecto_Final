@@ -49,9 +49,22 @@ const deletePaises = async (id) => {
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
-  
+
+}
+const putPaises = async (id, name) => {
+  try {
+    await Paises.update(
+      { name },
+      {
+        where: { id }
+      })
+      console.log(`Country (${id}) updated successfully`);
+    return `Country (${id}) updated successfully`;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
+
 }
 
 
-
-module.exports = { getPaises, postPaises, deletePaises, jsonPaises };
+module.exports = { getPaises, postPaises, deletePaises, putPaises, jsonPaises };

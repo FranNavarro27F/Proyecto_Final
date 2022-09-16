@@ -9,10 +9,11 @@ import { getUsersBd } from "../../Redux/Actions/DevUser";
 export default function Work() {
   const dispatch = useDispatch();
 
+  const usersDb = useSelector((state) => state.devUser.filteredUsers);
+  // const usersDbAux = useSelector((state) => state.devUser.filteredUsers);
   useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
-  const usersDb = useSelector((state) => state.devUser.allUsers);
+    if (usersDb === 0) dispatch(getUsersBd());
+  }, [dispatch, usersDb]);
 
   return (
     <div className={s.body}>
@@ -23,9 +24,12 @@ export default function Work() {
             <div>
               {/* <Link to={e.id}> */}
               <Card
-                name={`${e.name} ` + e.lastName}
+                name={
+                  `${e.name[0].toUpperCase() + e.name.slice(1)} ` +
+                  `${e.lastName[0].toUpperCase() + e.lastName.slice(1)}`
+                }
                 img={e.profilePicture}
-                technologies={e.tecnologias}
+                tecnologies={e.tecnologias}
                 website={e.webSite}
                 gitHub={e.gitHub}
                 linkedIn={e.linkedIn}
