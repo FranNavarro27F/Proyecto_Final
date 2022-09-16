@@ -1,5 +1,6 @@
 export let initialState = {
   allUsers: [],
+  filteredUsers: [],
 };
 
 export default function devUser(state = initialState, action) {
@@ -14,24 +15,29 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+        filteredUsers: action.payload,
       };
 
     case "FILTERS_ORDERS":
       let { filterTecnologies, filterServices, filterLanguajes } =
         action.payload;
 
-      // console.log(filterTecnologies, "alla");
-      let users = [...state.allUsers];
+      console.log(filterTecnologies, "alla");
+      let users = [...state.filteredUsers];
 
-      let devUserFilter2 = users?.filter((ele) =>
+      const filtroFind = users?.filter((ele) =>
         ele.tecnologias?.includes(filterTecnologies.toString())
       );
-
-      console.log(devUserFilter2, "FILTER");
+      // const filtroFind = users?.find((ele) =>
+      //   ele.tecnologias?.includes(filterTecnologies.toString())
+      // );
+      // const filtro2 = Object.entries(filtroFind);
+      console.log(filtroFind, "FILTER");
 
       return {
         ...state,
-        allUsers: devUserFilter2,
+        filteredUsers:
+          filterTecnologies.length === 0 ? [...state.allUsers] : filtroFind,
       };
     default:
       return state;

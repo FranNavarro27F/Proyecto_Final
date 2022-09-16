@@ -22,12 +22,15 @@ export default function NavBar() {
   }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
+  const services = useSelector((state) => state.services.allServices);
+  const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: [],
     filterServices: [],
     filterLanguajes: [],
   });
+  const [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(filtersOrders(actualFilter));
@@ -43,10 +46,6 @@ export default function NavBar() {
       label: e.name,
     };
   });
-
-  const services = useSelector((state) => state.services.allServices);
-
-  const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const optionsServices = services.map((e) => {
     return {
@@ -75,6 +74,7 @@ export default function NavBar() {
         filterTecnologies: e.map((e) => e.label),
       };
     });
+    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
   };
 
   return (
