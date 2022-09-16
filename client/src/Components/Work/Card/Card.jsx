@@ -27,7 +27,7 @@ export default function Card({
           </div>
           <p className={s.name_client}>
             {name}
-            <span>{technologies} </span>
+            <span>{technologies?.join(", ")} </span>
             {/* <span>CEO of WritBook</span> */}
           </p>
         </Link>

@@ -32,6 +32,7 @@ export default function NavBar() {
   useEffect(() => {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
+
   const technologies = useSelector(
     (state) => state.technologies.allTechnologies
   );
@@ -69,7 +70,6 @@ export default function NavBar() {
 
   const handleSelect = (e) => {
     setActualFilter((state) => {
-      console.log(e);
       return {
         ...state,
         filterTecnologies: e.map((e) => e.label),
