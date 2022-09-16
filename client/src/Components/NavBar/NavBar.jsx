@@ -17,6 +17,7 @@ import FIlterServices from "../Filters & Orders/Filters/FilterServices";
 import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
 import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
 import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
+import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function NavBar() {
     filterLanguajes: [],
     filterCountries: [],
     OrderExp: "",
+    OrderBud: "",
   });
 
   const [order, setOrder] = useState("");
@@ -78,6 +80,10 @@ export default function NavBar() {
           setActualFilter={setActualFilter}
         />
         <OrderyearsOfExperience
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+        <OrderDailyBudget
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
