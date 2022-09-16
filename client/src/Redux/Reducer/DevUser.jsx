@@ -1,6 +1,8 @@
-export let initialState = {
+export const initialState = {
   allUsers: [],
   details: []
+  filteredUsers: [],
+
 };
 
 export default function devUser(state = initialState, action) {
@@ -15,23 +17,57 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+        filteredUsers: action.payload,
       };
 
     case "FILTERS_ORDERS":
-      let { filterTecnologies, filterServices, filterLanguajes } =
-        action.payload;
+      let {
+        filterTecnologies,
+        filterServices,
+        filterLanguajes,
+        filterCountries,
+        OrderExp,
+      } = action.payload;
 
-      let users = [...state.allUsers];
+      let filtro = [...state.allUsers];
+      if (filterTecnologies?.length !== 0)
+        filtro = [...state.allUsers]?.filter((ele) =>
+          ele.tecnologias?.includes(filterTecnologies.toString())
+        );
 
-      let devUserFilter2 = users?.filter((ele) =>
-        ele.tecnologias?.includes(filterTecnologies.toString())
-      );
+      if (filterServices?.length !== 0)
+        filtro = [...filtro]?.filter((ele) =>
+          ele.servicios?.includes(filterServices.toString())
+        );
 
-      console.log(devUserFilter2, "FILTER");
+      if (filterLanguajes?.length !== 0)
+        filtro = [...filtro]?.filter((ele) =>
+          ele.lenguajes?.includes(filterLanguajes.toString())
+        );
+
+      if (filterCountries?.length !== 0)
+        filtro = [...filtro]?.filter((ele) =>
+          ele.country?.includes(filterCountries.toString())
+        );
+
+      //ORDENAMIENTOS
+      // "yearsOfExperience": 1,
+      //    "dailyBudget": 30,
+
+      if (OrderExp === "asc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience < b.yearsOfExperience ? -1 : 1
+        );
+      }
+      if (OrderExp === "dsc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
+        );
+      }
 
       return {
         ...state,
-        allUsers: devUserFilter2,
+        filteredUsers: filtro,
       };
 
       case "GET_USER_ID":
