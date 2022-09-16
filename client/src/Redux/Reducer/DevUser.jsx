@@ -19,10 +19,13 @@ export default function devUser(state = initialState, action) {
     case "FILTERS_ORDERS":
       let { filterTecnologies, filterServices, filterLanguajes } =
         action.payload;
+
       let users = [...state.allUsers];
-      let devUserFilter2 = users?.filter((ele) => {
-        return ele.tecnologias?.map((ele) => ele === filterTecnologies);
-      });
+
+      let devUserFilter2 = users?.filter((ele) =>
+        ele.tecnologias?.includes(filterTecnologies.toString())
+      );
+
       console.log(devUserFilter2, "FILTER");
 
       return {
