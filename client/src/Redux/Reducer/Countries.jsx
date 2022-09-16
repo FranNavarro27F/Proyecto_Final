@@ -1,5 +1,6 @@
-const initialState = {
+ const initialState = {
   allCountries: [],
+
 };
 
 export default function countries(state = initialState, action) {
@@ -9,8 +10,10 @@ export default function countries(state = initialState, action) {
         ...state,
         allCountries: action.payload,
       };
-
+    
     default:
       return state;
   }
 }
+
+

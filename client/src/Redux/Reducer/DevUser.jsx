@@ -1,6 +1,8 @@
 export const initialState = {
   allUsers: [],
+  details: [],
   filteredUsers: [],
+
 };
 
 export default function devUser(state = initialState, action) {
@@ -74,6 +76,12 @@ export default function devUser(state = initialState, action) {
         ...state,
         filteredUsers: filtro,
       };
+
+      case "GET_USER_ID":
+        return{
+          ...state,
+          details: action.payload
+        }
     default:
       return state;
   }
