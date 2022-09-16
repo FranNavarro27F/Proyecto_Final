@@ -12,6 +12,8 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import SideMenu from "../Landing/SideMenu/SideMenu";
+
 
 export default function DevUsersCreate() {
   const navigate = useNavigate();
@@ -25,7 +27,9 @@ export default function DevUsersCreate() {
 
   const countries = useSelector((state) => state.countries.allCountries);
 
-  const technologies = useSelector((state) => state.tecnologies.allTecnologies);
+  const technologies = useSelector(
+    (state) => state.tecnologies.allTecnologies
+  );
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
@@ -87,9 +91,9 @@ export default function DevUsersCreate() {
       })
     );
     alert("Perfil Creado con exito... (alerta provisoria)");
-    setTimeout(() => {
-      navigate("/work");
-    }, 350);
+    // setTimeout(() => {
+    //   navigate("/work");
+    // }, 350);
     setInput({
       name: "",
       lastName: "",
@@ -110,27 +114,27 @@ export default function DevUsersCreate() {
       servicios: [],
     });
   };
-  const handleReset = () => {
-    setInput({
-      name: "",
-      lastName: "",
-      profilePicture: "",
-      // isAdmin: "",
-      email: "",
-      linkedIn: "",
-      gitHub: "",
-      webSite: "",
-      yearsOfExperience: "0",
-      dailyBudget: "0",
-      englishLevel: "Básico",
-      // bio: "",
-      // city: "",
-      paiseId: [],
-      tecnologias: [],
-      lenguajes: [],
-      servicios: [],
-    });
-  };
+  // const handleReset = () => {
+  //   setInput({
+  //     name: "",
+  //     lastName: "",
+  //     profilePicture: "",
+  //     // isAdmin: "",
+  //     email: "",
+  //     linkedIn: "",
+  //     gitHub: "",
+  //     webSite: "",
+  //     yearsOfExperience: "0",
+  //     dailyBudget: "0",
+  //     englishLevel: "1",
+  //     // bio: "",
+  //     // city: "",
+  //     paiseId: [],
+  //     tecnologias: [],
+  //     lenguajes: [],
+  //     servicios: [],
+  //   });
+  // };
 
   //OPCIONES DE LOS SELECTS:
 
@@ -165,8 +169,13 @@ export default function DevUsersCreate() {
 
   return (
     /*  name, lastName, profilePicture, isAdmin, email, linkedIn, gitHub, webSite, yearsOfExperience, dailyBudget, englishLevel, bio, country, city, tecnologias, lenguajes, servicios, paiseId */
-    <div>
-      <form action="">
+    <div className={s.divGeneral}>
+              <SideMenu/>
+      <div className={s.divForm}>
+      <form 
+        className={s.inputForm}
+        action="">
+        <div className={s.inputContainer}>
         <p>Nombre: </p>
         <input
           type="text"
@@ -175,7 +184,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.name}
           name="name"
+          className={s.inputName}
         />
+        </div>
+        <div  className={s.inputContainer}>
         <p>Apellido: </p>
         <input
           type="text"
@@ -184,7 +196,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.lastName}
           name="lastName"
+          className={s.inputLastname}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Imagen: </p>
         <input
           type="url"
@@ -193,7 +208,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.profilePicture}
           name="profilePicture"
+          className={s.inputImg}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Email: </p>
         <input
           type="email"
@@ -202,7 +220,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.email}
           name="email"
+          className={s.inputEmail}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Linkedin: </p>
         <input
           type="url"
@@ -211,7 +232,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.linkedIn}
           name="linkedIn"
+          className={s.inputLinkedin}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>GitHub: </p>
         <input
           type="url"
@@ -220,7 +244,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.gitHub}
           name="gitHub"
+          className={s.inputGithub}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Website: </p>
         <input
           type="url"
@@ -229,7 +256,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.webSite}
           name="webSite"
+          className={s.inputWebsite}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Años de experiencia: </p>
         <input
           type="number"
@@ -239,7 +269,10 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.yearsOfExperience}
           name="yearsOfExperience"
+          className={s.inputExperience}
         />
+        </div>
+        <div className={s.inputContainer}>
         <p>Precio por hora: </p>
         <input
           type="number"
@@ -249,10 +282,13 @@ export default function DevUsersCreate() {
           onChange={(e) => handleChangeInput(e)}
           value={input.dailyBudget}
           name="dailyBudget"
+          className={s.inputPrice}
         />
+        </div>
       </form>
-
+        <div className={s.divEnglish}>
       <p htmlFor="">Nivel de ingles: </p>
+      <div className={s.divEnglishLevel}>
       <input
         type="range"
         min="1"
@@ -261,6 +297,7 @@ export default function DevUsersCreate() {
         // value={input.englishLevel}
         name="englishLevel"
         defaultValue="1"
+        className={s.inputEnglish}
       />
       <label
         className={
@@ -277,7 +314,9 @@ export default function DevUsersCreate() {
       >
         {input.englishLevel}
       </label>
-
+      </div>
+      </div>
+        <div className={s.divSelectContainer}>
       <p htmlFor="pais">Pais: </p>
       <Select
         className={s.select}
@@ -294,7 +333,8 @@ export default function DevUsersCreate() {
           })
         }
       />
-
+        </div>
+        <div className={s.divSelectContainer}>
       <p htmlFor="tecnologias">Tecnologias: </p>
       <Select
         className={s.select}
@@ -311,6 +351,8 @@ export default function DevUsersCreate() {
           })
         }
       />
+      </div>
+      <div className={s.divSelectContainer}>
       <p htmlFor="lenguajes">Lenguajes: </p>
       <Select
         className={s.select}
@@ -327,6 +369,8 @@ export default function DevUsersCreate() {
           })
         }
       />
+      </div>
+      <div className={s.divSelectContainer}>
       <p htmlFor="servicios">Servicios: </p>
       <Select
         className={s.select}
@@ -343,6 +387,7 @@ export default function DevUsersCreate() {
           })
         }
       />
+      </div>
       <div className={s.buttons}>
         <button
           className={s.buttonCreated1}
@@ -351,9 +396,13 @@ export default function DevUsersCreate() {
         >
           <span className={s.button_top}> CREAR PERFIL</span>
         </button>
-        <button className={s.buttonCreated2} onClick={(e) => handleReset(e)}>
+        <button
+          className={s.buttonCreated2}
+          // onClick={(e) => handleReset(e)}
+        >
           <span className={s.button_top}>RESETEAR FORMULARIO</span>
         </button>
+        </div>
       </div>
     </div>
   );

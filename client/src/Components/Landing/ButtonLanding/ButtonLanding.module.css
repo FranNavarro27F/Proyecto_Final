@@ -21,6 +21,7 @@ font-size: 17px;
 align-items: center;
 text-align: center;
 line-height: 26px;
+cursor: pointer;
 }
 
 .possitionLg{
@@ -49,4 +50,5 @@ font-style: normal;
 font-weight: 400;
 font-size: 17px;
 line-height: 26px;
+cursor: pointer;
 }
