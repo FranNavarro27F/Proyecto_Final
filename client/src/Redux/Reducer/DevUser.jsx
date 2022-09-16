@@ -1,6 +1,6 @@
 export const initialState = {
   allUsers: [],
-  details: []
+  details: [],
   filteredUsers: [],
 
 };

@@ -15,12 +15,3 @@ export function getCountries() {
     }
   };
 }
-export function getCountriesId(id){
-  return async function(dispatch){
-    const paisesId= (await axios (`/paises/${id}`)).data;
-    return dispatch({
-      type: "GET_COUNTRIES_ID",
-      payload: paisesId
-    })
-  }
-}
