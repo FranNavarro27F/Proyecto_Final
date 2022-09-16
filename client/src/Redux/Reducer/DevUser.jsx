@@ -25,6 +25,7 @@ export default function devUser(state = initialState, action) {
         filterLanguajes,
         filterCountries,
         OrderExp,
+        OrderBud,
       } = action.payload;
 
       let filtro = [...state.allUsers];
@@ -61,6 +62,12 @@ export default function devUser(state = initialState, action) {
         filtro.sort((a, b) =>
           a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
         );
+      }
+      if (OrderBud === "asc") {
+        filtro.sort((a, b) => (a.dailyBudget < b.dailyBudget ? -1 : 1));
+      }
+      if (OrderBud === "dsc") {
+        filtro.sort((a, b) => (a.dailyBudget > b.dailyBudget ? -1 : 1));
       }
 
       return {
