@@ -22,8 +22,7 @@ export default function devUser(state = initialState, action) {
       let { filterTecnologies, filterServices, filterLanguajes } =
         action.payload;
 
-      console.log(filterTecnologies, "alla");
-      let users = [...state.filteredUsers];
+      let users = [...state.allUsers];
 
       const filtroFind = users?.filter((ele) =>
         ele.tecnologias?.includes(filterTecnologies.toString())
