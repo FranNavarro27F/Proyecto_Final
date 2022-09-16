@@ -20,7 +20,6 @@ export default function devUser(state = initialState, action) {
       let { filterTecnologies, filterServices, filterLanguajes } =
         action.payload;
 
-      // console.log(filterTecnologies, "alla");
       let users = [...state.allUsers];
 
       let devUserFilter2 = users?.filter((ele) =>
