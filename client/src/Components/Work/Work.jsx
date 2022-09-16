@@ -24,9 +24,12 @@ export default function Work() {
             <div>
               {/* <Link to={e.id}> */}
               <Card
-                name={`${e.name} ` + e.lastName}
+                name={
+                  `${e.name[0].toUpperCase() + e.name.slice(1)} ` +
+                  `${e.lastName[0].toUpperCase() + e.lastName.slice(1)}`
+                }
                 img={e.profilePicture}
-                technologies={e.tecnologias}
+                tecnologies={e.tecnologias}
                 website={e.webSite}
                 gitHub={e.gitHub}
                 linkedIn={e.linkedIn}
