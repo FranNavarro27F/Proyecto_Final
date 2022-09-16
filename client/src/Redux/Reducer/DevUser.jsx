@@ -1,4 +1,4 @@
-export let initialState = {
+export const initialState = {
   allUsers: [],
   filteredUsers: [],
 };
@@ -24,6 +24,7 @@ export default function devUser(state = initialState, action) {
         filterServices,
         filterLanguajes,
         filterCountries,
+        OrderExp,
       } = action.payload;
 
       let filtro = [...state.allUsers];
@@ -47,10 +48,20 @@ export default function devUser(state = initialState, action) {
           ele.country?.includes(filterCountries.toString())
         );
 
-      console.log(filtro, "aca");
+      //ORDENAMIENTOS
+      // "yearsOfExperience": 1,
+      //    "dailyBudget": 30,
 
-      //funcion_a(funcion_b(funcion_c(java)))
-      //funcion_a(funcion_b(javascript, funcion_c(java)))
+      if (OrderExp === "asc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience < b.yearsOfExperience ? -1 : 1
+        );
+      }
+      if (OrderExp === "dsc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
+        );
+      }
 
       return {
         ...state,
