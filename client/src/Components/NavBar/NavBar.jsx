@@ -14,7 +14,8 @@ import { AiOutlineClear } from "react-icons/ai";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
 import FIlterServices from "../Filters & Orders/Filters/FilterServices";
-import FIlterLenguajes from "../Filters & Orders/Filters/FeilterLenguajes";
+import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
+import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -26,12 +27,11 @@ export default function NavBar() {
     dispatch(getLanguajes());
   }, [dispatch]);
 
-  const countries = useSelector((state) => state.countries.allCountries);
-
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: [],
     filterServices: [],
     filterLanguajes: [],
+    filterCountries: [],
   });
 
   const [order, setOrder] = useState("");
@@ -39,13 +39,6 @@ export default function NavBar() {
   useEffect(() => {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
-
-  const optionsCountries = countries.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
 
   const handleClear = () => {
     document.getElementById("selectTecnologie").selectedIndex = 0;
@@ -66,14 +59,9 @@ export default function NavBar() {
           <HiOutlineSearch />
         </form>
 
-        <Select
-          className={s.select}
-          isDisabled={false}
-          options={optionsCountries}
-          isClearable={true}
-          isSearchable={true}
-          isMulti={true}
-          placeholder="Seleciona Paises"
+        <FIlterCountries
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
         />
 
         <FIlterLenguajes
