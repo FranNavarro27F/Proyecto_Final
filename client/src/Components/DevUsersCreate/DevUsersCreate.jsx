@@ -7,17 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
-import { getTechnologies } from "../../Redux/Actions/Technologies";
+
 import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
+import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 
 export default function DevUsersCreate() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getTechnologies());
+    dispatch(getTecnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
   }, [dispatch]);
@@ -265,7 +266,7 @@ export default function DevUsersCreate() {
       />
       <label
         className={
-           input.englishLevel === "Básico"
+          input.englishLevel === "Básico"
             ? s.ingles1
             : input.englishLevel === "Intermedio"
             ? s.ingles2

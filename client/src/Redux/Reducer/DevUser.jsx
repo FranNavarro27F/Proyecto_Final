@@ -22,21 +22,25 @@ export default function devUser(state = initialState, action) {
       let { filterTecnologies, filterServices, filterLanguajes } =
         action.payload;
 
-      let users = [...state.allUsers];
+      let filtro = [...state.allUsers];
+      if (filterTecnologies?.length !== 0)
+        filtro = [...state.allUsers]?.filter((ele) =>
+          ele.tecnologias?.includes(filterTecnologies.toString())
+        );
 
-      const filtroFind = users?.filter((ele) =>
-        ele.tecnologias?.includes(filterTecnologies.toString())
-      );
-      // const filtroFind = users?.find((ele) =>
-      //   ele.tecnologias?.includes(filterTecnologies.toString())
-      // );
-      // const filtro2 = Object.entries(filtroFind);
-      console.log(filtroFind, "FILTER");
+      if (filterServices?.length !== 0)
+        filtro = [...state.allUsers]?.filter((ele) =>
+          ele.servicios?.includes(filterServices.toString())
+        );
+
+      if (filterLanguajes?.length !== 0)
+        filtro = [...state.allUsers]?.filter((ele) =>
+          ele.lenguajes?.includes(filterLanguajes.toString())
+        );
 
       return {
         ...state,
-        filteredUsers:
-          filterTecnologies.length === 0 ? [...state.allUsers] : filtroFind,
+        filteredUsers: filtro,
       };
     default:
       return state;

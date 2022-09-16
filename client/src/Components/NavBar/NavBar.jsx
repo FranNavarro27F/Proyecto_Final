@@ -3,7 +3,7 @@ import s from "../NavBar/NavBar.module.css";
 import Select from "react-select";
 import { HiOutlineSearch } from "react-icons/hi";
 import { getCountries } from "../../Redux/Actions/Countries";
-import { getTechnologies } from "../../Redux/Actions/Technologies";
+
 import { getServices } from "../../Redux/Actions/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
@@ -11,71 +11,41 @@ import { useState } from "react";
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
 
+import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
+import FIlterServices from "../Filters & Orders/Filters/FilterServices";
+import FIlterLenguajes from "../Filters & Orders/Filters/FeilterLenguajes";
+
 export default function NavBar() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsersBd());
     dispatch(getCountries());
-    dispatch(getTechnologies());
+    dispatch(getTecnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
   }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
-  const services = useSelector((state) => state.services.allServices);
-  const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: [],
     filterServices: [],
     filterLanguajes: [],
   });
+
   const [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
 
-  const technologies = useSelector(
-    (state) => state.technologies.allTechnologies
-  );
-
-  const optionsTecnologias = technologies.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsServices = services.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsLanguajes = languajes.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
   const optionsCountries = countries.map((e) => {
     return {
       value: e.id,
       label: e.name,
     };
   });
-
-  const handleSelect = (e) => {
-    setActualFilter((state) => {
-      return {
-        ...state,
-        filterTecnologies: e.map((e) => e.label),
-      };
-    });
-    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  };
 
   return (
     <header>
@@ -88,15 +58,7 @@ export default function NavBar() {
           ></input>
           <HiOutlineSearch />
         </form>
-        <Select
-          className={s.select}
-          isDisabled={false}
-          options={optionsLanguajes}
-          isClearable={true}
-          isSearchable={true}
-          isMulti={true}
-          placeholder="Seleciona Lenguaje"
-        />
+
         <Select
           className={s.select}
           isDisabled={false}
@@ -106,24 +68,17 @@ export default function NavBar() {
           isMulti={true}
           placeholder="Seleciona Paises"
         />
-        <Select
-          className={s.select}
-          isDisabled={false}
-          options={optionsServices}
-          isClearable={true}
-          isSearchable={true}
-          isMulti={true}
-          placeholder="Selecciona Servicios"
+
+        <FIlterLenguajes
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
         />
-        <Select
-          onChange={(e) => handleSelect(e)}
-          className={s.select}
-          isDisabled={false}
-          options={optionsTecnologias}
-          isClearable={true}
-          isSearchable={true}
-          isMulti={true}
-          placeholder="Selecciona tecnologias"
+
+        <FIlterServices setOrder={setOrder} setActualFilter={setActualFilter} />
+
+        <FIlterTecnologie
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
         />
 
         <button className={s.puntuacion}>Puntuación</button>
