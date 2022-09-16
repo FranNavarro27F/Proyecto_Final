@@ -1,4 +1,4 @@
-export let initialState = {
+export const initialState = {
   allUsers: [],
   filteredUsers: [],
 };
@@ -19,8 +19,13 @@ export default function devUser(state = initialState, action) {
       };
 
     case "FILTERS_ORDERS":
-      let { filterTecnologies, filterServices, filterLanguajes } =
-        action.payload;
+      let {
+        filterTecnologies,
+        filterServices,
+        filterLanguajes,
+        filterCountries,
+        OrderExp,
+      } = action.payload;
 
       let filtro = [...state.allUsers];
       if (filterTecnologies?.length !== 0)
@@ -38,8 +43,25 @@ export default function devUser(state = initialState, action) {
           ele.lenguajes?.includes(filterLanguajes.toString())
         );
 
-      //funcion_a(funcion_b(funcion_c(java)))
-      //funcion_a(funcion_b(javascript, funcion_c(java)))
+      if (filterCountries?.length !== 0)
+        filtro = [...filtro]?.filter((ele) =>
+          ele.country?.includes(filterCountries.toString())
+        );
+
+      //ORDENAMIENTOS
+      // "yearsOfExperience": 1,
+      //    "dailyBudget": 30,
+
+      if (OrderExp === "asc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience < b.yearsOfExperience ? -1 : 1
+        );
+      }
+      if (OrderExp === "dsc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
+        );
+      }
 
       return {
         ...state,
