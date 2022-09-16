@@ -58,8 +58,8 @@ const putPaises = async (id, name) => {
       {
         where: { id }
       })
-      console.log(`Country (${id}) update successfully`);
-    return `Country (${id}) update successfully`;
+      console.log(`Country (${id}) updated successfully`);
+    return `Country (${id}) updated successfully`;
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
