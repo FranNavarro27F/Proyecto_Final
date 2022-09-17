@@ -119,10 +119,14 @@ const postUsers = async (data) => {
     console.error(`ERROR @ controllers/postUsers --→ ${e}`);
   }
 };
+const toUperCase=(nombre)=>{
+  let nombree= nombre[0].toUpperCase()+nombre.slice(1);
+  return nombree;
+}
 
 const getUserById = async (id) => {
   try {
-    return await Usuarios.findByPk(id, {
+    let User= await Usuarios.findByPk(id, {
       include: [
         {
           model: Tecnologias,
@@ -141,6 +145,15 @@ const getUserById = async (id) => {
         },
       ],
     });
+
+    let userM=User.dataValues;
+    let nombrePais= (await Paises.findByPk(userM.paiseId)).dataValues.name;
+    userM.paiseId=nombrePais;
+    userM.name= toUperCase(userM.name);
+    userM.lastName= toUperCase(userM.lastName);
+    
+    return userM;
+
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
