@@ -1,10 +1,15 @@
-import React from "react";
 import s from "./FIlterCountries.module.css";
 
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-export default function FIlterCountries({ setActualFilter, setOrder }) {
+export default function FIlterCountries({
+  actualFilter,
+  setActualFilter,
+  setOrder,
+  defaultvalue,
+  defaultValueOption,
+}) {
   const countries = useSelector((state) => state.countries.allCountries);
 
   const optionsCountries = countries.map((e) => {
@@ -35,6 +40,7 @@ export default function FIlterCountries({ setActualFilter, setOrder }) {
         isSearchable={true}
         isMulti={true}
         placeholder="Seleciona un pais..."
+        defaultValue={defaultvalue === true ? defaultValueOption : false}
       />
     </div>
   );
