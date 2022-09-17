@@ -1,6 +1,8 @@
 export const initialState = {
   allUsers: [],
+  details: [],
   filteredUsers: [],
+
 };
 
 export default function devUser(state = initialState, action) {
@@ -25,6 +27,7 @@ export default function devUser(state = initialState, action) {
         filterLanguajes,
         filterCountries,
         OrderExp,
+        OrderBud,
       } = action.payload;
 
       let filtro = [...state.allUsers];
@@ -62,11 +65,23 @@ export default function devUser(state = initialState, action) {
           a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
         );
       }
+      if (OrderBud === "asc") {
+        filtro.sort((a, b) => (a.dailyBudget < b.dailyBudget ? -1 : 1));
+      }
+      if (OrderBud === "dsc") {
+        filtro.sort((a, b) => (a.dailyBudget > b.dailyBudget ? -1 : 1));
+      }
 
       return {
         ...state,
         filteredUsers: filtro,
       };
+
+      case "GET_USER_ID":
+        return{
+          ...state,
+          details: action.payload
+        }
     default:
       return state;
   }
