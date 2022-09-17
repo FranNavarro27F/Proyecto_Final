@@ -6,7 +6,6 @@ import s from "./FIlterTecnologie.module.css";
 
 export default function FIlterTecnologie({ setActualFilter, setOrder }) {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-  console.log(tecnologies);
 
   const optionsTecnologias = tecnologies.map((e) => {
     return {
@@ -28,6 +27,7 @@ export default function FIlterTecnologie({ setActualFilter, setOrder }) {
   return (
     <div>
       <Select
+        id="selectTecnologie"
         onChange={(e) => handleTecnologies(e)}
         className={s.select}
         isDisabled={false}

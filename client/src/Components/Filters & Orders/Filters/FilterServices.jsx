@@ -6,7 +6,7 @@ import Select from "react-select";
 
 export default function FIlterServices({ setActualFilter, setOrder }) {
   const services = useSelector((state) => state.services.allServices);
-  console.log(services);
+
   const optionsServices = services.map((e) => {
     return {
       value: e.id,

@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
-import Select from "react-select";
-import { HiOutlineSearch } from "react-icons/hi";
 import { getCountries } from "../../Redux/Actions/Countries";
-
 import { getServices } from "../../Redux/Actions/Services";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { useState } from "react";
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
-
+import { AiOutlineClear } from "react-icons/ai";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
 import FIlterServices from "../Filters & Orders/Filters/FilterServices";
-import FIlterLenguajes from "../Filters & Orders/Filters/FeilterLenguajes";
+import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
+import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
+import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
+import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -26,12 +27,14 @@ export default function NavBar() {
     dispatch(getLanguajes());
   }, [dispatch]);
 
-  const countries = useSelector((state) => state.countries.allCountries);
-
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: [],
     filterServices: [],
     filterLanguajes: [],
+    filterCountries: [],
+    OrderExp: "",
+    OrderBud: "",
+    name: "",
   });
 
   const [order, setOrder] = useState("");
@@ -40,38 +43,29 @@ export default function NavBar() {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
 
-  const optionsCountries = countries.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
+  const [defaultvalue, setDefaultValue] = useState(false);
+
+  const defaultValueOption = [
+    {
+      value: "",
+      label: "",
+    },
+  ];
 
   return (
     <header>
       <div className={s.divGen}>
-        <form>
-          <input
-            className={s.searchBar}
-            type="text"
-            placeholder="Search..."
-          ></input>
-          <HiOutlineSearch />
-        </form>
+        <SearchBar setActualFilter={setActualFilter} />
 
-        <Select
-          className={s.select}
-          isDisabled={false}
-          options={optionsCountries}
-          isClearable={true}
-          isSearchable={true}
-          isMulti={true}
-          placeholder="Seleciona Paises"
+        <FIlterCountries
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
         />
 
         <FIlterLenguajes
           setOrder={setOrder}
           setActualFilter={setActualFilter}
+          actualFilter={actualFilter}
         />
 
         <FIlterServices setOrder={setOrder} setActualFilter={setActualFilter} />
@@ -80,7 +74,20 @@ export default function NavBar() {
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
-
+        <OrderyearsOfExperience
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+        <OrderDailyBudget
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+        <button
+          className={s.buttonClear}
+          onClick={() => setDefaultValue(!defaultvalue)}
+        >
+          <AiOutlineClear />
+        </button>
         <button className={s.puntuacion}>Puntuación</button>
       </div>
     </header>
