@@ -41,6 +41,7 @@
 .errors {
   font-family: "Poppins";
   color: rgb(255, 0, 0);
+  min-height: 1rem;
 }
 
 .divGeneral {
@@ -216,4 +217,66 @@
   gap: 10px;
   height: auto;
   margin-bottom: 15px;
+}
+.buttonCreated1 {
+  box-sizing: border-box;
+  padding: 10px;
+  gap: 10px;
+  width: 20vh;
+  height: 5vh;
+  background: linear-gradient(101.81deg, #C961DE 25.84%, #3645A0 98.95%);
+  border-radius: 30px;
+  color: #FFFFFF;
+  font-family: 'Poppins';
+  font-weight: 700;
+  font-size: 16px;
+  align-items: center;
+  text-align: center;
+  line-height: 26px;
+  cursor: pointer;
+  border-width: 2px;
+  border-style: outset;
+  border-color: black;
+  color: rgb(0, 0, 0);
+}
+.buttonCreated1:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.buttonCreated2 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 20vh;
+  height: 5vh;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  text-align: center;
+  color: #FFFFFF;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+}
+
+.buttonCreated2:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly
 }

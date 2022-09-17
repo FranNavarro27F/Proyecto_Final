@@ -576,13 +576,15 @@ export default function DevUsersCreate() {
         </div>
         <div className={s.buttons}>
           <button
-            className={s.buttonCreated1}
+            className={s.buttonCreated2}
             disabled={disabledButton}
             onClick={(e) => handleCreate(e)}
           >
             <span className={s.button_top}> CREAR PERFIL</span>
           </button>
-          <button className={s.buttonCreated2} onClick={(e) => handleReset(e)}>
+          <button 
+            className={s.buttonCreated1}
+            onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
         </div>
