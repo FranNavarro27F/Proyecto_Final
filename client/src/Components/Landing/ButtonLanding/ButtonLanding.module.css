@@ -30,7 +30,9 @@ cursor: pointer;
     margin-left: 37%;
 
 }
-
+.link{
+    text-decoration: none;
+}
 .buttonLg{
 box-sizing: border-box;
 display: flex;

@@ -12,8 +12,8 @@ export default function ButtonLanding() {
           </Link>
           </div>
         <div className={s.possitionLg}>
-          <Link to='/home'>
-          <button className={s.buttonLg}>Home</button>
+          <Link className={s.link} to='/home' >
+          <button className={s.buttonLg}>Ingresar</button>
           </Link>
           </div>
     </div>

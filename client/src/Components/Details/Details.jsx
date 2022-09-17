@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -30,7 +30,7 @@ export default function Details() {
     // }
 
    return (
-    <div>
+    <div className={s.sideM}>
       <SideMenu/>
      <div className={s.backGroundDiv}>
       <div className={s.girlCelu}>
@@ -114,7 +114,18 @@ export default function Details() {
     }</h2>
     {/* [0].toUpperCase()+ user.name.slice(1) + ' '//[0].toUpperCase()+ user.lastName.slice(1)} */}
       <br/>
-      <img>{user.profilePicture}</img>
+    <div className={s.imageBox} >
+      {/* <img >{user?.profilePicture}</img> */}
+
+      { user.profilePicture ? (
+              <img className={s.imgRender} />
+            ) : (
+              <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
+              </svg>
+            )}
+
+      </div>
       <br/>
       <span>Email: </span> 
     <span>{user.email}</span>
@@ -125,7 +136,7 @@ export default function Details() {
     <span>Servicios: </span>
     <span>{user.servicios?.map(s=>s.name)}</span>
     <br/>
-    <span>LinkedIn: </span>
+    <a>LinkedIn: </a>
     <span>{user.linkedIn}</span>
     <br/>
     <span>Tecologias: </span>
@@ -142,6 +153,12 @@ export default function Details() {
     <br/>
     <span>Presupuesto por hora: </span>
     <span>{user.dailyBudget}</span>
+    </div>
+    <div>
+      <Link to = ''>
+    <button className={s.buttonL}>Contactame!</button>
+    
+    </Link>
     </div>
     </div>
   </div>
