@@ -68,7 +68,7 @@ export default function DevUsersCreate() {
       })
     );
     setCache({
-      ...input,
+      ...cache,
       [e.target.name]: e.target.value,
     });
   };
@@ -250,13 +250,13 @@ export default function DevUsersCreate() {
 
   return (
     <div className={s.divGeneral}>
-      <SideMenu />
+      {/* <SideMenu /> */}
       <div className={s.divForm}>
         <form className={s.inputForm} action="">
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Nombre..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -270,7 +270,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Apellido..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -577,9 +577,7 @@ export default function DevUsersCreate() {
           >
             <span className={s.button_top}> CREAR PERFIL</span>
           </button>
-          <button 
-            className={s.buttonCreated1}
-            onClick={(e) => handleReset(e)}>
+          <button className={s.buttonCreated1} onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
         </div>

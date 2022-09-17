@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
 import CantidadDePaginas from "../Paged/Cantidad De Paginas/CantidadDePaginas";
 import Paged from "../Paged/Paged";
+import SideMenu from "../Landing/SideMenu/SideMenu";
 
 export default function Work() {
   const dispatch = useDispatch();
@@ -25,8 +26,9 @@ export default function Work() {
   const currentDev = usersDb.slice(indexOfFirstDev, indexOfLastDev);
   console.log(currentDev, "aaaaa");
   return (
-    <div className={s.body}>
-      <NavBar />
+    <main className={s.body}>
+      <NavBar className={s.navMenu} />
+      {/* <SideMenu className={s.sideMenu} /> */}
       <div className={s.cardsContainer}>
         {currentDev?.map((e) => {
           return (
@@ -52,7 +54,7 @@ export default function Work() {
         <CantidadDePaginas className={s.cantPage} />
         <Paged allDev={usersDb.length} />
       </div>
-    </div>
+    </main>
     //aa
   );
 }
