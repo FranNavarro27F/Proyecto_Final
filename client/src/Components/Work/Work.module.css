@@ -6,12 +6,15 @@
 }
 .cardsContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin-bottom: 1.5rem;
   min-width: 1220px;
   min-height: 570px;
   padding: 1rem;
-  gap: 2rem;
+  /* gap: 2rem; */
+  margin-left: 10vh;
+}
+.sideMenu {
 }
 
 .linkCard {
