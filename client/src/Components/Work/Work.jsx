@@ -28,7 +28,9 @@ export default function Work() {
   return (
     <main className={s.body}>
       <NavBar className={s.navMenu} />
-      {/* <SideMenu className={s.sideMenu} /> */}
+      <div className={s.sideMenu}>
+        <SideMenu />
+      </div>
       <div className={s.cardsContainer}>
         {currentDev?.map((e) => {
           return (
@@ -46,13 +48,13 @@ export default function Work() {
                 email={e.email}
                 id={e.id}
               />
-
-              <div className={s.paginado}></div>
             </div>
           );
         })}
-        <CantidadDePaginas className={s.cantPage} />
-        <Paged allDev={usersDb.length} />
+        <div className={s.paginado}>
+          <CantidadDePaginas className={s.cantPage} />
+          <Paged allDev={usersDb.length} />
+        </div>
       </div>
     </main>
     //aa

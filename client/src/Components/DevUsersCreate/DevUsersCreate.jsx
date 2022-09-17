@@ -250,7 +250,7 @@ export default function DevUsersCreate() {
 
   return (
     <div className={s.divGeneral}>
-      {/* <SideMenu /> */}
+      <SideMenu />
       <div className={s.divForm}>
         <form className={s.inputForm} action="">
           <div className={s.inputContainer}>
