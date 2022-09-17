@@ -17,29 +17,29 @@ export default function SideMenu() {
             <path
               d="M-1 16H29C56.6142 16 79 38.3858 79 66V666C79 693.614 56.6142 716 29 716H-1V16Z"
               fill="white"
-              fill-opacity="0.4"
+              fillOpacity="0.4"
             />
             <g filter="url(#filter1_d_12_166)">
               <path
                 d="M-1 16H29C56.6142 16 79 38.3858 79 66V249.331C79 257.575 76.4526 265.618 71.7064 272.359L31.9082 328.884C18.9641 347.268 19.8833 372.032 34.1549 389.406L69.9091 432.933C75.787 440.088 79 449.062 79 458.322V666C79 693.614 56.6142 716 29 716H-1V366V16Z"
                 fill="white"
-                fill-opacity="0.4"
-                shape-rendering="crispEdges"
+                fillOpacity="0.4"
+                shapeRendering="crispEdges"
               />
             </g>
-            <NavLink to="/about">
+            <NavLink to="/">
               <path
                 d="M39 112.19L44 116.69V124.5H42V118.5H36V124.5H34V116.69L39 112.19ZM39 109.5L29 118.5H32V126.5H38V120.5H40V126.5H46V118.5H49L39 109.5Z"
                 fill="#0F103F"
               />
             </NavLink>
-            <NavLink to="/about">
+            <NavLink to="/work">
               <path
                 d="M39 235.9C40.16 235.9 41.1 236.84 41.1 238C41.1 239.16 40.16 240.1 39 240.1C37.84 240.1 36.9 239.16 36.9 238C36.9 236.84 37.84 235.9 39 235.9ZM39 244.9C41.97 244.9 45.1 246.36 45.1 247V248.1H32.9V247C32.9 246.36 36.03 244.9 39 244.9ZM39 234C36.79 234 35 235.79 35 238C35 240.21 36.79 242 39 242C41.21 242 43 240.21 43 238C43 235.79 41.21 234 39 234ZM39 243C36.33 243 31 244.34 31 247V250H47V247C47 244.34 41.67 243 39 243Z"
                 fill="#0F103F"
               />
             </NavLink>
-            <NavLink to="/about">
+            <NavLink to="/work">
               <path
                 d="M47 360.5H43V358.5C43 357.39 42.11 356.5 41 356.5H37C35.89 356.5 35 357.39 35 358.5V360.5H31C29.89 360.5 29.01 361.39 29.01 362.5L29 373.5C29 374.61 29.89 375.5 31 375.5H47C48.11 375.5 49 374.61 49 373.5V362.5C49 361.39 48.11 360.5 47 360.5ZM41 360.5H37V358.5H41V360.5Z"
                 fill="white"
@@ -66,9 +66,9 @@ export default function SideMenu() {
               width="120"
               height="740"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feGaussianBlur in="BackgroundImage" stdDeviation="10" />
               <feComposite
                 in2="SourceAlpha"
@@ -89,9 +89,9 @@ export default function SideMenu() {
               width="120"
               height="740"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              rpolation-filters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
