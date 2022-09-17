@@ -256,7 +256,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Nombre..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -270,7 +270,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Apellido..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -427,10 +427,10 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            defaultValue={[
-              { value: cache?.countries, label: cache?.countriesLabel },
-            ]}
-            set-value={cache?.countrie}
+            // defaultValue={[
+            //   { value: cache?.countries, label: cache?.countriesLabel },
+            // ]}
+            set-value={cache?.countries}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -477,7 +477,7 @@ export default function DevUsersCreate() {
             isClearable={true}
             isSearchable={true}
             isMulti={true}
-            placeholder="Selecciona una tecnologia"
+            placeholder="Selecciona una tecnología"
             onChange={(e) => {
               setInput({
                 ...input,

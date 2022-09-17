@@ -186,6 +186,7 @@
 .select {
   background-color: grey;
   background: grey;
+  min-height: 1rem;
 }
 
 .inputContainer {
@@ -234,9 +235,7 @@
   text-align: center;
   line-height: 26px;
   cursor: pointer;
-  border-width: 2px;
-  border-style: outset;
-  border-color: black;
+  border: 1px solid black;
   color: rgb(0, 0, 0);
 }
 .buttonCreated1:hover {
@@ -266,6 +265,7 @@
   line-height: 26px;
   cursor: pointer;
   color: rgb(0, 0, 0);
+  border: 1px solid black;
 }
 
 .buttonCreated2:hover {
@@ -278,5 +278,6 @@
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: space-evenly
+  justify-content: center;
+  gap: 15px;
 }
