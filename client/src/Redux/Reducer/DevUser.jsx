@@ -2,7 +2,8 @@ const initialState = {
   allUsers: [],
   details: [],
   filteredUsers: [],
-
+  page: 1,
+  devPerPage: 12,
 };
 
 export default function devUser(state = initialState, action) {
@@ -18,6 +19,18 @@ export default function devUser(state = initialState, action) {
         ...state,
         allUsers: action.payload,
         filteredUsers: action.payload,
+      };
+
+    case "SET_CURRENT_PAGE":
+      return {
+        ...state,
+        page: action.payload,
+      };
+
+    case "DEV_PER_PAGE":
+      return {
+        ...state,
+        devPerPage: action.payload,
       };
 
     case "FILTERS_ORDERS":
@@ -77,11 +90,11 @@ export default function devUser(state = initialState, action) {
         filteredUsers: filtro,
       };
 
-      case "GET_USER_ID":
-        return{
-          ...state,
-          details: action.payload
-        }
+    case "GET_USER_ID":
+      return {
+        ...state,
+        details: action.payload,
+      };
     default:
       return state;
   }
