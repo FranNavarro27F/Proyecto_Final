@@ -31,11 +31,7 @@ export default function DevUsersCreate() {
   const countries = useSelector((state) => state.countries.allCountries);
 
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-  console.log(
-    "aca",
-    tecnologies
-    // tecnologies?.filter((ele) => ele.id?.includes(cache.tecnologias.toString()))
-  );
+
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
