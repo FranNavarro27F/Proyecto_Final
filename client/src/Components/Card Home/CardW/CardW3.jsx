@@ -8,13 +8,13 @@ export default function CardW3() {
       <div className={s.backcard3}>
 <svg width="380" height="280" viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_b_39_329)">
-<rect width="380" height="280" rx="30" fill="url(#paint0_linear_39_329)" fill-opacity="0.4"/>
+<rect width="380" height="280" rx="30" fill="url(#paint0_linear_39_329)" fillOpacity="0.4"/>
 <rect x="51" y="15" width="262" height="186" fill="url(#pattern0)"/>
 <rect x="0.5" y="0.5" width="379" height="279" rx="29.5" stroke="url(#paint1_linear_39_329)" stroke-opacity="0.3"/>
 </g>
 <defs>
-<filter id="filter0_b_39_329" x="-20" y="-20" width="420" height="320" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_b_39_329" x="-20" y="-20" width="420" height="320" filterUnits="userSpaceOnUse" colornterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feGaussianBlur in="BackgroundImage" stdDeviation="10"/>
 <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_39_329"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_39_329" result="shape"/>

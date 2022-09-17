@@ -37,20 +37,19 @@ export default function DevUsersCreate() {
 
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache.name,
-    lastName: cache.lastName,
-    profilePicture: cache.profilePicture,
-    email: cache.email,
-    linkedIn: cache.linkedIn,
-    gitHub: cache.gitHub,
-    webSite: cache.webSite,
-    dailyBudget: cache.dailyBudget,
-    englishLevel: cache.englishLevel,
-    paiseId: cache.countries,
-    tecnologias: cache.tecnologias,
-    lenguajes: cache.lenguajes,
-    servicios: cache.servicios,
-    tecnologiasLabel: cache.tecnologiasLabel,
+    name: cache?.name? cache.name : "",
+    lastName: cache?.lastName? cache.lastName : "",
+     profilePicture: cache?.profilePicture? cache?.profilePicture :"",
+     email: cache?.email? cache?.email : "",
+    linkedIn: cache?.linkedIn? cache?.linkedIn : "",
+    gitHub: cache?.gitHub ? cache?.gitHub : "",
+    webSite: cache?.webSite? cache?.webSite: "",
+    dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
+    englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
+    paiseId: cache?.countries ? cache?.countries : [],
+    tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
+    lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
+    servicios: cache?.servicios ? cache?.servicios : [],
   });
 
   const handleChangeInput = (e) => {
@@ -274,7 +273,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.name}
+              value={cache?.name}
               name="name"
               className={s.inputName}
             />
@@ -288,7 +287,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.lastName}
+              value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
             />
@@ -303,7 +302,7 @@ export default function DevUsersCreate() {
               placeholder="https://..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.email}
+              value={cache?.email}
               name="profilePicture"
               className={s.inputImg}
             />
@@ -318,7 +317,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Email..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.email}
+              value={cache?.email}
               name="email"
               className={s.inputEmail}
             />
@@ -333,7 +332,7 @@ export default function DevUsersCreate() {
               placeholder="Tu LinkedIn..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.linkedIn}
+              value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
             />
@@ -348,7 +347,7 @@ export default function DevUsersCreate() {
               placeholder="Tu GitHub..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.gitHub}
+              value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
             />
@@ -363,7 +362,7 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.webSite}
+               value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
             />
@@ -379,7 +378,7 @@ export default function DevUsersCreate() {
               max="99"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.yearsOfExperience}
+              value={cache?.yearsOfExperience}
               name="yearsOfExperience"
               className={s.inputExperience}
             />
@@ -395,7 +394,7 @@ export default function DevUsersCreate() {
               max="999"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache.dailyBudget}
+              value={cache?.dailyBudget}
               name="dailyBudget"
               className={s.inputPrice}
             />
@@ -412,7 +411,7 @@ export default function DevUsersCreate() {
               min="1"
               max="5"
               onChange={(e) => handleChangeEnglish(e)}
-              // value={`${cache.englishLevel}`}
+              value={`${cache?.englishLevel}`}
               name="englishLevel"
               defaultValue="1"
               className={s.inputEnglish}
@@ -441,7 +440,7 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            set-value={cache.countrie}
+            set-value={cache?.countrie}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -475,7 +474,14 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
+<<<<<<< HEAD
             set-value={cache.tecnologias}
+=======
+            // defaultValue={optionsTecnologias.filter(
+            //   (e) => e.id === cache.tecnologias.toString()
+            // )}
+            set-value={cache?.tecnologias}
+>>>>>>> dev
             className={s.select}
             isDisabled={false}
             options={optionsTecnologias}
@@ -511,7 +517,7 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            set-value={cache.lenguajes}
+            set-value={cache?.lenguajes}
             className={s.select}
             isDisabled={false}
             options={optionsLanguajes}
@@ -545,7 +551,7 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            set-value={cache.servicios}
+            set-value={cache?.servicios}
             className={s.select}
             isDisabled={false}
             options={optionsServices}
