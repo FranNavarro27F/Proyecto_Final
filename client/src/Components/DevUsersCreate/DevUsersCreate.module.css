@@ -1,4 +1,5 @@
-.inputContainer > p, .inputContainer > input {
+.inputContainer > p,
+.inputContainer > input {
   font-size: 18px;
   font-weight: 800;
   font-family: "Poppins";
@@ -17,32 +18,39 @@
   color: rgb(0, 0, 0);
 }
 
-
 .ingles1 {
+  font-family: "Poppins";
   color: rgb(7, 207, 0);
 }
 .ingles2 {
+  font-family: "Poppins";
   color: rgb(187, 255, 0);
 }
 .ingles3 {
+  font-family: "Poppins";
   color: rgb(238, 255, 0);
 }
 .ingles4 {
+  font-family: "Poppins";
   color: rgb(250, 150, 1);
 }
 .ingles5 {
+  font-family: "Poppins";
+  color: rgb(255, 0, 0);
+}
+.errors {
+  font-family: "Poppins";
   color: rgb(255, 0, 0);
 }
 
- .divGeneral {
+.divGeneral {
   background: #0f103f;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-} 
+}
 
 .inputForm {
   box-sizing: border-box;
@@ -65,7 +73,6 @@
   padding: 50px;
   flex-direction: row;
   flex-wrap: wrap;
-
 }
 .inputName {
   display: flex;
@@ -78,7 +85,7 @@
   border-color: hsl(0, 0%, 80%);
   width: 80%;
 }
-.inputLastname{
+.inputLastname {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -122,7 +129,7 @@
   border-color: hsl(0, 0%, 80%);
   width: 80%;
 }
-.inputGithub{
+.inputGithub {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -143,7 +150,6 @@
   border-radius: 10px;
   border-color: hsl(0, 0%, 80%);
   width: 80%;
-    
 }
 .inputExperience {
   display: flex;
@@ -154,7 +160,6 @@
   box-shadow: 0px 10px 20px rgba(2, 4, 6, 0.15);
   border-radius: 10px;
   border-color: hsl(0, 0%, 80%);
-  
 }
 .inputPrice {
   display: flex;
@@ -198,14 +203,12 @@
   flex-direction: column;
   align-items: flex-start;
   margin: 10px 0 20px 0;
-
 }
 
 .divEnglishLevel {
   display: flex;
   align-items: center;
   gap: 16px;
-
 }
 .divSelectContainer {
   display: flex;

@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
-import Select from "react-select";
-import { HiOutlineSearch } from "react-icons/hi";
 import { getCountries } from "../../Redux/Actions/Countries";
-
 import { getServices } from "../../Redux/Actions/Services";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { useState } from "react";
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
@@ -18,6 +15,7 @@ import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
 import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
 import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
 import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -36,6 +34,7 @@ export default function NavBar() {
     filterCountries: [],
     OrderExp: "",
     OrderBud: "",
+    name: "",
   });
 
   const [order, setOrder] = useState("");
@@ -54,14 +53,7 @@ export default function NavBar() {
   return (
     <header>
       <div className={s.divGen}>
-        <form>
-          <input
-            className={s.searchBar}
-            type="text"
-            placeholder="Search..."
-          ></input>
-          <HiOutlineSearch />
-        </form>
+        <SearchBar setActualFilter={setActualFilter} />
 
         <FIlterCountries
           setOrder={setOrder}
