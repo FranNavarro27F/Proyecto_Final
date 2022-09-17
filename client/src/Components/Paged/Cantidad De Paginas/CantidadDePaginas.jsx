@@ -13,7 +13,7 @@ export default function CantidadDePaginas() {
   };
   return (
     <div className={s.containerPages}>
-      <label> Devs por pagina</label>
+      <label> Ver</label>
       <select onChange={(e) => handlerPage(e)}>
         <option value="5">5</option>
         <option value="10">10</option>

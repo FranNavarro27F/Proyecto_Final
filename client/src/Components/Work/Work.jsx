@@ -51,10 +51,10 @@ export default function Work() {
             </div>
           );
         })}
-        <div className={s.paginado}>
-          <CantidadDePaginas className={s.cantPage} />
-          <Paged allDev={usersDb.length} />
-        </div>
+      </div>
+      <div className={s.paginado}>
+        <CantidadDePaginas className={s.cantPage} />
+        <Paged className={s.paged} allDev={usersDb.length} />
       </div>
     </main>
     //aa

@@ -15,8 +15,31 @@
   padding: 1rem;
   /* gap: 2rem; */
   margin-left: 12vh;
+  margin-top: 1vh;
 }
 
 .linkCard {
   text-decoration: none;
+}
+.paginado {
+  border-start-end-radius: 20rem;
+  border-start-start-radius: 20rem;
+  height: 7vh;
+  width: 100vh;
+  position: fixed;
+  display: flex;
+  top: 95vh;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50vh;
+  /* opacity: 0.3; */
+  background-color: rgba(255, 255, 255, 0.523);
+  font-family: "Poppins";
+}
+.cantPage {
+  display: flex;
+}
+.paged {
+  float: left;
+  display: flex;
 }
