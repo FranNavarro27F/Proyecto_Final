@@ -34,8 +34,8 @@ conn.sync({ force: false }).then(() => {
   server.listen(process.env.PORT || PORT, async () => {
   
     console.log('%s listening at 3001'); // eslint-disable-line no-console
+    
     await jsonPaises();
-
     await guardarTecnologiasDB();
     await guardarServiciosEnDB();
     await saveLanguages();
