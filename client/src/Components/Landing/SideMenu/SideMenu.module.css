@@ -1,5 +1,6 @@
 
 .backMenu{
+    z-index: 8;
  position: fixed;
 left: 0px;
 top: 0px;
@@ -7,8 +8,8 @@ width: 80vh;
 height: 70vh;
 border-radius: 25%;
 
-
 }
+
 .buttonHome{
     background: none;
     border: none;
