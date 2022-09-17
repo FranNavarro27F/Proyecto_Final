@@ -427,10 +427,10 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            defaultValue={[
-              { value: cache?.countries, label: cache?.countriesLabel },
-            ]}
-            set-value={cache?.countrie}
+            // defaultValue={[
+            //   { value: cache?.countries, label: cache?.countriesLabel },
+            // ]}
+            set-value={cache?.countries}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -477,7 +477,7 @@ export default function DevUsersCreate() {
             isClearable={true}
             isSearchable={true}
             isMulti={true}
-            placeholder="Selecciona una tecnologia"
+            placeholder="Selecciona una tecnología"
             onChange={(e) => {
               setInput({
                 ...input,
