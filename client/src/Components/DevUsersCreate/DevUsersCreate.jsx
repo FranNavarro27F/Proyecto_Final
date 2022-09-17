@@ -50,6 +50,7 @@ export default function DevUsersCreate() {
     tecnologias: cache.tecnologias,
     lenguajes: cache.lenguajes,
     servicios: cache.servicios,
+    tecnologiasLabel: cache.tecnologiasLabel,
   });
 
   const handleChangeInput = (e) => {
@@ -474,9 +475,6 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            // defaultValue={optionsTecnologias.filter(
-            //   (e) => e.id === cache.tecnologias.toString()
-            // )}
             set-value={cache.tecnologias}
             className={s.select}
             isDisabled={false}
@@ -489,6 +487,7 @@ export default function DevUsersCreate() {
               setInput({
                 ...input,
                 tecnologias: e.map((ele) => ele.value),
+                tecnologiasLabel: e.map((ele) => ele.label),
               });
               setErrors(
                 validaciones({
@@ -499,6 +498,7 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 tecnologias: e.map((ele) => ele.value),
+                tecnologiasLabel: e.map((ele) => ele.label),
               });
             }}
           />
