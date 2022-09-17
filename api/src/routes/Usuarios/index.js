@@ -5,6 +5,7 @@ const {
   postUsers,
   getUserById,
   deleteUser,
+  getUserByName,
 } = require("../../controllers/Usuarios");
 
 const router = Router();
@@ -15,8 +16,12 @@ const PATH = "/usuarios";
 
 router.get("/", async (req, res) => {
   try {
-    let usuarios = await getUsers();
-    res.json(usuarios);
+    let {name}=req.query;
+    if(name){
+      res.json(await getUserByName(name))
+    }else{
+      res.json(await getUsers());
+    }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
@@ -56,5 +61,6 @@ router.delete("/:id", async (req, res) => {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
+
 
 module.exports = router;

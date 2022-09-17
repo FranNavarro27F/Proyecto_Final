@@ -1,6 +1,8 @@
-export let initialState = {
+const initialState = {
   allUsers: [],
+  details: [],
   filteredUsers: [],
+
 };
 
 export default function devUser(state = initialState, action) {
@@ -19,8 +21,14 @@ export default function devUser(state = initialState, action) {
       };
 
     case "FILTERS_ORDERS":
-      let { filterTecnologies, filterServices, filterLanguajes } =
-        action.payload;
+      let {
+        filterTecnologies,
+        filterServices,
+        filterLanguajes,
+        filterCountries,
+        OrderExp,
+        OrderBud,
+      } = action.payload;
 
       let filtro = [...state.allUsers];
       if (filterTecnologies?.length !== 0)
@@ -38,13 +46,42 @@ export default function devUser(state = initialState, action) {
           ele.lenguajes?.includes(filterLanguajes.toString())
         );
 
-      //funcion_a(funcion_b(funcion_c(java)))
-      //funcion_a(funcion_b(javascript, funcion_c(java)))
+      if (filterCountries?.length !== 0)
+        filtro = [...filtro]?.filter((ele) =>
+          ele.country?.includes(filterCountries.toString())
+        );
+
+      //ORDENAMIENTOS
+      // "yearsOfExperience": 1,
+      //    "dailyBudget": 30,
+
+      if (OrderExp === "asc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience < b.yearsOfExperience ? -1 : 1
+        );
+      }
+      if (OrderExp === "dsc") {
+        filtro.sort((a, b) =>
+          a.yearsOfExperience > b.yearsOfExperience ? -1 : 1
+        );
+      }
+      if (OrderBud === "asc") {
+        filtro.sort((a, b) => (a.dailyBudget < b.dailyBudget ? -1 : 1));
+      }
+      if (OrderBud === "dsc") {
+        filtro.sort((a, b) => (a.dailyBudget > b.dailyBudget ? -1 : 1));
+      }
 
       return {
         ...state,
         filteredUsers: filtro,
       };
+
+      case "GET_USER_ID":
+        return{
+          ...state,
+          details: action.payload
+        }
     default:
       return state;
   }

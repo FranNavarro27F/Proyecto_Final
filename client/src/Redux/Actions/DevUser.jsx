@@ -42,3 +42,15 @@ export function getDevUsers(payload){
     }
   }
 }
+
+export function getUserId(id){
+return async function(dispatch){
+  console.log("aca")
+  const userId = (await axios.get(`/usuarios/${id}`)).data;
+  console.log(userId)
+  return dispatch({
+    type: "GET_USER_ID",
+    payload: userId
+  })
+}
+}
