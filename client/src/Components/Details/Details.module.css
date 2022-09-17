@@ -1,0 +1,50 @@
+.backGroundDiv{
+    background-color: #0F103F;
+   width: 1440px;
+height: 1024px;
+left: 0px;
+top: 912px;
+
+}
+.divBox{
+    box-sizing: border-box; 
+
+position: absolute;
+width: 900px;
+height: 600px;
+left: 350px;
+top: 212px; 
+
+background: rgba(47, 47, 138, 0.6);
+border-radius: 30px;
+}
+.textBox{
+    width: 224px;
+height: 120px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 143.2%;
+color: #FFFFFF;
+z-index: 1;
+
+}
+.girlCelu{
+position: absolute;
+width: 400px;
+height: 900px;
+
+}
+.diamantitos{
+    z-index: 3;
+    
+    background: radial-gradient(28% 38% at 52.85% 47.9%, rgba(135, 132, 255, 0.8) 7.29%, rgba(61, 13, 250, 0) 100%);
+    mix-blend-mode: luminosity;
+    
+    position: absolute;
+    width: 50vh;
+    height: 40vh;
+    left: 155vh;
+    top: 80vh;
+}
