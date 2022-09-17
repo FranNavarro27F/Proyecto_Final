@@ -1,0 +1,8 @@
+.searchBar {
+  width: 400px;
+  height: 4vh;
+  border-radius: 4px;
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
+  border: none;
+}
