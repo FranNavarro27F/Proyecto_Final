@@ -29,12 +29,12 @@ const { saveLanguages } = require('./src/controllers/Lenguajes/index')
 // Syncing all the models at once.
 
 conn.sync({ force: false }).then(() => {
-  const PORT= 3001;
+  const PGPORT= 3001;
 
-  server.listen(process.env.PORT || PORT, async () => {
+  server.listen(process.env.PGPORT || PGPORT, async () => {
   
     console.log('%s listening at 3001'); // eslint-disable-line no-console
-    
+
     await jsonPaises();
     await guardarTecnologiasDB();
     await guardarServiciosEnDB();
