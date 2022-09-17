@@ -5,7 +5,7 @@ const {
   Servicios,
   Paises,
 } = require("../../db.js");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Usuarios";
 
@@ -155,6 +155,19 @@ const deleteUser = async (id) => {
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
+};
+
+const getUserByName = async (name) => {
+  try {
+    let userByName= await Usuarios.findAll({
+      where:{
+        name:{ [Op.iLike]: `%${name}%` }
+      }
+    });
+    return userByName;
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+  }
 }
 
-module.exports = { getUsers, postUsers, getUserById, deleteUser};
+module.exports = { getUsers, postUsers, getUserById, deleteUser, getUserByName};
