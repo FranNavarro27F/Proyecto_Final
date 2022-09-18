@@ -1,21 +1,21 @@
-import React from 'react';
-import s from './ButtonLanding.module.css';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import s from "./ButtonLanding.module.css";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../../Login/LoginButton";
 
 export default function ButtonLanding() {
+  const { loginWithRedirect } = useAuth0;
   return (
     <div>
+      <Link to={"/work"}>
         <div className={s.possitionL}>
-          <Link to={'/work'}>
           <button className={s.buttonL}>Work</button>
-          </Link>
-          </div>
-        <div className={s.possitionLg}>
-          <Link className={s.link} to='/home' >
-          <button className={s.buttonLg}>Ingresar</button>
-          </Link>
-          </div>
+        </div>
+      </Link>
+      <div className={s.possitionLg}>
+        <LoginButton />
+      </div>
     </div>
-  )
+  );
 }

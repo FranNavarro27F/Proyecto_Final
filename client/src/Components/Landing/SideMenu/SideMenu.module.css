@@ -11,7 +11,13 @@
   width: 9.7vh;
   height: 78vh;
 }
-
+/* .iconHome {
+  background-color: red;
+  width: 10rem;
+  color: red;
+  position: absolute;
+  margin-top: 10vh;
+} */
 .svg:hover,
 .svg:focus {
   transition: 0.6s;
