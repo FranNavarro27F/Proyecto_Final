@@ -1,6 +1,8 @@
 .container {
   padding-top: 1vh;
   background-color: #2f2f8a;
+  border-bottom-right-radius: 13%;
+  border-bottom-left-radius: 13%;
 }
 .divGen {
   display: flex;
