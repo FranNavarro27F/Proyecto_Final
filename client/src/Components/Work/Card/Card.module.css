@@ -14,7 +14,8 @@
   color: #fff;
   font-family: "Poppins", sans-serif;
   transition: all 0.3s ease;
-  margin-top: 4vh;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 
 .card_client:hover {

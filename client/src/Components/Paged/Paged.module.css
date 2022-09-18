@@ -2,7 +2,6 @@
 .button {
   font-family: "Poppins";
   border-radius: 10px;
-  color: #0f103f;
   background-color: rgba(0, 0, 0, 0);
   margin-right: 0.3vw;
   width: 2vw;
@@ -13,6 +12,14 @@
   cursor: pointer;
   font-size: 2vh;
 }
+
+.buttonPaged2 {
+  color: #732f80da;
+}
+.button {
+  color: #c961deda;
+}
+
 .buttonPaged2:disabled,
 .button:disabled {
   cursor: default;
