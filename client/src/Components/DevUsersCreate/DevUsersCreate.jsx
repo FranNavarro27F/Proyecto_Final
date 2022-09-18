@@ -15,6 +15,7 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const animatedComponents = makeAnimated();
 
@@ -264,7 +265,11 @@ export default function DevUsersCreate() {
     }
   }, [errors, input, setDisabledButton]);
 
-  return (
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+  return !isAuthenticated ? (
+    loginWithRedirect()
+  ) : (
     <div className={s.divGeneral}>
       <SideMenu />
       <div className={s.divForm}>
