@@ -14,7 +14,7 @@ export default function ButtonLanding() {
         </div>
       </Link>
 
-      {isAuthenticated ? (
+      {!isAuthenticated ? (
         <div className={s.possitionLg}>
           <LoginButton />
         </div>
