@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import s from "./OrderDailyBudget.module.css";
 
-export default function OrderDailyBudget({ setActualFilter, setOrder }) {
+export default function OrderDailyBudget({
+  setActualFilter,
+  customStyles,
+  setOrder,
+}) {
   const optionsOrderBudget = [
     { value: "default", label: "Todos" },
     { value: "asc", label: "Mayor costo diario" },
@@ -33,6 +37,7 @@ export default function OrderDailyBudget({ setActualFilter, setOrder }) {
         isSearchable={false}
         isMulti={false}
         placeholder="Ordenar por costo diario"
+        styles={customStyles}
       />
     </div>
   );

@@ -4,7 +4,11 @@ import s from "./FIlterServices.module.css";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-export default function FIlterServices({ setActualFilter, setOrder }) {
+export default function FIlterServices({
+  setActualFilter,
+  customStyles,
+  setOrder,
+}) {
   const services = useSelector((state) => state.services.allServices);
 
   const optionsServices = services.map((e) => {
@@ -35,6 +39,7 @@ export default function FIlterServices({ setActualFilter, setOrder }) {
         isSearchable={true}
         isMulti={true}
         placeholder="Filtra por servicios..."
+        styles={customStyles}
       />
     </div>
   );
