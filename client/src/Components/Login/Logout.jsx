@@ -1,8 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import s from "./LoginButton.module.css";
+import s from "./Logout.module.css";
 
-const LoginButton = () => {
+const Logout = () => {
   const { logout } = useAuth0();
 
   return (
@@ -10,9 +10,9 @@ const LoginButton = () => {
       onClick={() => logout({ returnTo: window.location.origin })}
       className={s.buttonLg}
     >
-      <span> Ingresar</span>
+      <span>Salir</span>
     </button>
   );
 };
 
-export default LoginButton;
+export default Logout;
