@@ -87,6 +87,8 @@ export default function NavBar() {
           className={s.buttonClear}
           onClick={() => setDefaultValue(!defaultvalue)}
         >
+          {" "}
+          LIMPIAR FILTROS
           <AiOutlineClear />
         </button>
 
