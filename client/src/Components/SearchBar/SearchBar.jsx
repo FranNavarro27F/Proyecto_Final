@@ -17,8 +17,12 @@ export default function SearchBar({ setActualFilter }) {
   const handleOnSubmit = (e) => {};
 
   return (
-    <div>
+    <div className={s.bodySearch}>
       <form>
+        <span>
+          <HiOutlineSearch />
+        </span>
+
         <input
           className={s.searchBar}
           type="text"
@@ -26,7 +30,6 @@ export default function SearchBar({ setActualFilter }) {
           onChange={handleInputChange}
           value={searchedCountry.value}
         ></input>
-        <HiOutlineSearch />
       </form>
     </div>
   );
