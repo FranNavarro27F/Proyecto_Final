@@ -15,12 +15,12 @@ export default function ButtonLanding() {
       </Link>
 
       {!isAuthenticated ? (
-        <div className={s.possitionLg}>
+        <div>
           <LoginButton />
         </div>
       ) : (
         <Link to={"/create"}>
-          <div className={s.possitionLg}>
+          <div className={s.buttonLg}>
             <button className={s.buttonL}>Postularme</button>
           </div>
         </Link>
