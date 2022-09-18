@@ -16,6 +16,7 @@ import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
 import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
 import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
 import SearchBar from "../SearchBar/SearchBar";
+import Profile from "../Login/UserProfile/Profile";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ export default function NavBar() {
         >
           <AiOutlineClear />
         </button>
+
         {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>
     </header>
