@@ -16,8 +16,8 @@ axios.defaults.baseURL =
 ReactDOM.render(
   <BrowserRouter>
     <Auth0Provider
-      domain="dev-yd1bijzw.us.auth0.com"
-      clientId="v2zO15i25dP15Fq4EAbDWI7w2kQQHKR0"
+      domain="dev-usdtec3d.us.auth0.com"
+      clientId="ceUmQMblVekchZ1MJc9PiGzSmZarFExd"
       redirectUri={window.location.origin}
     >
       <Provider store={store}>
