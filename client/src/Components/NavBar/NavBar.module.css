@@ -3,13 +3,11 @@
 }
 .divGen {
   display: flex;
-
-  height: 10vh;
+  height: 8vh;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
-  margin-left: 30vw;
 }
 
 .puntuacion {
