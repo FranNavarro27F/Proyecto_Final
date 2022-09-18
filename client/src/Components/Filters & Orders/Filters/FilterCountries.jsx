@@ -30,7 +30,7 @@ export default function FIlterCountries({
   };
 
   return (
-    <div>
+    <div className={s.filterCountrie}>
       <Select
         onChange={(e) => handleCountries(e)}
         className={s.select}
@@ -39,7 +39,7 @@ export default function FIlterCountries({
         isClearable={true}
         isSearchable={true}
         isMulti={true}
-        placeholder="Seleciona un pais..."
+        placeholder="Filtra por país..."
         defaultValue={defaultvalue === true ? defaultValueOption : false}
       />
     </div>

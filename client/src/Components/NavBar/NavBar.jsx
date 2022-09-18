@@ -88,7 +88,7 @@ export default function NavBar() {
         >
           <AiOutlineClear />
         </button>
-        <button className={s.puntuacion}>Puntuación</button>
+        {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>
     </header>
   );

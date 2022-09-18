@@ -35,7 +35,7 @@ export default function FIlterTecnologie({ setActualFilter, setOrder }) {
         isClearable={true}
         isSearchable={true}
         isMulti={true}
-        placeholder="Selecciona tecnologias"
+        placeholder="Filtra por tecnología..."
       />
     </div>
   );

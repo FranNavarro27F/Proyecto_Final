@@ -34,7 +34,7 @@ export default function FIlterServices({ setActualFilter, setOrder }) {
         isClearable={true}
         isSearchable={true}
         isMulti={true}
-        placeholder="Selecciona servicios"
+        placeholder="Filtra por servicios..."
       />
     </div>
   );
