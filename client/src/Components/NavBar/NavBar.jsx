@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
+import logo from "../../Logo/Logo-Sin-Fondo.png";
 import { getCountries } from "../../Redux/Actions/Countries";
 import { getServices } from "../../Redux/Actions/Services";
 import { useDispatch } from "react-redux";
@@ -55,6 +56,7 @@ export default function NavBar() {
 
   return (
     <header>
+      <img src={logo} alt="programax" className={s.logo} />
       <div className={s.divGen}>
         <SearchBar setActualFilter={setActualFilter} />
 

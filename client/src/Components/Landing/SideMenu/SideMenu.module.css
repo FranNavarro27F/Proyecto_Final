@@ -7,6 +7,9 @@
   margin-top: 15vh;
 }
 
+.path {
+  cursor: pointer;
+}
 .svg {
   width: 9.7vh;
   height: 78vh;
