@@ -2,7 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import s from "./OrderyearsOfExperience.module.css";
 import Select from "react-select";
-export default function OrderyearsOfExperience({ setActualFilter, setOrder }) {
+export default function OrderyearsOfExperience({
+  setActualFilter,
+  customStyles,
+  setOrder,
+}) {
   const optionsOrderExp = [
     { value: "default", label: "Todos" },
     { value: "asc", label: "Mayor Experiencia" },
@@ -31,6 +35,7 @@ export default function OrderyearsOfExperience({ setActualFilter, setOrder }) {
         isSearchable={false}
         isMulti={false}
         placeholder="Ordenar por experiencia"
+        styles={customStyles}
       />
     </div>
   );

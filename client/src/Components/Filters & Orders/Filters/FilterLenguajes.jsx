@@ -4,7 +4,11 @@ import s from "./FIlterLenguajes.module.css";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
-export default function FIlterLenguajes({ setActualFilter, setOrder }) {
+export default function FIlterLenguajes({
+  setActualFilter,
+  customStyles,
+  setOrder,
+}) {
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const optionsLanguajes = languajes.map((e) => {
@@ -35,6 +39,7 @@ export default function FIlterLenguajes({ setActualFilter, setOrder }) {
         isSearchable={true}
         isMulti={true}
         placeholder="Filtra por lenguaje..."
+        styles={customStyles}
       />
     </div>
   );
