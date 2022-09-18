@@ -32,7 +32,7 @@ export default function OrderDailyBudget({ setActualFilter, setOrder }) {
         isClearable={false}
         isSearchable={false}
         isMulti={false}
-        placeholder="Ordenar por osto diario"
+        placeholder="Ordenar por costo diario"
       />
     </div>
   );
