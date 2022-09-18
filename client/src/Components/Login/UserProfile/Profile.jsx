@@ -6,7 +6,7 @@ import Logout from "../Logout";
 
 export default function Profile() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  console.log(user);
+  // console.log(user);
   if (isLoading) {
     return <div>Loading...</div>;
   }

@@ -4,11 +4,9 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 
 export default function FIlterCountries({
-  actualFilter,
   setActualFilter,
   setOrder,
-  defaultvalue,
-  defaultValueOption,
+
   customStyles,
 }) {
   const countries = useSelector((state) => state.countries.allCountries);
