@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
+import logo from "../../Logo/Logo-Sin-Fondo.png";
 import { getCountries } from "../../Redux/Actions/Countries";
 import { getServices } from "../../Redux/Actions/Services";
 import { useDispatch } from "react-redux";
@@ -38,59 +39,103 @@ export default function NavBar() {
     name: "",
   });
 
+  // const handleClear = () => {
+  //   setActualFilter({
+  //     filterTecnologies: [],
+  //     filterServices: [],
+  //     filterLanguajes: [],
+  //     filterCountries: [],
+  //     OrderExp: "",
+  //     OrderBud: "",
+  //     name: "",
+  //   });
+  //   setDefaultValue(!defaultvalue);
+  // };
+  // const [defaultvalue, setDefaultValue] = useState(false);
+
   const [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
 
-  const [defaultvalue, setDefaultValue] = useState(false);
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
 
-  const defaultValueOption = [
-    {
-      value: "",
-      label: "",
-    },
-  ];
+      background: "#85858566",
+      // match with the menu
+      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ? "#ca04f1" : "#c961de",
+      // Removes weird border around container
+      boxShadow: state.isFocused ? null : null,
+
+      "&:hover": {
+        // Overwrittes the different states of border
+        borderColor: state.isFocused ? "#cd03f5" : "blue",
+      },
+    }),
+    menu: (base) => ({
+      ...base,
+      // override border radius to match the box
+      borderRadius: 0,
+      // kill the gap
+      marginTop: 0,
+    }),
+    menuList: (base) => ({
+      ...base,
+      // kill the white space on first and last option
+      padding: 0,
+    }),
+  };
 
   return (
-    <header>
+    <header className={s.container}>
+      <img src={logo} alt="programax" className={s.logo} />
+      <SearchBar setActualFilter={setActualFilter} />
       <div className={s.divGen}>
-        <SearchBar setActualFilter={setActualFilter} />
-
         <FIlterCountries
           setOrder={setOrder}
           setActualFilter={setActualFilter}
+          // defaultvalue={defaultvalue}
+          customStyles={customStyles}
         />
 
         <FIlterLenguajes
           setOrder={setOrder}
           setActualFilter={setActualFilter}
           actualFilter={actualFilter}
+          customStyles={customStyles}
         />
 
-        <FIlterServices setOrder={setOrder} setActualFilter={setActualFilter} />
-
-        <FIlterTecnologie
+        <FIlterServices
+          customStyles={customStyles}
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
+
+        <FIlterTecnologie
+          customStyles={customStyles}
+          setOrder={setOrder}
+          setActualFilter={setActualFilter}
+        />
+
         <OrderyearsOfExperience
+          customStyles={customStyles}
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
         <OrderDailyBudget
           setOrder={setOrder}
+          customStyles={customStyles}
           setActualFilter={setActualFilter}
         />
-        <button
-          className={s.buttonClear}
-          onClick={() => setDefaultValue(!defaultvalue)}
-        >
-          {" "}
+
+        {/* <button className={s.buttonClear} onClick={() => handleClear()}>
           LIMPIAR FILTROS
           <AiOutlineClear />
-        </button>
+        </button> */}
 
         {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>
