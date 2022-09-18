@@ -1,31 +1,5 @@
-.divGen {
-  display: flex;
-  height: 10vh;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-evenly;
-  background-color: #2f2f8a;
-}
 .select {
-  width: 400px;
-  height: 4vh;
-  cursor: context-menu;
-}
-
-.searchBar {
-  width: 400px;
-  height: 4vh;
-  border-radius: 4px;
-  background-color: hsl(0, 0%, 100%);
-  border-color: hsl(0, 0%, 80%);
-  border: none;
-}
-
-.searchBar:focus {
-  border: none;
-}
-
-.puntuacion {
-  border-radius: 4px;
+  width: auto;
+  width: 12vw;
+  margin-right: 1vw;
 }

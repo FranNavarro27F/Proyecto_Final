@@ -1,8 +1,14 @@
+.bodySearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .searchBar {
-  width: 400px;
-  height: 4vh;
+  width: 40vw;
+  height: 3vh;
+  text-align: center;
   border-radius: 4px;
   background-color: hsl(0, 0%, 100%);
-  border-color: hsl(0, 0%, 80%);
+  border-color: hwb(0 80% 20%);
   border: none;
 }

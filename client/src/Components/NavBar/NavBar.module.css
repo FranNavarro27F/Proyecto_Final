@@ -1,31 +1,21 @@
+.container {
+  background-color: #2f2f8a;
+}
 .divGen {
   display: flex;
-  height: 10vh;
+  height: 8vh;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
-  justify-content: space-evenly;
-  background-color: #2f2f8a;
-}
-.select {
-  width: 400px;
-  height: 4vh;
-  cursor: context-menu;
-}
-
-.searchBar {
-  width: 400px;
-  height: 4vh;
-  border-radius: 4px;
-  background-color: hsl(0, 0%, 100%);
-  border-color: hsl(0, 0%, 80%);
-  border: none;
-}
-
-.searchBar:focus {
-  border: none;
+  justify-content: center;
 }
 
 .puntuacion {
   border-radius: 4px;
+}
+.logo {
+  position: absolute;
+  width: auto;
+  height: 10vh;
+  margin-left: 0.8vw;
 }

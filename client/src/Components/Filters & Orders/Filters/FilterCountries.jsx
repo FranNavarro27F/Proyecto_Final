@@ -28,19 +28,35 @@ export default function FIlterCountries({
     });
     setOrder(`Ordenado: ${e.map((e) => e.label)}`);
   };
-
+  const customStyles = {
+    option: (provided, state) => ({
+      // ...provided,
+      borderBottom: "1px dotted pink",
+      color: state.isSelected ? "green" : "blue",
+      // padding: 10,
+    }),
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = "opacity 300ms";
+      return { ...provided, opacity, transition };
+    },
+  };
   return (
     <div className={s.filterCountrie}>
       <Select
+        options={optionsCountries}
         onChange={(e) => handleCountries(e)}
         className={s.select}
         isDisabled={false}
-        options={optionsCountries}
         isClearable={true}
         isSearchable={true}
         isMulti={true}
         placeholder="Filtra por país..."
-        defaultValue={defaultvalue === true ? defaultValueOption : false}
+        // styles={customStyles}
+        // components={{ ClearIndicator: () => <div>Clear</div> }}
       />
     </div>
   );

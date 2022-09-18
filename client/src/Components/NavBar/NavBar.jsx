@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
+import logo from "../../Logo/Logo-Sin-Fondo.png";
 import { getCountries } from "../../Redux/Actions/Countries";
 import { getServices } from "../../Redux/Actions/Services";
 import { useDispatch } from "react-redux";
@@ -38,6 +39,19 @@ export default function NavBar() {
     name: "",
   });
 
+  const handleClear = () => {
+    setActualFilter({
+      filterTecnologies: [],
+      filterServices: [],
+      filterLanguajes: [],
+      filterCountries: [],
+      OrderExp: "",
+      OrderBud: "",
+      name: "",
+    });
+    setDefaultValue(!defaultvalue);
+  };
+
   const [order, setOrder] = useState("");
 
   useEffect(() => {
@@ -54,13 +68,15 @@ export default function NavBar() {
   ];
 
   return (
-    <header>
+    <header className={s.container}>
+      <img src={logo} alt="programax" className={s.logo} />
+      <SearchBar setActualFilter={setActualFilter} />
       <div className={s.divGen}>
-        <SearchBar setActualFilter={setActualFilter} />
-
         <FIlterCountries
+          defaultValueOption={defaultValueOption}
           setOrder={setOrder}
           setActualFilter={setActualFilter}
+          defaultvalue={defaultvalue}
         />
 
         <FIlterLenguajes
@@ -83,14 +99,10 @@ export default function NavBar() {
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
-        <button
-          className={s.buttonClear}
-          onClick={() => setDefaultValue(!defaultvalue)}
-        >
-          {" "}
+        {/* <button className={s.buttonClear} onClick={() => handleClear()}>
           LIMPIAR FILTROS
           <AiOutlineClear />
-        </button>
+        </button> */}
 
         {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>
