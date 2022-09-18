@@ -62,6 +62,7 @@ export default function NavBar() {
   const customStyles = {
     control: (base, state) => ({
       ...base,
+
       background: "#85858566",
       // match with the menu
       borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
@@ -69,6 +70,7 @@ export default function NavBar() {
       borderColor: state.isFocused ? "#ca04f1" : "#c961de",
       // Removes weird border around container
       boxShadow: state.isFocused ? null : null,
+
       "&:hover": {
         // Overwrittes the different states of border
         borderColor: state.isFocused ? "#cd03f5" : "blue",
