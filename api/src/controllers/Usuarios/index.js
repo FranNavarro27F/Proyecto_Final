@@ -104,7 +104,7 @@ const postUsers = async (data) => {
         name,
         lastName,
         profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin,
+        isAdmin: false,
         webSite: webSite !== "" ? webSite : null,
         yearsOfExperience,
         dailyBudget: dailyBudget !== "" ? dailyBudget : null,
