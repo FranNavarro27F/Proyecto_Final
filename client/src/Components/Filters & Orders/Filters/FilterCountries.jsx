@@ -9,6 +9,7 @@ export default function FIlterCountries({
   setOrder,
   defaultvalue,
   defaultValueOption,
+  customStyles,
 }) {
   const countries = useSelector((state) => state.countries.allCountries);
 
@@ -32,15 +33,16 @@ export default function FIlterCountries({
   return (
     <div className={s.filterCountrie}>
       <Select
+        options={optionsCountries}
         onChange={(e) => handleCountries(e)}
         className={s.select}
         isDisabled={false}
-        options={optionsCountries}
         isClearable={true}
         isSearchable={true}
         isMulti={true}
         placeholder="Filtra por país..."
-        defaultValue={defaultvalue === true ? defaultValueOption : false}
+        styles={customStyles}
+        // components={{ ClearIndicator: () => <div>Clear</div> }}
       />
     </div>
   );

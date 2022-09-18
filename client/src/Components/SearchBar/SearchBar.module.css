@@ -1,8 +1,22 @@
+.bodySearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .searchBar {
-  width: 400px;
-  height: 4vh;
+  width: 40vw;
+  height: 3.5vh;
+  text-align: center;
   border-radius: 4px;
   background-color: hsl(0, 0%, 100%);
-  border-color: hsl(0, 0%, 80%);
+  background: rgba(0, 0, 0, 0.3);
   border: none;
+  color: wheat;
+}
+.searchBar::placeholder {
+  color: rgba(245, 222, 179, 0.438);
+}
+
+.searchBar:focus::placeholder {
+  color: transparent;
 }

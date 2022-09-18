@@ -8,13 +8,14 @@
   padding-left: 20px;
   padding-right: 20px;
   border: 4px solid #2073f0de;
-  box-shadow: 0 6px 10px rgba(207, 212, 222, 1);
+  box-shadow: 0 6px 10px #c961deda;
   border-radius: 10px;
   text-align: center;
   color: #fff;
   font-family: "Poppins", sans-serif;
   transition: all 0.3s ease;
-  margin-top: 4vh;
+  margin-bottom: 2vh;
+  margin-top: 1vh;
 }
 
 .card_client:hover {
@@ -29,7 +30,7 @@
   object-fit: cover;
   width: 6rem;
   height: 6rem;
-  border: 4px solid #7cdacc;
+  border: 4px solid #2073f0de;
   border-radius: 999px;
   display: flex;
   justify-content: center;
@@ -62,7 +63,7 @@
   width: 100%;
   height: 2px;
   margin: 20px 0;
-  background: #7cdacc;
+  background: #c961de;
 }
 
 .social_media a {
