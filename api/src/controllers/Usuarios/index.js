@@ -15,10 +15,10 @@ const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
       include: [
-        {
-          model: Paises,
-          attributes: ["name"],
-        },
+        // {
+        //   model: Paises,
+        //   attributes: ["name"],
+        // },
         {
           model: Servicios,
           attributes: ["name"],
@@ -37,12 +37,21 @@ const getUsers = async () => {
       ],
     });
 
-    const getCountry = async (id) => {
-      const find = await Paises.findByPk(id);
-      return find.name;
-    };
-
+    
     let users = usuarios.map((curr) => {
+
+      // let userM = curr.dataValues;
+      // let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
+      // userM.paiseId = nombrePais;
+      // userM.name = toUperCase(userM.name);
+      // userM.lastName = toUperCase(userM.lastName);
+      // userM.servicios= (userM.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name);
+      // userM.lenguajes= (userM.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name);
+      // userM.tecnologias= (userM.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name);
+      
+      // return userM
+
+
       return {
         id: curr.id,
         profilePicture: curr.profilePicture ? curr.profilePicture : null,
@@ -65,6 +74,8 @@ const getUsers = async () => {
         tecnologias: curr.tecnologias?.map((curr) => curr.name),
       };
     });
+
+
     return users;
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
@@ -127,10 +138,13 @@ const postUsers = async (data) => {
     console.error(`ERROR @ controllers/postUsers --→ ${e}`);
   }
 };
+
+
 const toUperCase = (nombre) => {
   let nombree = nombre[0].toUpperCase() + nombre.slice(1);
   return nombree;
 };
+
 
 const getUserById = async (id) => {
   try {
@@ -166,8 +180,6 @@ const getUserById = async (id) => {
     userM.servicios= (userM.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name);
     userM.lenguajes= (userM.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name);
     userM.tecnologias= (userM.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    
-    console.log(userM)
     
 
     return userM;
