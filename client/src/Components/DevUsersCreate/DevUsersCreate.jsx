@@ -305,7 +305,7 @@ export default function DevUsersCreate() {
               placeholder="https://..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.email}
+              value={cache?.profilePicture}
               name="profilePicture"
               className={s.inputImg}
             />
