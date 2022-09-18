@@ -4,7 +4,6 @@
   border-radius: 10px;
   color: #0f103f;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 1.2rem;
   margin-right: 0.3vw;
   width: 2vw;
   font-weight: bold;
@@ -12,6 +11,7 @@
   box-shadow: 0px 0px 1px 1px #797779;
   margin-bottom: 0.6vh;
   cursor: pointer;
+  font-size: 2vh;
 }
 .buttonPaged2:disabled,
 .button:disabled {
@@ -23,6 +23,7 @@
   font-size: 1.2rem;
   transition: 0.3s;
   margin-right: 0.3vw;
+  font-size: 2vh;
 }
 .body {
   margin-right: 5.5vw;

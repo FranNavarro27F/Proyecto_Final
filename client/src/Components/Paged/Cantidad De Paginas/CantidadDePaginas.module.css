@@ -4,7 +4,7 @@
   border-radius: 10px;
 
   background-color: rgba(0, 0, 0, 0);
-  font-size: 1.2rem;
+  font-size: 2vh;
 }
 
 .containerPages select {
@@ -12,7 +12,7 @@
   border-radius: 10px;
   color: #0f103f;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 1.2rem;
+  font-size: 2vh;
   margin-right: 0.3vw;
   width: 2.2vw;
   font-weight: bold;
@@ -21,15 +21,17 @@
   margin-bottom: 0.6vh;
   cursor: pointer;
   cursor: pointer;
+  font-size: 2vh;
 }
 .containerPages label {
   color: #1c1c65;
   font-weight: bold;
+  font-size: 2vh;
   margin-right: 0.5vw;
 }
 @media screen and (max-width: 1400px) {
   .containerPages {
-    font-size: 0.9rem;
+    /* font-size: 0.9rem; */
     margin-right: 2rem;
   }
 }
