@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 import s from "./Login.module.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Login() {
+  const { loginWithRedirect } = useAuth0;
   return (
     <div className={s.login}>
-    <input type="text" placeholder='Username' name='username' className={s.inputUser}/>
-    <input type="password" placeholder='Password' name='password' className={s.inputPass}/>
-    <input type="submit" value="LOG IN" className={s.submit}/>
-    <span className={s.loginOr}>or</span>
-    <span className={s.loginGoogle}>Login with Google</span>+
+      <button onClick={() => loginWithRedirect()}></button>
     </div>
-  )
+  );
 }
 
 export default Login;
