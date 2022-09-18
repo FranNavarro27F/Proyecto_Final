@@ -37,19 +37,23 @@ export default function DevUsersCreate() {
 
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name? cache.name : "",
-    lastName: cache?.lastName? cache.lastName : "",
-     profilePicture: cache?.profilePicture? cache?.profilePicture :"",
-     email: cache?.email? cache?.email : "",
-    linkedIn: cache?.linkedIn? cache?.linkedIn : "",
+    name: cache?.name ? cache.name : "",
+    lastName: cache?.lastName ? cache.lastName : "",
+    profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
+    email: cache?.email ? cache?.email : "",
+    linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
-    webSite: cache?.webSite? cache?.webSite: "",
+    webSite: cache?.webSite ? cache?.webSite : "",
     dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
     paiseId: cache?.countries ? cache?.countries : [],
+    countriesLabel: cache?.countriesLabel ? cache?.countriesLabel : [],
     tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
+    tecnologiasLabel: cache?.tecnologiasLabel ? cache?.tecnologiasLabel : [],
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
+    // lenguajesLabel: cache?.lenguajesLabel ? cache?.lenguajesLabel : [],
     servicios: cache?.servicios ? cache?.servicios : [],
+    // serviciosLabel: cache?.serviciosLabel ? cache?.serviciosLabel : [],
   });
 
   const handleChangeInput = (e) => {
@@ -64,7 +68,7 @@ export default function DevUsersCreate() {
       })
     );
     setCache({
-      ...input,
+      ...cache,
       [e.target.name]: e.target.value,
     });
   };
@@ -132,22 +136,6 @@ export default function DevUsersCreate() {
     });
   };
   const handleReset = () => {
-    // setInput({
-    //   name: "",
-    //   lastName: "",
-    //   profilePicture: "",
-    //   email: "",
-    //   linkedIn: "",
-    //   gitHub: "",
-    //   webSite: "",
-    //   yearsOfExperience: "0",
-    //   dailyBudget: "0",
-    //   englishLevel: "Básico",
-    //   paiseId: [],
-    //   tecnologias: [],
-    //   lenguajes: [],
-    //   servicios: [],
-    // });
     setCache({
       name: ("name", ""),
       lastName: ("lastName", ""),
@@ -174,13 +162,28 @@ export default function DevUsersCreate() {
       label: e.name,
     };
   });
-
   const optionsTecnologias = tecnologies.map((e) => {
     return {
       value: e.id,
       label: e.name,
     };
   });
+
+  const resultado = tecnologies?.filter((e) =>
+    e.id.includes(cache?.tecnologias)
+  );
+  console.log(cache);
+  console.log(resultado, "resultado");
+
+  // const optionsTecnologias2 = Array(cache).map((e) => {
+  //   return {
+  //     value: e.tecnologias,
+  //     label: e.tecnologiasLabel,
+  //   };
+  // });
+
+  // console.log(optionsTecnologias2);
+  // console.log(optionsTecnologias);
 
   const optionsServices = services.map((e) => {
     return {
@@ -269,7 +272,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Nombre..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -283,7 +286,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
-              type="cache"
+              type="text"
               placeholder="Tu Apellido..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
@@ -362,7 +365,7 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-               value={cache?.webSite}
+              value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
             />
@@ -411,7 +414,7 @@ export default function DevUsersCreate() {
               min="1"
               max="5"
               onChange={(e) => handleChangeEnglish(e)}
-              value={`${cache?.englishLevel}`}
+              // value={`${cache?.englishLevel}`}
               name="englishLevel"
               defaultValue="1"
               className={s.inputEnglish}
@@ -440,7 +443,10 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            set-value={cache?.countrie}
+            defaultValue={[
+              { value: cache?.countries, label: cache?.countriesLabel },
+            ]}
+            set-value={cache?.countries}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -452,6 +458,8 @@ export default function DevUsersCreate() {
               setInput({
                 ...input,
                 paiseId: e.value,
+                countriesLabel: e.label,
+                countries,
               });
               setErrors(
                 validaciones({
@@ -462,6 +470,7 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 countries: e.value,
+                countriesLabel: e.label,
               });
             }}
           />
@@ -474,9 +483,7 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            // defaultValue={optionsTecnologias.filter(
-            //   (e) => e.id === cache.tecnologias.toString()
-            // )}
+            // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
             set-value={cache?.tecnologias}
             className={s.select}
             isDisabled={false}
@@ -484,11 +491,12 @@ export default function DevUsersCreate() {
             isClearable={true}
             isSearchable={true}
             isMulti={true}
-            placeholder="Selecciona una tecnologia"
+            placeholder="Selecciona una tecnología"
             onChange={(e) => {
               setInput({
                 ...input,
                 tecnologias: e.map((ele) => ele.value),
+                tecnologiasLabel: e.map((ele) => ele.label),
               });
               setErrors(
                 validaciones({
@@ -499,6 +507,7 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 tecnologias: e.map((ele) => ele.value),
+                tecnologiasLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -533,6 +542,7 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 lenguajes: e.map((ele) => ele.value),
+                lenguajesLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -565,8 +575,9 @@ export default function DevUsersCreate() {
                 })
               );
               setCache({
-                ...cache,
+                ...input,
                 servicios: e.map((ele) => ele.value),
+                serviciosLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -576,13 +587,13 @@ export default function DevUsersCreate() {
         </div>
         <div className={s.buttons}>
           <button
-            className={s.buttonCreated1}
+            className={s.buttonCreated2}
             disabled={disabledButton}
             onClick={(e) => handleCreate(e)}
           >
             <span className={s.button_top}> CREAR PERFIL</span>
           </button>
-          <button className={s.buttonCreated2} onClick={(e) => handleReset(e)}>
+          <button className={s.buttonCreated1} onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
         </div>

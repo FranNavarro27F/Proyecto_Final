@@ -34,7 +34,7 @@ export default function FIlterLenguajes({ setActualFilter, setOrder }) {
         isClearable={true}
         isSearchable={true}
         isMulti={true}
-        placeholder="Seleciona Lenguaje"
+        placeholder="Filtra por lenguaje..."
       />
     </div>
   );

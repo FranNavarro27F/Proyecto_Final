@@ -43,12 +43,14 @@ export default function NavBar() {
     dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter]);
 
-  const handleClear = () => {
-    document.getElementById("selectTecnologie").selectedIndex = 0;
-    // document.getElementById("selectContinent").selectedIndex = 0;
-    // document.getElementById("selectAz").selectedIndex = 0;
-    // document.getElementById("selectPop").selectedIndex = 0;
-  };
+  const [defaultvalue, setDefaultValue] = useState(false);
+
+  const defaultValueOption = [
+    {
+      value: "",
+      label: "",
+    },
+  ];
 
   return (
     <header>
@@ -63,6 +65,7 @@ export default function NavBar() {
         <FIlterLenguajes
           setOrder={setOrder}
           setActualFilter={setActualFilter}
+          actualFilter={actualFilter}
         />
 
         <FIlterServices setOrder={setOrder} setActualFilter={setActualFilter} />
@@ -79,10 +82,13 @@ export default function NavBar() {
           setOrder={setOrder}
           setActualFilter={setActualFilter}
         />
-        <button className={s.buttonClear} onClick={handleClear}>
+        <button
+          className={s.buttonClear}
+          onClick={() => setDefaultValue(!defaultvalue)}
+        >
           <AiOutlineClear />
         </button>
-        <button className={s.puntuacion}>Puntuación</button>
+        {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>
     </header>
   );

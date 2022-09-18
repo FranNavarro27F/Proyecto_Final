@@ -1,68 +1,76 @@
+.backMenu {
+  z-index: 8;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  border-radius: 25%;
+  margin-top: 15vh;
+}
 
-.backMenu{
- position: fixed;
-left: 0px;
-top: 0px;
-width: 80vh;
-height: 70vh;
-border-radius: 25%;
+.svg {
+  width: 9.7vh;
+  height: 78vh;
+}
 
+.svg:hover,
+.svg:focus {
+  transition: 0.6s;
+  width: 10vh;
+}
 
+.buttonHome {
+  background: none;
+  border: none;
 }
-.buttonHome{
-    background: none;
-    border: none;
+.vectorHome {
+  position: absolute;
+  left: 2%;
+  right: 8.33%;
+  top: 15%;
+  bottom: 14.58%;
+  background: none;
 }
-.vectorHome{
- position: absolute;
-left: 2%;
-right: 8.33%;
-top: 15%;
-bottom: 14.58%;
-background:none
+.vectorAbout {
+  position: absolute;
+  left: 2%;
+  right: 16%;
+  top: 30%;
+  bottom: 16.67%;
 }
-.vectorAbout{
-position: absolute;
-left: 2%;
-right: 16%;
-top: 30%;
-bottom: 16.67%;
-
+.buttonAbout {
+  background: none;
+  border: none;
 }
-.buttonAbout{
-    background: none;
-    border: none;
+.vectorPortfolio {
+  position: absolute;
+  left: 2%;
+  right: 9%;
+  top: 47%;
+  bottom: 10.42%;
 }
-.vectorPortfolio{
- position: absolute;
-left: 2%;
-right: 9%;
-top: 47%;
-bottom: 10.42%;
+.buttonPortfolio {
+  background: none;
+  border: none;
 }
-.buttonPortfolio{
-    background: none;
-    border: none;   
+.vectorContact {
+  position: absolute;
+  left: 2%;
+  right: 8.33%;
+  top: 60%;
+  bottom: 10.42%;
 }
-.vectorContact{
-    position: absolute;
-    left: 2%;
-    right: 8.33%;
-    top: 60%;
-    bottom: 10.42%;  
+.buttonContact {
+  background: none;
+  border: none;
 }
-.buttonContact{
-    background: none;
-    border: none;
+.vectorSearch {
+  position: absolute;
+  left: 2%;
+  right: 8.33%;
+  top: 75%;
+  bottom: 10.42%;
 }
-.vectorSearch{
-    position: absolute;
-left: 2%;
-right: 8.33%;
-top: 75%;
-bottom: 10.42%; 
-}
-.buttonSearch{
-    background: none;
-    border: none;
+.buttonSearch {
+  background: none;
+  border: none;
 }
