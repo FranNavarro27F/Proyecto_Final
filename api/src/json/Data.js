@@ -420,6 +420,7 @@ module.exports = {
     "React VR",
     "Redis",
     "RedShift",
+    "Redux",
     "RedWood Software",
     "REN'PY",
     "Render",
