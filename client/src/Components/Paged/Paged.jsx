@@ -16,7 +16,7 @@ export default function Paged({ allDev }) {
   }
 
   return (
-    <nav>
+    <nav className={s.body}>
       <button
         className={s.buttonPaged2}
         disabled={currentPage - 1 === 0}

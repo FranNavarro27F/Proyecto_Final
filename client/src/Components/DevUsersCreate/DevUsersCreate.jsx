@@ -169,6 +169,22 @@ export default function DevUsersCreate() {
     };
   });
 
+  const resultado = tecnologies?.filter((e) =>
+    e.id.includes(cache?.tecnologias)
+  );
+  console.log(cache);
+  console.log(resultado, "resultado");
+
+  // const optionsTecnologias2 = Array(cache).map((e) => {
+  //   return {
+  //     value: e.tecnologias,
+  //     label: e.tecnologiasLabel,
+  //   };
+  // });
+
+  // console.log(optionsTecnologias2);
+  // console.log(optionsTecnologias);
+
   const optionsServices = services.map((e) => {
     return {
       value: e.id,
@@ -250,7 +266,7 @@ export default function DevUsersCreate() {
 
   return (
     <div className={s.divGeneral}>
-      {/* <SideMenu /> */}
+      <SideMenu />
       <div className={s.divForm}>
         <form className={s.inputForm} action="">
           <div className={s.inputContainer}>
@@ -427,9 +443,9 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            // defaultValue={[
-            //   { value: cache?.countries, label: cache?.countriesLabel },
-            // ]}
+            defaultValue={[
+              { value: cache?.countries, label: cache?.countriesLabel },
+            ]}
             set-value={cache?.countries}
             className={s.select}
             isDisabled={false}
@@ -467,9 +483,7 @@ export default function DevUsersCreate() {
           <Select
             closeMenuOnSelect={false}
             components={animatedComponents}
-            // defaultValue={
-            //   cache.tecnologias.length !== 0 ? optionsTecnologiasValue : false
-            // }
+            // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
             set-value={cache?.tecnologias}
             className={s.select}
             isDisabled={false}
@@ -528,6 +542,7 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 lenguajes: e.map((ele) => ele.value),
+                lenguajesLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -560,8 +575,9 @@ export default function DevUsersCreate() {
                 })
               );
               setCache({
-                ...cache,
+                ...input,
                 servicios: e.map((ele) => ele.value),
+                serviciosLabel: e.map((ele) => ele.label),
               });
             }}
           />

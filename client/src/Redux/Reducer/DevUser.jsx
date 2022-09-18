@@ -3,7 +3,7 @@ const initialState = {
   details: [],
   filteredUsers: [],
   page: 1,
-  devPerPage: 2,
+  devPerPage: 10,
 };
 
 export default function devUser(state = initialState, action) {

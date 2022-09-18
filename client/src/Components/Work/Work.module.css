@@ -1,22 +1,49 @@
 .body {
-  background-color: #0f103f;
-  height: 100vh;
+  /* position: absolute; */
+
+  background: #0f103f;
+  height: auto !important;
+  min-height: 100%;
+  width: auto !important;
+
   /* width: 100%; */
   /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
 }
 .cardsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   margin-bottom: 1.5rem;
-  min-width: 1220px;
-  min-height: 570px;
+  min-width: 130vh;
+  min-height: 60vh;
   padding: 1rem;
   /* gap: 2rem; */
-  margin-left: 10vh;
-}
-.sideMenu {
+  margin-left: 12vh;
+  margin-top: 1vh;
 }
 
 .linkCard {
   text-decoration: none;
+}
+.paginado {
+  border-start-end-radius: 20rem;
+  border-start-start-radius: 20rem;
+  height: 6vh;
+  width: 100vh;
+  position: fixed;
+  display: flex;
+  top: 95vh;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50vh;
+  /* opacity: 0.3; */
+  background-color: rgba(255, 255, 255, 0.523);
+  font-family: "Poppins";
+  color: blue;
+}
+.cantPage {
+  display: flex;
+}
+.paged {
 }

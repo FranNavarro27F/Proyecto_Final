@@ -7,8 +7,7 @@ export default function SideMenu() {
     <div>
       <div className={s.backMenu}>
         <svg
-          width="99"
-          height="740"
+          className={s.svg}
           viewBox="0 0 99 740"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -27,14 +26,14 @@ export default function SideMenu() {
                 shapeRendering="crispEdges"
               />
             </g>
-            
+
             <NavLink to="/">
               <path
                 d="M39 112.19L44 116.69V124.5H42V118.5H36V124.5H34V116.69L39 112.19ZM39 109.5L29 118.5H32V126.5H38V120.5H40V126.5H46V118.5H49L39 109.5Z"
                 fill="#0F103F"
               />
             </NavLink>
-              
+
             <NavLink to="/work">
               <path
                 d="M39 235.9C40.16 235.9 41.1 236.84 41.1 238C41.1 239.16 40.16 240.1 39 240.1C37.84 240.1 36.9 239.16 36.9 238C36.9 236.84 37.84 235.9 39 235.9ZM39 244.9C41.97 244.9 45.1 246.36 45.1 247V248.1H32.9V247C32.9 246.36 36.03 244.9 39 244.9ZM39 234C36.79 234 35 235.79 35 238C35 240.21 36.79 242 39 242C41.21 242 43 240.21 43 238C43 235.79 41.21 234 39 234ZM39 243C36.33 243 31 244.34 31 247V250H47V247C47 244.34 41.67 243 39 243Z"
@@ -59,7 +58,6 @@ export default function SideMenu() {
                 fill="#0F103F"
               />
             </NavLink>
-            
           </g>
           <defs>
             <filter

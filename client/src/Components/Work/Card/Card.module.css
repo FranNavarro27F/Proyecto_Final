@@ -13,17 +13,21 @@
   color: #fff;
   font-family: "Poppins", sans-serif;
   transition: all 0.3s ease;
+  margin-top: 4vh;
 }
 
 .card_client:hover {
   transform: translateY(-10px);
 }
+.imgCard {
+  width: 5vw;
+}
 
 .user_picture {
   overflow: hidden;
   object-fit: cover;
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   border: 4px solid #7cdacc;
   border-radius: 999px;
   display: flex;
@@ -116,4 +120,10 @@
 .link {
   text-decoration: none;
   color: #fff;
+}
+
+.divTecnologias {
+  overflow: hidden;
+  height: 4rem;
+  overflow-y: scroll;
 }
