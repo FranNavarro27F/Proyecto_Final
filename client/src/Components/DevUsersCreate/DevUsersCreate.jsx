@@ -256,11 +256,9 @@ export default function DevUsersCreate() {
     return <div>Loading...</div>;
   }
 
-  return (
-    // return !isAuthenticated ? (
-    //   loginWithRedirect
-    // ) : (
-
+  return !isAuthenticated ? (
+    loginWithRedirect()
+  ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
       <SideMenu />
