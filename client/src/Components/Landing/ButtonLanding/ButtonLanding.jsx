@@ -6,6 +6,11 @@ import LoginButton from "../../Login/LoginButton";
 
 export default function ButtonLanding() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Link to={"/work"}>

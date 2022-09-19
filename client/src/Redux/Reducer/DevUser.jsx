@@ -11,7 +11,7 @@ export default function devUser(state = initialState, action) {
     case "POST_DEVUSER":
       return {
         ...state,
-        allUsers: action.payload,
+        allUsers: [...state.allUsers, action.payload],
       };
 
     case "GET_USERSBD":
