@@ -6,7 +6,7 @@
 }
 .divGen {
   display: flex;
-  height: 8vh;
+  height: 7vh;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
@@ -21,4 +21,5 @@
   width: auto;
   height: 10vh;
   margin-left: 0.8vw;
+  border-radius: 50px;
 }

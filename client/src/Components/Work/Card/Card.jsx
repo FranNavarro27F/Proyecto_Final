@@ -63,7 +63,7 @@ export default function Card({
             </a>
           )}
           {email && (
-            <a href="mailto:{email}" target="_blank" rel="noreferrer">
+            <a href={`mailto:${email}`} target="_blank" rel="noreferrer">
               <svg
                 version="1.1"
                 id="Capa_1"
