@@ -19,10 +19,10 @@ function validaciones(input) {
   //image
   // if (input.profilePicture === "")
   //   errors.profilePicture = "Ingresa una url de tu imagen!";
-  // if (/[\s]/.test(input.profilePicture))
-  //   errors.profilePicture = "El url no debe contener espacios!";
-  // if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
-  //   errors.profilePicture = "El url que intentas colocar no es valida";
+  if (/[\s]/.test(input.profilePicture))
+    errors.profilePicture = "El url no debe contener espacios!";
+  if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
+    errors.profilePicture = "El url que intentas colocar no es valida";
   //email
   if (input.email === "") errors.email = "Ingresa tu email!";
   if (/[\s]/.test(input.email))
