@@ -59,3 +59,12 @@ export function getUserId(id) {
     }
   };
 }
+export function detailReset() {
+  return function(dispatch) {
+    return dispatch({
+      type: "DETAIL_RESET",
+      payload: [],
+    })
+  }
+  
+}

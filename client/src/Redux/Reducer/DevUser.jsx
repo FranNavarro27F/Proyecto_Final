@@ -95,6 +95,11 @@ export default function devUser(state = initialState, action) {
         ...state,
         details: action.payload,
       };
+    case "DETAIL_RESET":
+      return {
+        ...state,
+        details: action.payload,
+      }
     default:
       return state;
   }
