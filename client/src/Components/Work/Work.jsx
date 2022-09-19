@@ -24,7 +24,7 @@ export default function Work() {
   const indexOfFirstDev = indexOfLastDev - devPerPage;
 
   const currentDev = usersDb.slice(indexOfFirstDev, indexOfLastDev);
-  console.log(currentDev, "aaaaa");
+
   return (
     <main className={s.body}>
       <NavBar className={s.navMenu} />
