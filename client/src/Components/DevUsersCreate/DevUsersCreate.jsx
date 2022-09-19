@@ -9,6 +9,8 @@ import { validaciones } from "./Validaciones";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
+import ModalCreate from "./ModalCreate/ModalCreate";
+import { useAuth0 } from "@auth0/auth0-react";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
@@ -16,8 +18,6 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import { useAuth0 } from "@auth0/auth0-react";
-import ModalCreate from "./ModalCreate/ModalCreate";
 
 const animatedComponents = makeAnimated();
 
@@ -205,6 +205,7 @@ export default function DevUsersCreate() {
   });
 
   const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useLocalStorage({});
   const [disabledButton, setDisabledButton] = useState(true);
   useEffect(() => {
     if (

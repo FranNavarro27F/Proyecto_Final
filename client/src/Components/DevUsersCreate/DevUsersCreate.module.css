@@ -73,6 +73,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 11%;
+  font-size: 1px;
 }
 .divForm {
   box-sizing: border-box;
@@ -215,8 +216,12 @@
 .inputContainer {
   width: 26%;
   min-height: 12vh;
-  /* font-size: 2vw; */
+  /* font-size: 20vw; */
 }
+.inputContainer p {
+  font-size: 0.9vw;
+}
+
 .inputContainer input,
 .inputContainer input::placeholder {
   /* background-color: red; */
