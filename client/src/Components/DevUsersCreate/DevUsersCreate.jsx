@@ -16,6 +16,7 @@ import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import { useAuth0 } from "@auth0/auth0-react";
+import ModalCreate from "./ModalCreate/ModalCreate";
 
 const animatedComponents = makeAnimated();
 
@@ -47,7 +48,7 @@ export default function DevUsersCreate() {
     webSite: cache?.webSite ? cache?.webSite : "",
     dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.countries ? cache?.countries : [],
+    paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
     servicios: cache?.servicios ? cache?.servicios : [],
@@ -103,18 +104,26 @@ export default function DevUsersCreate() {
       [e.target.name]: ingles(),
     });
   };
+
+  const [modal, setModal] = useState(false);
+
   const handleCreate = (e) => {
     e.preventDefault();
+    setModal(true);
     dispatch(
       postDevUser({
         ...input,
-        name: input.name.toLowerCase(),
+        name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
+        lastName:
+          input.lastName[0].toUpperCase() +
+          input.lastName.slice(1).toLowerCase(),
       })
     );
-    alert("Perfil Creado con exito... (alerta provisoria)");
+    // alert("Perfil Creado con exito... (alerta provisoria)");
     setTimeout(() => {
       navigate("/work");
-    }, 350);
+      // setModal(false);
+    }, 1000);
     setCache({
       name: ("name", ""),
       lastName: ("lastName", ""),
@@ -126,7 +135,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      countrie: ("countrie", []),
+      paiseId: ("paiseId", ""),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -144,7 +153,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      countrie: ("countrie", []),
+      paiseId: ("paiseId", ""),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -243,11 +252,17 @@ export default function DevUsersCreate() {
   }, [errors, input, setDisabledButton]);
 
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  return !isAuthenticated ? (
-    loginWithRedirect
-  ) : (
+  return (
+    // return !isAuthenticated ? (
+    //   loginWithRedirect
+    // ) : (
+
     <div className={s.divGeneral}>
+      {modal && <ModalCreate />}
       <SideMenu />
       <div className={s.divForm}>
         <form className={s.inputForm} action="">
@@ -425,7 +440,7 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            set-value={cache?.countries}
+            set-value={cache?.paiseId}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -446,7 +461,7 @@ export default function DevUsersCreate() {
               );
               setCache({
                 ...cache,
-                countries: e.value,
+                paiseId: e.value,
               });
             }}
           />
