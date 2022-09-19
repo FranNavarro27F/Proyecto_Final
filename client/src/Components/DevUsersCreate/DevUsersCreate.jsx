@@ -9,6 +9,8 @@ import { validaciones } from "./Validaciones";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
+import ModalCreate from "./ModalCreate/ModalCreate";
+import { useAuth0 } from "@auth0/auth0-react";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
@@ -16,8 +18,6 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import { useAuth0 } from "@auth0/auth0-react";
-import ModalCreate from "./ModalCreate/ModalCreate";
 
 const animatedComponents = makeAnimated();
 
@@ -110,40 +110,46 @@ export default function DevUsersCreate() {
   };
 
   const [modal, setModal] = useState(false);
+  const [verErrores, setVerErrores] = useState(false);
 
   const handleCreate = (e) => {
     e.preventDefault();
-    setModal(true);
-    dispatch(
-      postDevUser({
-        ...input,
-        name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-        lastName:
-          input.lastName[0].toUpperCase() +
-          input.lastName.slice(1).toLowerCase(),
-      })
-    );
-    // alert("Perfil Creado con exito... (alerta provisoria)");
-    setTimeout(() => {
-      navigate("/work");
-      // setModal(false);
-    }, 1000);
-    setCache({
-      name: ("name", ""),
-      lastName: ("lastName", ""),
-      profilePicture: ("profilePicture", ""),
-      email: ("email", ""),
-      linkedIn: ("linkedIn", ""),
-      gitHub: ("gitHub", ""),
-      webSite: ("webSite", ""),
-      yearsOfExperience: ("yearsOfExperience", "0"),
-      dailyBudget: ("dailyBudget", "0"),
-      englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
-      tecnologias: ("tecnologias", []),
-      lenguajes: ("lenguajes", []),
-      servicios: ("servicios", []),
-    });
+    setVerErrores(true);
+    if (!errors) {
+      setModal(true);
+      dispatch(
+        postDevUser({
+          ...input,
+          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
+          lastName:
+            input.lastName[0].toUpperCase() +
+            input.lastName.slice(1).toLowerCase(),
+        })
+      );
+      // alert("Perfil Creado con exito... (alerta provisoria)");
+      setTimeout(() => {
+        navigate("/work");
+        // setModal(false);
+      }, 1000);
+      setCache({
+        name: ("name", ""),
+        lastName: ("lastName", ""),
+        profilePicture: ("profilePicture", ""),
+        email: ("email", ""),
+        linkedIn: ("linkedIn", ""),
+        gitHub: ("gitHub", ""),
+        webSite: ("webSite", ""),
+        yearsOfExperience: ("yearsOfExperience", "0"),
+        dailyBudget: ("dailyBudget", "0"),
+        englishLevel: ("englishLevel", "Básico"),
+        paiseId: ("paiseId", ""),
+        tecnologias: ("tecnologias", []),
+        lenguajes: ("lenguajes", []),
+        servicios: ("servicios", []),
+      });
+    } else {
+      console.log("Hay errores");
+    }
   };
   const handleReset = () => {
     setCache({
@@ -205,6 +211,8 @@ export default function DevUsersCreate() {
   });
 
   const [errors, setErrors] = useState({});
+  const [errorsCache, setErrorsCache] = useLocalStorage({});
+
   const [disabledButton, setDisabledButton] = useState(true);
   useEffect(() => {
     if (
@@ -280,7 +288,7 @@ export default function DevUsersCreate() {
               className={s.inputName}
             />
             <div className={s.divErrors}>
-              {errors.name && (
+              {verErrores && errors.name && (
                 <label className={s.errors}>⚠ {errors.name}</label>
               )}
             </div>
@@ -297,7 +305,7 @@ export default function DevUsersCreate() {
               className={s.inputLastname}
             />
             <div className={s.divErrors}>
-              {errors.lastName && (
+              {verErrores && errors.lastName && (
                 <label className={s.errors}>⚠ {errors.lastName}</label>
               )}
             </div>
@@ -314,7 +322,7 @@ export default function DevUsersCreate() {
               className={s.inputImg}
             />
             <div className={s.divErrors}>
-              {errors.profilePicture && (
+              {verErrores && errors.profilePicture && (
                 <label className={s.errors}>⚠ {errors.profilePicture}</label>
               )}
             </div>
@@ -331,7 +339,7 @@ export default function DevUsersCreate() {
               className={s.inputEmail}
             />
             <div className={s.divErrors}>
-              {errors.email && (
+              {verErrores && errors.email && (
                 <label className={s.errors}>⚠ {errors.email}</label>
               )}
             </div>
@@ -348,7 +356,7 @@ export default function DevUsersCreate() {
               className={s.inputLinkedin}
             />
             <div className={s.divErrors}>
-              {errors.linkedIn && (
+              {verErrores && errors.linkedIn && (
                 <label className={s.errors}>⚠ {errors.linkedIn}</label>
               )}
             </div>
@@ -365,7 +373,7 @@ export default function DevUsersCreate() {
               className={s.inputGithub}
             />
             <div className={s.divErrors}>
-              {errors.gitHub && (
+              {verErrores && errors.gitHub && (
                 <label className={s.errors}>⚠ {errors.gitHub}</label>
               )}
             </div>
@@ -382,7 +390,7 @@ export default function DevUsersCreate() {
               className={s.inputWebsite}
             />
             <div className={s.divErrors}>
-              {errors.webSite && (
+              {verErrores && errors.webSite && (
                 <label className={s.errors}>⚠ {errors.webSite}</label>
               )}
             </div>
@@ -402,7 +410,7 @@ export default function DevUsersCreate() {
               // step=".01"
             />
             <div className={s.divErrors}>
-              {errors.yearsOfExperience && (
+              {verErrores && errors.yearsOfExperience && (
                 <label className={s.errors}>⚠ {errors.yearsOfExperience}</label>
               )}
             </div>
@@ -421,7 +429,7 @@ export default function DevUsersCreate() {
               className={s.inputPrice}
             />
             <div className={s.divErrors}>
-              {errors.dailyBudget && (
+              {verErrores && errors.dailyBudget && (
                 <label className={s.errors}>⚠ {errors.dailyBudget}</label>
               )}
             </div>
@@ -456,7 +464,7 @@ export default function DevUsersCreate() {
               {input.englishLevel}
             </label>
             <div className={s.divErrors}>
-              {errors.englishLevel && (
+              {verErrores && errors.englishLevel && (
                 <label className={s.errors}>⚠ {errors.englishLevel}</label>
               )}
             </div>
@@ -495,7 +503,7 @@ export default function DevUsersCreate() {
               }}
             />
             <div className={s.divErrors}>
-              {errors.countries && (
+              {verErrores && errors.countries && (
                 <label className={s.errors}>⚠ {errors.countries}</label>
               )}
             </div>
@@ -533,7 +541,7 @@ export default function DevUsersCreate() {
               }}
             />
             <div className={s.divErrors}>
-              {errors.tecnologies && (
+              {verErrores && errors.tecnologies && (
                 <label className={s.errors}>⚠ {errors.tecnologies}</label>
               )}
             </div>
@@ -570,7 +578,7 @@ export default function DevUsersCreate() {
               }}
             />
             <div className={s.divErrors}>
-              {errors.languajes && (
+              {verErrores && errors.languajes && (
                 <label className={s.errors}>⚠ {errors.languajes}</label>
               )}
             </div>
@@ -607,7 +615,7 @@ export default function DevUsersCreate() {
               }}
             />
             <div className={s.divErrors}>
-              {errors.services && (
+              {verErrores && errors.services && (
                 <label className={s.errors}>⚠ {errors.services}</label>
               )}
             </div>
@@ -619,7 +627,7 @@ export default function DevUsersCreate() {
           </button>
           <button
             className={s.buttonCreate}
-            disabled={disabledButton}
+            // disabled={disabledButton}
             onClick={(e) => handleCreate(e)}
           >
             <span className={s.button_top}> CREAR PERFIL</span>

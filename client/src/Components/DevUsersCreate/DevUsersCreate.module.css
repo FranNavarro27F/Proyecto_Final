@@ -22,24 +22,30 @@
 .ingles1 {
   font-family: "Poppins";
   color: rgb(7, 207, 0);
+  font-weight: bold;
 }
 .ingles2 {
   font-family: "Poppins";
   color: rgb(187, 255, 0);
+  font-weight: bold;
 }
 .ingles3 {
   font-family: "Poppins";
+  font-weight: bold;
   color: rgb(238, 255, 0);
 }
 .ingles4 {
+  font-weight: bold;
   font-family: "Poppins";
   color: rgb(250, 150, 1);
 }
 .ingles5 {
+  font-weight: bold;
   font-family: "Poppins";
   color: rgb(255, 0, 0);
 }
 .divErrors {
+  padding-top: 0.5rem;
   /* background-color: red; */
 
   width: 16vw;
@@ -73,6 +79,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 11%;
+  font-size: 1px;
 }
 .divForm {
   box-sizing: border-box;
@@ -202,21 +209,23 @@
   width: 21vw;
   background-color: #0f103f;
   border-radius: 8px;
-  /* color: rgb(224, 19, 19); */
-  /* max-width: ; */
 }
 
 .select option {
   /* color: red; */
-  background-color: red;
+  /* background-color: red; */
   /* max-width: ; */
 }
 
 .inputContainer {
   width: 26%;
   min-height: 12vh;
-  /* font-size: 2vw; */
+  /* font-size: 20vw; */
 }
+.inputContainer p {
+  font-size: 0.9vw;
+}
+
 .inputContainer input,
 .inputContainer input::placeholder {
   /* background-color: red; */

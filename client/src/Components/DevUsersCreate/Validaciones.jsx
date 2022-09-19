@@ -17,12 +17,12 @@ function validaciones(input) {
   if (/[\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener espacios!";
   //image
-  if (input.profilePicture === "")
-     errors.profilePicture = "Ingresa una url de tu imagen!";
+  // if (input.profilePicture === "")
+  //   errors.profilePicture = "Ingresa una url de tu imagen!";
   if (/[\s]/.test(input.profilePicture))
-     errors.profilePicture = "El url no debe contener espacios!";
+    errors.profilePicture = "El url no debe contener espacios!";
   if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
-     errors.profilePicture = "El url que intentas colocar no es valida";
+    errors.profilePicture = "El url que intentas colocar no es valida";
   //email
  if (input.email === "") errors.email = "Ingresa tu email!";
  if (/[\s]/.test(input.email))
