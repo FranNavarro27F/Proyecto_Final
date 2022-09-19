@@ -15,7 +15,7 @@ export default function ButtonLanding() {
     <div>
       <Link to={"/work"}>
         <div className={s.possitionL}>
-          <button className={s.buttonL}>Work</button>
+          <button className={s.buttonL}>Postulaciones</button>
         </div>
       </Link>
 

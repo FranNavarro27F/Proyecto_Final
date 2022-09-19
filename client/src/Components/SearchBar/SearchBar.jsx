@@ -26,7 +26,7 @@ export default function SearchBar({ setActualFilter }) {
         <input
           className={s.searchBar}
           type="search"
-          placeholder="Search..."
+          placeholder="Buscar..."
           onChange={handleInputChange}
           value={searchedCountry.value}
         ></input>

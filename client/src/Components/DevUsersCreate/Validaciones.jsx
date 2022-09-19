@@ -17,75 +17,75 @@ function validaciones(input) {
   if (/[\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener espacios!";
   //image
-  // if (input.profilePicture === "")
-  //   errors.profilePicture = "Ingresa una url de tu imagen!";
-  // if (/[\s]/.test(input.profilePicture))
-  //   errors.profilePicture = "El url no debe contener espacios!";
-  // if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
-  //   errors.profilePicture = "El url que intentas colocar no es valida";
+  if (input.profilePicture === "")
+     errors.profilePicture = "Ingresa una url de tu imagen!";
+  if (/[\s]/.test(input.profilePicture))
+     errors.profilePicture = "El url no debe contener espacios!";
+  if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
+     errors.profilePicture = "El url que intentas colocar no es valida";
   //email
-  if (input.email === "") errors.email = "Ingresa tu email!";
-  if (/[\s]/.test(input.email))
+ if (input.email === "") errors.email = "Ingresa tu email!";
+ if (/[\s]/.test(input.email))
     errors.email = "El email no debe contener espacios!";
-  if (!/^\S+@\S+\.\S+$/.test(input.email))
+   if (!/^\S+@\S+\.\S+$/.test(input.email))
     errors.email = "El email que intentas colocar no es valido";
   //linkedin
-  if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
-  if (/[\s]/.test(input.linkedIn))
+ if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
+ if (/[\s]/.test(input.linkedIn))
     errors.linkedIn = "El url no debe contener espacios!";
 
-  if (!/linkedin/i.test(input.linkedIn))
+   if (!/linkedin/i.test(input.linkedIn))
     errors.linkedIn = "Ingresa una url de LinkedIn correcta!";
-  if (
+   if (
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       input.linkedIn
     )
   )
     errors.linkedIn = "Ingresa una url correcta!";
   //GitHub
-  if (input.gitHub === "") errors.gitHub = "Ingresa la url de tu gitHub!";
-  if (/[\s]/.test(input.gitHub))
+ if (input.gitHub === "") errors.gitHub = "Ingresa la url de tu gitHub!";
+ if (/[\s]/.test(input.gitHub))
     errors.gitHub = "El url no debe contener espacios!";
-  if (
+   if (
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       input.gitHub
     )
   )
     errors.gitHub = "Ingresa una url correcta!";
-  if (!/github/i.test(input.gitHub))
+   if (!/github/i.test(input.gitHub))
     errors.gitHub = "Ingresa una url de GitHub correcta!";
 
   //Website
-  if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
-  if (/[\s]/.test(input.webSite))
+ if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
+ if (/[\s]/.test(input.webSite))
     errors.webSite = "El url no debe contener espacios!";
 
-  if (
+   if (
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       input.webSite
     )
   )
     errors.webSite = "El url que intentas colocar no es valida";
   //yearsOfExperience
-  if (input.yearsOfExperience === 0)
+ if (input.yearsOfExperience === 0)
     errors.yearsOfExperience = "El valor no puede ser 0!";
-  if (input.yearsOfExperience > 99 || input.yearsOfExperience < 1)
+   if (input.yearsOfExperience > 99 || input.yearsOfExperience < 1)
     errors.yearsOfExperience = "El valor debe estar entre 1 y 99";
   //dailyBudget
-  if (input.dailyBudget === 0) errors.dailyBudget = "El valor no puede ser 0!";
-  if (input.dailyBudget > 999 || input.dailyBudget < 1)
+ if (input.dailyBudget === 0) errors.dailyBudget = "El valor no puede ser 0!";
+ if (input.dailyBudget > 999 || input.dailyBudget < 1)
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie
-  if (!input.paiseId?.length) errors.countries = "Ingresa un pais!";
+ if (!input.paiseId?.length) errors.countries = "Ingresa un pais!";
   // tecnologias;
-  if (!input.tecnologias?.length)
+ if (!input.tecnologias?.length)
     errors.tecnologies = "Ingresa al menos una tecnologia!";
   //lenguajes
-  if (!input.lenguajes?.length)
+ if (!input.lenguajes?.length)
     errors.languajes = "Ingresa al menos un lenguaje!";
   //servicios
-  if (!input.servicios?.length)
+ if (!input.servicios?.length)
     errors.services = "Ingresa al menos un servicio!";
 
   return errors;
