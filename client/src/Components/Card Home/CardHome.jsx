@@ -9,7 +9,7 @@ export default function CardHome() {
   return (
     <div className={s.divcarhome}>
       <Ellipse/>
-      <h1 className={s.titlew}>Recent Works</h1>
+      <h1 className={s.titlew}>Trabajos recientes</h1>
       <div>
         <CardW1/>
         <CardW2/>
