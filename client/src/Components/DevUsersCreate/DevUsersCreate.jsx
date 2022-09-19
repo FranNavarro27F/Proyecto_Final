@@ -15,6 +15,8 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import { useAuth0 } from "@auth0/auth0-react";
+import ModalCreate from "./ModalCreate/ModalCreate";
 
 const animatedComponents = makeAnimated();
 
@@ -46,14 +48,10 @@ export default function DevUsersCreate() {
     webSite: cache?.webSite ? cache?.webSite : "",
     dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.countries ? cache?.countries : [],
-    countriesLabel: cache?.countriesLabel ? cache?.countriesLabel : [],
+    paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
-    tecnologiasLabel: cache?.tecnologiasLabel ? cache?.tecnologiasLabel : [],
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
-    // lenguajesLabel: cache?.lenguajesLabel ? cache?.lenguajesLabel : [],
     servicios: cache?.servicios ? cache?.servicios : [],
-    // serviciosLabel: cache?.serviciosLabel ? cache?.serviciosLabel : [],
   });
 
   const handleChangeInput = (e) => {
@@ -106,18 +104,26 @@ export default function DevUsersCreate() {
       [e.target.name]: ingles(),
     });
   };
+
+  const [modal, setModal] = useState(false);
+
   const handleCreate = (e) => {
     e.preventDefault();
+    setModal(true);
     dispatch(
       postDevUser({
         ...input,
-        name: input.name.toLowerCase(),
+        name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
+        lastName:
+          input.lastName[0].toUpperCase() +
+          input.lastName.slice(1).toLowerCase(),
       })
     );
-    alert("Perfil Creado con exito... (alerta provisoria)");
+    // alert("Perfil Creado con exito... (alerta provisoria)");
     setTimeout(() => {
       navigate("/work");
-    }, 350);
+      // setModal(false);
+    }, 1000);
     setCache({
       name: ("name", ""),
       lastName: ("lastName", ""),
@@ -129,7 +135,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      countrie: ("countrie", []),
+      paiseId: ("paiseId", ""),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -147,7 +153,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      countrie: ("countrie", []),
+      paiseId: ("paiseId", ""),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -169,11 +175,9 @@ export default function DevUsersCreate() {
     };
   });
 
-  const resultado = tecnologies?.filter((e) =>
-    e.id.includes(cache?.tecnologias)
-  );
-  console.log(cache);
-  console.log(resultado, "resultado");
+  // const resultado = tecnologies?.filter((e) =>
+  //   e.id.includes(cache?.tecnologias)
+  // );
 
   // const optionsTecnologias2 = Array(cache).map((e) => {
   //   return {
@@ -181,9 +185,6 @@ export default function DevUsersCreate() {
   //     label: e.tecnologiasLabel,
   //   };
   // });
-
-  // console.log(optionsTecnologias2);
-  // console.log(optionsTecnologias);
 
   const optionsServices = services.map((e) => {
     return {
@@ -214,9 +215,9 @@ export default function DevUsersCreate() {
       /[1-9]/.test(input.lastName) ||
       /[\s]/.test(input.lastName) ||
       //image
-      input.profilePicture === "" ||
-      /[\s]/.test(input.profilePicture) ||
-      !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
+      // input.profilePicture === "" ||
+      // /[\s]/.test(input.profilePicture) ||
+      // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
       //email
       input.email === "" ||
       !/^\S+@\S+\.\S+$/.test(input.email) ||
@@ -224,35 +225,21 @@ export default function DevUsersCreate() {
       //linkedin
       input.linkedIn === "" ||
       /[\s]/.test(input.linkedIn) ||
-      input.linkedIn === "" ||
-      /[\s]/.test(input.linkedIn) ||
       //github
-      input.gitHub === "" ||
-      /[\s]/.test(input.gitHub) ||
       input.gitHub === "" ||
       /[\s]/.test(input.gitHub) ||
       //website
       input.webSite === "" ||
       /[\s]/.test(input.webSite) ||
-      input.webSite === "" ||
-      /[\s]/.test(input.webSite) ||
       !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
         input.webSite
       ) ||
-      !/github/i.test(input.gitHub) ||
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        input.gitHub
-      ) ||
-      !/linkedin/i.test(input.linkedIn) ||
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        input.linkedIn
-      ) ||
       //yearsOfExperience
-      input.yearsOfExperience.length < 1 ||
-      input.yearsOfExperience.length > 99 ||
+      input.yearsOfExperience?.length < 1 ||
+      input.yearsOfExperience?.length > 99 ||
       // /dailyBudget
-      input.yearsOfExperience.length < 1 ||
-      input.yearsOfExperience.length > 999 ||
+      input.dailyBudget?.length < 1 ||
+      input.dailyBudget?.length > 999 ||
       !input.paiseId?.length ||
       !input.tecnologias?.length ||
       !input.lenguajes?.length ||
@@ -264,8 +251,18 @@ export default function DevUsersCreate() {
     }
   }, [errors, input, setDisabledButton]);
 
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
+    // return !isAuthenticated ? (
+    //   loginWithRedirect
+    // ) : (
+
     <div className={s.divGeneral}>
+      {modal && <ModalCreate />}
       <SideMenu />
       <div className={s.divForm}>
         <form className={s.inputForm} action="">
@@ -274,7 +271,7 @@ export default function DevUsersCreate() {
             <input
               type="text"
               placeholder="Tu Nombre..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.name}
               name="name"
@@ -288,7 +285,7 @@ export default function DevUsersCreate() {
             <input
               type="text"
               placeholder="Tu Apellido..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.lastName}
               name="lastName"
@@ -303,9 +300,9 @@ export default function DevUsersCreate() {
             <input
               type="url"
               placeholder="https://..."
-              autoComplete="off"
+              autoComplete="of"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.email}
+              value={cache?.profilePicture}
               name="profilePicture"
               className={s.inputImg}
             />
@@ -318,7 +315,7 @@ export default function DevUsersCreate() {
             <input
               type="email"
               placeholder="Tu Email..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.email}
               name="email"
@@ -333,7 +330,7 @@ export default function DevUsersCreate() {
             <input
               type="url"
               placeholder="Tu LinkedIn..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.linkedIn}
               name="linkedIn"
@@ -348,7 +345,7 @@ export default function DevUsersCreate() {
             <input
               type="url"
               placeholder="Tu GitHub..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.gitHub}
               name="gitHub"
@@ -363,7 +360,7 @@ export default function DevUsersCreate() {
             <input
               type="url"
               placeholder="Tu webSite..."
-              autoComplete="off"
+              autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               value={cache?.webSite}
               name="webSite"
@@ -443,10 +440,7 @@ export default function DevUsersCreate() {
           <p htmlFor="pais">Pais: </p>
           <Select
             components={animatedComponents}
-            defaultValue={[
-              { value: cache?.countries, label: cache?.countriesLabel },
-            ]}
-            set-value={cache?.countries}
+            set-value={cache?.paiseId}
             className={s.select}
             isDisabled={false}
             options={optionsCountries}
@@ -458,8 +452,6 @@ export default function DevUsersCreate() {
               setInput({
                 ...input,
                 paiseId: e.value,
-                countriesLabel: e.label,
-                countries,
               });
               setErrors(
                 validaciones({
@@ -469,8 +461,7 @@ export default function DevUsersCreate() {
               );
               setCache({
                 ...cache,
-                countries: e.value,
-                countriesLabel: e.label,
+                paiseId: e.value,
               });
             }}
           />
@@ -496,7 +487,6 @@ export default function DevUsersCreate() {
               setInput({
                 ...input,
                 tecnologias: e.map((ele) => ele.value),
-                tecnologiasLabel: e.map((ele) => ele.label),
               });
               setErrors(
                 validaciones({
@@ -507,7 +497,6 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 tecnologias: e.map((ele) => ele.value),
-                tecnologiasLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -542,7 +531,6 @@ export default function DevUsersCreate() {
               setCache({
                 ...cache,
                 lenguajes: e.map((ele) => ele.value),
-                lenguajesLabel: e.map((ele) => ele.label),
               });
             }}
           />
@@ -577,7 +565,6 @@ export default function DevUsersCreate() {
               setCache({
                 ...input,
                 servicios: e.map((ele) => ele.value),
-                serviciosLabel: e.map((ele) => ele.label),
               });
             }}
           />

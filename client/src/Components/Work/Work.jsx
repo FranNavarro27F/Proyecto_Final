@@ -24,7 +24,7 @@ export default function Work() {
   const indexOfFirstDev = indexOfLastDev - devPerPage;
 
   const currentDev = usersDb.slice(indexOfFirstDev, indexOfLastDev);
-  console.log(currentDev, "aaaaa");
+
   return (
     <main className={s.body}>
       <NavBar className={s.navMenu} />
@@ -36,10 +36,11 @@ export default function Work() {
           return (
             <div>
               <Card
-                name={
-                  `${e.name[0].toUpperCase() + e.name.slice(1)} ` +
-                  `${e.lastName[0].toUpperCase() + e.lastName.slice(1)}`
-                }
+                name={e.name + " " + e.lastName}
+                // name={
+                //   `${e.name[0]?.toUpperCase() + e.name?.slice(1)} ` +
+                //   `${e.lastName[0]?.toUpperCase() + e.lastName?.slice(1)}`
+                // }
                 img={e.profilePicture}
                 tecnologies={e.tecnologias}
                 website={e.webSite}

@@ -17,12 +17,12 @@ function validaciones(input) {
   if (/[\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener espacios!";
   //image
-  if (input.profilePicture === "")
-    errors.profilePicture = "Ingresa una url de tu imagen!";
-  if (/[\s]/.test(input.profilePicture))
-    errors.profilePicture = "El url no debe contener espacios!";
-  if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
-    errors.profilePicture = "El url que intentas colocar no es valida";
+  // if (input.profilePicture === "")
+  //   errors.profilePicture = "Ingresa una url de tu imagen!";
+  // if (/[\s]/.test(input.profilePicture))
+  //   errors.profilePicture = "El url no debe contener espacios!";
+  // if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
+  //   errors.profilePicture = "El url que intentas colocar no es valida";
   //email
   if (input.email === "") errors.email = "Ingresa tu email!";
   if (/[\s]/.test(input.email))
@@ -34,24 +34,26 @@ function validaciones(input) {
   if (/[\s]/.test(input.linkedIn))
     errors.linkedIn = "El url no debe contener espacios!";
 
+  if (!/linkedin/i.test(input.linkedIn))
+    errors.linkedIn = "Ingresa una url de LinkedIn correcta!";
   if (
-    !/linkedin/i.test(input.linkedIn) &&
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       input.linkedIn
     )
   )
-    errors.linkedIn = "Ingresa una url de LinkedIn correcta!";
+    errors.linkedIn = "Ingresa una url correcta!";
   //GitHub
   if (input.gitHub === "") errors.gitHub = "Ingresa la url de tu gitHub!";
   if (/[\s]/.test(input.gitHub))
     errors.gitHub = "El url no debe contener espacios!";
   if (
-    !/github/i.test(input.gitHub) &&
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
       input.gitHub
     )
   )
-    errors.gitHub = "Ingresa una url de LinkedIn correcta!";
+    errors.gitHub = "Ingresa una url correcta!";
+  if (!/github/i.test(input.gitHub))
+    errors.gitHub = "Ingresa una url de GitHub correcta!";
 
   //Website
   if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
@@ -67,23 +69,13 @@ function validaciones(input) {
   //yearsOfExperience
   if (input.yearsOfExperience === 0)
     errors.yearsOfExperience = "El valor no puede ser 0!";
-  if (
-    input.yearsOfExperience > 99 ||
-    input.yearsOfExperience < 1 ||
-    !/\d/g.test(input.yearsOfExperience)
-  )
+  if (input.yearsOfExperience > 99 || input.yearsOfExperience < 1)
     errors.yearsOfExperience = "El valor debe estar entre 1 y 99";
   //dailyBudget
   if (input.dailyBudget === 0) errors.dailyBudget = "El valor no puede ser 0!";
-  if (
-    input.dailyBudget > 999 ||
-    input.dailyBudget < 1 ||
-    !/\d/g.test(input.dailyBudget)
-  )
+  if (input.dailyBudget > 999 || input.dailyBudget < 1)
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
-  //inputEnglish
-  if (input.dailyBudget === "Básico")
-    errors.dailyBudget = "Ingrese su nivel de ingles";
+
   //countrie
   if (!input.paiseId?.length) errors.countries = "Ingresa un pais!";
   // tecnologias;

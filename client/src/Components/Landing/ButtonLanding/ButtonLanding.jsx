@@ -5,7 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../../Login/LoginButton";
 
 export default function ButtonLanding() {
-  const { loginWithRedirect } = useAuth0;
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Link to={"/work"}>
@@ -13,9 +18,18 @@ export default function ButtonLanding() {
           <button className={s.buttonL}>Work</button>
         </div>
       </Link>
-      <div className={s.possitionLg}>
-        <LoginButton />
-      </div>
+
+      {!isAuthenticated ? (
+        <div>
+          <LoginButton />
+        </div>
+      ) : (
+        <Link to={"/create"}>
+          <div className={s.possitionLg}>
+            <button className={s.buttonLg}>Postularme</button>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

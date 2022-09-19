@@ -1,56 +1,55 @@
 /* Download CV Btn */
 
-.possitionL{
-    top: 55%;   
-    position: absolute;
-    margin-left: 50%;
+.possitionL {
+  top: 55%;
+  position: absolute;
+  margin-left: 50%;
 }
 
-.buttonL{
-box-sizing: border-box;
-padding: 10px;
-gap: 10px;
-width: 25vh;
-height: 7vh;
-background: linear-gradient(101.81deg, #C961DE 25.84%, #3645A0 98.95%);
-border-radius: 30px;
-color: #FFFFFF;
-font-family: 'Poppins';
-font-weight: 400;
-font-size: 17px;
-align-items: center;
-text-align: center;
-line-height: 26px;
-cursor: pointer;
+.buttonL {
+  box-sizing: border-box;
+  padding: 10px;
+  gap: 10px;
+  width: 25vh;
+  height: 7vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 30px;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 17px;
+  align-items: center;
+  text-align: center;
+  line-height: 26px;
+  cursor: pointer;
 }
 
-.possitionLg{
-    top: 55%;   
-    position: absolute;
-    margin-left: 37%;
-
+.possitionLg {
+  top: 55%;
+  position: absolute;
+  margin-left: 37%;
 }
-.link{
-    text-decoration: none;
+.link {
+  text-decoration: none;
 }
-.buttonLg{
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 10px;
-gap: 10px;
-width: 25vh;
-height: 7vh;
-background: rgba(255, 255, 255, 0.3);
-border-radius: 30px;
-text-align: center;
-color: #FFFFFF;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 26px;
-cursor: pointer;
+.buttonLg {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  width: 25vh;
+  height: 7vh;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 26px;
+  cursor: pointer;
 }

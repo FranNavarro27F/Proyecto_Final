@@ -38,7 +38,6 @@ const getUsers = async () => {
       ],
     });
 
-    
     let users = usuarios.map((curr) => {
 
       // let userM = curr.dataValues;
@@ -60,7 +59,6 @@ const getUsers = async () => {
         name: curr.name,
         lastName: curr.lastName,
         email: curr.email,
-        // country: getCountry(curr.paiseId),
         country: curr.paiseId,
         city: curr.city ? curr.city : null,
         linkedIn: curr.linkedIn ? curr.linkedIn : null,
@@ -151,10 +149,6 @@ const getUserById = async (id) => {
   try {
     let User = await Usuarios.findByPk(id, {
       include: [
-        // {
-        //   model: Paises,
-        //   attributes: ["name"],
-        // },
         {
           model: Servicios,
           attributes: ["name"],
@@ -178,10 +172,17 @@ const getUserById = async (id) => {
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
     userM.lastName = toUperCase(userM.lastName);
-    userM.servicios= (userM.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    userM.lenguajes= (userM.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    userM.tecnologias= (userM.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    
+    userM.servicios = userM.servicios
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.lenguajes = userM.lenguajes
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.tecnologias = userM.tecnologias
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+
+    console.log(userM);
 
     return userM;
   } catch (e) {
