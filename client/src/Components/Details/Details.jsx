@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserId } from "../../Redux/Actions/DevUser";
+import { detailReset, getUserId } from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from '../Home/Assets/Diamante/diamante.png'
 import SideMenu from "../Landing/SideMenu/SideMenu";
@@ -17,6 +17,9 @@ export default function Details() {
   useEffect(()=>{
     dispatch(getUserId(id))
     dispatch(getCountries())
+    return function() {
+      dispatch(detailReset())
+    }
   },[dispatch, id])
 
   
