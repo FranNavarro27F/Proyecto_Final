@@ -20,8 +20,8 @@ export default function ButtonLanding() {
         </div>
       ) : (
         <Link to={"/create"}>
-          <div className={s.buttonLg}>
-            <button className={s.buttonL}>Postularme</button>
+          <div className={s.possitionLg}>
+            <button className={s.buttonLg}>Postularme</button>
           </div>
         </Link>
       )}
