@@ -38,11 +38,6 @@ const getUsers = async () => {
       ],
     });
 
-    const getCountry = async (id) => {
-      const find = await Paises.findByPk(id);
-      return find.name;
-    };
-
     let users = usuarios.map((curr) => {
       return {
         id: curr.id,
@@ -51,7 +46,6 @@ const getUsers = async () => {
         name: curr.name,
         lastName: curr.lastName,
         email: curr.email,
-        // country: getCountry(curr.paiseId),
         country: curr.paiseId,
         city: curr.city ? curr.city : null,
         linkedIn: curr.linkedIn ? curr.linkedIn : null,
@@ -137,10 +131,6 @@ const getUserById = async (id) => {
   try {
     let User = await Usuarios.findByPk(id, {
       include: [
-        // {
-        //   model: Paises,
-        //   attributes: ["name"],
-        // },
         {
           model: Servicios,
           attributes: ["name"],
@@ -164,12 +154,17 @@ const getUserById = async (id) => {
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
     userM.lastName = toUperCase(userM.lastName);
-    userM.servicios= (userM.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    userM.lenguajes= (userM.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    userM.tecnologias= (userM.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name);
-    
-    console.log(userM)
-    
+    userM.servicios = userM.servicios
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.lenguajes = userM.lenguajes
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.tecnologias = userM.tecnologias
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+
+    console.log(userM);
 
     return userM;
   } catch (e) {
@@ -193,8 +188,9 @@ const getUserByName = async (name) => {
     let userByName = await Usuarios.findAll({
       where: {
         name: { [Op.iLike]: `%${name}%` },
-      },include: [
-         {
+      },
+      include: [
+        {
           model: Paises,
           attributes: ["name"],
         },
@@ -213,17 +209,19 @@ const getUserByName = async (name) => {
           attributes: ["name"],
           through: { attributes: [] },
         },
-      ]
+      ],
     });
-  
-    let arrUsers= userByName.map(cur=> cur.dataValues);
-    let arrUsersListo= arrUsers.map(async cur=> {
-      return{
+
+    let arrUsers = userByName.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
         id: cur.id,
         profilePicture: cur.profilePicture,
         isAdmin: cur.isAdmin,
-        name: cur.name ? cur.name = toUperCase(cur.name) : cur.name =[],
-        lastName: cur.lastName ? cur.lastName = toUperCase(cur.lastName) : cur.lastName =[],
+        name: cur.name ? (cur.name = toUperCase(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = toUperCase(cur.lastName))
+          : (cur.lastName = []),
         email: cur.email,
         city: cur.city,
         linkedIn: cur.linkedIn,
@@ -234,19 +232,22 @@ const getUserByName = async (name) => {
         englishLevel: cur.englishLevel,
         bio: cur.bio,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
-        servicios: cur.servicios ? (cur.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name) : [],
-        lenguajes: cur.lenguajes ? (cur.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name) : [],
-        tecnologias: cur.tecnologias ? (cur.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name) : []
-
-      }
-    })
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        lenguajes: cur.lenguajes
+          ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        tecnologias: cur.tecnologias
+          ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
     return await Promise.all(arrUsersListo);
-
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
 };
-
 
 module.exports = {
   getUsers,
