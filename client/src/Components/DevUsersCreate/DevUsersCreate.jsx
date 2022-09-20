@@ -18,6 +18,7 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import Loader from "../Loader/Loader";
 
 //imagenes
 import storage from './Img-file/firebaseConfig.js';
@@ -285,11 +286,9 @@ export default function DevUsersCreate() {
   //   }
   // }, [errors, input, setDisabledButton]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return !isAuthenticated ? (
+  return isLoading ? (
+    <Loader />
+  ) : !isAuthenticated ? (
     loginWithRedirect()
   ) : (
     <div className={s.divGeneral}>

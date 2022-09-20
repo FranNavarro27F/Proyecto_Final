@@ -73,6 +73,10 @@
   left: 92vw;
   top: 2vh;
 }
+.buttonClear span,
+buttonClearAlert span {
+  font-size: 1.4vh;
+}
 
 .buttonClearAlert {
   animation-name: parpadeo;
