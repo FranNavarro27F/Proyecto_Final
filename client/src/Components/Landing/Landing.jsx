@@ -17,7 +17,7 @@ export default function Landing() {
       <ButtonLanding />
       <div className={s.textLanding}>
         <p className={s.text1landing}>
-          Hazel Felix Ramos based in Tokushima Japan
+         Programax
         </p>
       </div>
     </div>

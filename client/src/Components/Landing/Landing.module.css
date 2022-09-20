@@ -9,7 +9,10 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 6vh;
+  font-size: 72px;
+  background: -webkit-linear-gradient(rgb(97, 18, 150),rgb(150, 18, 252),rgb(62, 49, 249));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 9vh;
   color: #ffffff;
   flex: none;
