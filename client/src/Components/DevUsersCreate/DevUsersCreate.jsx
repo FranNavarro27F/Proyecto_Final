@@ -16,12 +16,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getCountries } from "../../Redux/Actions/Countries";
 import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
-import { postDevUser } from "../../Redux/Actions/DevUser";
+import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 
 const animatedComponents = makeAnimated();
 
 export default function DevUsersCreate() {
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,21 +30,28 @@ export default function DevUsersCreate() {
     dispatch(getTecnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
+    dispatch(getUsersBd());
   }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
-
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
+  const users = useSelector((state) => state.devUser.allUsers);
+
+  // async function promesa(obj, prop) {
+  //   const result = await obj[prop];
+  //   return result[["PromiseResult"]];
+  // }
+
+  // console.log(promesa(user, "email"), "aca estoy");
 
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache.name : "",
-    lastName: cache?.lastName ? cache.lastName : "",
+    name: cache?.name ? cache.name : `${user?.given_name}`,
+    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
     profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
-    email: cache?.email ? cache?.email : "",
+    email: `${user?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
@@ -126,16 +134,14 @@ export default function DevUsersCreate() {
             input.lastName.slice(1).toLowerCase(),
         })
       );
-      // alert("Perfil Creado con exito... (alerta provisoria)");
       setTimeout(() => {
         navigate("/work");
-        // setModal(false);
       }, 1000);
       setCache({
-        name: ("name", ""),
-        lastName: ("lastName", ""),
+        name: ("name", `${user?.given_name}`),
+        lastName: ("lastName", `${user?.family_name}`),
         profilePicture: ("profilePicture", ""),
-        email: ("email", ""),
+        email: ("email", `${user?.email}`),
         linkedIn: ("linkedIn", ""),
         gitHub: ("gitHub", ""),
         webSite: ("webSite", ""),
@@ -148,15 +154,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log("Hay errores");
+      console.log("Hay errores!");
     }
   };
+
   const handleReset = () => {
     setCache({
-      name: ("name", ""),
-      lastName: ("lastName", ""),
+      name: ("name", `${user?.given_name}`),
+      lastName: ("lastName", `${user?.family_name}`),
       profilePicture: ("profilePicture", ""),
-      email: ("email", ""),
+      email: `${user?.family_name}`,
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
@@ -169,6 +176,8 @@ export default function DevUsersCreate() {
       servicios: ("servicios", []),
     });
   };
+
+  const [errors, setErrors] = useState({});
 
   //OPCIONES DE LOS SELECTS:
 
@@ -185,17 +194,6 @@ export default function DevUsersCreate() {
     };
   });
 
-  // const resultado = tecnologies?.filter((e) =>
-  //   e.id.includes(cache?.tecnologias)
-  // );
-
-  // const optionsTecnologias2 = Array(cache).map((e) => {
-  //   return {
-  //     value: e.tecnologias,
-  //     label: e.tecnologiasLabel,
-  //   };
-  // });
-
   const optionsServices = services.map((e) => {
     return {
       value: e.id,
@@ -210,60 +208,57 @@ export default function DevUsersCreate() {
     };
   });
 
-  const [errors, setErrors] = useState({});
-  const [errorsCache, setErrorsCache] = useLocalStorage({});
+  // const [disabledButton, setDisabledButton] = useState(true);
 
-  const [disabledButton, setDisabledButton] = useState(true);
-  useEffect(() => {
-    if (
-      //name
-      input.name === "" ||
-      /[^\w\s]/.test(input.name) ||
-      /[1-9]/.test(input.name) ||
-      /[\s]/.test(input.name) ||
-      //lastname
-      input.lastName === "" ||
-      /[^\w\s]/.test(input.lastName) ||
-      /[1-9]/.test(input.lastName) ||
-      /[\s]/.test(input.lastName) ||
-      //image
-      // input.profilePicture === "" ||
-      // /[\s]/.test(input.profilePicture) ||
-      // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
-      //email
-      input.email === "" ||
-      !/^\S+@\S+\.\S+$/.test(input.email) ||
-      /[\s]/.test(input.email) ||
-      //linkedin
-      input.linkedIn === "" ||
-      /[\s]/.test(input.linkedIn) ||
-      //github
-      input.gitHub === "" ||
-      /[\s]/.test(input.gitHub) ||
-      //website
-      input.webSite === "" ||
-      /[\s]/.test(input.webSite) ||
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        input.webSite
-      ) ||
-      //yearsOfExperience
-      input.yearsOfExperience?.length < 1 ||
-      input.yearsOfExperience?.length > 99 ||
-      // /dailyBudget
-      input.dailyBudget?.length < 1 ||
-      input.dailyBudget?.length > 999 ||
-      !input.paiseId?.length ||
-      !input.tecnologias?.length ||
-      !input.lenguajes?.length ||
-      !input.servicios?.length
-    ) {
-      setDisabledButton(true);
-    } else {
-      setDisabledButton(false);
-    }
-  }, [errors, input, setDisabledButton]);
+  // useEffect(() => {
+  //   if (
+  //     //name
+  //     input.name === "" ||
+  //     /[^\w\s]/.test(input.name) ||
+  //     /[1-9]/.test(input.name) ||
+  //     /[\s]/.test(input.name) ||
+  //     //lastname
+  //     input.lastName === "" ||
+  //     /[^\w\s]/.test(input.lastName) ||
+  //     /[1-9]/.test(input.lastName) ||
+  //     /[\s]/.test(input.lastName) ||
+  //     //image
+  //     // input.profilePicture === "" ||
+  //     // /[\s]/.test(input.profilePicture) ||
+  //     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
+  //     //email
+  //     input.email === "" ||
+  //     !/^\S+@\S+\.\S+$/.test(input.email) ||
+  //     /[\s]/.test(input.email) ||
+  //     //linkedin
+  //     input.linkedIn === "" ||
+  //     /[\s]/.test(input.linkedIn) ||
+  //     //github
+  //     input.gitHub === "" ||
+  //     /[\s]/.test(input.gitHub) ||
+  //     //website
+  //     input.webSite === "" ||
+  //     /[\s]/.test(input.webSite) ||
+  //     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+  //       input.webSite
+  //     ) ||
+  //     //yearsOfExperience
+  //     input.yearsOfExperience?.length < 1 ||
+  //     input.yearsOfExperience?.length > 99 ||
+  //     // /dailyBudget
+  //     input.dailyBudget?.length < 1 ||
+  //     input.dailyBudget?.length > 999 ||
+  //     !input.paiseId?.length ||
+  //     !input.tecnologias?.length ||
+  //     !input.lenguajes?.length ||
+  //     !input.servicios?.length
+  //   ) {
+  //     setDisabledButton(true);
+  //   } else {
+  //     setDisabledButton(false);
+  //   }
+  // }, [errors, input, setDisabledButton]);
 
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -330,13 +325,15 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Email: </p>
             <input
+              readonly="true"
               type="email"
               placeholder="Tu Email..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.email}
+              value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
+              defaultValue="asdsa"
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (

@@ -1,0 +1,67 @@
+.modal {
+  display: flex;
+  position: fixed;
+  /* z-index: 999; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  /* display: none; */
+  justify-content: center;
+  align-items: center;
+  /* background-color: red; */
+  /* backdrop-filter: blur(3px); */
+  font-family: "Poppins";
+}
+
+/* .modal.IsOpen {
+  display: flex;
+} */
+.container h1 {
+  color: #c961deda;
+
+  font-size: 2rem;
+}
+.container {
+  color: wheat;
+  -webkit-box-shadow: 0px 0px 18px 1px #c961deda;
+  -moz-box-shadow: 0px 0px 18px 1px #c961deda;
+  box-shadow: 0px 0px 18px 1px #c961deda;
+  border-radius: 34px 34px 34px 34px;
+  -moz-border-radius: 34px 34px 34px 34px;
+  -webkit-border-radius: 34px 34px 34px 34px;
+  border: 0px solid #00000034;
+  background-color: rgba(45, 43, 43, 0.495);
+  backdrop-filter: blur(3px);
+  border: black 2px solid;
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  text-align: center;
+  min-height: 200px;
+  margin-bottom: 20vh;
+
+  overflow-x: auto;
+}
+.modalClose {
+}
+/* .buttonModal {
+  background: #ffee10;
+  font-family: inherit;
+  padding: 0.6em 1.3em;
+  font-weight: 900;
+  font-size: 10px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  margin-right: 0.5vw;
+}
+.buttonModal:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+} */

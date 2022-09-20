@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 
@@ -8,13 +8,35 @@ import Circulos from "./Assets/Circulos/Circulos";
 import Circulo from "./Assets/Circulo/Circulo.jsx";
 import Footer from "../Footer/Footer";
 import CardHome from "../Card Home/CardHome";
+import NavMenuHome from "./NavMenuHome/NavMenuHome";
+import ScrollTop from "./ScrollTop";
 
 export default function Home() {
+  const scrollToSeccion = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+  const landing = useRef(null);
+  const home = useRef(null);
+  const about = useRef(null);
+  const work = useRef(null);
   return (
     <div>
-      <Landing />
+      <div className={s.buttonTop}>
+        <ScrollTop className={s.buttonTop} />
+      </div>
+      <NavMenuHome
+        scrollToSeccion={scrollToSeccion}
+        landing={landing}
+        home={home}
+        about={about}
+        work={work}
+      />
+      <Landing landing={landing} />
       <div>
-        <div className={s.body}>
+        <div className={s.body} ref={home}>
           <div className={s.luz}></div>
 
           <Circulo className={s.circulo} />
@@ -33,7 +55,7 @@ export default function Home() {
             nuestra plataforma, de manera segura y gratuita.
           </p>
         </div>
-        <CardHome />
+        <CardHome work={work} />
         <Footer />
       </div>
     </div>

@@ -6,8 +6,11 @@ import s from "./OrderDailyBudget.module.css";
 
 export default function OrderDailyBudget({
   setActualFilter,
-  customStyles,
   setOrder,
+  setCacheFilter,
+  cacheFilter,
+  customStyles,
+  actualFilter,
 }) {
   const optionsOrderBudget = [
     { value: "default", label: "Todos" },
@@ -29,7 +32,18 @@ export default function OrderDailyBudget({
   return (
     <div>
       <Select
-        onChange={(e) => handleOrderBud(e)}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            OrderBud: e.value,
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            OrderBud: e.value,
+            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+          });
+        }}
+        set-value={cacheFilter?.OrderBud}
         className={s.select}
         isDisabled={false}
         options={optionsOrderBudget}
