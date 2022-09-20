@@ -25,12 +25,10 @@ export default function Card({
               </svg>
             )}
           </div>
-          <p className={s.name_client}>
-            {name}
-            <div className={s.divTecnologias}>
-              <span>{tecnologies?.join(", ")} </span>
-            </div>
-          </p>
+          <p className={s.name_client}>{name}</p>
+          <div className={s.divTecnologias}>
+            <span>{tecnologies?.join(", ")} </span>
+          </div>
         </Link>
 
         <div className={s.social_media}>

@@ -4,8 +4,11 @@ import s from "./OrderyearsOfExperience.module.css";
 import Select from "react-select";
 export default function OrderyearsOfExperience({
   setActualFilter,
-  customStyles,
   setOrder,
+  setCacheFilter,
+  cacheFilter,
+  customStyles,
+  actualFilter,
 }) {
   const optionsOrderExp = [
     { value: "default", label: "Todos" },
@@ -27,7 +30,18 @@ export default function OrderyearsOfExperience({
   return (
     <div>
       <Select
-        onChange={(e) => handleOrderExp(e)}
+        set-value={cacheFilter?.OrderExp}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            OrderExp: e.value,
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            OrderExp: e.value,
+            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+          });
+        }}
         className={s.select}
         isDisabled={false}
         options={optionsOrderExp}

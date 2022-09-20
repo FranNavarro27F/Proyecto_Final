@@ -104,3 +104,20 @@
   color: blue;
   cursor: pointer;
 }
+
+.buttonTop {
+  position: fixed;
+  bottom: 6vh;
+  right: 3vw;
+  z-index: 9999;
+}
+
+.buttonTopStyle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 109, 226);
+  color: rgb(255, 109, 226);
+  background-color: white;
+  cursor: pointer;
+}
