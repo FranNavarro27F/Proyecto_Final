@@ -97,7 +97,7 @@ export default function SideMenu() {
               width="120"
               height="740"
               filterUnits="userSpaceOnUse"
-              colorInterpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
               <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix

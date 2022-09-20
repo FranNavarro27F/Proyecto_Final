@@ -139,7 +139,7 @@ export default function Details() {
     <a>LinkedIn: </a>
     <span>{user.linkedIn}</span>
     <br/>
-    <span>Tecologias: </span>
+    <span>Tecnologias: </span>
     <span>{user.tecnologias?.map(t=>t.name)}</span>
     <br/>
     <span>Pais: </span>
@@ -151,7 +151,7 @@ export default function Details() {
     <span>Años de Experiencia: </span>
     <span>{user.yearsOfExperience}</span>
     <br/>
-    <span>Presupuesto por hora: </span>
+    <span>Presupuesto por día: </span>
     <span>{user.dailyBudget}</span>
     </div>
     <div>
