@@ -16,8 +16,22 @@
 .buttonPaged2 {
   color: #732f80da;
 }
+/* .buttonPaged2:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+} */
+
 .button {
   color: #c961deda;
+}
+
+.button:hover{
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .buttonPaged2:disabled,

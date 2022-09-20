@@ -7,7 +7,7 @@ export const customStyles = {
     // match with the menu
     borderRadius: state.isFocused ? "5px 5px 0 0" : 3,
     // Overwrittes the different states of border
-    border: "2px #ca04f1 solid",
+    border: "2px hsl(0, 0%, 80%) solid",
     // Overwrittes the different states of border
 
     color: state.isFocused ? "#ca04f1" : "#c961de",
@@ -32,7 +32,7 @@ export const customStyles = {
     }),
     "&:hover": {
       // Overwrittes the different states of border
-      borderColor: state.isFocused ? "#cd03f5" : "blue",
+      borderColor: state.isFocused ? "black" : "black",
     },
   }),
   menu: (base) => ({
