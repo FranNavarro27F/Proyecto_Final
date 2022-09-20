@@ -208,56 +208,56 @@ export default function DevUsersCreate() {
     };
   });
 
-  const [disabledButton, setDisabledButton] = useState(true);
+  // const [disabledButton, setDisabledButton] = useState(true);
 
-  useEffect(() => {
-    if (
-      //name
-      input.name === "" ||
-      /[^\w\s]/.test(input.name) ||
-      /[1-9]/.test(input.name) ||
-      /[\s]/.test(input.name) ||
-      //lastname
-      input.lastName === "" ||
-      /[^\w\s]/.test(input.lastName) ||
-      /[1-9]/.test(input.lastName) ||
-      /[\s]/.test(input.lastName) ||
-      //image
-      // input.profilePicture === "" ||
-      // /[\s]/.test(input.profilePicture) ||
-      // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
-      //email
-      input.email === "" ||
-      !/^\S+@\S+\.\S+$/.test(input.email) ||
-      /[\s]/.test(input.email) ||
-      //linkedin
-      input.linkedIn === "" ||
-      /[\s]/.test(input.linkedIn) ||
-      //github
-      input.gitHub === "" ||
-      /[\s]/.test(input.gitHub) ||
-      //website
-      input.webSite === "" ||
-      /[\s]/.test(input.webSite) ||
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        input.webSite
-      ) ||
-      //yearsOfExperience
-      input.yearsOfExperience?.length < 1 ||
-      input.yearsOfExperience?.length > 99 ||
-      // /dailyBudget
-      input.dailyBudget?.length < 1 ||
-      input.dailyBudget?.length > 999 ||
-      !input.paiseId?.length ||
-      !input.tecnologias?.length ||
-      !input.lenguajes?.length ||
-      !input.servicios?.length
-    ) {
-      setDisabledButton(true);
-    } else {
-      setDisabledButton(false);
-    }
-  }, [errors, input, setDisabledButton]);
+  // useEffect(() => {
+  //   if (
+  //     //name
+  //     input.name === "" ||
+  //     /[^\w\s]/.test(input.name) ||
+  //     /[1-9]/.test(input.name) ||
+  //     /[\s]/.test(input.name) ||
+  //     //lastname
+  //     input.lastName === "" ||
+  //     /[^\w\s]/.test(input.lastName) ||
+  //     /[1-9]/.test(input.lastName) ||
+  //     /[\s]/.test(input.lastName) ||
+  //     //image
+  //     // input.profilePicture === "" ||
+  //     // /[\s]/.test(input.profilePicture) ||
+  //     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
+  //     //email
+  //     input.email === "" ||
+  //     !/^\S+@\S+\.\S+$/.test(input.email) ||
+  //     /[\s]/.test(input.email) ||
+  //     //linkedin
+  //     input.linkedIn === "" ||
+  //     /[\s]/.test(input.linkedIn) ||
+  //     //github
+  //     input.gitHub === "" ||
+  //     /[\s]/.test(input.gitHub) ||
+  //     //website
+  //     input.webSite === "" ||
+  //     /[\s]/.test(input.webSite) ||
+  //     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+  //       input.webSite
+  //     ) ||
+  //     //yearsOfExperience
+  //     input.yearsOfExperience?.length < 1 ||
+  //     input.yearsOfExperience?.length > 99 ||
+  //     // /dailyBudget
+  //     input.dailyBudget?.length < 1 ||
+  //     input.dailyBudget?.length > 999 ||
+  //     !input.paiseId?.length ||
+  //     !input.tecnologias?.length ||
+  //     !input.lenguajes?.length ||
+  //     !input.servicios?.length
+  //   ) {
+  //     setDisabledButton(true);
+  //   } else {
+  //     setDisabledButton(false);
+  //   }
+  // }, [errors, input, setDisabledButton]);
 
   if (isLoading) {
     return <div>Loading...</div>;
