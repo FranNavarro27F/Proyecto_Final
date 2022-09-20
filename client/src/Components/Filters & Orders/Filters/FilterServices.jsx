@@ -6,8 +6,11 @@ import Select from "react-select";
 
 export default function FIlterServices({
   setActualFilter,
-  customStyles,
   setOrder,
+  setCacheFilter,
+  cacheFilter,
+  customStyles,
+  actualFilter,
 }) {
   const services = useSelector((state) => state.services.allServices);
 
@@ -31,8 +34,19 @@ export default function FIlterServices({
   return (
     <div>
       <Select
-        onChange={(e) => handleServices(e)}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            filterServices: e.map((e) => e.label),
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            filterServices: e.map((e) => e.label),
+            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+          });
+        }}
         className={s.select}
+        set-value={cacheFilter?.filterServices}
         isDisabled={false}
         options={optionsServices}
         isClearable={true}

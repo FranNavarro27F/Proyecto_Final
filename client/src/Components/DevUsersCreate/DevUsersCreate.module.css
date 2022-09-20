@@ -220,6 +220,7 @@
 .inputContainer {
   width: 26%;
   min-height: 12vh;
+
   /* font-size: 20vw; */
 }
 .inputContainer p {
@@ -228,7 +229,7 @@
 
 .inputContainer input,
 .inputContainer input::placeholder {
-  /* background-color: red; */
+  /* background-color: #58565661; */
   font-size: 0.8vw;
 }
 

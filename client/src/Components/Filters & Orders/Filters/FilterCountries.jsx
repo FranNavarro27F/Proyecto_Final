@@ -6,8 +6,10 @@ import Select from "react-select";
 export default function FIlterCountries({
   setActualFilter,
   setOrder,
-
+  setCacheFilter,
+  cacheFilter,
   customStyles,
+  actualFilter,
 }) {
   const countries = useSelector((state) => state.countries.allCountries);
 
@@ -18,21 +20,34 @@ export default function FIlterCountries({
     };
   });
 
-  const handleCountries = (e) => {
-    setActualFilter((state) => {
-      return {
-        ...state,
-        filterCountries: e.map((e) => e.value),
-      };
-    });
-    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  };
+  // const handleCountries = (e) => {
+  //   setActualFilter({
+  //     ...actualFilter,
+  //     filterCountries: e.map((e) => e.value),
+  //   });
+  //   setCacheFilter({
+  //     ...cacheFilter,
+  //     filterCountries: e.map((e) => e.value),
+  //     // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+  //   });
+  // };
 
   return (
     <div className={s.filterCountrie}>
       <Select
+        set-value={cacheFilter?.filterCountries}
         options={optionsCountries}
-        onChange={(e) => handleCountries(e)}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            filterCountries: e.map((e) => e.value),
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            filterCountries: e.map((e) => e.value),
+            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+          });
+        }}
         className={s.select}
         isDisabled={false}
         isClearable={true}

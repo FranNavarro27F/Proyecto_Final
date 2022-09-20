@@ -4,7 +4,14 @@ import Select from "react-select";
 
 import s from "./FIlterTecnologie.module.css";
 
-export default function FIlterTecnologie({ setActualFilter, setOrder }) {
+export default function FIlterTecnologie({
+  setActualFilter,
+  setOrder,
+  setCacheFilter,
+  cacheFilter,
+  actualFilter,
+  customStyles,
+}) {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
 
   const optionsTecnologias = tecnologies.map((e) => {
@@ -24,40 +31,22 @@ export default function FIlterTecnologie({ setActualFilter, setOrder }) {
     setOrder(`Ordenado: ${e.map((e) => e.label)}`);
   };
 
-  const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      background: "#85858566",
-      // match with the menu
-      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-      // Overwrittes the different states of border
-      borderColor: state.isFocused ? "#ca04f1" : "#c961de",
-      // Removes weird border around container
-      boxShadow: state.isFocused ? null : null,
-      "&:hover": {
-        // Overwrittes the different states of border
-        borderColor: state.isFocused ? "#cd03f5" : "blue",
-      },
-    }),
-    menu: (base) => ({
-      ...base,
-      // override border radius to match the box
-      borderRadius: 0,
-      // kill the gap
-      marginTop: 0,
-    }),
-    menuList: (base) => ({
-      ...base,
-      // kill the white space on first and last option
-      padding: 0,
-    }),
-  };
-
   return (
     <div>
       <Select
         id="selectTecnologie"
-        onChange={(e) => handleTecnologies(e)}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            filterTecnologies: e.map((e) => e.label),
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            filterTecnologies: e.map((e) => e.label),
+            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+          });
+        }}
+        set-value={cacheFilter?.filterTecnologies}
         className={s.select}
         isDisabled={false}
         options={optionsTecnologias}
