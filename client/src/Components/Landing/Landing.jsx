@@ -6,7 +6,7 @@ import SideMenu from "./SideMenu/SideMenu";
 import s from "./Landing.module.css";
 import { useAuth0, User } from "@auth0/auth0-react";
 
-export default function Landing() {
+export default function Landing({ landing }) {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   // console.log(user);
 
@@ -14,7 +14,7 @@ export default function Landing() {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+    <div ref={landing}>
       <PlanetasChicos />
       <Planeta />
       <SideMenu />
