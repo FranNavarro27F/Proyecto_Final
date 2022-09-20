@@ -7,6 +7,7 @@ import { detailReset, getUserId } from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from '../Home/Assets/Diamante/diamante.png'
 import SideMenu from "../Landing/SideMenu/SideMenu";
+import Loader from '../Loader/Loader'
 
 
 export default function Details() {
@@ -28,11 +29,13 @@ export default function Details() {
    const paises = useSelector((state)=> state.countries.allCountries)
    console.log(user,"acauser")
 
+
     // function toUpperCase(user){
     //   return user[0].toUpperCase()+ user.slice(1)
     // }
 
-   return (
+   return !user.name ? <Loader/>:(
+
     <div className={s.sideM}>
       <SideMenu/>
      <div className={s.backGroundDiv}>
@@ -134,16 +137,16 @@ export default function Details() {
     <span>{user.email}</span>
     <br/>
     <span>Lenguajes: </span>
-    <span>{user.lenguajes?.map(e=>e.name)}</span>
+    <span>{user.lenguajes?.map(e=>e)}</span>
     <br/>
     <span>Servicios: </span>
-    <span>{user.servicios?.map(s=>s.name)}</span>
+    <span>{user.servicios?.map(s=>s)}</span>
     <br/>
     <a>LinkedIn: </a>
     <span>{user.linkedIn}</span>
     <br/>
     <span>Tecnologias: </span>
-    <span>{user.tecnologias?.map(t=>t.name)}</span>
+    <span>{user.tecnologias?.map(t=>t)}</span>
     <br/>
     <span>Pais: </span>
     <span>{ user.paiseId}</span>
