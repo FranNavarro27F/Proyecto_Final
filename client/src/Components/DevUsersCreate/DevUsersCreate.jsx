@@ -19,6 +19,9 @@ import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 
+//imagenes
+import storage from './Img-file/firebaseConfig.js';
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 const animatedComponents = makeAnimated();
 
 export default function DevUsersCreate() {
@@ -57,8 +60,8 @@ export default function DevUsersCreate() {
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
     servicios: cache?.servicios ? cache?.servicios : [],
   });
-
   const handleChangeInput = (e) => {
+
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -74,7 +77,30 @@ export default function DevUsersCreate() {
       [e.target.name]: e.target.value,
     });
   };
-
+  const getFile = (file) => {
+    const storageRef = ref(storage, `/files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // const percent = Math.round(
+        //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        // );
+        console.log(snapshot)
+   
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setInput({
+            ...input,
+            profilePicture: url,
+          });
+        });
+      }
+    )
+  }
   const handleChangeEnglish = (e) => {
     const ingles = () => {
       if (e.target.value === "1") {
@@ -313,11 +339,8 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Imagen: </p>
             <input
-              type="url"
-              placeholder="https://..."
-              autoComplete="of"
-              onChange={(e) => handleChangeInput(e)}
-              value={cache?.profilePicture}
+              type="file"
+              onChange={(e) => getFile(e.target.files[0])}
               name="profilePicture"
               className={s.inputImg}
             />
