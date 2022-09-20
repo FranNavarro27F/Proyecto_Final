@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.11.0",
+    "@paypal/paypal-js": "^5.1.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.1",
     "axios": "^0.27.2",
     "dotenv": "^16.0.2",
+    "paypal-rest-sdk": "^1.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.4.0",
