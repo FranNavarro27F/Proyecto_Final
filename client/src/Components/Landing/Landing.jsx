@@ -17,7 +17,12 @@ export default function Landing() {
       <ButtonLanding />
       <div className={s.textLanding}>
         <p className={s.text1landing}>
-         Programax
+          Bienvenido a <span className={s.programax}>Programax</span>
+          <i>!</i>
+        </p>
+        <p className={s.text1landing2}>
+          Regístrate, postulate, navega y contrata. Todas tus necesidades al
+          alcance de un click<span className={s.puntos}> ...</span>
         </p>
       </div>
     </div>

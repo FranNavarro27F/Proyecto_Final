@@ -18,6 +18,7 @@ import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperi
 import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
 import SearchBar from "../SearchBar/SearchBar";
 import Profile from "../Login/UserProfile/Profile";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -92,7 +93,9 @@ export default function NavBar() {
 
   return (
     <header className={s.container}>
-      <img src={logo} alt="programax" className={s.logo} />
+      <Link to="/">
+        <img src={logo} alt="programax" className={s.logo} />
+      </Link>
       <SearchBar setActualFilter={setActualFilter} />
       <div className={s.divGen}>
         <FIlterCountries

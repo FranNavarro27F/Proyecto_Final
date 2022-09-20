@@ -8,6 +8,9 @@ import SideMenu from "../Landing/SideMenu/SideMenu";
 import { validaciones } from "./Validaciones";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
+import { customStyles } from "./StyleSelect";
+import ModalCreate from "./ModalCreate/ModalCreate";
+import { useAuth0 } from "@auth0/auth0-react";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
@@ -15,8 +18,6 @@ import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import { useAuth0 } from "@auth0/auth0-react";
-import ModalCreate from "./ModalCreate/ModalCreate";
 
 const animatedComponents = makeAnimated();
 
@@ -47,6 +48,9 @@ export default function DevUsersCreate() {
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
     dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
+    yearsOfExperience: cache?.yearsOfExperience
+      ? cache?.yearsOfExperience
+      : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
     paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
@@ -106,40 +110,46 @@ export default function DevUsersCreate() {
   };
 
   const [modal, setModal] = useState(false);
+  const [verErrores, setVerErrores] = useState(false);
 
   const handleCreate = (e) => {
     e.preventDefault();
-    setModal(true);
-    dispatch(
-      postDevUser({
-        ...input,
-        name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-        lastName:
-          input.lastName[0].toUpperCase() +
-          input.lastName.slice(1).toLowerCase(),
-      })
-    );
-    // alert("Perfil Creado con exito... (alerta provisoria)");
-    setTimeout(() => {
-      navigate("/work");
-      // setModal(false);
-    }, 1000);
-    setCache({
-      name: ("name", ""),
-      lastName: ("lastName", ""),
-      profilePicture: ("profilePicture", ""),
-      email: ("email", ""),
-      linkedIn: ("linkedIn", ""),
-      gitHub: ("gitHub", ""),
-      webSite: ("webSite", ""),
-      yearsOfExperience: ("yearsOfExperience", "0"),
-      dailyBudget: ("dailyBudget", "0"),
-      englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
-      tecnologias: ("tecnologias", []),
-      lenguajes: ("lenguajes", []),
-      servicios: ("servicios", []),
-    });
+    setVerErrores(true);
+    if (!errors) {
+      setModal(true);
+      dispatch(
+        postDevUser({
+          ...input,
+          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
+          lastName:
+            input.lastName[0].toUpperCase() +
+            input.lastName.slice(1).toLowerCase(),
+        })
+      );
+      // alert("Perfil Creado con exito... (alerta provisoria)");
+      setTimeout(() => {
+        navigate("/work");
+        // setModal(false);
+      }, 1000);
+      setCache({
+        name: ("name", ""),
+        lastName: ("lastName", ""),
+        profilePicture: ("profilePicture", ""),
+        email: ("email", ""),
+        linkedIn: ("linkedIn", ""),
+        gitHub: ("gitHub", ""),
+        webSite: ("webSite", ""),
+        yearsOfExperience: ("yearsOfExperience", "0"),
+        dailyBudget: ("dailyBudget", "0"),
+        englishLevel: ("englishLevel", "Básico"),
+        paiseId: ("paiseId", ""),
+        tecnologias: ("tecnologias", []),
+        lenguajes: ("lenguajes", []),
+        servicios: ("servicios", []),
+      });
+    } else {
+      console.log("Hay errores");
+    }
   };
   const handleReset = () => {
     setCache({
@@ -201,6 +211,8 @@ export default function DevUsersCreate() {
   });
 
   const [errors, setErrors] = useState({});
+  const [errorsCache, setErrorsCache] = useLocalStorage({});
+
   const [disabledButton, setDisabledButton] = useState(true);
   useEffect(() => {
     if (
@@ -256,11 +268,9 @@ export default function DevUsersCreate() {
     return <div>Loading...</div>;
   }
 
-  return (
-    // return !isAuthenticated ? (
-    //   loginWithRedirect
-    // ) : (
-
+  return !isAuthenticated ? (
+    loginWithRedirect()
+  ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
       <SideMenu />
@@ -277,8 +287,11 @@ export default function DevUsersCreate() {
               name="name"
               className={s.inputName}
             />
-
-            {errors.name && <label className={s.errors}>⚠ {errors.name}</label>}
+            <div className={s.divErrors}>
+              {verErrores && errors.name && (
+                <label className={s.errors}>⚠ {errors.name}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Apellido: </p>
@@ -291,9 +304,11 @@ export default function DevUsersCreate() {
               name="lastName"
               className={s.inputLastname}
             />
-            {errors.lastName && (
-              <label className={s.errors}>⚠ {errors.lastName}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.lastName && (
+                <label className={s.errors}>⚠ {errors.lastName}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Imagen: </p>
@@ -306,9 +321,11 @@ export default function DevUsersCreate() {
               name="profilePicture"
               className={s.inputImg}
             />
-            {errors.profilePicture && (
-              <label className={s.errors}>⚠ {errors.profilePicture}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.profilePicture && (
+                <label className={s.errors}>⚠ {errors.profilePicture}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Email: </p>
@@ -321,9 +338,11 @@ export default function DevUsersCreate() {
               name="email"
               className={s.inputEmail}
             />
-            {errors.email && (
-              <label className={s.errors}>⚠ {errors.email}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.email && (
+                <label className={s.errors}>⚠ {errors.email}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Linkedin: </p>
@@ -336,9 +355,11 @@ export default function DevUsersCreate() {
               name="linkedIn"
               className={s.inputLinkedin}
             />
-            {errors.linkedIn && (
-              <label className={s.errors}>⚠ {errors.linkedIn}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.linkedIn && (
+                <label className={s.errors}>⚠ {errors.linkedIn}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>GitHub: </p>
@@ -351,9 +372,11 @@ export default function DevUsersCreate() {
               name="gitHub"
               className={s.inputGithub}
             />
-            {errors.gitHub && (
-              <label className={s.errors}>⚠ {errors.gitHub}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.gitHub && (
+                <label className={s.errors}>⚠ {errors.gitHub}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Website: </p>
@@ -366,9 +389,11 @@ export default function DevUsersCreate() {
               name="webSite"
               className={s.inputWebsite}
             />
-            {errors.webSite && (
-              <label className={s.errors}>⚠ {errors.webSite}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.webSite && (
+                <label className={s.errors}>⚠ {errors.webSite}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Años de experiencia: </p>
@@ -381,10 +406,14 @@ export default function DevUsersCreate() {
               value={cache?.yearsOfExperience}
               name="yearsOfExperience"
               className={s.inputExperience}
+              defaultValue="1"
+              // step=".01"
             />
-            {errors.yearsOfExperience && (
-              <label className={s.errors}>⚠ {errors.yearsOfExperience}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.yearsOfExperience && (
+                <label className={s.errors}>⚠ {errors.yearsOfExperience}</label>
+              )}
+            </div>
           </div>
           <div className={s.inputContainer}>
             <p>Precio por dia: </p>
@@ -396,11 +425,14 @@ export default function DevUsersCreate() {
               onChange={(e) => handleChangeInput(e)}
               value={cache?.dailyBudget}
               name="dailyBudget"
+              // step=".01"
               className={s.inputPrice}
             />
-            {errors.dailyBudget && (
-              <label className={s.errors}>⚠ {errors.dailyBudget}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.dailyBudget && (
+                <label className={s.errors}>⚠ {errors.dailyBudget}</label>
+              )}
+            </div>
           </div>
         </form>
         <div className={s.divEnglish}>
@@ -431,157 +463,174 @@ export default function DevUsersCreate() {
             >
               {input.englishLevel}
             </label>
-            {errors.englishLevel && (
-              <label className={s.errors}>⚠ {errors.englishLevel}</label>
-            )}
+            <div className={s.divErrors}>
+              {verErrores && errors.englishLevel && (
+                <label className={s.errors}>⚠ {errors.englishLevel}</label>
+              )}
+            </div>
           </div>
         </div>
-        <div className={s.divSelectContainer}>
-          <p htmlFor="pais">Pais: </p>
-          <Select
-            components={animatedComponents}
-            set-value={cache?.paiseId}
-            className={s.select}
-            isDisabled={false}
-            options={optionsCountries}
-            isClearable={false}
-            isSearchable={true}
-            isMulti={false}
-            placeholder="Selecciona un pais"
-            onChange={(e) => {
-              setInput({
-                ...input,
-                paiseId: e.value,
-              });
-              setErrors(
-                validaciones({
+        <div className={s.container_selector}>
+          <div className={s.divSelectContainer}>
+            <p htmlFor="pais">Pais: </p>
+            <Select
+              components={animatedComponents}
+              set-value={cache?.paiseId}
+              className={s.select}
+              isDisabled={false}
+              options={optionsCountries}
+              isClearable={false}
+              isSearchable={true}
+              isMulti={false}
+              styles={customStyles}
+              // classNamePrefix="react-select"
+              placeholder="Selecciona un pais"
+              onChange={(e) => {
+                setInput({
                   ...input,
                   paiseId: e.value,
-                })
-              );
-              setCache({
-                ...cache,
-                paiseId: e.value,
-              });
-            }}
-          />
-          {errors.countries && (
-            <label className={s.errors}>⚠ {errors.countries}</label>
-          )}
-        </div>
-        <div className={s.divSelectContainer}>
-          <p htmlFor="tecnologias">Tecnologias: </p>
-          <Select
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
-            set-value={cache?.tecnologias}
-            className={s.select}
-            isDisabled={false}
-            options={optionsTecnologias}
-            isClearable={true}
-            isSearchable={true}
-            isMulti={true}
-            placeholder="Selecciona una tecnología"
-            onChange={(e) => {
-              setInput({
-                ...input,
-                tecnologias: e.map((ele) => ele.value),
-              });
-              setErrors(
-                validaciones({
+                });
+                setErrors(
+                  validaciones({
+                    ...input,
+                    paiseId: e.value,
+                  })
+                );
+                setCache({
+                  ...cache,
+                  paiseId: e.value,
+                });
+              }}
+            />
+            <div className={s.divErrors}>
+              {verErrores && errors.countries && (
+                <label className={s.errors}>⚠ {errors.countries}</label>
+              )}
+            </div>
+          </div>
+          <div className={s.divSelectContainer}>
+            <p htmlFor="tecnologias">Tecnologias: </p>
+            <Select
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
+              set-value={cache?.tecnologias}
+              className={s.select}
+              isDisabled={false}
+              options={optionsTecnologias}
+              isClearable={true}
+              isSearchable={true}
+              isMulti={true}
+              styles={customStyles}
+              placeholder="Selecciona una tecnología"
+              onChange={(e) => {
+                setInput({
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
-                })
-              );
-              setCache({
-                ...cache,
-                tecnologias: e.map((ele) => ele.value),
-              });
-            }}
-          />
-          {errors.tecnologies && (
-            <label className={s.errors}>⚠ {errors.tecnologies}</label>
-          )}
-        </div>
-        <div className={s.divSelectContainer}>
-          <p htmlFor="lenguajes">Lenguajes: </p>
-          <Select
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            set-value={cache?.lenguajes}
-            className={s.select}
-            isDisabled={false}
-            options={optionsLanguajes}
-            isClearable={true}
-            isSearchable={true}
-            isMulti={true}
-            placeholder="Selecciona un lenguaje"
-            onChange={(e) => {
-              setInput({
-                ...input,
-                lenguajes: e.map((ele) => ele.value),
-              });
-              setErrors(
-                validaciones({
+                });
+                setErrors(
+                  validaciones({
+                    ...input,
+                    tecnologias: e.map((ele) => ele.value),
+                  })
+                );
+                setCache({
+                  ...cache,
+                  tecnologias: e.map((ele) => ele.value),
+                });
+              }}
+            />
+            <div className={s.divErrors}>
+              {verErrores && errors.tecnologies && (
+                <label className={s.errors}>⚠ {errors.tecnologies}</label>
+              )}
+            </div>
+          </div>
+          <div className={s.divSelectContainer}>
+            <p htmlFor="lenguajes">Lenguajes: </p>
+            <Select
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              set-value={cache?.lenguajes}
+              className={s.select}
+              isDisabled={false}
+              options={optionsLanguajes}
+              isClearable={true}
+              isSearchable={true}
+              isMulti={true}
+              styles={customStyles}
+              placeholder="Selecciona un lenguaje"
+              onChange={(e) => {
+                setInput({
                   ...input,
                   lenguajes: e.map((ele) => ele.value),
-                })
-              );
-              setCache({
-                ...cache,
-                lenguajes: e.map((ele) => ele.value),
-              });
-            }}
-          />
-          {errors.languajes && (
-            <label className={s.errors}>⚠ {errors.languajes}</label>
-          )}
-        </div>
-        <div className={s.divSelectContainer}>
-          <p htmlFor="servicios">Servicios: </p>
-          <Select
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            set-value={cache?.servicios}
-            className={s.select}
-            isDisabled={false}
-            options={optionsServices}
-            isClearable={true}
-            isSearchable={true}
-            isMulti={true}
-            placeholder="Selecciona un servicio"
-            onChange={(e) => {
-              setInput({
-                ...input,
-                servicios: e.map((ele) => ele.value),
-              });
-              setErrors(
-                validaciones({
+                });
+                setErrors(
+                  validaciones({
+                    ...input,
+                    lenguajes: e.map((ele) => ele.value),
+                  })
+                );
+                setCache({
+                  ...cache,
+                  lenguajes: e.map((ele) => ele.value),
+                });
+              }}
+            />
+            <div className={s.divErrors}>
+              {verErrores && errors.languajes && (
+                <label className={s.errors}>⚠ {errors.languajes}</label>
+              )}
+            </div>
+          </div>
+          <div className={s.divSelectContainer}>
+            <p htmlFor="servicios">Servicios: </p>
+            <Select
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              set-value={cache?.servicios}
+              className={s.select}
+              isDisabled={false}
+              options={optionsServices}
+              isClearable={true}
+              isSearchable={true}
+              isMulti={true}
+              styles={customStyles}
+              placeholder="Selecciona un servicio"
+              onChange={(e) => {
+                setInput({
                   ...input,
                   servicios: e.map((ele) => ele.value),
-                })
-              );
-              setCache({
-                ...input,
-                servicios: e.map((ele) => ele.value),
-              });
-            }}
-          />
-          {errors.services && (
-            <label className={s.errors}>⚠ {errors.services}</label>
-          )}
+                });
+                setErrors(
+                  validaciones({
+                    ...input,
+                    servicios: e.map((ele) => ele.value),
+                  })
+                );
+                setCache({
+                  ...input,
+                  servicios: e.map((ele) => ele.value),
+                });
+              }}
+            />
+            <div className={s.divErrors}>
+              {verErrores && errors.services && (
+                <label className={s.errors}>⚠ {errors.services}</label>
+              )}
+            </div>
+          </div>
         </div>
         <div className={s.buttons}>
+          <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
+            <span className={s.button_top}>RESETEAR FORMULARIO</span>
+          </button>
           <button
-            className={s.buttonCreated2}
-            disabled={disabledButton}
+            className={s.buttonCreate}
+            // disabled={disabledButton}
             onClick={(e) => handleCreate(e)}
           >
             <span className={s.button_top}> CREAR PERFIL</span>
-          </button>
-          <button className={s.buttonCreated1} onClick={(e) => handleReset(e)}>
-            <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
         </div>
       </div>
