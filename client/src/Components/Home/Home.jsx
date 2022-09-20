@@ -12,20 +12,28 @@ import NavMenuHome from "./NavMenuHome/NavMenuHome";
 import ScrollTop from "./ScrollTop";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
+import ButtonScrollSection from "./ButtonScrollSection";
+import { BsChevronDoubleDown } from "react-icons/bs";
 
 export default function Home() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
       top: elementRef.current.offsetTop,
       behavior: "smooth",
     });
   };
+  const scrollTo = (section) => {
+    section.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   const landing = useRef(null);
   const home = useRef(null);
-  // const about = useRef(null);
   const work = useRef(null);
+  // const about = useRef(null);
 
   return isLoading ? (
     <Loader />
@@ -41,7 +49,7 @@ export default function Home() {
         // about={about}
         work={work}
       />
-      <Landing landing={landing} />
+      <Landing landing={landing} goToSectionRef={home} />
       <div>
         <div className={s.body} ref={home}>
           <div className={s.luz}></div>
@@ -61,6 +69,11 @@ export default function Home() {
             que se ajuste a tus proyectos y contrata de directamente a través de
             nuestra plataforma, de manera segura y gratuita.
           </p>
+          <div className={s.divButtonDown}>
+            <button onClick={() => scrollTo(work)} className={s.buttonDown}>
+              <BsChevronDoubleDown />
+            </button>
+          </div>
         </div>
         <CardHome work={work} />
         <Footer

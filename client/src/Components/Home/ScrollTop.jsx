@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { BsChevronDoubleUp } from "react-icons/bs";
 import { FaAngleDoubleUp } from "react-icons/fa";
 import s from "./ScrollTop.module.css";
 
@@ -24,7 +25,7 @@ export default function ScrollTop() {
   return (
     <div>
       {showScrollTop && (
-        <FaAngleDoubleUp className={s.button} onClick={scrollTop} />
+        <BsChevronDoubleUp className={s.button} onClick={scrollTop} />
       )}
     </div>
   );

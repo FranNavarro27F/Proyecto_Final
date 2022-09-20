@@ -30,3 +30,9 @@
   flex-grow: 0;
   cursor: pointer;
 }
+.imgLogo {
+  width: 3vw;
+  height: 6vh;
+  top: 1vh;
+  /* padding: 1px 1px; */
+}
