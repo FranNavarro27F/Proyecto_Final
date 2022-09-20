@@ -24,7 +24,7 @@ export default function Home() {
 
   const landing = useRef(null);
   const home = useRef(null);
-  const about = useRef(null);
+  // const about = useRef(null);
   const work = useRef(null);
 
   return isLoading ? (
@@ -38,7 +38,7 @@ export default function Home() {
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
-        about={about}
+        // about={about}
         work={work}
       />
       <Landing landing={landing} />
@@ -63,7 +63,13 @@ export default function Home() {
           </p>
         </div>
         <CardHome work={work} />
-        <Footer />
+        <Footer
+          scrollToSeccion={scrollToSeccion}
+          landing={landing}
+          home={home}
+          // about={about}
+          work={work}
+        />
       </div>
     </div>
   );

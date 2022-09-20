@@ -9,6 +9,7 @@ import CantidadDePaginas from "../Paged/Cantidad De Paginas/CantidadDePaginas";
 import Paged from "../Paged/Paged";
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import ModalWork from "./ModalWork/ModalWork";
+import Loader from "../Loader/Loader";
 
 export default function Work() {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ export default function Work() {
 
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
-  return (
+  return !allUsers.length ? (
+    <Loader />
+  ) : (
     <main className={s.body}>
       <NavBar className={s.navMenu} />
       <div className={s.sideMenu}>

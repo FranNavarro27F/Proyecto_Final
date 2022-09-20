@@ -7,7 +7,7 @@ export default function NavMenuHome({
   work,
   home,
   landing,
-  about,
+  // about,
 }) {
   return (
     <div className={s.container}>
