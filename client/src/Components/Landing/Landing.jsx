@@ -4,15 +4,13 @@ import PlanetasChicos from "./Assets/PlanetasChicos/PlanetasChicos";
 import ButtonLanding from "./ButtonLanding/ButtonLanding";
 import SideMenu from "./SideMenu/SideMenu";
 import s from "./Landing.module.css";
-import { useAuth0, User } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "../Loader/Loader";
 
 export default function Landing({ landing }) {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   // console.log(user);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   return (
     <div ref={landing}>
       <PlanetasChicos />

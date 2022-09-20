@@ -10,19 +10,26 @@ import Footer from "../Footer/Footer";
 import CardHome from "../Card Home/CardHome";
 import NavMenuHome from "./NavMenuHome/NavMenuHome";
 import ScrollTop from "./ScrollTop";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "../Loader/Loader";
 
 export default function Home() {
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
       top: elementRef.current.offsetTop,
       behavior: "smooth",
     });
   };
+
   const landing = useRef(null);
   const home = useRef(null);
   const about = useRef(null);
   const work = useRef(null);
-  return (
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div>
       <div className={s.buttonTop}>
         <ScrollTop className={s.buttonTop} />
