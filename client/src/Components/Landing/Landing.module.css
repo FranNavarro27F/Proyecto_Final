@@ -48,3 +48,16 @@
   letter-spacing: 4px;
   text-shadow: 0px 0px 2px #cf2ac0;
 }
+
+.buttonDown {
+  background: none;
+  border: none;
+  width: 5vh;
+  color: wheat;
+  /* background-color: red; */
+  left: 50vw;
+  top: 90vh;
+  position: absolute;
+  font-size: 4vh;
+  cursor: pointer;
+}

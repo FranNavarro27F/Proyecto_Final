@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
 import CantidadDePaginas from "../Paged/Cantidad De Paginas/CantidadDePaginas";
 import Paged from "../Paged/Paged";
-import SideMenu from "../Landing/SideMenu/SideMenu";
+
 import ModalWork from "./ModalWork/ModalWork";
+import Loader from "../Loader/Loader";
+import SideMenuWork from "./SideMenuWork/SideMenuWork";
 
 export default function Work() {
   const dispatch = useDispatch();
@@ -18,7 +20,6 @@ export default function Work() {
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
 
-  const [modal, setModal] = useState(false);
   useEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
   }, [dispatch, allUsers]);
@@ -28,11 +29,13 @@ export default function Work() {
 
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
-  return (
+  return !allUsers.length ? (
+    <Loader />
+  ) : (
     <main className={s.body}>
       <NavBar className={s.navMenu} />
       <div className={s.sideMenu}>
-        <SideMenu />
+        <SideMenuWork />
       </div>
       {!filtrados?.length ? (
         <ModalWork />

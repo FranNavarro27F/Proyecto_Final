@@ -121,3 +121,17 @@
   background-color: white;
   cursor: pointer;
 }
+
+.buttonDown {
+  /* position: absolute; */
+  background: none;
+  border: none;
+  width: 5vh;
+  color: wheat;
+  /* background-color: red; */
+  left: 6vw;
+  top: 45vh;
+  position: absolute;
+  font-size: 4vh;
+  cursor: pointer;
+}
