@@ -1,3 +1,4 @@
+const emailer = require("../../emailer.js")
 const {
   Usuarios,
   Tecnologias,
@@ -112,6 +113,8 @@ const postUsers = async (data) => {
     row.addTecnologias(tecnologias);
     row.addLenguajes(lenguajes);
     row.addServicios(servicios);
+    newUser = row.dataValues;
+    emailer.sendMail(newUser)
 
     if (!created) {
       throw new Error("El usuario ya existe");
