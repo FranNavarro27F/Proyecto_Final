@@ -43,13 +43,6 @@ export default function DevUsersCreate() {
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
-  // async function promesa(obj, prop) {
-  //   const result = await obj[prop];
-  //   return result[["PromiseResult"]];
-  // }
-
-  // console.log(promesa(user, "email"), "aca estoy");
-
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
@@ -107,19 +100,16 @@ export default function DevUsersCreate() {
         const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(percent, "percent");
         if (percent === 0 && percent === 100) {
           return setLoader(false);
         } else {
           setLoader(true);
         }
-        console.log(loader);
       },
       (err) => console.log(err),
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          console.log(url, "imagen");
           setInput({
             ...input,
             profilePicture: url,
@@ -211,7 +201,7 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log(Object.keys(errors));
+      console.log(`hay errores`, errors);
     }
   };
   // console.log(user);

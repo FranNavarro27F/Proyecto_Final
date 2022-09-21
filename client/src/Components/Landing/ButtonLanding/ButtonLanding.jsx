@@ -23,7 +23,7 @@ export default function ButtonLanding() {
         </div>
       </Link>
 
-      {!validateEmail && isAuthenticated ? (
+      {validateEmail && isAuthenticated ? (
         <Link to={"/profile"}>
           <div className={s.possitionLg}>
             <button className={s.buttonLg}>Perfil</button>

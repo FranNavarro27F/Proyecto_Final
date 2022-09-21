@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDevUsers, getUsersBd } from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
+import UserProfile from "react-user-profile";
 
-export default function UserProfile() {
+export default function DevProfile() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const dispatch = useDispatch();
 
@@ -19,13 +20,13 @@ export default function UserProfile() {
   const allUsers = useSelector((state) => state.devUser.allUsers);
   const country = useSelector((state) => state.countries.allCountries);
   const email = user?.email;
+
   // const validateEmail = users?.filter((e) => e.email === email);
   useEffect(() => {
     dispatch(getUsersBd());
   }, [dispatch]);
 
   const userDb = allUsers?.filter((e) => e.email === email);
-  console.log(userDb);
 
   if (isLoading && !user?.email) {
     return (
@@ -34,7 +35,9 @@ export default function UserProfile() {
       </div>
     );
   }
-  console.log(country.map((e) => e.id === userDb.country));
+
+  const location = userDb.map((e) => e.country);
+  console.log(location);
 
   return isAuthenticated && user?.email ? (
     <div>
@@ -42,21 +45,21 @@ export default function UserProfile() {
       <article className={s.modal}>
         <div className={s.container}>
           <img
-            src={userDb?.map((e) => e.profilePicture)}
-            alt={userDb?.map((e) => e.name)}
+            src={userDb ? userDb?.map((e) => e.profilePicture) : user?.picture}
+            alt={userDb ? userDb?.map((e) => e.name) : user?.name}
             className={s.picture}
           />
-          <h2>{`${userDb?.map((e) => e.name)} ${userDb?.map(
-            (e) => e.lastName
-          )}`}</h2>
-          <p>{userDb?.map((e) => e.email)}</p>
+          <h2>{`${userDb ? userDb?.map((e) => e.name) : user?.given_name} ${
+            userDb ? userDb?.map((e) => e.lastName) : user?.family_name
+          }`}</h2>
+          <p>{userDb ? userDb?.map((e) => e.email) : user?.email}</p>
           <p
             className={user?.email_verified ? s.verificacionT : s.verificacionF}
           >
             Verificacion de email:
             {user?.email_verified ? " ✔" : " ❌"}
           </p>
-          {/* <p>Pais: {country.map((e) => e.name.includes(userDb.paiseId))}</p> */}
+          {userDb && <p>Pais: {userDb.country?.map((e) => e)}</p>}
           <Logout />
         </div>
       </article>

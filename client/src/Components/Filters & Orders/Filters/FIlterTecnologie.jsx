@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 
@@ -21,28 +21,10 @@ export default function FIlterTecnologie({
     };
   });
 
-  // const handleTecnologies = (e) => {
-  //   setActualFilter((state) => {
-  //     return {
-  //       ...state,
-  //       filterTecnologies: e.map((e) => e.label),
-  //     };
-  //   });
-  //   setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-
-  // };
-
-  const selectRef = useRef(null);
-
-  const handleclearValue = () => {
-    console.log("holaa");
-    selectRef.select.clearValue();
-  };
-
   return (
     <div>
       <Select
-        ref={selectRef}
+        // ref={selectInputRef}
         onChange={(e) => {
           setActualFilter({
             ...actualFilter,
@@ -51,11 +33,11 @@ export default function FIlterTecnologie({
           setCacheFilter({
             ...cacheFilter,
             filterTecnologies: e.map((e) => e.label),
-            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
           });
         }}
         set-value={cacheFilter?.filterTecnologies}
         className={s.select}
+        // onChange={setSelected}
         isDisabled={false}
         options={optionsTecnologias}
         isClearable={true}
@@ -64,7 +46,7 @@ export default function FIlterTecnologie({
         placeholder="Filtra por tecnología..."
         styles={customStyles}
       />
-      <button onClick={handleclearValue}>CLEAR</button>
+      {/* <button>CLEAR</button> */}
     </div>
   );
 }
