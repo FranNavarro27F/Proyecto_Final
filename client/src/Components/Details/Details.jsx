@@ -8,6 +8,7 @@ import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from '../Home/Assets/Diamante/diamante.png'
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import Loader from '../Loader/Loader'
+import 'boxicons'
 
 
 export default function Details() {
@@ -133,25 +134,40 @@ export default function Details() {
 
       </div>
       <br/>
-      <span>Email: </span> 
+      <span className={s.mail}> 
+      {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
+      <box-icon border='circle' animation ="tada" color= "white" type='logo' name='gmail'></box-icon>
+      Email: </span> 
     <span>{user.email}</span>
     <br/>
-    <span>Lenguajes: </span>
+    <br/>
+    <box-icon  name='code-alt' color="white"></box-icon>
+    <span> Lenguajes: </span>
     <span>{user.lenguajes?.map(e=>e)}</span>
     <br/>
-    <span>Servicios: </span>
+    <br/>
+    <box-icon color="white" name='donate-heart'></box-icon>
+           <span> Servicios: </span>
     <span>{user.servicios?.map(s=>s)}</span>
     <br/>
-    <a>LinkedIn: </a>
+    <br/>
+    <box-icon  color="white" name='linkedin' type='logo' ></box-icon>
+    <a> LinkedIn: </a>
     <span>{user.linkedIn}</span>
     <br/>
-    <span>Tecnologias: </span>
+    <br/>
+    <box-icon color="white" name='mouse'></box-icon>
+    <span> Tecnologias: </span>
     <span>{user.tecnologias?.map(t=>t)}</span>
     <br/>
-    <span>Pais: </span>
+    <br/>
+    <box-icon name='world' color="white" ></box-icon>
+    <span> Pais: </span>
     <span>{ user.paiseId}</span>
     <br/>
-    <span>Sitio Web: </span>
+    <br/>
+    <box-icon name='planet' animation ="flashing" color="white"></box-icon>
+    <span> Sitio Web: </span>
     <span>{user.webSite}</span>
     <br/>
     <span>Años de Experiencia: </span>
