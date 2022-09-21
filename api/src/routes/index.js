@@ -7,6 +7,7 @@ const tecnologiasRouter = require("../routes/Tecnologias/index.js");
 const paisesRouter = require("../routes/Paises/index.js");
 const serviciosRouter = require("../routes/Servicios/index.js");
 const contratosRouter = require("../routes/Contratos/index.js");
+const emailerRouter = require("../routes/Emailer/index.js");
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/tecnologias", tecnologiasRouter);
 router.use("/paises", paisesRouter);
 router.use("/servicios", serviciosRouter);
 router.use("/contratos", contratosRouter);
+router.use("/emailer", emailerRouter);
 
 module.exports = router;
