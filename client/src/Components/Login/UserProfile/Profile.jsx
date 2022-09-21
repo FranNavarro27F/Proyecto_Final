@@ -7,6 +7,7 @@ import Logout from "../Logout";
 export default function Profile() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   // console.log(user);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -30,3 +31,5 @@ export default function Profile() {
     loginWithRedirect()
   );
 }
+
+//ANULO ESTE Y PASAMOSA USAR EL USERS, CON INFO DE LA DATABASE. ESTE RENDERIZA INFO DIRECTA DE AUTH0

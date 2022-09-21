@@ -11,6 +11,8 @@ import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
 import ModalCreate from "./ModalCreate/ModalCreate";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
@@ -21,11 +23,10 @@ import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import Loader from "../Loader/Loader";
 
 //imagenes
-import storage from './Img-file/firebaseConfig.js';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-const animatedComponents = makeAnimated();
+import storage from "./Img-file/firebaseConfig.js";
 
 export default function DevUsersCreate() {
+  const animatedComponents = makeAnimated();
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +42,6 @@ export default function DevUsersCreate() {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
-  const users = useSelector((state) => state.devUser.allUsers);
 
   // async function promesa(obj, prop) {
   //   const result = await obj[prop];
@@ -50,12 +50,13 @@ export default function DevUsersCreate() {
 
   // console.log(promesa(user, "email"), "aca estoy");
 
+  const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
     name: cache?.name ? cache.name : `${user?.given_name}`,
     lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
     profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
-    email: `${user?.email}`,
+    email: cache?.email ? cache?.email : `${user?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
@@ -69,8 +70,8 @@ export default function DevUsersCreate() {
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
     servicios: cache?.servicios ? cache?.servicios : [],
   });
-  const handleChangeInput = (e) => {
 
+  const handleChangeInput = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -86,30 +87,47 @@ export default function DevUsersCreate() {
       [e.target.name]: e.target.value,
     });
   };
+  const [loader, setLoader] = useState(false);
   const getFile = (file) => {
     const storageRef = ref(storage, `/files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // const percent = Math.round(
-        //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        // );
-        console.log(snapshot)
-   
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log(percent, "percent");
+        if (percent === 0 && percent === 100) {
+          return setLoader(false);
+        } else {
+          setLoader(true);
+        }
+        console.log(loader);
       },
       (err) => console.log(err),
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          // console.log(url);
           setInput({
             ...input,
             profilePicture: url,
           });
+          setErrors(
+            validaciones({
+              ...cache,
+              profilePicture: url,
+            })
+          );
+          setCache({
+            ...cache,
+            profilePicture: url,
+          });
         });
       }
-    )
-  }
+    );
+  };
   const handleChangeEnglish = (e) => {
     const ingles = () => {
       if (e.target.value === "1") {
@@ -150,8 +168,7 @@ export default function DevUsersCreate() {
   const handleCreate = (e) => {
     e.preventDefault();
     setVerErrores(true);
-    if (!errors) {
-      setModal(true);
+    if (errors.length === 0) {
       dispatch(
         postDevUser({
           ...input,
@@ -161,6 +178,7 @@ export default function DevUsersCreate() {
             input.lastName.slice(1).toLowerCase(),
         })
       );
+      setModal(true);
       setTimeout(() => {
         navigate("/work");
       }, 1000);
@@ -181,7 +199,7 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log("Hay errores!");
+      console.log("Hay errores!", errors);
     }
   };
 
@@ -202,9 +220,8 @@ export default function DevUsersCreate() {
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
     });
+    setLoader(false);
   };
-
-  const [errors, setErrors] = useState({});
 
   //OPCIONES DE LOS SELECTS:
 
@@ -286,10 +303,12 @@ export default function DevUsersCreate() {
   //   }
   // }, [errors, input, setDisabledButton]);
 
-  return isLoading ? (
-    <Loader />
-  ) : !isAuthenticated ? (
+  return !isAuthenticated ? (
     loginWithRedirect()
+  ) : isLoading ? (
+    <Loader />
+  ) : !user.email ? (
+    <Loader />
   ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
@@ -308,9 +327,7 @@ export default function DevUsersCreate() {
               className={s.inputName}
             />
             <div className={s.divErrors}>
-              {verErrores && errors.name && (
-                <label className={s.errors}>⚠ {errors.name}</label>
-              )}
+              {verErrores && errors.name && <label>⚠ {errors.name}</label>}
             </div>
           </div>
           <div className={s.inputContainer}>
@@ -330,14 +347,53 @@ export default function DevUsersCreate() {
               )}
             </div>
           </div>
-          <div className={s.inputContainer}>
+          <div className={s.inputContainer_1fila}>
             <p>Imagen: </p>
-            <input
-              type="file"
-              onChange={(e) => getFile(e.target.files[0])}
-              name="profilePicture"
-              className={s.inputImg}
-            />
+            {!cache.profilePicture && loader ? (
+              <div className={s.barra}>
+                <span></span>
+              </div>
+            ) : !cache.profilePicture ? (
+              <label className={s.divInput}>
+                <input
+                  className={s.addImg}
+                  type="file"
+                  // value={cache?.profilePicture}
+                  onChange={(e) => getFile(e.target.files[0])}
+                  // onClick={() => setLoader(false)}
+                  name="profilePicture"
+                  // className={s.inputImg}
+                />
+                <AiOutlineUserAdd />
+              </label>
+            ) : (
+              <div className={s.divImg}>
+                <div className={s.lds_ring}>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <img
+                  src={cache?.profilePicture}
+                  alt={cache?.name}
+                  className={s.imgForm}
+                />
+                <button
+                  className={s.buttonImg}
+                  onClick={() => {
+                    setCache({
+                      profilePicture: ("profilePicture", ""),
+                    });
+                    setInput({
+                      profilePicture: "",
+                    });
+                    setLoader(false);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </button>
+              </div>
+            )}
             <div className={s.divErrors}>
               {verErrores && errors.profilePicture && (
                 <label className={s.errors}>⚠ {errors.profilePicture}</label>
@@ -352,10 +408,10 @@ export default function DevUsersCreate() {
               placeholder="Tu Email..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={`${user?.email}`}
+              value={user?.email}
               name="email"
               className={s.inputEmail}
-              defaultValue="asdsa"
+              // defaultValue={user?.email}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (
