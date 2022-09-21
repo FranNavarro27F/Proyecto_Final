@@ -17,12 +17,12 @@ function validaciones(input) {
   if (/[\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener espacios!";
   //image
-  // if (input.profilePicture === "")
-  //   errors.profilePicture = "Ingresa una url de tu imagen!";
-  if (/[\s]/.test(input.profilePicture))
-    errors.profilePicture = "El url no debe contener espacios!";
-  if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
-    errors.profilePicture = "El url que intentas colocar no es valida";
+  if (input.profilePicture === "")
+    errors.profilePicture = "Ingresa una url de tu imagen!";
+  // if (/[\s]/.test(input.profilePicture))
+  //   errors.profilePicture = "El url no debe contener espacios!";
+  // if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
+  //   errors.profilePicture = "El url que intentas colocar no es valida";
   //email
   if (input.email === "") errors.email = "Ingresa tu email!";
   if (/[\s]/.test(input.email))
@@ -77,15 +77,15 @@ function validaciones(input) {
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie
-  if (!input.paiseId?.length) errors.countries = "Ingresa un pais!";
+  if (!input.paiseId?.length !== 0) errors.countries = "Ingresa un pais!";
   // tecnologias;
-  if (!input.tecnologias?.length)
+  if (!input.tecnologias?.length !== 0)
     errors.tecnologies = "Ingresa al menos una tecnologia!";
   //lenguajes
-  if (!input.lenguajes?.length)
+  if (!input.lenguajes?.length !== 0)
     errors.languajes = "Ingresa al menos un lenguaje!";
   //servicios
-  if (!input.servicios?.length)
+  if (!input.servicios?.length !== 0)
     errors.services = "Ingresa al menos un servicio!";
 
   return errors;
