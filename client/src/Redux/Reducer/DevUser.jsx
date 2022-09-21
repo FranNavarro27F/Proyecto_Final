@@ -4,6 +4,7 @@ const initialState = {
   filteredUsers: [],
   page: 1,
   devPerPage: 10,
+  scroll: false,
 };
 
 export default function devUser(state = initialState, action) {
@@ -19,6 +20,7 @@ export default function devUser(state = initialState, action) {
         ...state,
         allUsers: action.payload,
         filteredUsers: action.payload,
+        scroll: false,
       };
 
     case "SET_CURRENT_PAGE":
@@ -99,7 +101,7 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         details: action.payload,
-      }
+      };
     default:
       return state;
   }
