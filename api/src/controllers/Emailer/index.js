@@ -10,25 +10,41 @@ const transporter = nodemailer.createTransport({
       user: GMAILUSER, // generated ethereal user
       pass: GMAILPW, // generated ethereal password
     },
+    tls: {
+        rejectUnauthorized: false
+    }
   });
 
   transporter.verify().then (() => {
     console.log("Listo para mandar mail")
   })
 
-  const sender = async () => {
+//   const sender = async () => {
  
-  let info = await transporter.sendMail({
+//   let info = await transporter.sendMail({
 
-    from: '"Programax. 👻" <appprogramax@gmail.com>', // sender address
-    to: "duduesperguin1@gmail.com", // list of receivers
-    subject: "Alguien quiere contactarte! ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+//     from: '"Programax 👻" <appprogramax@gmail.com>', // sender address
+//     to: "duduesperguin1@gmail.com", // list of receivers
+//     subject: "Alguien quiere contactarte! ✔", // Subject line
+//     text: "Hello world?", // plain text body
+//     html: "<b>Hello world?</b>", // html body
     
-});
-    return info
+// });
+//     return info
+// }
+
+exports.sendEmail = async (email, subject, textHTML) => {
+    try {
+        console.log("entro a send email: ",email )
+        let info = await transporter.sendMail({
+            from: '"Programax 👻" <appprogramax@gmail.com>', // sender address
+            to: "duduesperguin1@gmail.com", // list of receivers
+            subject: "Alguien quiere contactarte! ✔", // Subject line
+            html: "<b>Hello world?</b>",  // html body
+        });
+        
+        return info
+    } catch (error) {
+        return error
+    }
 }
-
-
-  module.exports = { sender };

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const sender = require("../../controllers/Emailer/index.js");
+const { sendEmail } = require('../../controllers/Emailer/index.js');
 const nodemailer = require("nodemailer");
 
 const router = Router();
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 
     try {
 
-          res.json(await sender)
+          res.json(await sendEmail)
 
     } catch (e) {
       res.status(400).send(`Error --→ ${e}`);
