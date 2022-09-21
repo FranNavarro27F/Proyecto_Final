@@ -170,10 +170,14 @@ export default function Details() {
     <span> Sitio Web: </span>
     <span>{user.webSite}</span>
     <br/>
-    <span>Años de Experiencia: </span>
+    <br/>
+    <box-icon type='logo' name='sketch' color="white"></box-icon>
+    <span> Años de Experiencia: </span>
     <span>{user.yearsOfExperience}</span>
     <br/>
-    <span>Presupuesto por día: </span>
+    <br/>
+    <box-icon name='money-withdraw' color="white"></box-icon>
+    <span> Presupuesto por día: </span>
     <span>{user.dailyBudget}</span>
     </div>
     <div>
