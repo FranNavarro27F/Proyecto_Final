@@ -90,7 +90,7 @@ export default function NavBar() {
         className={!filtrados.length ? s.buttonClearAlert : s.buttonClear}
         onClick={() => handleClear()}
       >
-        LIMPIAR FILTROS
+        <span> LIMPIAR FILTROS</span>
         <AiOutlineClear />
       </button>
       <SearchBar setActualFilter={setActualFilter} />

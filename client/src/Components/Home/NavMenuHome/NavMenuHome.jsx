@@ -1,13 +1,14 @@
 import React from "react";
 import { useRef } from "react";
 import s from "./NavMenuHome.module.css";
+import logo from "./Logo/logo chico.png";
 
 export default function NavMenuHome({
   scrollToSeccion,
   work,
   home,
   landing,
-  about,
+  // about,
 }) {
   return (
     <div className={s.container}>
@@ -17,6 +18,9 @@ export default function NavMenuHome({
         </li>
         <li onClick={() => scrollToSeccion(home)} className={s.link}>
           HOME
+        </li>
+        <li onClick={() => scrollToSeccion(home)} className={s.link}>
+          <img className={s.imgLogo} src={logo} alt="logo" />
         </li>
         <li onClick={() => scrollToSeccion(home)} className={s.link}>
           ABOUT

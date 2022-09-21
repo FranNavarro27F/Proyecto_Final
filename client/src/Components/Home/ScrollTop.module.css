@@ -1,10 +1,13 @@
 .button {
+  background: none;
+  border: none;
+  width: 5vh;
+  color: wheat;
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  border: 2px solid rgb(255, 109, 226);
-  color: rgb(255, 109, 226);
   /* background-color: white; */
   cursor: pointer;
   position: absolute;
+  font-size: 4vh;
 }
