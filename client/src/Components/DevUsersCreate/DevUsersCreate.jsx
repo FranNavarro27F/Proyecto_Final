@@ -11,20 +11,23 @@ import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
 import ModalCreate from "./ModalCreate/ModalCreate";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
 
 //actions
 import { getCountries } from "../../Redux/Actions/Countries";
 import { getServices } from "../../Redux/Actions/Services";
 import { getLanguajes } from "../../Redux/Actions/Languajes";
-import { postDevUser } from "../../Redux/Actions/DevUser";
+import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
 import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import Loader from "../Loader/Loader";
 
 //imagenes
-import storage from './Img-file/firebaseConfig.js';
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-const animatedComponents = makeAnimated();
+import storage from "./Img-file/firebaseConfig.js";
 
 export default function DevUsersCreate() {
+  const animatedComponents = makeAnimated();
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,21 +35,28 @@ export default function DevUsersCreate() {
     dispatch(getTecnologies());
     dispatch(getServices());
     dispatch(getLanguajes());
+    dispatch(getUsersBd());
   }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
-
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
+  // async function promesa(obj, prop) {
+  //   const result = await obj[prop];
+  //   return result[["PromiseResult"]];
+  // }
+
+  // console.log(promesa(user, "email"), "aca estoy");
+
+  const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache.name : "",
-    lastName: cache?.lastName ? cache.lastName : "",
+    name: cache?.name ? cache.name : `${user?.given_name}`,
+    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
     profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
-    email: cache?.email ? cache?.email : "",
+    email: cache?.email ? cache?.email : `${user?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
@@ -60,8 +70,8 @@ export default function DevUsersCreate() {
     lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
     servicios: cache?.servicios ? cache?.servicios : [],
   });
-  const handleChangeInput = (e) => {
 
+  const handleChangeInput = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -78,32 +88,65 @@ export default function DevUsersCreate() {
     });
   };
 
+
  
+
+  const [loader, setLoader] = useState(false);
+
   const getFile = (file) => {
     const storageRef = ref(storage, `/files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+
         // const percent = Math.round(
         //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         // );
      
         
    
-      },
+
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log(percent, "percent");
+        if (percent === 0 && percent === 100) {
+          return setLoader(false);
+        } else {
+          setLoader(true);
+        }
+        console.log(loader);
+
+      }
       (err) => console.log(err),
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          // console.log(url);
           setInput({
             ...input,
             profilePicture: url,
           });
+          setErrors(
+            validaciones({
+              ...cache,
+              profilePicture: url,
+            })
+          );
+          setCache({
+            ...cache,
+            profilePicture: url,
+          });
         });
       }
+
     )
   }
+
+
+    
+  };
 
   const handleChangeEnglish = (e) => {
     const ingles = () => {
@@ -145,8 +188,7 @@ export default function DevUsersCreate() {
   const handleCreate = (e) => {
     e.preventDefault();
     setVerErrores(true);
-    if (!errors) {
-      setModal(true);
+    if (errors.length === 0) {
       dispatch(
         postDevUser({
           ...input,
@@ -156,16 +198,15 @@ export default function DevUsersCreate() {
             input.lastName.slice(1).toLowerCase(),
         })
       );
-      // alert("Perfil Creado con exito... (alerta provisoria)");
+      setModal(true);
       setTimeout(() => {
         navigate("/work");
-        // setModal(false);
       }, 1000);
       setCache({
-        name: ("name", ""),
-        lastName: ("lastName", ""),
+        name: ("name", `${user?.given_name}`),
+        lastName: ("lastName", `${user?.family_name}`),
         profilePicture: ("profilePicture", ""),
-        email: ("email", ""),
+        email: ("email", `${user?.email}`),
         linkedIn: ("linkedIn", ""),
         gitHub: ("gitHub", ""),
         webSite: ("webSite", ""),
@@ -178,15 +219,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log("Hay errores");
+      console.log("Hay errores!", errors);
     }
   };
+
   const handleReset = () => {
     setCache({
-      name: ("name", ""),
-      lastName: ("lastName", ""),
+      name: ("name", `${user?.given_name}`),
+      lastName: ("lastName", `${user?.family_name}`),
       profilePicture: ("profilePicture", ""),
-      email: ("email", ""),
+      email: `${user?.family_name}`,
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
@@ -198,6 +240,7 @@ export default function DevUsersCreate() {
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
     });
+    setLoader(false);
   };
 
   //OPCIONES DE LOS SELECTS:
@@ -215,17 +258,6 @@ export default function DevUsersCreate() {
     };
   });
 
-  // const resultado = tecnologies?.filter((e) =>
-  //   e.id.includes(cache?.tecnologias)
-  // );
-
-  // const optionsTecnologias2 = Array(cache).map((e) => {
-  //   return {
-  //     value: e.tecnologias,
-  //     label: e.tecnologiasLabel,
-  //   };
-  // });
-
   const optionsServices = services.map((e) => {
     return {
       value: e.id,
@@ -240,66 +272,63 @@ export default function DevUsersCreate() {
     };
   });
 
-  const [errors, setErrors] = useState({});
-  const [errorsCache, setErrorsCache] = useLocalStorage({});
+  // const [disabledButton, setDisabledButton] = useState(true);
 
-  const [disabledButton, setDisabledButton] = useState(true);
-  useEffect(() => {
-    if (
-      //name
-      input.name === "" ||
-      /[^\w\s]/.test(input.name) ||
-      /[1-9]/.test(input.name) ||
-      /[\s]/.test(input.name) ||
-      //lastname
-      input.lastName === "" ||
-      /[^\w\s]/.test(input.lastName) ||
-      /[1-9]/.test(input.lastName) ||
-      /[\s]/.test(input.lastName) ||
-      //image
-      // input.profilePicture === "" ||
-      // /[\s]/.test(input.profilePicture) ||
-      // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
-      //email
-      input.email === "" ||
-      !/^\S+@\S+\.\S+$/.test(input.email) ||
-      /[\s]/.test(input.email) ||
-      //linkedin
-      input.linkedIn === "" ||
-      /[\s]/.test(input.linkedIn) ||
-      //github
-      input.gitHub === "" ||
-      /[\s]/.test(input.gitHub) ||
-      //website
-      input.webSite === "" ||
-      /[\s]/.test(input.webSite) ||
-      !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-        input.webSite
-      ) ||
-      //yearsOfExperience
-      input.yearsOfExperience?.length < 1 ||
-      input.yearsOfExperience?.length > 99 ||
-      // /dailyBudget
-      input.dailyBudget?.length < 1 ||
-      input.dailyBudget?.length > 999 ||
-      !input.paiseId?.length ||
-      !input.tecnologias?.length ||
-      !input.lenguajes?.length ||
-      !input.servicios?.length
-    ) {
-      setDisabledButton(true);
-    } else {
-      setDisabledButton(false);
-    }
-  }, [errors, input, setDisabledButton]);
-
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   if (
+  //     //name
+  //     input.name === "" ||
+  //     /[^\w\s]/.test(input.name) ||
+  //     /[1-9]/.test(input.name) ||
+  //     /[\s]/.test(input.name) ||
+  //     //lastname
+  //     input.lastName === "" ||
+  //     /[^\w\s]/.test(input.lastName) ||
+  //     /[1-9]/.test(input.lastName) ||
+  //     /[\s]/.test(input.lastName) ||
+  //     //image
+  //     // input.profilePicture === "" ||
+  //     // /[\s]/.test(input.profilePicture) ||
+  //     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
+  //     //email
+  //     input.email === "" ||
+  //     !/^\S+@\S+\.\S+$/.test(input.email) ||
+  //     /[\s]/.test(input.email) ||
+  //     //linkedin
+  //     input.linkedIn === "" ||
+  //     /[\s]/.test(input.linkedIn) ||
+  //     //github
+  //     input.gitHub === "" ||
+  //     /[\s]/.test(input.gitHub) ||
+  //     //website
+  //     input.webSite === "" ||
+  //     /[\s]/.test(input.webSite) ||
+  //     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+  //       input.webSite
+  //     ) ||
+  //     //yearsOfExperience
+  //     input.yearsOfExperience?.length < 1 ||
+  //     input.yearsOfExperience?.length > 99 ||
+  //     // /dailyBudget
+  //     input.dailyBudget?.length < 1 ||
+  //     input.dailyBudget?.length > 999 ||
+  //     !input.paiseId?.length ||
+  //     !input.tecnologias?.length ||
+  //     !input.lenguajes?.length ||
+  //     !input.servicios?.length
+  //   ) {
+  //     setDisabledButton(true);
+  //   } else {
+  //     setDisabledButton(false);
+  //   }
+  // }, [errors, input, setDisabledButton]);
 
   return !isAuthenticated ? (
     loginWithRedirect()
+  ) : isLoading ? (
+    <Loader />
+  ) : !user.email ? (
+    <Loader />
   ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
@@ -318,9 +347,7 @@ export default function DevUsersCreate() {
               className={s.inputName}
             />
             <div className={s.divErrors}>
-              {verErrores && errors.name && (
-                <label className={s.errors}>⚠ {errors.name}</label>
-              )}
+              {verErrores && errors.name && <label>⚠ {errors.name}</label>}
             </div>
           </div>
           <div className={s.inputContainer}>
@@ -340,14 +367,53 @@ export default function DevUsersCreate() {
               )}
             </div>
           </div>
-          <div className={s.inputContainer}>
+          <div className={s.inputContainer_1fila}>
             <p>Imagen: </p>
-            <input
-              type="file"
-              onChange={(e) => getFile(e.target.files[0])}
-              name="profilePicture"
-              className={s.inputImg}
-            />
+            {!cache.profilePicture && loader ? (
+              <div className={s.barra}>
+                <span></span>
+              </div>
+            ) : !cache.profilePicture ? (
+              <label className={s.divInput}>
+                <input
+                  className={s.addImg}
+                  type="file"
+                  // value={cache?.profilePicture}
+                  onChange={(e) => getFile(e.target.files[0])}
+                  // onClick={() => setLoader(false)}
+                  name="profilePicture"
+                  // className={s.inputImg}
+                />
+                <AiOutlineUserAdd />
+              </label>
+            ) : (
+              <div className={s.divImg}>
+                <div className={s.lds_ring}>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <img
+                  src={cache?.profilePicture}
+                  alt={cache?.name}
+                  className={s.imgForm}
+                />
+                <button
+                  className={s.buttonImg}
+                  onClick={() => {
+                    setCache({
+                      profilePicture: ("profilePicture", ""),
+                    });
+                    setInput({
+                      profilePicture: "",
+                    });
+                    setLoader(false);
+                  }}
+                >
+                  <AiOutlineCloseCircle />
+                </button>
+              </div>
+            )}
             <div className={s.divErrors}>
               {verErrores && errors.profilePicture && (
                 <label className={s.errors}>⚠ {errors.profilePicture}</label>
@@ -357,13 +423,15 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Email: </p>
             <input
+              readonly="true"
               type="email"
               placeholder="Tu Email..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.email}
+              value={user?.email}
               name="email"
               className={s.inputEmail}
+              // defaultValue={user?.email}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (

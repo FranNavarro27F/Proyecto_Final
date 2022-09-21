@@ -2,6 +2,7 @@
 .card_client {
   background: #2c51b594;
   width: 12vw;
+  max-height: 30vh;
   min-height: 30vh;
   padding-top: 25px;
   padding-bottom: 25px;
@@ -16,6 +17,7 @@
   transition: all 0.3s ease;
   margin-bottom: 2vh;
   margin-top: 1vh;
+  overflow: hidden;
 }
 
 .card_client:hover {
@@ -48,12 +50,13 @@
   margin-top: 20px;
   font-weight: 600;
   font-size: 1vw;
+  min-height: 1vh;
 }
 
 .name_client span {
   display: block;
   font-weight: 200;
-  font-size: 16px;
+
   font-size: 0.8vw;
 }
 
@@ -127,6 +130,6 @@
 
 .divTecnologias {
   overflow: hidden;
-  height: 4rem;
+  /* min-height: 4rem; */
   overflow-y: scroll;
 }

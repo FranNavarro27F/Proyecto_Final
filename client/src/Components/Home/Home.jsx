@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 
@@ -8,13 +8,50 @@ import Circulos from "./Assets/Circulos/Circulos";
 import Circulo from "./Assets/Circulo/Circulo.jsx";
 import Footer from "../Footer/Footer";
 import CardHome from "../Card Home/CardHome";
+import NavMenuHome from "./NavMenuHome/NavMenuHome";
+import ScrollTop from "./ScrollTop";
+import { useAuth0 } from "@auth0/auth0-react";
+import Loader from "../Loader/Loader";
+import ButtonScrollSection from "./ButtonScrollSection";
+import { BsChevronDoubleDown } from "react-icons/bs";
 
 export default function Home() {
-  return (
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
+  const scrollToSeccion = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+  const scrollTo = (section) => {
+    section.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const landing = useRef(null);
+  const home = useRef(null);
+  const work = useRef(null);
+  // const about = useRef(null);
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div>
-      <Landing />
+      <div className={s.buttonTop}>
+        <ScrollTop className={s.buttonTop} />
+      </div>
+      <NavMenuHome
+        scrollToSeccion={scrollToSeccion}
+        landing={landing}
+        home={home}
+        // about={about}
+        work={work}
+      />
+      <Landing landing={landing} goToSectionRef={home} />
       <div>
-        <div className={s.body}>
+        <div className={s.body} ref={home}>
           <div className={s.luz}></div>
 
           <Circulo className={s.circulo} />
@@ -32,9 +69,20 @@ export default function Home() {
             que se ajuste a tus proyectos y contrata de directamente a través de
             nuestra plataforma, de manera segura y gratuita.
           </p>
+          <div className={s.divButtonDown}>
+            <button onClick={() => scrollTo(work)} className={s.buttonDown}>
+              <BsChevronDoubleDown />
+            </button>
+          </div>
         </div>
-        <CardHome />
-        <Footer />
+        <CardHome work={work} />
+        <Footer
+          scrollToSeccion={scrollToSeccion}
+          landing={landing}
+          home={home}
+          // about={about}
+          work={work}
+        />
       </div>
     </div>
   );

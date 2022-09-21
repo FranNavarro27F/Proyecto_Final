@@ -1,17 +1,17 @@
 .modal {
   display: flex;
   position: fixed;
-  z-index: 999;
+  /* z-index: 999; */
   top: 0;
   left: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0);
   /* display: none; */
   justify-content: center;
   align-items: center;
   /* background-color: red; */
-  backdrop-filter: blur(3px);
+  /* backdrop-filter: blur(3px); */
   font-family: "Poppins";
 }
 
@@ -48,8 +48,8 @@
 
   overflow-x: auto;
 }
-/* .modalClose {
-} */
+.modalClose {
+}
 /* .buttonModal {
   background: #ffee10;
   font-family: inherit;
