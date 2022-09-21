@@ -77,6 +77,8 @@ export default function DevUsersCreate() {
       [e.target.name]: e.target.value,
     });
   };
+
+ 
   const getFile = (file) => {
     const storageRef = ref(storage, `/files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -86,7 +88,8 @@ export default function DevUsersCreate() {
         // const percent = Math.round(
         //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         // );
-        console.log(snapshot)
+     
+        
    
       },
       (err) => console.log(err),
@@ -101,6 +104,7 @@ export default function DevUsersCreate() {
       }
     )
   }
+
   const handleChangeEnglish = (e) => {
     const ingles = () => {
       if (e.target.value === "1") {
