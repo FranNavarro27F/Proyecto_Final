@@ -16,6 +16,9 @@ async function main(nombreContratista, mailContrado) {
       user: GMAILUSER, // generated ethereal user
       pass: GMAILPW // generated ethereal password
     },
+    tls: {
+      rejectUnauthorized: false
+  }
   });
 
   // send mail with defined transport object
