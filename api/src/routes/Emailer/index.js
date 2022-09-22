@@ -6,7 +6,7 @@ const router = Router();
 
 
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     
     try {
         const { nombreContratista, mailContrado } = req.body;
