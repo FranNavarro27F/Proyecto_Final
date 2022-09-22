@@ -53,6 +53,25 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+// router.post("/", async(req, res)=>{
+//   try {
+
+//     let {email, family_name, given_name, picture} = req.body
+
+//     if(!family_name || !given_name || !email){
+//       res.sendStatus(400)
+//     }else{
+//       let usuario = await postUsers(req.body)
+//       res.json(usuario)
+//     }
+    
+//   } catch (e) {
+//     res.sendStatus(400).send(`Error --→ ${e}`)
+//   }
+// })
+
+
 router.delete("/:id", async (req, res) => {
   try {
     let {id}= req.params;
