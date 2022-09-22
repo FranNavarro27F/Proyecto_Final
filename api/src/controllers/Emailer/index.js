@@ -4,7 +4,6 @@ const {
     GMAILUSER
 } = process.env;
 
-console.log( GMAILPW, GMAILUSER)
 async function main(nombreContratista, mailContrado) {
 
   // create reusable transporter object using the default SMTP transport
