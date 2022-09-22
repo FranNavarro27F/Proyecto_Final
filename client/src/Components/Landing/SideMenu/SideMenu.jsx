@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useRouteMatch } from "react-router-dom";
 import s from "./SideMenu.module.css";
 import { GrHome } from "react-icons/gr";
 
@@ -15,6 +15,8 @@ export default function SideMenu() {
       }
     });
   }, []);
+  // let match = useRouteMatch();
+  // console.log(match, "matchhhhhh");
   return (
     <div>
       <div className={!showScrollTop ? s.backMenu : s.backMenu2}>

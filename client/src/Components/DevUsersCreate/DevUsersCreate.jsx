@@ -43,19 +43,14 @@ export default function DevUsersCreate() {
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
-  // async function promesa(obj, prop) {
-  //   const result = await obj[prop];
-  //   return result[["PromiseResult"]];
-  // }
-
-  // console.log(promesa(user, "email"), "aca estoy");
-
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache.name : `${user?.given_name}`,
+    name: cache?.name ? cache?.name : `${user?.given_name}`,
     lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
-    profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
+    profilePicture: cache?.profilePicture
+      ? cache?.profilePicture
+      : `${user?.picture}`,
     email: cache?.email ? cache?.email : `${user?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
@@ -65,10 +60,18 @@ export default function DevUsersCreate() {
       ? cache?.yearsOfExperience
       : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : [],
-    tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
-    lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
-    servicios: cache?.servicios ? cache?.servicios : [],
+    paiseId:
+      // cache?.paiseId ? cache?.paiseId :
+      "",
+    tecnologias:
+      // cache?.tecnologias ? cache?.tecnologias :
+      [],
+    lenguajes:
+      // cache?.lenguajes ? cache?.lenguajes :
+      [],
+    servicios:
+      // cache?.servicios ? cache?.servicios :
+      [],
   });
 
   const handleChangeInput = (e) => {
@@ -97,19 +100,16 @@ export default function DevUsersCreate() {
         const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(percent, "percent");
         if (percent === 0 && percent === 100) {
           return setLoader(false);
         } else {
           setLoader(true);
         }
-        console.log(loader);
       },
       (err) => console.log(err),
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          // console.log(url);
           setInput({
             ...input,
             profilePicture: url,
@@ -128,6 +128,7 @@ export default function DevUsersCreate() {
       }
     );
   };
+
   const handleChangeEnglish = (e) => {
     const ingles = () => {
       if (e.target.value === "1") {
@@ -168,7 +169,7 @@ export default function DevUsersCreate() {
   const handleCreate = (e) => {
     e.preventDefault();
     setVerErrores(true);
-    if (errors.length === 0) {
+    if (Object.keys(errors).length === 0) {
       dispatch(
         postDevUser({
           ...input,
@@ -179,13 +180,14 @@ export default function DevUsersCreate() {
         })
       );
       setModal(true);
+      dispatch(getUsersBd());
       setTimeout(() => {
         navigate("/work");
-      }, 1000);
+      }, 1500);
       setCache({
         name: ("name", `${user?.given_name}`),
         lastName: ("lastName", `${user?.family_name}`),
-        profilePicture: ("profilePicture", ""),
+        profilePicture: ("profilePicture", `${cache?.profilePicture}`),
         email: ("email", `${user?.email}`),
         linkedIn: ("linkedIn", ""),
         gitHub: ("gitHub", ""),
@@ -199,16 +201,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log("Hay errores!", errors);
+      console.log(`hay errores`, errors);
     }
   };
-
+  // console.log(user);
   const handleReset = () => {
     setCache({
-      name: ("name", `${user?.given_name}`),
-      lastName: ("lastName", `${user?.family_name}`),
-      profilePicture: ("profilePicture", ""),
-      email: `${user?.family_name}`,
+      name: ("name", ``),
+      lastName: ("lastName", ``),
+      profilePicture: ("profilePicture", ``),
+      email: `${user?.email}`,
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
@@ -252,57 +254,6 @@ export default function DevUsersCreate() {
     };
   });
 
-  // const [disabledButton, setDisabledButton] = useState(true);
-
-  // useEffect(() => {
-  //   if (
-  //     //name
-  //     input.name === "" ||
-  //     /[^\w\s]/.test(input.name) ||
-  //     /[1-9]/.test(input.name) ||
-  //     /[\s]/.test(input.name) ||
-  //     //lastname
-  //     input.lastName === "" ||
-  //     /[^\w\s]/.test(input.lastName) ||
-  //     /[1-9]/.test(input.lastName) ||
-  //     /[\s]/.test(input.lastName) ||
-  //     //image
-  //     // input.profilePicture === "" ||
-  //     // /[\s]/.test(input.profilePicture) ||
-  //     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
-  //     //email
-  //     input.email === "" ||
-  //     !/^\S+@\S+\.\S+$/.test(input.email) ||
-  //     /[\s]/.test(input.email) ||
-  //     //linkedin
-  //     input.linkedIn === "" ||
-  //     /[\s]/.test(input.linkedIn) ||
-  //     //github
-  //     input.gitHub === "" ||
-  //     /[\s]/.test(input.gitHub) ||
-  //     //website
-  //     input.webSite === "" ||
-  //     /[\s]/.test(input.webSite) ||
-  //     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-  //       input.webSite
-  //     ) ||
-  //     //yearsOfExperience
-  //     input.yearsOfExperience?.length < 1 ||
-  //     input.yearsOfExperience?.length > 99 ||
-  //     // /dailyBudget
-  //     input.dailyBudget?.length < 1 ||
-  //     input.dailyBudget?.length > 999 ||
-  //     !input.paiseId?.length ||
-  //     !input.tecnologias?.length ||
-  //     !input.lenguajes?.length ||
-  //     !input.servicios?.length
-  //   ) {
-  //     setDisabledButton(true);
-  //   } else {
-  //     setDisabledButton(false);
-  //   }
-  // }, [errors, input, setDisabledButton]);
-
   return !isAuthenticated ? (
     loginWithRedirect()
   ) : isLoading ? (
@@ -322,12 +273,15 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.name}
+              // value={cache?.name}
+              defaultValue={input.name}
               name="name"
               className={s.inputName}
             />
             <div className={s.divErrors}>
-              {verErrores && errors.name && <label>⚠ {errors.name}</label>}
+              {verErrores && errors.name && (
+                <label className={s.errors}>⚠ {errors.name}</label>
+              )}
             </div>
           </div>
           <div className={s.inputContainer}>
@@ -337,7 +291,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.lastName}
+              defaultValue={input.lastName}
+              // value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
             />
@@ -353,16 +308,14 @@ export default function DevUsersCreate() {
               <div className={s.barra}>
                 <span></span>
               </div>
-            ) : !cache.profilePicture ? (
+            ) : !input.profilePicture ? (
               <label className={s.divInput}>
                 <input
                   className={s.addImg}
                   type="file"
-                  // value={cache?.profilePicture}
                   onChange={(e) => getFile(e.target.files[0])}
-                  // onClick={() => setLoader(false)}
                   name="profilePicture"
-                  // className={s.inputImg}
+                  // defaultValue={input?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -374,24 +327,30 @@ export default function DevUsersCreate() {
                   <div></div>
                 </div>
                 <img
-                  src={cache?.profilePicture}
+                  src={
+                    input?.profilePicture
+                      ? input?.profilePicture
+                      : cache?.profilePicture
+                  }
                   alt={cache?.name}
                   className={s.imgForm}
                 />
-                <button
-                  className={s.buttonImg}
-                  onClick={() => {
-                    setCache({
-                      profilePicture: ("profilePicture", ""),
-                    });
-                    setInput({
-                      profilePicture: "",
-                    });
-                    setLoader(false);
-                  }}
-                >
-                  <AiOutlineCloseCircle />
-                </button>
+                {
+                  <button
+                    className={s.buttonImg}
+                    onClick={() => {
+                      setCache({
+                        profilePicture: ("profilePicture", ""),
+                      });
+                      setInput({
+                        profilePicture: "",
+                      });
+                      setLoader(false);
+                    }}
+                  >
+                    <AiOutlineCloseCircle />
+                  </button>
+                }
               </div>
             )}
             <div className={s.divErrors}>
@@ -408,10 +367,9 @@ export default function DevUsersCreate() {
               placeholder="Tu Email..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={user?.email}
+              value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
-              // defaultValue={user?.email}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (
@@ -571,10 +529,10 @@ export default function DevUsersCreate() {
                     paiseId: e.value,
                   })
                 );
-                setCache({
-                  ...cache,
-                  paiseId: e.value,
-                });
+                // setCache({
+                //   ...cache,
+                //   paiseId: e.value,
+                // });
               }}
             />
             <div className={s.divErrors}>
@@ -609,10 +567,10 @@ export default function DevUsersCreate() {
                     tecnologias: e.map((ele) => ele.value),
                   })
                 );
-                setCache({
-                  ...cache,
-                  tecnologias: e.map((ele) => ele.value),
-                });
+                // setCache({
+                //   ...cache,
+                //   tecnologias: e.map((ele) => ele.value),
+                // });
               }}
             />
             <div className={s.divErrors}>
@@ -646,10 +604,10 @@ export default function DevUsersCreate() {
                     lenguajes: e.map((ele) => ele.value),
                   })
                 );
-                setCache({
-                  ...cache,
-                  lenguajes: e.map((ele) => ele.value),
-                });
+                // setCache({
+                //   ...cache,
+                //   lenguajes: e.map((ele) => ele.value),
+                // });
               }}
             />
             <div className={s.divErrors}>
@@ -683,10 +641,10 @@ export default function DevUsersCreate() {
                     servicios: e.map((ele) => ele.value),
                   })
                 );
-                setCache({
-                  ...input,
-                  servicios: e.map((ele) => ele.value),
-                });
+                // setCache({
+                //   ...input,
+                //   servicios: e.map((ele) => ele.value),
+                // });
               }}
             />
             <div className={s.divErrors}>
