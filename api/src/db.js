@@ -102,7 +102,7 @@ Tecnologias.belongsToMany(Usuarios, { through: "usuarios-tecnologias" });
 // USUARIOS & CONTRATOS
 Usuarios.belongsToMany(Contratos, { through: "usuarios-contratos" });
 Contratos.belongsToMany(Usuarios, { through: "usuarios-contratos" });
-
+    
 // USUARIOS & PAISES
 Usuarios.belongsTo(Paises);
 Paises.hasMany(Usuarios);
