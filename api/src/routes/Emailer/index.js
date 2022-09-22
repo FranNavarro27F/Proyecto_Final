@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
     
     try {
         const { nombreContratista, mailContrado } = req.body;
+        console.log(nombreContratista, mailContrado, "******")
         
         res.json(await main(nombreContratista, mailContrado))
         
