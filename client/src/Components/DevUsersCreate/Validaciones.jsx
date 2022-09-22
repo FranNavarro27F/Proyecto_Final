@@ -27,8 +27,8 @@ function validaciones(input) {
   if (input.email === "") errors.email = "Ingresa tu email!";
   if (/[\s]/.test(input.email))
     errors.email = "El email no debe contener espacios!";
-  if (!/^\S+@\S+\.\S+$/.test(input.email))
-    errors.email = "El email que intentas colocar no es valido";
+  // if (!/^\S+@\S+\.\S+$/.test(input.email))
+  //   errors.email = "El email que intentas colocar no es valido";
   //linkedin
   if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
   if (/[\s]/.test(input.linkedIn))
@@ -69,11 +69,11 @@ function validaciones(input) {
   //yearsOfExperience
   if (input.yearsOfExperience === 0)
     errors.yearsOfExperience = "El valor no puede ser 0!";
-  if (input.yearsOfExperience > 99 || input.yearsOfExperience < 1)
+  if (input.yearsOfExperience > 99 || input.yearsOfExperience <= 1)
     errors.yearsOfExperience = "El valor debe estar entre 1 y 99";
   //dailyBudget
   if (input.dailyBudget === 0) errors.dailyBudget = "El valor no puede ser 0!";
-  if (input.dailyBudget > 999 || input.dailyBudget < 1)
+  if (input.dailyBudget > 999 || input.dailyBudget <= 1)
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie

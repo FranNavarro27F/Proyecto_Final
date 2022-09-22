@@ -273,7 +273,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.name}
+              // value={cache?.name}
+              defaultValue={input.name}
               name="name"
               className={s.inputName}
             />
@@ -290,7 +291,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.lastName}
+              defaultValue={input.lastName}
+              // value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
             />
@@ -306,14 +308,14 @@ export default function DevUsersCreate() {
               <div className={s.barra}>
                 <span></span>
               </div>
-            ) : !cache.profilePicture ? (
+            ) : !input.profilePicture ? (
               <label className={s.divInput}>
                 <input
                   className={s.addImg}
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  // className={s.inputImg}
+                  // defaultValue={input?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -325,7 +327,11 @@ export default function DevUsersCreate() {
                   <div></div>
                 </div>
                 <img
-                  src={cache?.profilePicture}
+                  src={
+                    input?.profilePicture
+                      ? input?.profilePicture
+                      : cache?.profilePicture
+                  }
                   alt={cache?.name}
                   className={s.imgForm}
                 />
