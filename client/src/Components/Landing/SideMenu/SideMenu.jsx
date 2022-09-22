@@ -1,14 +1,23 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import s from "./SideMenu.module.css";
 import { GrHome } from "react-icons/gr";
 
 export default function SideMenu() {
-  const { user } = useAuth0();
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setShowScrollTop(true);
+      if (window.scrollY > 1400) {
+      } else {
+        setShowScrollTop(false);
+      }
+    });
+  }, []);
   return (
     <div>
-      <div className={s.backMenu}>
+      <div className={!showScrollTop ? s.backMenu : s.backMenu2}>
         <svg
           className={s.svg}
           viewBox="0 0 99 740"

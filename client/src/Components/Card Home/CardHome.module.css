@@ -1,21 +1,23 @@
-.divcarhome{
-    width: 210vh;
-    height: 110vh;
-    background-color: #0F103F;
+.divcarhome {
+  /* width: 210vh; */
+  /* position: absolute; */
+  height: 100vh;
+  background-color: #0f103f;
+  z-index: 1;
 }
-.titlew{
-    /* position: absolute;
+.titlew {
+  /* position: absolute;
 width: 260px;
 height: 45px;
 left: 513px;
 bottom: -40vh; */
-position: absolute;
-left: 90vh;
-top: 220vh;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 700;
-font-size: 30px;
-line-height: 45px;
-color: #FFFFFF;
+  position: absolute;
+  left: 90vh;
+  top: 220vh;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 45px;
+  color: #ffffff;
 }

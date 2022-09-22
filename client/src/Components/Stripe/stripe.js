@@ -5,16 +5,17 @@ import axios from 'axios';
 //import Loader from '../'
 
 
-const stripePromise = loadStripe("pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid")
- 
-const CheckOutForm =()=>{
+const stripePromise = loadStripe(
+  "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
+);
 
+const CheckOutForm = () => {
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
 
- const handleSubmit = async (e) =>{
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
   const {error, paymentMethod} = await stripe.createPaymentMethod({
     type: 'card',
@@ -53,26 +54,20 @@ const CheckOutForm =()=>{
   );
 };
 
-function Stripe (){
-  return(
-    <Elements stripe={stripePromise}> 
-    <div>      
-    <CheckOutForm/> 
-
-
+function Stripe() {
+  return (
+    <Elements stripe={stripePromise}>
+      <div>
+        <CheckOutForm />
       </div>
-      
-     
-
     </Elements>
-  )
+  );
 }
 
 export default Stripe;
 
 //---------------------------------------------------
 // import React, { useState, useEffect } from 'react';
-
 
 // const ProductDisplay = () => (
 //   <section>
@@ -123,7 +118,6 @@ export default Stripe;
 //   );
 // };
 // //-------------------------------
-
 
 // const Message = ({ message }) => (
 //   <section>

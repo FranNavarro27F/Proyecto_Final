@@ -6,6 +6,14 @@
   border-radius: 25%;
   margin-top: 15vh;
 }
+.backMenu2 {
+  z-index: 8;
+  position: absolute;
+  border-radius: 25%;
+  margin-top: 75vh;
+
+  /* margin-top: 15vh; */
+}
 
 .path {
   cursor: pointer;

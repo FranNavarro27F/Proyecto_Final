@@ -1,0 +1,13 @@
+.button {
+  background: none;
+  border: none;
+  width: 5vh;
+  color: wheat;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  /* background-color: white; */
+  cursor: pointer;
+  position: absolute;
+  font-size: 4vh;
+}
