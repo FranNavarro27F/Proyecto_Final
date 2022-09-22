@@ -28,7 +28,7 @@ const { saveLanguages } = require('./src/controllers/Lenguajes/index')
 
 // Syncing all the models at once.
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false}).then(() => {
   const PORT= 3001;
 
   server.listen(process.env.PORT || PORT, async () => {
