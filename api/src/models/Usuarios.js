@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       },
 
       profilePicture: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
       },
 
@@ -129,6 +129,11 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      reputacion:{
+        type: DataTypes.FLOAT,
+        defaultValue: 0.0,
+      }
+
       //
     },
     {
