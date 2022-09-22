@@ -9,17 +9,17 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
 
-    employer: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    developer: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
     //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
+
+    // employer: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
+
+    // developer: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    // },
 
     description: {
       type: DataTypes.TEXT,

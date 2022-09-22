@@ -46,3 +46,8 @@
 }
 .paged {
 }
+.noCoincidencias {
+  /* background-color: red; */
+  color: red;
+  /* z-index: 9999; */
+}

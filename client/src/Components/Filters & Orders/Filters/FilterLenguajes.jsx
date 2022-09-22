@@ -6,8 +6,11 @@ import Select from "react-select";
 
 export default function FIlterLenguajes({
   setActualFilter,
-  customStyles,
   setOrder,
+  setCacheFilter,
+  cacheFilter,
+  customStyles,
+  actualFilter,
 }) {
   const languajes = useSelector((state) => state.languajes.allLanguajes);
 
@@ -18,20 +21,30 @@ export default function FIlterLenguajes({
     };
   });
 
-  const handleLenguajes = (e) => {
-    setActualFilter((state) => {
-      return {
-        ...state,
-        filterLanguajes: e.map((e) => e.label),
-      };
-    });
-    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  };
+  // const handleLenguajes = (e) => {
+  //   setActualFilter((state) => {
+  //     return {
+  //       ...state,
+  //       filterLanguajes: e.map((e) => e.label),
+  //     };
+  //   });
+  //   setOrder(`Ordenado: ${e.map((e) => e.label)}`);
+  // };
 
   return (
     <div>
       <Select
-        onChange={(e) => handleLenguajes(e)}
+        onChange={(e) => {
+          setActualFilter({
+            ...actualFilter,
+            filterLanguajes: e.map((e) => e.label),
+          });
+          setCacheFilter({
+            ...cacheFilter,
+            filterLanguajes: e.map((e) => e.label),
+          });
+        }}
+        set-value={cacheFilter?.filterLanguajes}
         className={s.select}
         isDisabled={false}
         options={optionsLanguajes}
