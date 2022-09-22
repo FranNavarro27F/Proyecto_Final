@@ -7,6 +7,7 @@ import Home from "./Components/Home/Home";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import About from "./Components/About/About"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/create" element={<DevUsersCreate />} />
         {/* <Route path="/users" element={<Users />} /> */}
+        <Route path="/about" element={<About/>}/>
       </Routes>
     </>
   );
