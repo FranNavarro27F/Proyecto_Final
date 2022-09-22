@@ -8,6 +8,26 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    calificador:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    calificado:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    estrellas:{
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    review:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    fecha:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     //
   },{
     createdAt: false,
