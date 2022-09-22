@@ -4,13 +4,9 @@ import axios from "axios"
 export function emailer (payload) {
     return async function(dispatch) {
         try {
-        console.log(payload, "CONSOLE LOG DEL PAYLOAD")
-        let info = (await axios.get(`/emailer`, payload))
-        console.log(info, "info")
-        return info
-            
+            let info = await axios.post(`/emailer`, payload)
         } catch(e) {
-            console.error(e, "error catch")
+            console.error(e, "error catch action emailer")
         }
     }
 }

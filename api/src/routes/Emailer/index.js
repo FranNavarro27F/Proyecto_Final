@@ -7,13 +7,9 @@ const router = Router();
 
 
 router.post("/", async (req, res) => {
-    
-    try {
-        const { nombreContratista, mailContrado } = req.body;
-        console.log(nombreContratista, mailContrado, "******")
-        
-        res.json(await main(nombreContratista, mailContrado))
-        
+  const {nombreContratista, mailContrado} = req.body;
+    try {  
+        res.json(await main(nombreContratista, mailContrado))  
     } catch (e) {
       res.status(400).send(`Error --→ ${e}`);
     }
