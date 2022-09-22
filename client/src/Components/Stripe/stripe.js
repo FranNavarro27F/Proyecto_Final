@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 const ProductDisplay = () => (
   <section>
@@ -51,7 +51,6 @@ const SuccessDisplay = ({ sessionId }) => {
 };
 //-------------------------------
 
-
 const Message = ({ message }) => (
   <section>
     <p>{message}</p>
@@ -59,20 +58,20 @@ const Message = ({ message }) => (
 );
 
 export default function App() {
-  let [message, setMessage] = useState('');
+  let [message, setMessage] = useState("");
   let [success, setSuccess] = useState(false);
-  let [sessionId, setSessionId] = useState('');
+  let [sessionId, setSessionId] = useState("");
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
-    if (query.get('success')) {
+    if (query.get("success")) {
       setSuccess(true);
-      setSessionId(query.get('session_id'));
+      setSessionId(query.get("session_id"));
     }
 
-    if (query.get('canceled')) {
+    if (query.get("canceled")) {
       setSuccess(false);
       setMessage(
         "Order canceled -- continue to shop around and checkout when you're ready."
@@ -80,9 +79,9 @@ export default function App() {
     }
   }, [sessionId]);
 
-  if (!success && message === '') {
+  if (!success && message === "") {
     return <ProductDisplay />;
-  } else if (success && sessionId !== '') {
+  } else if (success && sessionId !== "") {
     return <SuccessDisplay sessionId={sessionId} />;
   } else {
     return <Message message={message} />;
@@ -93,8 +92,8 @@ const Logo = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="14px"
-    height="16px"
+    width="50px"
+    height="50px"
     viewBox="0 0 14 16"
     version="1.1"
   >
