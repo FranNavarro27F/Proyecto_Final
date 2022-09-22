@@ -130,7 +130,7 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       reputacion:{
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         defaultValue: 0.0,
       }
 
