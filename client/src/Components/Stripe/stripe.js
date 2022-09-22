@@ -28,7 +28,7 @@ const CheckOutForm = () => {
       console.log(paymentMethod)
       const { id } = paymentMethod;
       console.log(id, "holi")
-      const info  = await axios.post('/checkout',{
+      const info  = await axios.post('http://localhost:3001/checkout',{
         id,
         amount: 100000
       })   
