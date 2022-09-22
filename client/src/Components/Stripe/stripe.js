@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements, CardElement, useStripe, useElements}from '@stripe/react-stripe-js'
+import axios from 'axios';
+//import Loader from '../'
+
 
 const stripePromise = loadStripe("pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid")
  
@@ -8,6 +11,7 @@ const CheckOutForm =()=>{
 
   const stripe = useStripe();
   const element = useElements();
+  //const [loading, setLoading] =useState(false);
 
  const handleSubmit = async (e) =>{
   e.preventDefault();
@@ -16,15 +20,35 @@ const CheckOutForm =()=>{
     type: 'card',
     card: element.getElement(CardElement)
   });
-  if (!error){
-    console.log(paymentMethod)
-  }
+  //setLoading(true)
 
- } 
+  if (!error){
+    try {
+      console.log(paymentMethod)
+      const { id } = paymentMethod;
+      console.log(id, "holi")
+      const info  = await axios.post('/checkout',{
+        id,
+        amount: 100000
+      })   
+      element.getElement(CardElement).clear();
+      
+    } catch (error) {
+      // console.log(info)
+       console.log(error)      
+    }
+    //setLoading(true)
+    }
+ };
   return (
   <form onSubmit={handleSubmit} >
    <CardElement/>
-   <button>Contratar</button>
+   <button disabled={!stripe}>
+    {/* loading ? (
+      <Loader/>
+    ) : ("Contratar") */}
+    Contratar
+    </button>
   </form>
   );
 };
