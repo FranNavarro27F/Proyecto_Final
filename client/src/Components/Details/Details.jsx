@@ -11,9 +11,13 @@ import Loader from '../Loader/Loader'
 import 'boxicons'
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
+import { useState } from "react";
 
 
 export default function Details() {
+
+  let [disabled, setDisabled] = useState(false);
+
 
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
@@ -32,14 +36,16 @@ export default function Details() {
 
   const userDetail = useSelector((state)=>state.devUser.details)
   const paises = useSelector((state)=> state.countries.allCountries)
-  let userName = user?.given_name;
-  let userDetailMail = userDetail?.email;
+  let nombreContratista = user?.given_name;
+  let mailContrado = userDetail?.email;
 
   const handleContact = () => {
-    if(userName && userDetailMail) {
-      console.log("entré al if")
-      // let payload = {userName: userName, userDetailMail: userDetailMail}
-      dispatch(emailer({userName: userName, userDetailMail: userDetailMail}))
+    if(nombreContratista && mailContrado) {
+      setDisabled(true)
+      dispatch(emailer({nombreContratista: nombreContratista, mailContrado: mailContrado}))
+      console.log("se apretó")
+      
+
     }
   }
 
@@ -192,6 +198,7 @@ export default function Details() {
       <Link to = ''>
     <button className={s.buttonL}
     onClick = {(e) => {handleContact(e)}}
+    disabled = {disabled}
     >Contactame!</button>
     
     </Link>
