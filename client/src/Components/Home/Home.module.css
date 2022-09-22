@@ -72,24 +72,29 @@
 
 .divTextHome {
   position: absolute;
-  width: 330px;
-  height: 130px;
-  left: 90vh;
+  max-width: 20vw;
+  min-height: 35vh;
+  left: 43.5vw;
   top: 145vh;
   z-index: 99;
   font-style: normal;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 1.2vw;
   line-height: 26px;
   color: #ffffff;
   font-family: "Poppins";
+  /* background-color: red; */
+  overflow: hidden;
+}
+.divTextHome p {
+  font-size: 1vw;
 }
 .sidemenu {
   position: absolute;
-  width: 80px;
-  height: 700px;
+  width: 5.8vw;
+  height: 111vh;
   left: -1px;
-  top: 162px;
+  top: 25vh;
 
   /* background: rgba(255, 255, 255, 0.4); */
   backdrop-filter: blur(20px);
@@ -123,15 +128,34 @@
 }
 
 .buttonDown {
-  /* position: absolute; */
   background: none;
   border: none;
   width: 5vh;
   color: wheat;
-  /* background-color: red; */
-  left: 6vw;
-  top: 45vh;
-  position: absolute;
+  /* position: absolute; */
   font-size: 4vh;
   cursor: pointer;
+}
+
+.divButtonDown {
+  /* left: 6vw; */
+  margin-top: 28vh;
+  animation: MoveUpDown 0.8s linear infinite;
+  position: relative;
+  left: 0;
+  margin-bottom: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+
+@keyframes MoveUpDown {
+  0%,
+  100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 1vh;
+  }
 }
