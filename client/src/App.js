@@ -7,6 +7,7 @@ import Users from "./Components/UserProfile/Users.jsx";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import About from "./Components/About/About"
 
 function App() {
   return (
