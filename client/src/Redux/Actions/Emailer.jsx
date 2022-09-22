@@ -1,12 +1,12 @@
 import axios from "axios"
 
 // const { nombreContratista, mailContrado } = req.body;
-export function emailer ({nombreContratista, mailContrado}) {
-    console.log(nombreContratista, mailContrado, "datita")
+export function emailer (payload) {
     return async function(dispatch) {
         try {
-        let info = (await axios.get(`http://localhost:3001/emailer`, nombreContratista, mailContrado)).data
-        console.log(info)
+        console.log(payload, "CONSOLE LOG DEL PAYLOAD")
+        let info = (await axios.get(`/emailer`, payload))
+        console.log(info, "info")
         return info
             
         } catch(e) {

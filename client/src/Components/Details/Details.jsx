@@ -36,11 +36,12 @@ export default function Details() {
   let userDetailMail = userDetail?.email;
 
   const handleContact = () => {
-    dispatch(emailer(userName, userDetailMail))
-
+    if(userName && userDetailMail) {
+      console.log("entré al if")
+      // let payload = {userName: userName, userDetailMail: userDetailMail}
+      dispatch(emailer({userName: userName, userDetailMail: userDetailMail}))
+    }
   }
-
-
 
     // function toUpperCase(userDetail){
     //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
