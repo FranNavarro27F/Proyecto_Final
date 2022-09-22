@@ -18,7 +18,7 @@ const getContratos = async () => {
 const postContratos = async (data) => {
   try {
     const { employer, developer, description, date, expiration_date, status, precio } = data;
-    console.log(employer, developer, description, date, expiration_date, status, precio);
+  
     const result = await Contratos.create({
       employer,
       developer,
@@ -28,8 +28,6 @@ const postContratos = async (data) => {
       status,
       precio
     });
-    console.log(result);
-
     return `Contratos (${id}) post successfully`;
   } catch (e) {
     console.error(`${ERROR}/deleteService --> ${e}`);
@@ -38,7 +36,6 @@ const postContratos = async (data) => {
 const putContratos = async (data) => {
   try {
     const { id, employer, developer, description, status, precio } = data;
-    console.log(data);
     Contratos.update(
       {
         employer,
