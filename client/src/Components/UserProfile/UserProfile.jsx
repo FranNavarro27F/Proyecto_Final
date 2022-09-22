@@ -78,7 +78,7 @@ export default function DevProfile() {
   };
   const [loader, setLoader] = useState(false);
 
-  if (isLoading && !user?.email) {
+  if (isLoading) {
     return (
       <div>
         <Loader />
@@ -86,18 +86,14 @@ export default function DevProfile() {
     );
   }
 
-  return isAuthenticated && user?.email ? (
+  return isAuthenticated ? (
     <div className={s.body}>
       <SideMenu />
       <article className={s.modal}>
         <div className={s.container}>
           {
             <div>
-              <img
-                src={userAuth0Db?.image}
-                alt={userAuth0Db.name}
-                className={s.picture}
-              />
+              <img src={user.picture} alt={user.name} className={s.picture} />
             </div>
           }
 
