@@ -45,15 +45,16 @@ export default function DevProfile() {
   };
 
   const userAuth0Db = {
-    name: `${userDb ? userDb?.map((e) => e.name) : user?.given_name} ${
-      userDb ? userDb?.map((e) => e.lastName) : user?.family_name
+    name: `${userDb.length ? userDb?.map((e) => e.name) : user?.given_name} ${
+      userDb.length ? userDb?.map((e) => e.lastName) : user?.family_name
     }`,
-    image: `${userDb ? userDb?.map((e) => e.profilePicture) : user?.picture}`,
-    email: `${userDb ? userDb?.map((e) => e.email) : user?.email}`,
-    country: `${userDb && userDb.map((e) => e.paiseId)}`,
-    id: `${userDb && userDb.map((e) => e.id)}`,
+    image: `${userDb.length ? userDb.map((e) => e.picture) : user?.picture}`,
+    email: `${userDb.length ? userDb?.map((e) => e.email) : user?.email}`,
+    country: `${userDb.length && userDb.map((e) => e.paiseId)}`,
+    id: `${userDb.length && userDb.map((e) => e.id)}`,
   };
 
+  console.log(userAuth0Db?.id);
   const [input, setInput] = useState({
     name: `${userAuth0Db?.name}`,
     image: `${userAuth0Db?.image}`,
@@ -62,7 +63,11 @@ export default function DevProfile() {
   });
 
   const handleRedirect = () => {
-    navigate(`/work/details/${userAuth0Db?.id}`);
+    if (userAuth0Db?.id !== 0) {
+      return navigate(`/create`);
+    } else {
+      return navigate(`/work/details/${userAuth0Db?.id}`);
+    }
   };
 
   const handleChangeInput = (e) => {
@@ -86,24 +91,15 @@ export default function DevProfile() {
       <SideMenu />
       <article className={s.modal}>
         <div className={s.container}>
-          {!input.image && loader ? (
-            <div className={s.barra}>
-              <span></span>
-            </div>
-          ) : (
+          {
             <div>
               <img
-                src={input?.image ? input?.image : userAuth0Db?.image}
-                alt={userDb ? userDb?.map((e) => e.name) : user?.name}
+                src={userAuth0Db?.image}
+                alt={userAuth0Db.name}
                 className={s.picture}
               />
-              <label className={s.divInputImg}>
-                <span>
-                  <AiOutlineEdit className={s.buttonEdit} />
-                </span>
-              </label>
             </div>
-          )}
+          }
 
           <h3>{userAuth0Db.name}</h3>
           <div className={s.email}>
