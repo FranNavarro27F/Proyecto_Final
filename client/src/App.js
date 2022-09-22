@@ -9,7 +9,7 @@ import Users from "./Components/Users/Users";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
-import Stripe from "stripe";
+import Stripe from "./Components/Stripe/Stripe";
 
 function App() {
   return (
