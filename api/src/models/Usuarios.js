@@ -96,7 +96,7 @@ module.exports = (sequelize) => {
 
       yearsOfExperience: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true, //antes estaba en false (explicar Auth0)
         validate: {
           len: [1, 2], // no permitir mas de dos dígitos
           min: 1, // valor mínimo: 1
