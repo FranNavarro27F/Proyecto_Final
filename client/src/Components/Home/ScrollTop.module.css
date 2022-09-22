@@ -1,13 +1,22 @@
 .button {
   background: none;
   border: none;
-  width: 5vh;
   color: wheat;
-  height: 40px;
-  width: 40px;
+  width: 5vh;
   border-radius: 50%;
   /* background-color: white; */
   cursor: pointer;
   position: absolute;
   font-size: 4vh;
+  animation: MoveUpDown 0.6s linear infinite;
+}
+
+@keyframes MoveUpDown {
+  0%,
+  100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 0.5vh;
+  }
 }

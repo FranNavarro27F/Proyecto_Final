@@ -9,7 +9,7 @@ export default function ButtonScrollSection({ goToSectionRef }) {
     });
   };
   return (
-    <div>
+    <div className={s.divButton}>
       <button onClick={() => scrollTo(goToSectionRef)} className={s.buttonDown}>
         <BsChevronDoubleDown />
       </button>

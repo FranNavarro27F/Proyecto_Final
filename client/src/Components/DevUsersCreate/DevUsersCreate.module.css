@@ -107,7 +107,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0.2vw 1px;
+  padding: 0.2 14px;
   gap: 10px;
   box-shadow: 0px 10px 20px rgba(2, 4, 6, 0.15);
   border-radius: 10px;
@@ -366,7 +366,7 @@
   text-align: center;
   overflow: hidden;
   height: 10vh;
-  width: 5vw;
+  width: 10vh;
   border-radius: 50%;
   border: 0.5vh solid #0f103f8e;
   /* display: inline-block; */
@@ -382,7 +382,7 @@
   display: inline-block;
   position: absolute;
   /* margin-bottom: 20vh; */
-  margin-left: -5.2vh;
+  margin-left: -2.55vw;
   z-index: 20;
   object-fit: cover;
   overflow: hidden;
@@ -393,9 +393,9 @@
   text-align: center;
   overflow: hidden;
   height: 10vh;
-  width: 5vw;
+  width: 10vh;
   border-radius: 50%;
-  border: 0.5vh solid #0f103f8e;
+  border: 0.6vh solid #0f103f8e;
   /* display: inline-block; */
 }
 
@@ -430,10 +430,10 @@
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #0f103f02;
+  width: 6.8vh;
+  height: 6.8vh;
+  margin: 0.8vh;
+  border: 0.8vh solid #0f103f02;
   border-radius: 50%;
   animation: lds_ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #0f103f transparent transparent transparent;

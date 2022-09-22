@@ -50,7 +50,8 @@
   padding: 7px;
   min-height: 9vh;
   max-height: 9vh;
-  min-width: 4vw;
+  /* min-width: 4vw; */
+  width: auto;
 }
 
 .addImg {

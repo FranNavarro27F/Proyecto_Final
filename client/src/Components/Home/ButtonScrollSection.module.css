@@ -1,12 +1,30 @@
+.divButton {
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center;
+  text-align: center; */
+}
+
 .buttonDown {
   background: none;
   border: none;
   width: 5vh;
   color: wheat;
-  /* background-color: red; */
-  left: 50vw;
-  top: 90vh;
   position: absolute;
   font-size: 4vh;
   cursor: pointer;
+  animation: MoveUpDown 0.8s linear infinite;
+  /* background-color: red; */
+  left: 52vw;
+  top: 90vh;
+}
+
+@keyframes MoveUpDown {
+  0%,
+  100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 2vh;
+  }
 }
