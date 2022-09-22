@@ -9,9 +9,14 @@ import diamantess from '../Home/Assets/Diamante/diamante.png'
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import Loader from '../Loader/Loader'
 import 'boxicons'
+import { useAuth0 } from "@auth0/auth0-react";
+import { emailer } from "../../Redux/Actions/Emailer";
 
 
 export default function Details() {
+
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+
   let { id } = useParams();
   let navigate = useNavigate();
   let dispatch = useDispatch();
@@ -24,18 +29,24 @@ export default function Details() {
     }
   },[dispatch, id])
 
-  
-   const user = useSelector((state)=>state.devUser.details)
-   console.log(user, "holi")
-   const paises = useSelector((state)=> state.countries.allCountries)
-   console.log(user,"acauser")
+
+  const userDetail = useSelector((state)=>state.devUser.details)
+  const paises = useSelector((state)=> state.countries.allCountries)
+  let userName = user?.given_name;
+  let userDetailMail = userDetail?.email;
+
+  const handleContact = () => {
+    dispatch(emailer(userName, userDetailMail))
+
+  }
 
 
-    // function toUpperCase(user){
-    //   return user[0].toUpperCase()+ user.slice(1)
+
+    // function toUpperCase(userDetail){
+    //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
     // }
 
-   return !user.name ? <Loader/>:(
+   return !userDetail.name ? <Loader/>:(
 
     <div className={s.sideM}>
       <SideMenu/>
@@ -117,14 +128,14 @@ export default function Details() {
     <div className={s.divBox}>
    <div className={s.textBox}>
    
-    <h2>{user.name+ ' '}{user.lastName
+    <h2>{userDetail.name+ ' '}{userDetail.lastName
     }</h2>
-    {/* [0].toUpperCase()+ user.name.slice(1) + ' '//[0].toUpperCase()+ user.lastName.slice(1)} */}
+    {/* [0].toUpperCase()+ userDetail.name.slice(1) + ' '//[0].toUpperCase()+ userDetail.lastName.slice(1)} */}
       <br/>
     <div className={s.imageBox} >
-      {/* <img >{user?.profilePicture}</img> */}
+      {/* <img >{userDetail?.profilePicture}</img> */}
 
-      { user.profilePicture ? (
+      { userDetail.profilePicture ? (
               <img className={s.imgRender} />
             ) : (
               <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -138,47 +149,49 @@ export default function Details() {
       {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
       <box-icon border='circle' animation ="tada" color= "white" type='logo' name='gmail'></box-icon>
       Email: </span> 
-    <span>{user.email}</span>
+    <span>{userDetail.email}</span>
     <br/>
     <br/>
     <box-icon  name='code-alt' color="white"></box-icon>
     <span> Lenguajes: </span>
-    <span>{user.lenguajes?.map(e=>e)}</span>
+    <span>{userDetail.lenguajes?.map(e=>e)}</span>
     <br/>
     <br/>
     <box-icon color="white" name='donate-heart'></box-icon>
            <span> Servicios: </span>
-    <span>{user.servicios?.map(s=>s)}</span>
+    <span>{userDetail.servicios?.map(s=>s)}</span>
     <br/>
     <br/>
     <box-icon  color="white" name='linkedin' type='logo' ></box-icon>
     <a> LinkedIn: </a>
-    <span>{user.linkedIn}</span>
+    <span>{userDetail.linkedIn}</span>
     <br/>
     <br/>
     <box-icon color="white" name='mouse'></box-icon>
     <span> Tecnologias: </span>
-    <span>{user.tecnologias?.map(t=>t)}</span>
+    <span>{userDetail.tecnologias?.map(t=>t)}</span>
     <br/>
     <br/>
     <box-icon name='world' color="white" ></box-icon>
     <span> Pais: </span>
-    <span>{ user.paiseId}</span>
+    <span>{userDetail.paiseId}</span>
     <br/>
     <br/>
     <box-icon name='planet' animation ="flashing" color="white"></box-icon>
     <span> Sitio Web: </span>
-    <span>{user.webSite}</span>
+    <span>{userDetail.webSite}</span>
     <br/>
     <span>Años de Experiencia: </span>
-    <span>{user.yearsOfExperience}</span>
+    <span>{userDetail.yearsOfExperience}</span>
     <br/>
     <span>Presupuesto por día: </span>
-    <span>{user.dailyBudget}</span>
+    <span>{userDetail.dailyBudget}</span>
     </div>
     <div>
       <Link to = ''>
-    <button className={s.buttonL}>Contactame!</button>
+    <button className={s.buttonL}
+    onClick = {(e) => {handleContact(e)}}
+    >Contactame!</button>
     
     </Link>
     </div>
