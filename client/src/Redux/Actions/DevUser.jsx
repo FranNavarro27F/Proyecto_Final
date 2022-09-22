@@ -45,7 +45,7 @@ export function getDevUsers(payload) {
 }
 
 export function getUserId(id) {
-  console.log(id);
+  console.log(id, "id action");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
@@ -60,11 +60,10 @@ export function getUserId(id) {
   };
 }
 export function detailReset() {
-  return function(dispatch) {
+  return function (dispatch) {
     return dispatch({
       type: "DETAIL_RESET",
       payload: [],
-    })
-  }
-  
+    });
+  };
 }

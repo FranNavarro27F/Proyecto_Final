@@ -1,6 +1,6 @@
 .inputContainer > p,
 .inputContainer > input {
-  font-size: 18px;
+  font-size: 0.9vw;
   font-weight: 800;
   font-family: "Poppins";
   color: rgb(0, 0, 0);
@@ -20,7 +20,9 @@
 }
 .divSelectContainer > p {
   font-family: "Poppins";
-  font-size: 18px;
+  /* height: 10vh;
+  width: 5vw; */
+  font-size: 1vw;
   font-weight: 800;
   color: rgb(0, 0, 0);
   /* min-height: 7vh; */
@@ -105,7 +107,7 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 3px 14px;
+  padding: 0.2vw 1px;
   gap: 10px;
   box-shadow: 0px 10px 20px rgba(2, 4, 6, 0.15);
   border-radius: 10px;
@@ -271,20 +273,19 @@
   grid-template-columns: 1fr 1fr;
 }
 .buttonCreate:enabled {
-  box-sizing: border-box;
-  padding: 10px;
-  gap: 10px;
-  width: 20vh;
-  height: 5vh;
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
-  border-radius: 30px;
+  box-sizing: border-box;
+  gap: 10px;
+  width: 10vw;
+  height: 5vh;
+  border-radius: 2vh;
   color: #ffffff;
   font-family: "Poppins";
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1vw;
   align-items: center;
   text-align: center;
-  line-height: 26px;
+  line-height: 2vw;
   cursor: pointer;
   border: 1px solid black;
   color: rgb(0, 0, 0);
@@ -304,7 +305,7 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  width: 20vh;
+  width: 10vw;
   height: 5vh;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 30px;
@@ -313,8 +314,8 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 0.7vw;
+  line-height: 2vw;
   cursor: pointer;
   color: rgb(0, 0, 0);
   border: 1px solid black;
@@ -360,6 +361,16 @@
   text-align: center;
 }
 
+.divImg {
+  object-fit: cover;
+  text-align: center;
+  overflow: hidden;
+  height: 10vh;
+  width: 5vw;
+  border-radius: 50%;
+  border: 0.5vh solid #0f103f8e;
+  /* display: inline-block; */
+}
 .inputContainer_1fila {
   min-height: 15vh;
 }

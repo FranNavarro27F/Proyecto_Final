@@ -24,14 +24,16 @@
   transform: translateY(-10px);
 }
 .imgCard {
-  width: 110%;
+  width: 6vw;
+  height: 9.5vh;
+  object-fit: cover;
 }
 
 .user_picture {
   overflow: hidden;
   object-fit: cover;
-  width: 6rem;
-  height: 6rem;
+  width: 5vw;
+  height: 10vh;
   border: 4px solid #2073f0de;
   border-radius: 999px;
   display: flex;
