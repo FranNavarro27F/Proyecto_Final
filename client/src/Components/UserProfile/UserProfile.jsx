@@ -24,14 +24,15 @@ export default function DevProfile() {
   useEffect(() => {
     dispatch(getCountries());
   }, [dispatch]);
-  const allUsers = useSelector((state) => state.devUser.allUsers);
-  const country = useSelector((state) => state.countries.allCountries);
-  const email = user?.email;
-  const [edit, setEdit] = useState(true);
 
   useEffect(() => {
     dispatch(getUsersBd());
   }, [dispatch]);
+
+  const allUsers = useSelector((state) => state.devUser.allUsers);
+  const country = useSelector((state) => state.countries.allCountries);
+  const email = user?.email;
+  const [edit, setEdit] = useState(true);
 
   const userDb = allUsers?.filter((e) => e.email === email);
 
@@ -59,9 +60,11 @@ export default function DevProfile() {
     email: `${userAuth0Db?.email}`,
     country: `${userAuth0Db?.country}`,
   });
+
   const handleRedirect = () => {
     navigate(`/work/details/${userAuth0Db?.id}`);
   };
+
   const handleChangeInput = (e) => {
     setInput({
       ...input,
@@ -69,44 +72,6 @@ export default function DevProfile() {
     });
   };
   const [loader, setLoader] = useState(false);
-  const getFile = (file) => {
-    const storageRef = ref(storage, `/files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        console.log(percent);
-        if (percent === 0 && percent === 100) {
-          return setLoader(false);
-        } else {
-          setLoader(true);
-        }
-      },
-      (err) => console.log(err),
-      () => {
-        // download url
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setInput({
-            ...input,
-            image: url,
-          });
-          // setErrors(
-          //   validaciones({
-          //     ...cache,
-          //     profilePicture: url,
-          //   })
-          // );
-          // setCache({
-          //   ...cache,
-          //   profilePicture: url,
-          // });
-        });
-      }
-    );
-  };
 
   if (isLoading && !user?.email) {
     return (
@@ -136,17 +101,10 @@ export default function DevProfile() {
                 <span>
                   <AiOutlineEdit className={s.buttonEdit} />
                 </span>
-                <input
-                  className={s.addImg}
-                  type="file"
-                  onChange={(e) => getFile(e.target.files[0])}
-                  name="profilePicture"
-                  // className={s.inputImg}
-                />
-                {/* <AiOutlineUserAdd /> */}
               </label>
             </div>
           )}
+
           <h3>{userAuth0Db.name}</h3>
           <div className={s.email}>
             <h6>{userAuth0Db.email}</h6>

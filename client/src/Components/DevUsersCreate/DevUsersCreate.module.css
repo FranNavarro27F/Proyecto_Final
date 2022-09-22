@@ -360,6 +360,16 @@
   text-align: center;
 }
 
+.divImg {
+  object-fit: cover;
+  text-align: center;
+  overflow: hidden;
+  height: 10vh;
+  width: 5vw;
+  border-radius: 50%;
+  border: 0.5vh solid #0f103f8e;
+  /* display: inline-block; */
+}
 .inputContainer_1fila {
   min-height: 15vh;
 }
