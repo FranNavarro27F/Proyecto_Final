@@ -16,10 +16,10 @@ const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
       include: [
-        // {
-        //   model: Paises,
-        //   attributes: ["name"],
-        // },
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
         {
           model: Servicios,
           attributes: ["name"],
@@ -109,7 +109,7 @@ const postUsers = async (data) => {
         name,
         lastName,
         profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin,
+        isAdmin: false,
         webSite: webSite !== "" ? webSite : null,
         yearsOfExperience,
         dailyBudget: dailyBudget !== "" ? dailyBudget : null,
@@ -133,13 +133,10 @@ const postUsers = async (data) => {
     console.error(`ERROR @ controllers/postUsers --→ ${e}`);
   }
 };
-
-
 const toUperCase = (nombre) => {
   let nombree = nombre[0].toUpperCase() + nombre.slice(1);
   return nombree;
 };
-
 
 const getUserById = async (id) => {
   try {
@@ -202,8 +199,9 @@ const getUserByName = async (name) => {
     let userByName = await Usuarios.findAll({
       where: {
         name: { [Op.iLike]: `%${name}%` },
-      },include: [
-         {
+      },
+      include: [
+        {
           model: Paises,
           attributes: ["name"],
         },
@@ -222,17 +220,19 @@ const getUserByName = async (name) => {
           attributes: ["name"],
           through: { attributes: [] },
         },
-      ]
+      ],
     });
-  
-    let arrUsers= userByName.map(cur=> cur.dataValues);
-    let arrUsersListo= arrUsers.map(async cur=> {
-      return{
+
+    let arrUsers = userByName.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
         id: cur.id,
         profilePicture: cur.profilePicture,
         isAdmin: cur.isAdmin,
-        name: cur.name ? cur.name = toUperCase(cur.name) : cur.name =[],
-        lastName: cur.lastName ? cur.lastName = toUperCase(cur.lastName) : cur.lastName =[],
+        name: cur.name ? (cur.name = toUperCase(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = toUperCase(cur.lastName))
+          : (cur.lastName = []),
         email: cur.email,
         city: cur.city,
         linkedIn: cur.linkedIn,
@@ -243,19 +243,22 @@ const getUserByName = async (name) => {
         englishLevel: cur.englishLevel,
         bio: cur.bio,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
-        servicios: cur.servicios ? (cur.servicios.map(cur=> cur.dataValues)).map(cur=> cur.name) : [],
-        lenguajes: cur.lenguajes ? (cur.lenguajes.map(cur=> cur.dataValues)).map(cur=> cur.name) : [],
-        tecnologias: cur.tecnologias ? (cur.tecnologias.map(cur=> cur.dataValues)).map(cur=> cur.name) : []
-
-      }
-    })
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        lenguajes: cur.lenguajes
+          ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        tecnologias: cur.tecnologias
+          ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
     return await Promise.all(arrUsersListo);
-
   } catch (e) {
     console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
   }
 };
-
 
 module.exports = {
   getUsers,
@@ -264,3 +267,4 @@ module.exports = {
   deleteUser,
   getUserByName,
 };
+
