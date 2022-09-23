@@ -10,12 +10,14 @@ import { AiOutlineClear } from "react-icons/ai";
 import Select from "react-select";
 import SearchBar from "../SearchBar/SearchBar";
 import Selectores from "../Selectores/Selectores";
+import makeAnimated from "react-select/animated";
 
 //actions
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
 
 export default function NavBar() {
+  const animatedComponents = makeAnimated();
   const {
     optionsOrderBudget,
     optionsOrderExp,
@@ -62,8 +64,14 @@ export default function NavBar() {
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
-    refExperience.current.setValue({ value: "default", label: "Todos" });
-    refBudget.current.setValue({ value: "default", label: "Todos" });
+    refExperience.current.setValue({
+      value: "default",
+      label: "Ordenar por costo diario",
+    });
+    refBudget.current.setValue({
+      value: "default",
+      label: "Ordenar por costo diario",
+    });
 
     setActualFilter({
       filterTecnologies: [],
@@ -103,6 +111,8 @@ export default function NavBar() {
       <div className={s.divGen}>
         <div className={s.filterCountrie}>
           <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refCountries}
             set-value={cacheFilter?.filterCountries}
             options={optionsCountries}
@@ -137,6 +147,8 @@ export default function NavBar() {
                 filterLanguajes: e.map((e) => e.label),
               });
             }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refLanguajes}
             set-value={cacheFilter?.filterLanguajes}
             className={s.select}
@@ -161,6 +173,8 @@ export default function NavBar() {
                 filterServices: e.map((e) => e.label),
               });
             }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refServices}
             className={s.select}
             set-value={cacheFilter?.filterServices}
@@ -186,6 +200,8 @@ export default function NavBar() {
                 filterTecnologies: e.map((e) => e.label),
               });
             }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refTecnologies}
             set-value={cacheFilter?.filterTecnologies}
             className={s.select}
@@ -200,6 +216,8 @@ export default function NavBar() {
         </div>
         <div>
           <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refExperience}
             set-value={cacheFilter?.OrderExp}
             onChange={(e) => {
@@ -224,6 +242,8 @@ export default function NavBar() {
         </div>
         <div>
           <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
             ref={refBudget}
             onChange={(e) => {
               setActualFilter({
