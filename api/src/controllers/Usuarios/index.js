@@ -69,11 +69,10 @@ const getUsers = async () => {
           : [],
       };
     });
-    
-    return await Promise.all(arrUsersListo);
 
+    return await Promise.all(arrUsersListo);
   } catch (e) {
-      console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
 
@@ -129,10 +128,12 @@ const postUsers = async (data) => {
     } else {
       return "Usuario creado correctamente";
     }
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/postUsers --→ ${e}`);
   }
 };
+
 const toUperCase = (nombre) => {
   let nombree = nombre[0].toUpperCase() + nombre.slice(1);
   return nombree;
@@ -190,7 +191,7 @@ const deleteUser = async (id) => {
     console.log(`User (${id}) deleted successfully`);
     return `User (${id}) deleted successfully`;
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/deleteUser --→ ${e}`);
   }
 };
 
@@ -267,4 +268,3 @@ module.exports = {
   deleteUser,
   getUserByName,
 };
-

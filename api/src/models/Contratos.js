@@ -9,6 +9,8 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
 
+    //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
+
     employer: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,8 +20,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
 
     description: {
       type: DataTypes.TEXT,
@@ -45,16 +45,18 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
     },
-    precio:{
-      type: DataTypes.INTEGER,
-      allowNull: false,   
+
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
-    
+
+    payment_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     //
-  },{
-    createdAt: false,
-    updatedAt: false,
-  })
+  });
 };
 
 // -----------------------------------------

@@ -10,16 +10,14 @@ const {
 
 const router = Router();
 
-const PATH = "/usuarios";
-
 // -----------------------------------------------
 
 router.get("/", async (req, res) => {
   try {
-    let {name}=req.query;
-    if(name){
-      res.json(await getUserByName(name))
-    }else{
+    let { name } = req.query;
+    if (name) {
+      res.json(await getUserByName(name));
+    } else {
       res.json(await getUsers());
     }
   } catch (e) {
@@ -41,45 +39,25 @@ router.post("/", async (req, res) => {
     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
 
     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
-      res.sendStatus(400)
-        // .json("Falta alguno de los campos importantes. Por favor revisar");
+      res.sendStatus(400);
+      // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
       let usuario = await postUsers(req.body);
 
-      res.json(usuario);
+      res.status(201).json(usuario);
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
-
-// router.post("/", async(req, res)=>{
-//   try {
-
-//     let {email, family_name, given_name, picture} = req.body
-
-//     if(!family_name || !given_name || !email){
-//       res.sendStatus(400)
-//     }else{
-//       let usuario = await postUsers(req.body)
-//       res.json(usuario)
-//     }
-    
-//   } catch (e) {
-//     res.sendStatus(400).send(`Error --→ ${e}`)
-//   }
-// })
-
-
 router.delete("/:id", async (req, res) => {
   try {
-    let {id}= req.params;
+    let { id } = req.params;
     res.json(await deleteUser(id));
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
-
 
 module.exports = router;
