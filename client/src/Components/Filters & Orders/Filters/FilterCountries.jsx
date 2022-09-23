@@ -2,6 +2,7 @@ import s from "./FIlterCountries.module.css";
 
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import useFetchAllData from "../../../Hooks/useFetchAllData";
 
 export default function FIlterCountries({
   setActualFilter,
@@ -11,7 +12,7 @@ export default function FIlterCountries({
   customStyles,
   actualFilter,
 }) {
-  const countries = useSelector((state) => state.countries.allCountries);
+  const { countries } = useFetchAllData();
 
   const optionsCountries = countries.map((e) => {
     return {
@@ -19,18 +20,6 @@ export default function FIlterCountries({
       label: e.name,
     };
   });
-
-  // const handleCountries = (e) => {
-  //   setActualFilter({
-  //     ...actualFilter,
-  //     filterCountries: e.map((e) => e.value),
-  //   });
-  //   setCacheFilter({
-  //     ...cacheFilter,
-  //     filterCountries: e.map((e) => e.value),
-  //     // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  //   });
-  // };
 
   return (
     <div className={s.filterCountrie}>

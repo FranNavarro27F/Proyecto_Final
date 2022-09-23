@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import s from "../NavBar/NavBar.module.css";
 import logo from "../../Logo/Logo-Sin-Fondo.png";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
@@ -9,11 +9,7 @@ import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
 
 //actions
-import { getCountries } from "../../Redux/Actions/Countries";
-import { getServices } from "../../Redux/Actions/Services";
-import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
-import { getLanguajes } from "../../Redux/Actions/Languajes";
 
 //modularizacion
 import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
@@ -23,16 +19,9 @@ import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
 import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
 import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
 import SearchBar from "../SearchBar/SearchBar";
-// import Profile from "../Login/UserProfile/Profile";
 
 export default function NavBar() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCountries());
-    dispatch(getTecnologies());
-    dispatch(getServices());
-    dispatch(getLanguajes());
-  }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
 
@@ -73,9 +62,6 @@ export default function NavBar() {
       OrderBud: ("OrderBud", ""),
     });
   };
-  // const [defaultvalue, setDefaultValue] = useState(false);
-
-  const [order, setOrder] = useState("");
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -100,7 +86,6 @@ export default function NavBar() {
           actualFilter={actualFilter}
           setCacheFilter={setCacheFilter}
           cacheFilter={cacheFilter}
-          // defaultvalue={defaultvalue}
           customStyles={customStyles}
         />
         <FIlterLenguajes

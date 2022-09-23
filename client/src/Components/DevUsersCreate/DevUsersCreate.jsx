@@ -13,14 +13,11 @@ import ModalCreate from "./ModalCreate/ModalCreate";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
+import Loader from "../Loader/Loader";
+import useFetchAllData from "../../Hooks/useFetchAllData";
 
 //actions
-import { getCountries } from "../../Redux/Actions/Countries";
-import { getServices } from "../../Redux/Actions/Services";
-import { getLanguajes } from "../../Redux/Actions/Languajes";
 import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
-import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import Loader from "../Loader/Loader";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
@@ -28,20 +25,9 @@ import storage from "./Img-file/firebaseConfig.js";
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { services, languajes, tecnologies, countries } = useFetchAllData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCountries());
-    dispatch(getTecnologies());
-    dispatch(getServices());
-    dispatch(getLanguajes());
-    dispatch(getUsersBd());
-  }, [dispatch]);
-
-  const countries = useSelector((state) => state.countries.allCountries);
-  const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-  const services = useSelector((state) => state.services.allServices);
-  const languajes = useSelector((state) => state.languajes.allLanguajes);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -304,11 +290,11 @@ export default function DevUsersCreate() {
           </div>
           <div className={s.inputContainer_1fila}>
             <p>Imagen: </p>
-            {!cache.profilePicture && loader ? (
+            {!cache?.profilePicture && loader ? (
               <div className={s.barra}>
                 <span></span>
               </div>
-            ) : !input.profilePicture ? (
+            ) : !input?.profilePicture ? (
               <label className={s.divInput}>
                 <input
                   className={s.addImg}
