@@ -11,6 +11,7 @@ export default function OrderDailyBudget({
   cacheFilter,
   customStyles,
   actualFilter,
+  refBudget,
 }) {
   const optionsOrderBudget = [
     { value: "default", label: "Todos" },
@@ -43,6 +44,7 @@ export default function OrderDailyBudget({
             // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
           });
         }}
+        ref={refBudget}
         set-value={cacheFilter?.OrderBud}
         className={s.select}
         isDisabled={false}

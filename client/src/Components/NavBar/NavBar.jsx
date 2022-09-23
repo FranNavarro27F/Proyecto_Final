@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import s from "../NavBar/NavBar.module.css";
 import logo from "../../Logo/Logo-Sin-Fondo.png";
 import { Link } from "react-router-dom";
@@ -7,21 +7,27 @@ import { useState } from "react";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
+import Select from "react-select";
+import SearchBar from "../SearchBar/SearchBar";
+import Selectores from "../Selectores/Selectores";
 
 //actions
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
-
-//modularizacion
-import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
-import FIlterServices from "../Filters & Orders/Filters/FilterServices";
-import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
-import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
-import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
-import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
-import SearchBar from "../SearchBar/SearchBar";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
 
 export default function NavBar() {
+  const {
+    optionsOrderBudget,
+    optionsOrderExp,
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsersBd());
+  }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
 
@@ -44,7 +50,21 @@ export default function NavBar() {
     name: "",
   });
 
+  const refCountries = useRef();
+  const refServices = useRef();
+  const refLanguajes = useRef();
+  const refTecnologies = useRef();
+  const refExperience = useRef();
+  const refBudget = useRef();
+
   const handleClear = () => {
+    refCountries.current.clearValue();
+    refServices.current.clearValue();
+    refLanguajes.current.clearValue();
+    refTecnologies.current.clearValue();
+    refExperience.current.setValue({ value: "default", label: "Todos" });
+    refBudget.current.setValue({ value: "default", label: "Todos" });
+
     setActualFilter({
       filterTecnologies: [],
       filterServices: [],
@@ -81,48 +101,150 @@ export default function NavBar() {
       </button>
       <SearchBar setActualFilter={setActualFilter} />
       <div className={s.divGen}>
-        <FIlterCountries
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-          customStyles={customStyles}
-        />
-        <FIlterLenguajes
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-          customStyles={customStyles}
-        />
-        <FIlterServices
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <FIlterTecnologie
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <OrderyearsOfExperience
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <OrderDailyBudget
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
+        <div className={s.filterCountrie}>
+          <Select
+            ref={refCountries}
+            set-value={cacheFilter?.filterCountries}
+            options={optionsCountries}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterCountries: e.map((e) => e.value),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterCountries: e.map((e) => e.value),
+              });
+            }}
+            className={s.select}
+            isDisabled={false}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por país..."
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterLanguajes: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterLanguajes: e.map((e) => e.label),
+              });
+            }}
+            ref={refLanguajes}
+            set-value={cacheFilter?.filterLanguajes}
+            className={s.select}
+            isDisabled={false}
+            options={optionsLanguajes}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por lenguaje..."
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterServices: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterServices: e.map((e) => e.label),
+              });
+            }}
+            ref={refServices}
+            className={s.select}
+            set-value={cacheFilter?.filterServices}
+            isDisabled={false}
+            options={optionsServices}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por servicios..."
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterTecnologies: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterTecnologies: e.map((e) => e.label),
+              });
+            }}
+            ref={refTecnologies}
+            set-value={cacheFilter?.filterTecnologies}
+            className={s.select}
+            isDisabled={false}
+            options={optionsTecnologias}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por tecnología..."
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            ref={refExperience}
+            set-value={cacheFilter?.OrderExp}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                OrderExp: e.value,
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                OrderExp: e.value,
+              });
+            }}
+            className={s.select}
+            isDisabled={false}
+            options={optionsOrderExp}
+            isClearable={false}
+            isSearchable={false}
+            isMulti={false}
+            placeholder="Ordenar por experiencia"
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            ref={refBudget}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                OrderBud: e.value,
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                OrderBud: e.value,
+              });
+            }}
+            set-value={cacheFilter?.OrderBud}
+            className={s.select}
+            isDisabled={false}
+            options={optionsOrderBudget}
+            isClearable={false}
+            isSearchable={false}
+            isMulti={false}
+            placeholder="Ordenar por costo diario"
+            styles={customStyles}
+          />
+        </div>
 
         {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>

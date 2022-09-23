@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -21,13 +21,18 @@ import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
+import Selectores from "../Selectores/Selectores";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  const { services, languajes, tecnologies, countries } = useFetchAllData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const refCountries = useRef();
+  const refServices = useRef();
+  const refLanguajes = useRef();
+  const refTecnologies = useRef();
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -46,9 +51,7 @@ export default function DevUsersCreate() {
       ? cache?.yearsOfExperience
       : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId:
-      // cache?.paiseId ? cache?.paiseId :
-      "",
+    paiseId: cache?.paiseId ? cache?.paiseId : "",
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
       [],
@@ -156,6 +159,10 @@ export default function DevUsersCreate() {
     e.preventDefault();
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
+      // refCountries.current.clearValue();
+      refServices.current.clearValue();
+      refLanguajes.current.clearValue();
+      refTecnologies.current.clearValue();
       dispatch(
         postDevUser({
           ...input,
@@ -181,7 +188,7 @@ export default function DevUsersCreate() {
         yearsOfExperience: ("yearsOfExperience", "0"),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", ""),
+        paiseId: ("paiseId", "Argentina"),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
@@ -192,6 +199,13 @@ export default function DevUsersCreate() {
   };
   // console.log(user);
   const handleReset = () => {
+    refCountries.current.setValue({
+      value: "07300d26-ef9d-434f-b953-51267fc747e4",
+      label: "Argentina",
+    });
+    refServices.current.clearValue();
+    refLanguajes.current.clearValue();
+    refTecnologies.current.clearValue();
     setCache({
       name: ("name", ``),
       lastName: ("lastName", ``),
@@ -203,42 +217,37 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
+      paiseId: ("paiseId", "Argentina"),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
+    });
+    setInput({
+      name: ``,
+      lastName: ``,
+      profilePicture: ``,
+      email: `${user?.email}`,
+      linkedIn: "",
+      gitHub: "",
+      webSite: "",
+      yearsOfExperience: "0",
+      dailyBudget: "0",
+      englishLevel: "Básico",
+      paiseId: "Argentina",
+      tecnologias: [],
+      lenguajes: [],
+      servicios: [],
     });
     setLoader(false);
   };
 
   //OPCIONES DE LOS SELECTS:
-
-  const optionsCountries = countries.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-  const optionsTecnologias = tecnologies.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsServices = services.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsLanguajes = languajes.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
+  const {
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
 
   return !isAuthenticated ? (
     loginWithRedirect()
@@ -493,6 +502,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="pais">Pais: </p>
             <Select
+              ref={refCountries}
               components={animatedComponents}
               set-value={cache?.paiseId}
               className={s.select}
@@ -502,7 +512,6 @@ export default function DevUsersCreate() {
               isSearchable={true}
               isMulti={false}
               styles={customStyles}
-              // classNamePrefix="react-select"
               placeholder="Selecciona un pais"
               onChange={(e) => {
                 setInput({
@@ -515,10 +524,10 @@ export default function DevUsersCreate() {
                     paiseId: e.value,
                   })
                 );
-                // setCache({
-                //   ...cache,
-                //   paiseId: e.value,
-                // });
+                setCache({
+                  ...cache,
+                  paiseId: e.value,
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -532,7 +541,7 @@ export default function DevUsersCreate() {
             <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
-              // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
+              ref={refTecnologies}
               set-value={cache?.tecnologias}
               className={s.select}
               isDisabled={false}
@@ -553,10 +562,10 @@ export default function DevUsersCreate() {
                     tecnologias: e.map((ele) => ele.value),
                   })
                 );
-                // setCache({
-                //   ...cache,
-                //   tecnologias: e.map((ele) => ele.value),
-                // });
+                setCache({
+                  ...cache,
+                  tecnologias: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -568,6 +577,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="lenguajes">Lenguajes: </p>
             <Select
+              ref={refLanguajes}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.lenguajes}
@@ -590,10 +600,10 @@ export default function DevUsersCreate() {
                     lenguajes: e.map((ele) => ele.value),
                   })
                 );
-                // setCache({
-                //   ...cache,
-                //   lenguajes: e.map((ele) => ele.value),
-                // });
+                setCache({
+                  ...cache,
+                  lenguajes: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -605,6 +615,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.servicios}
@@ -627,10 +638,10 @@ export default function DevUsersCreate() {
                     servicios: e.map((ele) => ele.value),
                   })
                 );
-                // setCache({
-                //   ...input,
-                //   servicios: e.map((ele) => ele.value),
-                // });
+                setCache({
+                  ...input,
+                  servicios: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>

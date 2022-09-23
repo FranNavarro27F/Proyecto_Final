@@ -44,6 +44,7 @@ export default function devUser(state = initialState, action) {
         OrderExp,
         OrderBud,
       } = action.payload;
+      console.log(filterCountries);
 
       let filtro = [...state.allUsers];
       if (filterTecnologies?.length !== 0)
@@ -63,7 +64,7 @@ export default function devUser(state = initialState, action) {
 
       if (filterCountries?.length !== 0)
         filtro = [...filtro]?.filter((ele) =>
-          ele.country?.includes(filterCountries.toString())
+          ele.paiseId?.includes(filterCountries.toString())
         );
 
       //ORDENAMIENTOS

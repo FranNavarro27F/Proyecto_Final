@@ -33,7 +33,6 @@ export default function Home() {
   const landing = useRef(null);
   const home = useRef(null);
   const work = useRef(null);
-  // const about = useRef(null);
 
   return isLoading ? (
     <Loader />
