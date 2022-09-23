@@ -5,6 +5,7 @@ const initialState = {
   page: 1,
   devPerPage: 10,
   scroll: false,
+  usuariosSB: [],
 };
 
 export default function devUser(state = initialState, action) {
@@ -102,6 +103,11 @@ export default function devUser(state = initialState, action) {
         ...state,
         details: action.payload,
       };
+    case "GET_USER_SEARCHBAR":
+      return {
+        ...state,
+        usuariosSB: action.payload,
+      }
     default:
       return state;
   }
