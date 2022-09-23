@@ -48,6 +48,9 @@ export default function Details() {
     }
   };
 
+  const handleBack = () => {
+    navigate("/work")
+  }
   // function toUpperCase(userDetail){
   //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
   // }
@@ -485,6 +488,11 @@ export default function Details() {
             <span>{userDetail.dailyBudget}</span>
           </div>
           <div>
+              <button
+                className={s.buttonBack}
+                onClick={(e) => {handleBack(e)}}
+              > Volver
+              </button>
             <Link to="">
               <button
                 className={s.buttonL}
