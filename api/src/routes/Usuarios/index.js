@@ -6,6 +6,9 @@ const {
   getUserById,
   deleteUser,
   getUserByName,
+  modifUser,
+  postUserAuth
+
 } = require("../../controllers/Usuarios");
 
 const router = Router();
@@ -36,15 +39,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+// router.post("/", async (req, res) => {
+//   try {
+//     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
+
+//     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
+//       res.sendStatus(400)
+//         // .json("Falta alguno de los campos importantes. Por favor revisar");
+//     } else {
+//       let usuario = await postUsers(req.body);
+
+//       res.json(usuario);
+//     }
+//   } catch (e) {
+//     res.status(400).send(`Error --→ ${e}`);
+//   }
+// });
+
+
+router.put("/", async (req, res) => {
   try {
+
     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
 
     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
-      res.sendStatus(400)
+      res.sendStatus(400).send(`Error --→ ${e}`);
         // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
-      let usuario = await postUsers(req.body);
+      let usuario = await modifUser(req.body);
 
       res.json(usuario);
     }
@@ -54,22 +76,22 @@ router.post("/", async (req, res) => {
 });
 
 
-// router.post("/", async(req, res)=>{
-//   try {
+router.post("/", async(req, res)=>{
+  try {
 
-//     let {email, family_name, given_name, picture} = req.body
+    let {email, family_name, given_name, picture} = req.body
 
-//     if(!family_name || !given_name || !email){
-//       res.sendStatus(400)
-//     }else{
-//       let usuario = await postUsers(req.body)
-//       res.json(usuario)
-//     }
+    if(!family_name || !given_name || !email){
+      res.sendStatus(400)
+    }else{
+      let usuario = await postUserAuth(req.body)
+      res.json(usuario)
+    }
     
-//   } catch (e) {
-//     res.sendStatus(400).send(`Error --→ ${e}`)
-//   }
-// })
+  } catch (e) {
+    res.sendStatus(400).send(`Error --→ ${e}`)
+  }
+})
 
 
 router.delete("/:id", async (req, res) => {
