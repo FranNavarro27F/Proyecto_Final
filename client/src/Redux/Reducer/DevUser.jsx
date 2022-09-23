@@ -63,7 +63,7 @@ export default function devUser(state = initialState, action) {
 
       if (filterCountries?.length !== 0)
         filtro = [...filtro]?.filter((ele) =>
-          ele.country?.includes(filterCountries.toString())
+          ele.paiseId?.includes(filterCountries.toString())
         );
 
       //ORDENAMIENTOS

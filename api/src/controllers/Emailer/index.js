@@ -4,7 +4,7 @@ const {
     GMAILUSER
 } = process.env;
 
-
+console.log( GMAILPW, GMAILUSER)
 async function main(nombreContratista, mailContrado) {
 
   // create reusable transporter object using the default SMTP transport
@@ -16,6 +16,9 @@ async function main(nombreContratista, mailContrado) {
       user: GMAILUSER, // generated ethereal user
       pass: GMAILPW // generated ethereal password
     },
+    tls: {
+      rejectUnauthorized: false
+  }
   });
 
   // send mail with defined transport object
@@ -24,7 +27,11 @@ async function main(nombreContratista, mailContrado) {
     to: mailContrado, // list of receivers
     subject: "Hello ✔", // Subject line
     // text: `Hola! ${nombreContratista} te ha contactado! Esto es texto`, // plain text body
-    html: `<b>Hola! ${nombreContratista} te ha contactado! Esto es HTML</b>`, // html body
+    // BORRAMOS EL TEXT. OJO.
+    html: `<b>Hola! ${nombreContratista} te ha contactado! Ingresa a Programax para comunicarse entre las partes mediante el chat</b>
+    <br>
+    <img src=${"../../../../Logo/icon-1200x1200.png"}></img>
+    `, // html body
   });
 
   console.log("Message sent: %s", info.messageId);

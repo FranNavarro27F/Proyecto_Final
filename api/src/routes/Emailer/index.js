@@ -6,13 +6,10 @@ const router = Router();
 
 
 
-router.get("/", async (req, res) => {
-    
-    try {
-        const { nombreContratista, mailContrado } = req.body;
-        
-        res.json(await main(nombreContratista, mailContrado))
-        
+router.post("/", async (req, res) => {
+  const {nombreContratista, mailContrado} = req.body;
+    try {  
+        res.json(await main(nombreContratista, mailContrado))  
     } catch (e) {
       res.status(400).send(`Error --→ ${e}`);
     }

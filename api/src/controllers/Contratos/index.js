@@ -197,3 +197,5 @@ module.exports = {
   cancelContract,
   deleteContract,
 };
+
+module.exports = { getContratos, postContratos, putContratos, deleteContratos };

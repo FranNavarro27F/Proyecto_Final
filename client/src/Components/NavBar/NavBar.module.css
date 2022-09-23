@@ -125,3 +125,10 @@ buttonClearAlert span {
     opacity: 1;
   }
 }
+
+.select {
+  max-width: 12vw;
+  min-width: 12vw;
+  margin-right: 1vw;
+  font-size: 0.8vw;
+}

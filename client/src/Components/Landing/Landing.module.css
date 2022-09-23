@@ -1,8 +1,10 @@
 .textLanding {
   position: absolute;
-  width: 85vh;
-  left: 55vh;
+  width: 50vw;
+  left: 50vh;
   top: 32vh;
+
+  min-height: 50vh;
 }
 
 .text1landing,
@@ -10,7 +12,14 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 6vh;
+  font-size: 3.75vw;
+  background: -webkit-linear-gradient(
+    rgb(97, 18, 150),
+    rgb(150, 18, 252),
+    rgb(62, 49, 249)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 9vh;
   color: #ffffff;
   flex: none;
@@ -57,4 +66,9 @@
   position: absolute;
   font-size: 4vh;
   cursor: pointer;
+}
+.divbuttonDown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

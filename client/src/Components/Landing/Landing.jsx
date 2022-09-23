@@ -18,8 +18,8 @@ export default function Landing({ landing, scrollTo, goToSectionRef }) {
     <div ref={landing}>
       <PlanetasChicos />
       <Planeta />
-      <SideMenu />
-      <ButtonLanding />
+      {/* <SideMenu /> */}
+
       <div className={s.textLanding}>
         <p className={s.text1landing}>
           {user?.given_name
@@ -33,7 +33,10 @@ export default function Landing({ landing, scrollTo, goToSectionRef }) {
           alcance de un click<span className={s.puntos}> ...</span>
         </p>
       </div>
-      <ButtonScrollSection goToSectionRef={goToSectionRef} />
+      <ButtonLanding />
+      <div className={s.divbuttonDown}>
+        <ButtonScrollSection goToSectionRef={goToSectionRef} />
+      </div>
     </div>
   );
 }

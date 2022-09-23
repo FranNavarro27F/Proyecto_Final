@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       },
 
       profilePicture: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
       },
 
@@ -96,7 +96,7 @@ module.exports = (sequelize) => {
 
       yearsOfExperience: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true, //antes estaba en false (explicar Auth0)
         validate: {
           len: [1, 2], // no permitir mas de dos dígitos
           min: 1, // valor mínimo: 1
@@ -193,6 +193,14 @@ module.exports = (sequelize) => {
           is: /\d{22}/g,
         },
       },
+
+      reputacion:{
+        type: DataTypes.FLOAT,
+        defaultValue: 0.0,
+        validate:  {
+          min: 1.0,
+          max: 5.0,
+      }
 
       //
     },
