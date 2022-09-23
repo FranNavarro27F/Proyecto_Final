@@ -54,7 +54,6 @@ export default function DevProfile() {
     id: `${userDb.length && userDb.map((e) => e.id)}`,
   };
 
-  console.log(userAuth0Db?.id);
   const [input, setInput] = useState({
     name: `${userAuth0Db?.name}`,
     image: `${userAuth0Db?.image}`,
