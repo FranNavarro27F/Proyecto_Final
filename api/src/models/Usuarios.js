@@ -129,6 +129,71 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+
+      visible: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+
+      postulado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+
+      registrado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+
+      tarjeta_numero: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        validate: {
+          isCreditCard: true,
+        },
+      },
+
+      tarjeta_nombreCompleto: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
+        validate: {
+          is: /\w+\s+\w+\s*\w*/gi,
+        },
+      },
+
+      tarjeta_vencimiento: {
+        type: DataTypes.STRING(5),
+        allowNull: true,
+        validate: {
+          is: /\d{2}\/\d{2}/gi,
+          //   isAfter: new Date(),
+        },
+      },
+
+      tarjeta_codigoSeguridad: {
+        type: DataTypes.STRING(4),
+        allowNull: true,
+        validate: {
+          is: /\d{3,4}/g,
+        },
+      },
+
+      cbu: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        validate: {
+          is: /\d{22}/g,
+        },
+      },
+
+      cvu: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        validate: {
+          is: /\d{22}/g,
+        },
+      },
+
       //
     },
     {
