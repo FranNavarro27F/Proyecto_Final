@@ -1,81 +1,110 @@
-.sideM{
-    z-index: 4;
+.sideM {
+  z-index: 4;
+  width: auto;
+  height: auto;
+  /* position: fixed; */
 }
-.backGroundDiv{
-background-color: #0F103F;
-width: 100%;
-height: 1024px;
-left: 0vh;
-top: 8%;
+.backGroundDiv {
+  background-color: #0f103f;
+  width: 100%;
+  height: auto;
+  left: 0vh;
+  top: 8%;
+}
+.divBox {
+  box-sizing: border-box;
+  position: absolute;
+  width: 130vh;
+  height: 80vh;
+  left: 25vw;
+  top: 10vh;
+  background: rgba(47, 47, 138, 0.6);
+  border-radius: 30px;
+  overflow: hidden;
+  font-size: 1px;
+}
+.textBox {
+  width: 15vw;
+  height: 1px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.8vh;
+  line-height: 143.2%;
+  color: #ffffff;
+  z-index: 1;
+  position: absolute;
+  left: 6%;
+  margin-top: 5%;
+}
+.girlCelu {
+  position: absolute;
+  width: 40vh;
+  height: 90vh;
+  bottom: 16vh;
+  z-index: 1000;
+}
+.diamantitos {
+  z-index: 3;
+  background: radial-gradient(
+    28% 38% at 52.85% 47.9%,
+    rgba(28, 25, 204, 0.858) 7.29%,
+    rgba(61, 13, 250, 0) 100%
+  );
+  mix-blend-mode: lighten;
+  position: absolute;
+  width: 50vh;
+  height: 45vh;
+  left: 152vh;
+  top: 60vh;
+}
+.imageBox {
+  /* background-color: #C961DE; */
+  width: 22vw;
+  height: 30vh;
+  position: absolute;
+  margin-top: -7vh;
+  right: -82vh;
+}
 
+.imgRender {
+  width: 16vw;
+  height: 30vh;
+  border-radius: 10%;
+  border: 1vh solid rgba(47, 47, 138, 0.6);
+  -webkit-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
 }
-.divBox{
-    box-sizing: border-box; 
-position: absolute;
-width: 130vh;
-height: 80vh;
-left: 50vh;
-top: 20vh; 
-background: rgba(47, 47, 138, 0.6);
-border-radius: 30px;
-}
-.textBox{
-width: 30vh;
-height: 12vh;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 400;
-font-size: 17px;
-line-height: 143.2%;
-color: #FFFFFF;
-z-index: 1;
-position: absolute;
-left: 6%;
-margin-top: 5%;
-}
-.girlCelu{
-position: absolute;
-width: 40vh;
-height: 90vh;
-
-}
-.diamantitos{
-    z-index: 3;
-    background: radial-gradient(28% 38% at 52.85% 47.9%, rgba(28, 25, 204, 0.858) 7.29%, rgba(61, 13, 250, 0) 100%);
-    mix-blend-mode: lighten;
-    position: absolute;
-    width: 50vh;
-    height: 45vh;
-    left: 152vh;
-    top: 70vh;
-}
-.imageBox{
-/* background-color: #C961DE; */
-width: 25vh;
-height: 30vh;
-position: absolute;
-margin-top: -7vh;
-right: -82vh;  
+.buttonL {
+  position: absolute;
+  left: 45vh;
+  top: 70vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: 11vw;
+  height: 6vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1.1vw;
+  line-height: 23px;
+  cursor: pointer;
 }
 
-.imgRender{
-    width: 20vh;
-    height: 20vh;
+.svg {
+  width: 27vw;
+  height: auto;
+  z-index: 1000;
 }
-.buttonL{
-    position: absolute;
-    left: 45vh;
-    top: 70vh;
-    box-sizing: border-box;
-    padding: 10px;
-    width: 23vh;
-    height: 6vh;
-    background: linear-gradient(101.81deg, #C961DE 25.84%, #3645A0 98.95%);
-    border-radius: 30px;
-    color: #FFFFFF;
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 23px;
-    cursor: pointer;
-    }
+
+/* width="520" height="1039"  */
+.link {
+  color: #ffffff;
+  text-decoration: none;
+}
+.link span {
+  margin-left: 1vh;
+}
