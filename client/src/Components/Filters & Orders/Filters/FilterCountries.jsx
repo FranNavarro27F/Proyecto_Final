@@ -26,7 +26,9 @@ export default function FIlterCountries({
       label: e.name,
     };
   });
-  console.log(refCountries, "componente ref");
+  
+  //console.log(refCountries, "componente ref");
+  
   return (
     <div className={s.filterCountrie}>
       <Select
