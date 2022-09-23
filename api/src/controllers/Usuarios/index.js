@@ -16,10 +16,10 @@ const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
       include: [
-        // {
-        //   model: Paises,
-        //   attributes: ["name"],
-        // },
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
         {
           model: Servicios,
           attributes: ["name"],
@@ -256,6 +256,100 @@ const getUserByName = async (name) => {
   }
 };
 
+const postUserAuth = async (data)=>{
+    try {
+      
+      let {email, family_name, given_name, picture, isAdmin} = data
+
+      const [row, created] = await Usuarios.findOrCreate({
+        where: {
+          email
+        },
+        defaults: {
+          name: given_name,
+          lastName: family_name,
+          profilePicture: picture,
+          isAdmin
+        }
+      })
+
+      if (!created) {
+        throw new Error("El usuario ya existe");
+      } else {
+        return "Usuario creado correctamente";
+      }
+
+    } catch (e) {
+      console.error(`ERROR @ controllers/postUserAuth --→ ${e}`);
+    }
+}
+
+
+const modifUser = async (idUs, data) => {
+
+  try {
+    
+    let {name,
+      lastName,
+      profilePicture,
+      isAdmin,
+      linkedIn,
+      gitHub,
+      webSite,
+      yearsOfExperience,
+      dailyBudget,
+      englishLevel,
+      bio,
+      city,
+      tecnologias,
+      lenguajes,
+      servicios,
+      paiseId} = data
+
+
+      let userMod = await Usuarios.findByPk(idUs)
+
+      if(name) userMod.name = name
+      if(lastName) userMod.lastName = lastName
+      if(profilePicture) userMod.profilePicture = profilePicture
+      if(linkedIn) userMod.linkedIn = linkedIn
+      if(gitHub) userMod.gitHub = gitHub
+      if(webSite) userMod.webSite = webSite
+      if(yearsOfExperience) userMod.yearsOfExperience = yearsOfExperience
+      if(dailyBudget) userMod.dailyBudget = dailyBudget
+      if(englishLevel) userMod.englishLevel = englishLevel
+      if(bio) userMod.bio = bio
+      if(city) userMod.city = city
+      if(paiseId) userMod.paiseId = paiseId
+     
+      // let userMod = await Usuarios.update({
+      //   name: name ? name = toUperCase(name) : name = [],
+      //   lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+      //   profilePicture,
+      //   isAdmin,
+      //   linkedIn,
+      //   gitHub,
+      //   webSite,
+      //   yearsOfExperience,
+      //   dailyBudget,
+      //   englishLevel,
+      //   bio,
+      //   city,
+      //   paiseId
+      // }, {where: {id: idUs}})
+
+      userMod.addLenguajes(lenguajes)
+      userMod.addServicios(servicios)
+      userMod.addTecnologias(tecnologias)
+
+      return userMod
+  } catch (e) {
+    console.error(`ERROR @ controllers/modifUser --→ ${e}`);
+  }
+
+
+}
+
 
 module.exports = {
   getUsers,
@@ -263,4 +357,6 @@ module.exports = {
   getUserById,
   deleteUser,
   getUserByName,
+  postUserAuth,
+  modifUser
 };

@@ -6,6 +6,9 @@ const {
   getUserById,
   deleteUser,
   getUserByName,
+  modifUser,
+  postUserAuth
+
 } = require("../../controllers/Usuarios");
 
 const router = Router();
@@ -54,6 +57,25 @@ router.post("/", async (req, res) => {
 });
 
 
+// router.put("/:id", async (req, res) => {
+//   try {
+//      let {id} = req.params
+//     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
+
+//     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
+//       res.sendStatus(400)
+//         // .json("Falta alguno de los campos importantes. Por favor revisar");
+//     } else {
+//       let usuario = await modifUser(id, req.body);
+
+//       res.json(usuario);
+//     }
+//   } catch (e) {
+//     res.status(400).send(`Error --→ ${e}`);
+//   }
+// });
+
+
 // router.post("/", async(req, res)=>{
 //   try {
 
@@ -62,7 +84,7 @@ router.post("/", async (req, res) => {
 //     if(!family_name || !given_name || !email){
 //       res.sendStatus(400)
 //     }else{
-//       let usuario = await postUsers(req.body)
+//       let usuario = await postUserAuth(req.body)
 //       res.json(usuario)
 //     }
     
