@@ -108,6 +108,65 @@ export default function devUser(state = initialState, action) {
         ...state,
         usuariosSB: action.payload,
       }
+    case "SEARCH_INPUT":
+      
+      let Usuarios= [...state.usuariosSB];
+
+  
+      let nameFilter= Usuarios.filter(cur=> cur.name.toLowerCase().includes((action.payload).toLowerCase()));
+
+      let lastNameFilter= Usuarios.filter(cur=> cur.lastName.toLowerCase().includes((action.payload).toLowerCase()));
+
+      let dailyBudgetFilter= Usuarios.filter(cur=> cur.dailyBudget == action.payload);
+
+      let paisesFilter= Usuarios.filter(cur=> cur.paiseId.toLowerCase().includes((action.payload).toLowerCase()));
+
+      let lenguajesFilter6= Usuarios.filter(cur=> {
+        let hayL=cur.lenguajes.filter(curr=> curr.toLowerCase().includes((action.payload).toLowerCase()))
+        if(hayL.length !== 0){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      let serviciosFilter= Usuarios.filter(cur=> {
+        let hayS= cur.servicios.filter(cur=> cur.toLowerCase().includes((action.payload).toLowerCase()))
+        if(hayS.length !== 0){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      let tecnologiasFilter= Usuarios.filter(cur=> {
+        let hayT= cur.tecnologias.filter(cur=> cur.toLowerCase().includes((action.payload).toLowerCase()))
+        if(hayT.length !== 0){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      let resultadosConcatenados=[...nameFilter, ...lastNameFilter, ...dailyBudgetFilter, ...paisesFilter, ...lenguajesFilter6, ...serviciosFilter, ...tecnologiasFilter]
+      
+
+      function removeDuplicates(originalArray, prop) {
+          let arr = [];
+          let lookupObject  = {};
+          for(let i in originalArray) {
+              lookupObject[originalArray[i][prop]] = originalArray[i];
+          }
+          for(let j in lookupObject) {
+              arr.push(lookupObject[j]);
+          }
+            return arr;
+      };
+
+      var uniqueArray = removeDuplicates(resultadosConcatenados, "email");
+   
+      return{
+        ...state,
+        filteredUsers: uniqueArray
+      }
+
     default:
       return state;
   }

@@ -4,6 +4,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { getUserSearchBar } from "../../Redux/Actions/DevUser";
+import { searchInput } from "../../Redux/Actions/FiltersOrders";
 
 
 export default function SearchBar({ setActualFilter }) {
@@ -27,7 +28,9 @@ export default function SearchBar({ setActualFilter }) {
 
 
   const handleInputChange = (e) => {
-    
+    e.preventDefault();
+    // console.log(e.target.value)
+    dispatch(searchInput(e.target.value));
   };
 
   return (
@@ -39,10 +42,10 @@ export default function SearchBar({ setActualFilter }) {
 
         <input
           className={s.searchBar}
-          type="search"
-          placeholder="Buscar..."
-          // onChange={handleInputChange}
-          // value={}
+          type={"text"}
+          placeholder={"Buscar..."}
+          onChange={(e)=> handleInputChange(e)}
+          
         ></input>
       </form>
     </div>
