@@ -15,7 +15,6 @@ export default function Selectores() {
       label: e.name,
     };
   });
-  console.log(countries);
 
   const optionsServices = services.map((e) => {
     return {

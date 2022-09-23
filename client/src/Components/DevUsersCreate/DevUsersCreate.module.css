@@ -7,14 +7,14 @@
 }
 .inputContainer_1fila > p,
 .inputContainer_1fila > input {
-  font-size: 18px;
+  font-size: 1.3vw;
   font-weight: 800;
   font-family: "Poppins";
   color: rgb(0, 0, 0);
 }
 .divEnglish > p {
   font-family: "Poppins";
-  font-size: 18px;
+  font-size: 1.3vw;
   font-weight: 800;
   color: rgb(0, 0, 0);
 }
@@ -251,8 +251,12 @@
   align-items: flex-start;
   margin: 10px 0 20px 0;
 }
+.divEnglish p {
+  font-size: 0.9vw;
+}
 
 .divEnglishLevel {
+  font-size: 0.8vw;
   display: flex;
   align-items: center;
   gap: 16px;

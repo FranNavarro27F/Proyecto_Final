@@ -176,6 +176,7 @@ export default function NavBar() {
         <div>
           <Select
             onChange={(e) => {
+              console.log(e);
               setActualFilter({
                 ...actualFilter,
                 filterTecnologies: e.map((e) => e.label),

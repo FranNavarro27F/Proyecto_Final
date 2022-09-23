@@ -22,6 +22,10 @@ import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
+import { getCountries } from "../../Redux/Actions/Countries";
+import { getTecnologies } from "../../Redux/Actions/Tecnologies";
+import { getServices } from "../../Redux/Actions/Services";
+import { getLanguajes } from "../../Redux/Actions/Languajes";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
@@ -33,6 +37,7 @@ export default function DevUsersCreate() {
   const refServices = useRef();
   const refLanguajes = useRef();
   const refTecnologies = useRef();
+  // console.log(refTecnologies.current.props.value);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -159,7 +164,7 @@ export default function DevUsersCreate() {
     e.preventDefault();
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
-      // refCountries.current.clearValue();
+      refCountries.current.clearValue();
       refServices.current.clearValue();
       refLanguajes.current.clearValue();
       refTecnologies.current.clearValue();
@@ -200,8 +205,8 @@ export default function DevUsersCreate() {
   // console.log(user);
   const handleReset = () => {
     refCountries.current.setValue({
-      value: "07300d26-ef9d-434f-b953-51267fc747e4",
-      label: "Argentina",
+      value: "default",
+      label: "Selecciona un país...",
     });
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
@@ -217,7 +222,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", "Argentina"),
+      paiseId: ("paiseId", ""),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -233,7 +238,7 @@ export default function DevUsersCreate() {
       yearsOfExperience: "0",
       dailyBudget: "0",
       englishLevel: "Básico",
-      paiseId: "Argentina",
+      paiseId: "",
       tecnologias: [],
       lenguajes: [],
       servicios: [],
@@ -249,6 +254,7 @@ export default function DevUsersCreate() {
     optionsServices,
   } = Selectores();
 
+  console.log(optionsTecnologias);
   return !isAuthenticated ? (
     loginWithRedirect()
   ) : isLoading ? (

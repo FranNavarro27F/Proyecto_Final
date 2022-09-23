@@ -44,7 +44,6 @@ export default function devUser(state = initialState, action) {
         OrderExp,
         OrderBud,
       } = action.payload;
-      console.log(filterCountries);
 
       let filtro = [...state.allUsers];
       if (filterTecnologies?.length !== 0)
