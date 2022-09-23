@@ -11,16 +11,16 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
         <div className={s.container}>
           <ui>
             <li onClick={() => scrollToSeccion(landing)} className={s.link}>
-              LANDING
+              BIENVENIDO
             </li>
             <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              HOME
+              INICIO
             </li>
             <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              ABOUT
+              ACERCA DE
             </li>
             <li onClick={() => scrollToSeccion(work)} className={s.link}>
-              WORK
+              DESTACADOS
             </li>
           </ui>
         </div>

@@ -77,7 +77,7 @@
   box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
 }
 .buttonL {
-  position: absolute;
+  position: relative;
   left: 45vh;
   top: 70vh;
   box-sizing: border-box;
@@ -92,6 +92,10 @@
   font-size: 1.1vw;
   line-height: 23px;
   cursor: pointer;
+}
+
+.divButton{
+  display: flex;
 }
 
 .svg {
