@@ -16,9 +16,9 @@ export default function Work() {
   const dispatch = useDispatch();
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  const allUsers = useSelector((state) => state.devUser.allUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
+  const allUsers = useSelector((state) => state.devUser.allUsers);
 
   useEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
@@ -26,7 +26,6 @@ export default function Work() {
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
-
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
   return !allUsers.length ? (

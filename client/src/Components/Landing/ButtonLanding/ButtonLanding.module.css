@@ -1,39 +1,39 @@
 /* Download CV Btn */
 
 .possitionL {
-  top: 55%;
+  top: 55vh;
   position: absolute;
   margin-left: 50%;
 }
 
 .buttonL {
   box-sizing: border-box;
-  padding: 10px;
+  /* padding: 10px; */
   gap: 10px;
-  width: 25vh;
+  width: 12vw;
   height: 7vh;
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
   border-radius: 30px;
   color: #ffffff;
   font-family: "Poppins";
   font-weight: 400;
-  font-size: 17px;
-  align-items: center;
-  text-align: center;
+  font-size: 1.1vw;
+  /* align-items: center;
+  text-align: center; */
   line-height: 26px;
   cursor: pointer;
 }
 .buttonL:hover {
   transition-delay: 0.2s;
-  transition: 0.6s;
-  transform: scale(1.1);
+  transition: 0.3s;
+  transform: scale(1.03);
   cursor: pointer;
 }
 
 .buttonLg:hover {
   transition-delay: 0.2s;
-  transition: 0.8s;
-  transform: scale(1.1);
+  transition: 0.3s;
+  transform: scale(1.03);
   cursor: pointer;
 }
 
@@ -53,7 +53,7 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  width: 25vh;
+  width: 12vw;
   height: 7vh;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 30px;
