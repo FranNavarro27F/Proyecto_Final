@@ -193,7 +193,7 @@ export default function DevUsersCreate() {
         yearsOfExperience: ("yearsOfExperience", "0"),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", "Argentina"),
+        paiseId: ("paiseId", ""),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
