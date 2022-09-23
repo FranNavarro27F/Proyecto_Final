@@ -11,6 +11,7 @@ export default function FIlterTecnologie({
   cacheFilter,
   actualFilter,
   customStyles,
+  refServices,
 }) {
   const { tecnologies } = useFetchAllData();
 
@@ -35,6 +36,7 @@ export default function FIlterTecnologie({
             filterTecnologies: e.map((e) => e.label),
           });
         }}
+        ref={refServices}
         set-value={cacheFilter?.filterTecnologies}
         className={s.select}
         // onChange={setSelected}

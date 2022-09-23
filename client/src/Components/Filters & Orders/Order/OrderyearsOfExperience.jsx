@@ -9,6 +9,7 @@ export default function OrderyearsOfExperience({
   cacheFilter,
   customStyles,
   actualFilter,
+  refExperience,
 }) {
   const optionsOrderExp = [
     { value: "default", label: "Todos" },
@@ -30,6 +31,7 @@ export default function OrderyearsOfExperience({
   return (
     <div>
       <Select
+        ref={refExperience}
         set-value={cacheFilter?.OrderExp}
         onChange={(e) => {
           setActualFilter({
