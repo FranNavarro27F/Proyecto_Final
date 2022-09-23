@@ -18,7 +18,7 @@ export default function Landing({ landing, scrollTo, goToSectionRef }) {
     <div ref={landing}>
       <PlanetasChicos />
       <Planeta />
-      <SideMenu />
+      {/* <SideMenu /> */}
 
       <div className={s.textLanding}>
         <p className={s.text1landing}>

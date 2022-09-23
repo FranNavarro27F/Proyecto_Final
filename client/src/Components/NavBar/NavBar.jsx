@@ -27,9 +27,10 @@ export default function NavBar() {
     optionsServices,
   } = Selectores();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
 
