@@ -69,11 +69,10 @@ const getUsers = async () => {
           : [],
       };
     });
-    
-    return await Promise.all(arrUsersListo);
 
+    return await Promise.all(arrUsersListo);
   } catch (e) {
-      console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
 
@@ -190,7 +189,7 @@ const deleteUser = async (id) => {
     console.log(`User (${id}) deleted successfully`);
     return `User (${id}) deleted successfully`;
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/deleteUser --→ ${e}`);
   }
 };
 

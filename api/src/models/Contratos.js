@@ -11,15 +11,15 @@ module.exports = (sequelize) => {
 
     //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
 
-    // employer: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
+    employer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
 
-    // developer: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
+    developer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
 
     description: {
       type: DataTypes.TEXT,
@@ -44,6 +44,16 @@ module.exports = (sequelize) => {
 
     status: {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+    },
+
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+
+    payment_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     //
   });
