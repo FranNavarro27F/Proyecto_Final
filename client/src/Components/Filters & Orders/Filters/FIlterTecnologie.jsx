@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import Select from "react-select";
+import useFetchAllData from "../../../Hooks/useFetchAllData";
 
 import s from "./FIlterTecnologie.module.css";
 
@@ -12,7 +12,7 @@ export default function FIlterTecnologie({
   actualFilter,
   customStyles,
 }) {
-  const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
+  const { tecnologies } = useFetchAllData();
 
   const optionsTecnologias = tecnologies.map((e) => {
     return {

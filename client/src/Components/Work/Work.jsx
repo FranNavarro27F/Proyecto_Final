@@ -22,15 +22,12 @@ export default function Work() {
 
   const { allUsers } = useFetchUsers();
 
-  console.log(allUsers, "hook users");
-
   useEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
   }, [dispatch, allUsers]);
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
-
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
   return !allUsers.length ? (
