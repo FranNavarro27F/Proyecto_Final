@@ -269,7 +269,7 @@ const postUserAuth = async (data)=>{
           name: given_name,
           lastName: family_name,
           profilePicture: picture,
-          isAdmin
+          isAdmin: isAdmin
         }
       })
 
@@ -285,14 +285,16 @@ const postUserAuth = async (data)=>{
 }
 
 
-const modifUser = async (idUs, data) => {
+const modifUser = async (data) => {
 
   try {
     
-    let {name,
+    let {
+      name,
       lastName,
       profilePicture,
       isAdmin,
+      email,
       linkedIn,
       gitHub,
       webSite,
@@ -307,40 +309,40 @@ const modifUser = async (idUs, data) => {
       paiseId} = data
 
 
-      let userMod = await Usuarios.findByPk(idUs)
+      // let userMod = await Usuarios.findByPk(idUs)
 
-      if(name) userMod.name = name
-      if(lastName) userMod.lastName = lastName
-      if(profilePicture) userMod.profilePicture = profilePicture
-      if(linkedIn) userMod.linkedIn = linkedIn
-      if(gitHub) userMod.gitHub = gitHub
-      if(webSite) userMod.webSite = webSite
-      if(yearsOfExperience) userMod.yearsOfExperience = yearsOfExperience
-      if(dailyBudget) userMod.dailyBudget = dailyBudget
-      if(englishLevel) userMod.englishLevel = englishLevel
-      if(bio) userMod.bio = bio
-      if(city) userMod.city = city
-      if(paiseId) userMod.paiseId = paiseId
+      // if(name) userMod.name = name
+      // if(lastName) userMod.lastName = lastName
+      // if(profilePicture) userMod.profilePicture = profilePicture
+      // if(linkedIn) userMod.linkedIn = linkedIn
+      // if(gitHub) userMod.gitHub = gitHub
+      // if(webSite) userMod.webSite = webSite
+      // if(yearsOfExperience) userMod.yearsOfExperience = yearsOfExperience
+      // if(dailyBudget) userMod.dailyBudget = dailyBudget
+      // if(englishLevel) userMod.englishLevel = englishLevel
+      // if(bio) userMod.bio = bio
+      // if(city) userMod.city = city
+      // if(paiseId) userMod.paiseId = paiseId
      
-      // let userMod = await Usuarios.update({
-      //   name: name ? name = toUperCase(name) : name = [],
-      //   lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
-      //   profilePicture,
-      //   isAdmin,
-      //   linkedIn,
-      //   gitHub,
-      //   webSite,
-      //   yearsOfExperience,
-      //   dailyBudget,
-      //   englishLevel,
-      //   bio,
-      //   city,
-      //   paiseId
-      // }, {where: {id: idUs}})
+      let userMod = await Usuarios.update({
+        name: name ? name = toUperCase(name) : name = [],
+        lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+        profilePicture,
+        isAdmin,
+        linkedIn,
+        gitHub,
+        webSite,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
+        city,
+        paiseId
+      }, {where: {email: email}})
 
-      userMod.addLenguajes(lenguajes)
-      userMod.addServicios(servicios)
-      userMod.addTecnologias(tecnologias)
+      // userMod.addLenguajes(lenguajes)
+      // userMod.addServicios(servicios)
+      // userMod.addTecnologias(tecnologias)
 
       return userMod
   } catch (e) {
