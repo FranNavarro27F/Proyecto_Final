@@ -3,15 +3,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-<<<<<<< HEAD
-import { detailIdDev, detailReset, getUserId } from "../../Redux/Actions/DevUser";
-=======
 import {
   detailReset,
   getUserEmail,
   getUserId,
 } from "../../Redux/Actions/DevUser";
->>>>>>> dev
 import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
