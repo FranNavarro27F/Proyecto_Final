@@ -194,14 +194,14 @@ module.exports = (sequelize) => {
         },
       },
 
-      reputacion:{
+      reputacion: {
         type: DataTypes.FLOAT,
         defaultValue: 0.0,
-        validate:  {
+        validate: {
           min: 1.0,
           max: 5.0,
-      }
-
+        },
+      },
       //
     },
     {
