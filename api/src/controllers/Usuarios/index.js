@@ -357,6 +357,42 @@ const modifUser = async (data) => {
 }
 
 
+const getByEmail = async (email) => {
+  try {
+    let userEmail = await Usuarios.findOne({
+      where: {
+        email: email,
+      },
+      include: [
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    return await userEmail
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
+  }
+}
+
+
 module.exports = {
   getUsers,
   postUsers,
@@ -364,6 +400,7 @@ module.exports = {
   deleteUser,
   getUserByName,
   postUserAuth,
-  modifUser
+  modifUser,
+  getByEmail
 };
 

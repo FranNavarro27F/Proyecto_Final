@@ -7,7 +7,8 @@ const {
   deleteUser,
   getUserByName,
   modifUser,
-  postUserAuth
+  postUserAuth,
+  getByEmail
 
 } = require("../../controllers/Usuarios");
 
@@ -19,9 +20,11 @@ const PATH = "/usuarios";
 
 router.get("/", async (req, res) => {
   try {
-    let {name}=req.query;
+    let {name, email}=req.query;
     if(name){
       res.json(await getUserByName(name))
+    }else if(email){
+      res.json(await getByEmail(email))
     }else{
       res.json(await getUsers());
     }
