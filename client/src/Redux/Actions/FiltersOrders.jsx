@@ -10,4 +10,14 @@ export function filtersOrders(payload) {
       "error en los filtros, ordenamientos: actions"
     );
   }
+};
+
+export function searchInput(payload) {
+  return function (dispatch){
+    // console.log(payload)
+    return dispatch({
+      type: "SEARCH_INPUT",
+      payload: payload
+    })
+  }
 }

@@ -45,8 +45,16 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
     },
+    precio:{
+      type: DataTypes.INTEGER,
+      allowNull: false,   
+    },
+    
     //
-  });
+  },{
+    createdAt: false,
+    updatedAt: false,
+  })
 };
 
 // -----------------------------------------

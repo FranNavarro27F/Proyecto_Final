@@ -38,31 +38,42 @@ const getUsers = async () => {
       ],
     });
 
-    let users = usuarios.map((curr) => {
+    let arrUsers = usuarios.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
       return {
-        id: curr.id,
-        profilePicture: curr.profilePicture ? curr.profilePicture : null,
-        isAdmin: curr.isAdmin,
-        name: curr.name,
-        lastName: curr.lastName,
-        email: curr.email,
-        country: curr.paiseId,
-        city: curr.city ? curr.city : null,
-        linkedIn: curr.linkedIn ? curr.linkedIn : null,
-        gitHub: curr.gitHub ? curr.gitHub : null,
-        webSite: curr.webSite ? curr.webSite : null,
-        yearsOfExperience: curr.yearsOfExperience,
-        dailyBudget: curr.dailyBudget ? curr.dailyBudget : null,
-        englishLevel: curr.englishLevel ? curr.englishLevel : null,
-        bio: curr.bio ? curr.bio : null,
-        servicios: curr.servicios?.map((curr) => curr.name),
-        lenguajes: curr.lenguajes?.map((curr) => curr.name),
-        tecnologias: curr.tecnologias?.map((curr) => curr.name),
+        id: cur.id,
+        profilePicture: cur.profilePicture,
+        isAdmin: cur.isAdmin,
+        name: cur.name ? (cur.name = toUperCase(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = toUperCase(cur.lastName))
+          : (cur.lastName = []),
+        email: cur.email,
+        city: cur.city,
+        linkedIn: cur.linkedIn,
+        gitHub: cur.gitHub,
+        webSite: cur.webSite,
+        yearsOfExperience: cur.yearsOfExperience,
+        dailyBudget: cur.dailyBudget,
+        englishLevel: cur.englishLevel,
+        bio: cur.bio,
+        paiseId: cur.paise ? cur.paise.dataValues.name : "",
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        lenguajes: cur.lenguajes
+          ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        tecnologias: cur.tecnologias
+          ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
       };
     });
-    return users;
+    
+    return await Promise.all(arrUsersListo);
+
   } catch (e) {
-    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+      console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
 
@@ -245,9 +256,142 @@ const getUserByName = async (name) => {
     });
     return await Promise.all(arrUsersListo);
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
   }
 };
+
+const postUserAuth = async (data)=>{
+    try {
+      
+      let {email, family_name, given_name, picture, isAdmin} = data
+
+      const [row, created] = await Usuarios.findOrCreate({
+        where: {
+          email
+        },
+        defaults: {
+          name: given_name,
+          lastName: family_name,
+          profilePicture: picture,
+          isAdmin: isAdmin
+        }
+      })
+
+      if (!created) {
+        throw new Error("El usuario ya existe");
+      } else {
+        return "Usuario creado correctamente";
+      }
+
+    } catch (e) {
+      console.error(`ERROR @ controllers/postUserAuth --→ ${e}`);
+    }
+}
+
+
+const modifUser = async (data) => {
+
+  try {
+    
+    let {
+      name,
+      lastName,
+      profilePicture,
+      isAdmin,
+      email,
+      linkedIn,
+      gitHub,
+      webSite,
+      yearsOfExperience,
+      dailyBudget,
+      englishLevel,
+      bio,
+      city,
+      tecnologias,
+      lenguajes,
+      servicios,
+      paiseId} = data
+
+
+      // let userMod = await Usuarios.findByPk(idUs)
+
+      // if(name) userMod.name = name
+      // if(lastName) userMod.lastName = lastName
+      // if(profilePicture) userMod.profilePicture = profilePicture
+      // if(linkedIn) userMod.linkedIn = linkedIn
+      // if(gitHub) userMod.gitHub = gitHub
+      // if(webSite) userMod.webSite = webSite
+      // if(yearsOfExperience) userMod.yearsOfExperience = yearsOfExperience
+      // if(dailyBudget) userMod.dailyBudget = dailyBudget
+      // if(englishLevel) userMod.englishLevel = englishLevel
+      // if(bio) userMod.bio = bio
+      // if(city) userMod.city = city
+      // if(paiseId) userMod.paiseId = paiseId
+     
+      let userMod = await Usuarios.update({
+        name: name ? name = toUperCase(name) : name = [],
+        lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+        profilePicture,
+        isAdmin,
+        linkedIn,
+        gitHub,
+        webSite,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
+        city,
+        paiseId
+      }, {where: {email: email}})
+
+      // userMod.addLenguajes(lenguajes)
+      // userMod.addServicios(servicios)
+      // userMod.addTecnologias(tecnologias)
+
+      return userMod
+  } catch (e) {
+    console.error(`ERROR @ controllers/modifUser --→ ${e}`);
+  }
+
+
+}
+
+
+const getByEmail = async (email) => {
+  try {
+    let userEmail = await Usuarios.findOne({
+      where: {
+        email: email,
+      },
+      include: [
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    return await userEmail
+  } catch (e) {
+    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
+  }
+}
+
 
 module.exports = {
   getUsers,
@@ -255,4 +399,8 @@ module.exports = {
   getUserById,
   deleteUser,
   getUserByName,
+  postUserAuth,
+  modifUser,
+  getByEmail
 };
+
