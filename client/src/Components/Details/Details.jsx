@@ -547,12 +547,22 @@ export default function Details() {
             </span>
           </div>
           <div>
-            {userProfile && (
+            {userProfile ? (
               <button
                 className={s.buttonBack}
                 onClick={() => navigate("/create")}
               >
                 {userByEmail.postulado ? `EDITAR POSTULACION` : `POSTULARME`}
+              </button>
+            ) : (
+              <button
+                className={s.buttonL}
+                onClick={(e) => {
+                  handleContact(e);
+                }}
+                disabled={disabled}
+              >
+                Contactame!
               </button>
             )}
             <button
@@ -564,17 +574,7 @@ export default function Details() {
               {" "}
               Volver
             </button>
-            <Link to="">
-              <button
-                className={s.buttonL}
-                onClick={(e) => {
-                  handleContact(e);
-                }}
-                disabled={disabled}
-              >
-                Contactame!
-              </button>
-            </Link>
+            <Link to=""></Link>
           </div>
         </div>
       </div>
