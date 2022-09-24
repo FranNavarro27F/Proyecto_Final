@@ -43,7 +43,7 @@ export default function DevUsersCreate() {
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
     name: cache?.name ? cache?.name : `${user?.given_name}`,
-    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
+    lastName: cache?.lastName ? cache?.lastName : `${user?.family_name}`,
     profilePicture: cache?.profilePicture
       ? cache?.profilePicture
       : `${user?.picture}`,
@@ -199,10 +199,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log(`hay errores`, errors);
+      alert(`hay errores`, errors);
     }
   };
-  // console.log(user);
+
+  const handleDefaultCountrie = [
+    {
+      label: cache?.paiseId,
+    },
+  ];
+
   const handleReset = () => {
     refCountries.current.setValue({
       value: "default",
@@ -250,11 +256,19 @@ export default function DevUsersCreate() {
   const {
     optionsTecnologias,
     optionsLanguajes,
-    optionsCountries,
     optionsServices,
+    // optionsCountries,
   } = Selectores();
 
-  console.log(optionsTecnologias);
+  const countries = useSelector((state) => state.countries.allCountries);
+
+  const optionsCountries = countries.map((e) => {
+    return {
+      value: e.id,
+      label: e.name,
+    };
+  });
+
   return !isAuthenticated ? (
     loginWithRedirect()
   ) : isLoading ? (
@@ -275,7 +289,7 @@ export default function DevUsersCreate() {
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               // value={cache?.name}
-              defaultValue={input.name}
+              defaultValue={input?.name}
               name="name"
               className={s.inputName}
             />
@@ -292,7 +306,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input.lastName}
+              defaultValue={input?.lastName}
               // value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
@@ -519,20 +533,22 @@ export default function DevUsersCreate() {
               isMulti={false}
               styles={customStyles}
               placeholder="Selecciona un pais"
+              defaultValue={handleDefaultCountrie}
               onChange={(e) => {
+                console.log(e);
                 setInput({
                   ...input,
-                  paiseId: e.value,
+                  paiseId: e.label,
                 });
                 setErrors(
                   validaciones({
                     ...input,
-                    paiseId: e.value,
+                    paiseId: e.label,
                   })
                 );
                 setCache({
                   ...cache,
-                  paiseId: e.value,
+                  paiseId: e.label,
                 });
               }}
             />
@@ -621,6 +637,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              // defaultValue={handleDefaultService}
               ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}

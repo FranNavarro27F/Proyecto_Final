@@ -15,8 +15,11 @@ import Loader from "../Loader/Loader";
 import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
 
+import { useDispatch, useSelector } from "react-redux";
+
 export default function Home() {
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -34,6 +37,8 @@ export default function Home() {
   const home = useRef(null);
   const work = useRef(null);
 
+  const dispatch = useDispatch();
+
   return isLoading ? (
     <Loader />
   ) : (
@@ -42,6 +47,9 @@ export default function Home() {
         <ScrollTop className={s.buttonTop} />
       </div>
       <NavMenuHome
+        logout={logout}
+        user={user}
+        isAuthenticated={isAuthenticated}
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
