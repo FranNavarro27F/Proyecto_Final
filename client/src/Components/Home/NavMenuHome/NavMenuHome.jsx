@@ -12,9 +12,10 @@ export default function NavMenuHome({
   isAuthenticated,
   user,
   logout,
+  setOpen,
+  open,
   // about,
 }) {
-  console.log(user);
   return (
     <div className={s.container}>
       <ui>
@@ -34,7 +35,14 @@ export default function NavMenuHome({
           DESTACADOS
         </li>
       </ui>
-      {isAuthenticated && <ButtonProfile user={user} logout={logout} />}
+      {isAuthenticated && (
+        <ButtonProfile
+          user={user}
+          logout={logout}
+          setOpen={setOpen}
+          open={open}
+        />
+      )}
     </div>
   );
 }

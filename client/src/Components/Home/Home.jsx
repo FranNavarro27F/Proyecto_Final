@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 
@@ -16,8 +16,11 @@ import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
+import { getUserEmail } from "../../Redux/Actions/DevUser";
+import { useEffect } from "react";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
 
@@ -37,16 +40,22 @@ export default function Home() {
   const home = useRef(null);
   const work = useRef(null);
 
-  const dispatch = useDispatch();
-
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    console.log("HOLAAAAAAAA MUNDOOOOOOOO");
+    setOpen(false);
+  };
   return isLoading ? (
     <Loader />
   ) : (
-    <div>
+    <div className={s.body} onclick={handleClick}>
       <div className={s.buttonTop}>
         <ScrollTop className={s.buttonTop} />
       </div>
+
       <NavMenuHome
+        setOpen={setOpen}
+        open={open}
         logout={logout}
         user={user}
         isAuthenticated={isAuthenticated}
@@ -56,7 +65,12 @@ export default function Home() {
         // about={about}
         work={work}
       />
-      <Landing landing={landing} goToSectionRef={home} />
+      <Landing
+        setOpen={setOpen}
+        open={open}
+        landing={landing}
+        goToSectionRef={home}
+      />
       <div>
         <div className={s.body} ref={home}>
           <div className={s.luz}></div>
