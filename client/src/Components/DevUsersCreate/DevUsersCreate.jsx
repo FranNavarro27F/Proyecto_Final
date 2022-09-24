@@ -44,7 +44,7 @@ export default function DevUsersCreate() {
     getUserEmail(user?.email);
   });
 
-  const { userByEmail } = useFetchUsers();
+  const { userByEmail } = useFetchUsers(user?.email);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
