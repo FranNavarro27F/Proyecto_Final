@@ -201,9 +201,9 @@ module.exports = (sequelize) => {
           min: 1.0,
           max: 5.0,
       }
-
-      //
-    },
+    }
+  },
+    
     {
       createdAt: false,
       updatedAt: false,
