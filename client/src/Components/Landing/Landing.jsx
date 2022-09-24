@@ -15,7 +15,7 @@ export default function Landing({ landing, scrollTo, goToSectionRef }) {
   // console.log(user);
 
   return (
-    <div ref={landing}>
+    <div ref={landing} className={s.bodyLanding}>
       <PlanetasChicos />
       <Planeta />
       {/* <SideMenu /> */}

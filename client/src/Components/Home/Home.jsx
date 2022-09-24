@@ -62,7 +62,6 @@ export default function Home() {
           <div className={s.luz}></div>
 
           <Circulo className={s.circulo} />
-
           <Circulos className={s.circulos} />
           <Girl1 />
 
