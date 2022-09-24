@@ -39,9 +39,9 @@ module.exports = (sequelize) => {
 
       // GETTER / SETTER → NAME + LAST-NAME
       //   userName: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //   },
+      //         type: DataTypes.STRING,
+      //         allowNull: false,
+      //       },
 
       email: {
         type: DataTypes.STRING(60),
@@ -115,13 +115,14 @@ module.exports = (sequelize) => {
       },
 
       englishLevel: {
-        type: DataTypes.ENUM(
-          "Básico",
-          "Intermedio",
-          "Avanzado",
-          "Profesional",
-          "Nativo / Bilingüe"
-        ),
+        type: DataTypes.STRING(20),
+        //   type: DataTypes.ENUM(
+        //     "Básico",
+        //     "Intermedio",
+        //     "Avanzado",
+        //     "Profesional",
+        //     "Nativo / Bilingüe"
+        //   ),
         allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
       },
 
@@ -132,7 +133,7 @@ module.exports = (sequelize) => {
 
       visible: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
       },
 
       postulado: {
@@ -142,7 +143,7 @@ module.exports = (sequelize) => {
 
       registrado: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
       },
 
       tarjeta_numero: {

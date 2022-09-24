@@ -5,6 +5,34 @@
   top: 0px;
   border-radius: 25%;
   margin-top: 15vh;
+  animation-duration: 1s;
+  -webkit-animation-duration: 0.8s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  visibility: visible !important;
+  animation-name: slideDown;
+  -webkit-animation-name: slideDown;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateX(-90%);
+  }
+  50% {
+    /* transform: translateX(8%); */
+  }
+  /* 65% {
+    transform: translateY(-4%);
+  }
+  80% {
+    transform: translateY(4%);
+  }
+  95% {
+    transform: translateY(-2%);
+  }
+  100% {
+    transform: translateY(0%);
+  } */
 }
 .backMenu2 {
   z-index: 8;

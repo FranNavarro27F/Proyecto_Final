@@ -1,9 +1,16 @@
+.bodyLanding {
+  overflow: hidden;
+}
 .textLanding {
   position: absolute;
   width: 50vw;
   left: 50vh;
   top: 32vh;
-
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
   min-height: 50vh;
 }
 
@@ -31,7 +38,7 @@
 }
 
 .text1landing {
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 .text1landing2 {
