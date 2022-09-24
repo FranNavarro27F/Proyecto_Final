@@ -15,22 +15,22 @@ module.exports = (sequelize) => {
 
       employer: {
         type: DataTypes.STRING,
-        //   allowNull: false,
+        allowNull: false,
       },
 
       developer: {
         type: DataTypes.STRING,
-        //   allowNull: false,
+        allowNull: false,
       },
 
       description: {
         type: DataTypes.TEXT,
-        //   allowNull: false,
+        allowNull: false,
       },
 
       date: {
         type: DataTypes.DATEONLY,
-        //   allowNull: false,
+        allowNull: false,
         validate: {
           isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
         },
@@ -38,24 +38,28 @@ module.exports = (sequelize) => {
 
       expiration_date: {
         type: DataTypes.DATEONLY,
-        //   allowNull: false,
+        allowNull: false,
         validate: {
           isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
         },
       },
 
       status: {
-        type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+        // type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+        type: DataTypes.STRING(20),
+        validate: {
+          isAlpha: true,
+        },
       },
 
       price: {
         type: DataTypes.FLOAT,
-        //   allowNull: false,
+        allowNull: false,
       },
 
       payment_id: {
         type: DataTypes.STRING,
-        //   allowNull: false,
+        allowNull: false,
       },
       //
     },
