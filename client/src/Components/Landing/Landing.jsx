@@ -9,7 +9,13 @@ import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import ButtonScrollSection from "../Home/ButtonScrollSection";
 
-export default function Landing({ landing, scrollTo, goToSectionRef }) {
+export default function Landing({
+  landing,
+  scrollTo,
+  goToSectionRef,
+  open,
+  setOpen,
+}) {
   const { user, isAuthenticated, isLoading, loginWithRedirect, home } =
     useAuth0();
   // console.log(user);

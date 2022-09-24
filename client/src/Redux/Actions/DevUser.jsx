@@ -44,13 +44,15 @@ export function getDevUsers(payload) {
     }
   };
 }
-
 export function getUserId(id) {
-  console.log(id, "id action");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
+<<<<<<< HEAD
            return dispatch({
+=======
+      return dispatch({
+>>>>>>> dev
         type: "GET_USER_ID",
         payload: userId,
       });
@@ -61,11 +63,10 @@ export function getUserId(id) {
 }
 
 export function getUserEmail(email) {
-  console.log(email, "email action");
+  console.log(email, "action");
   return async function (dispatch) {
     try {
-      const userEmail = (await axios.get(`/usuarios?=${email}`)).data;
-      console.log(userEmail, "este es el user email");
+      const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
       return dispatch({
         type: "GET_USER_EMAIL",
         payload: userEmail,

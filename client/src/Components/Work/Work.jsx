@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Card from "./Card/Card";
 import s from "./Work.module.css";
 import NavBar from "../NavBar/NavBar";
@@ -20,7 +20,7 @@ export default function Work() {
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
   const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
   }, [dispatch, allUsers]);
 
