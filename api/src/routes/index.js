@@ -8,7 +8,7 @@ const paisesRouter = require("../routes/Paises/index.js");
 const serviciosRouter = require("../routes/Servicios/index.js");
 const contratosRouter = require("../routes/Contratos/index.js");
 const stripeRouter = require ('../routes/Stripe/Stripe');
-const emailerRouter= require("../routes/Emailer/index.index");
+const emailerRouter= require("../routes/Emailer/index");
 
 const router = Router();
 
