@@ -96,6 +96,36 @@ export default function NavBar() {
       name: ("name", ""),
     });
   };
+  const handleDefault = cacheFilter?.filterLanguajes
+    ? cacheFilter?.filterLanguajes.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultCountrie = cacheFilter?.filterCountries
+    ? cacheFilter?.filterCountries.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultService = cacheFilter?.filterServices
+    ? cacheFilter?.filterServices.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
+    ? cacheFilter?.filterTecnologies.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -177,6 +207,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por país..."
             styles={customStyles}
+            defaultValue={handleDefaultCountrie}
             theme={(theme) => ({
               ...theme,
               borderRadius: 20,
@@ -217,6 +248,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por lenguaje..."
             styles={customStyles}
+            defaultValue={handleDefault}
             theme={(theme) => ({
               ...theme,
               borderRadius: 20,
@@ -255,6 +287,7 @@ export default function NavBar() {
             isClearable={true}
             isSearchable={true}
             isMulti={true}
+            defaultValue={handleDefaultService}
             placeholder="Filtra por servicios..."
             theme={(theme) => ({
               ...theme,
@@ -298,6 +331,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por tecnología..."
             styles={customStyles}
+            defaultValue={handleDefaultTecnologies}
             theme={(theme) => ({
               ...theme,
               borderRadius: 20,
