@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { detailReset, getUserId } from "../../Redux/Actions/DevUser";
+import {
+  detailReset,
+  getUserEmail,
+  getUserId,
+} from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
@@ -14,26 +18,32 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 
 export default function Details() {
-  let [disabled, setDisabled] = useState(false);
-
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-
-  let { id } = useParams();
-  let navigate = useNavigate();
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
   let dispatch = useDispatch();
+  let navigate = useNavigate();
+  let { id } = useParams();
+  let [disabled, setDisabled] = useState(false);
+  useLayoutEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getUserId(id));
-    dispatch(getCountries());
     return function () {
       dispatch(detailReset());
     };
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
-  const paises = useSelector((state) => state.countries.allCountries);
-  let nombreContratista = user?.given_name;
-  let mailContrado = userDetail?.email;
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const [userProfile, setUserProfile] = useState(false);
+
+  let nombreContratista = userByEmail?.name;
+  let mailContrado = userByEmail?.email;
+  useLayoutEffect(() => {
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [id, userByEmail?.id]);
 
   const handleContact = () => {
     if (nombreContratista && mailContrado) {
@@ -44,20 +54,32 @@ export default function Details() {
           mailContrado: mailContrado,
         })
       );
-      console.log("se apretó");
     }
   };
 
   const handleBack = () => {
-    navigate("/work")
-  }
+    navigate("/work");
+  };
+
+  // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
   // function toUpperCase(userDetail){
   //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
   // }
 
-  return !userDetail.name ? (
-    <Loader />
-  ) : (
+  if (
+    isLoading &&
+    user?.email &&
+    userDetail?.name === undefined &&
+    userByEmail?.name === undefined
+  ) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
+  return (
     <div className={s.sideM}>
       <SideMenu />
       <div className={s.backGroundDiv}>
@@ -400,28 +422,28 @@ export default function Details() {
           </svg>
         </div>
         <div>
-          <img
-            className={s.diamantitos}
-            src={diamantess}
-            alt={userDetail.name}
-          />
+          <img className={s.diamantitos} src={diamantess} alt="diamantes" />
         </div>
         <div className={s.divBox}>
           <div className={s.textBox}>
             <h2>
-              {userDetail.name + " "}
-              {userDetail.lastName}
+              {!userProfile ? userDetail?.name + " " : userByEmail?.name + " "}
+              {!userProfile ? userDetail?.lastName : userByEmail?.lastName}
             </h2>
             {/* [0].toUpperCase()+ userDetail.name.slice(1) + ' '//[0].toUpperCase()+ userDetail.lastName.slice(1)} */}
             <br />
             <div className={s.imageBox}>
               {/* <img >{userDetail?.profilePicture}</img> */}
 
-              {userDetail.profilePicture ? (
+              {userDetail?.profilePicture || userByEmail?.profilePicture ? (
                 <img
                   className={s.imgRender}
-                  src={userDetail.profilePicture}
-                  alt={userDetail.name}
+                  src={
+                    !userProfile
+                      ? userDetail?.profilePicture
+                      : userByEmail?.profilePicture
+                  }
+                  alt={!userProfile ? userDetail?.name : userByEmail?.name}
                 />
               ) : (
                 <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -430,28 +452,48 @@ export default function Details() {
               )}
             </div>
             <br />
-            <span className={s.mail}>
-              {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
-              <box-icon
-                border="circle"
-                animation="tada"
-                color="white"
-                type="logo"
-                name="gmail"
-              ></box-icon>
-              Email:
-            </span>
-            <span>{userDetail.email}</span>
+            <a
+              href={`mailto:${
+                !userProfile ? userDetail?.email : userByEmail?.email
+              }`}
+              className={s.link}
+            >
+              <span className={s.mail}>
+                {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
+                <box-icon
+                  border="circle"
+                  animation="tada"
+                  color="white"
+                  type="logo"
+                  name="gmail"
+                ></box-icon>
+                Email:
+              </span>
+              <span>{`${
+                !userProfile ? userDetail?.email : userByEmail?.email
+              }`}</span>
+            </a>
             <br />
             <br />
             <box-icon name="code-alt" color="white"></box-icon>
             <span> Lenguajes: </span>
-            <span>{userDetail.lenguajes?.map((e) => e)}</span>
+            <span>
+              {/* {!userProfile
+                ? userDetail?.lenguajes?.map((e) => e)
+                : userByEmail.lenguajes?.map((e) => e)} */}
+              {userDetail?.lenguajes?.map((e) => e)}
+            </span>
             <br />
             <br />
             <box-icon color="white" name="donate-heart"></box-icon>
             <span> Servicios: </span>
-            <span>{userDetail.servicios?.map((s) => s)}</span>
+            <span>
+              {userDetail?.servicios?.map((e) => e)}
+
+              {/* {!userProfile
+                ? userDetail?.servicios?.map((e) => e)
+                : userByEmail.servicios?.map((e) => e)} */}
+            </span>
             <br />
             <br />
             <a href={userDetail.linkedIn} className={s.link}>
@@ -463,15 +505,25 @@ export default function Details() {
             <br />
             <box-icon color="white" name="mouse"></box-icon>
             <span> Tecnologias: </span>
-            <span>{userDetail.tecnologias?.map((t) => t)}</span>
+            <span>
+              {userDetail?.tecnologias?.map((e) => e)}
+              {/* {!userProfile
+                ? userDetail?.tecnologias?.map((e) => e)
+                : userByEmail.tecnologias?.map((e) => e)} */}
+            </span>
             <br />
             <br />
             <box-icon name="world" color="white"></box-icon>
             <span> Pais: </span>
-            <span>{userDetail.paiseId}</span>
+            <span>
+              {!userProfile ? userDetail.paiseId : userDetail.paiseId}
+            </span>
             <br />
             <br />
-            <a href={userDetail.webSite} className={s.link}>
+            <a
+              href={!userProfile ? userDetail.webSite : userDetail.webSite}
+              className={s.link}
+            >
               <box-icon
                 name="planet"
                 animation="flashing"
@@ -482,17 +534,36 @@ export default function Details() {
             {/* <span>{userDetail.webSite}</span> */}
             <br />
             <span>Años de Experiencia: </span>
-            <span>{userDetail.yearsOfExperience}</span>
+            <span>
+              {" "}
+              {!userProfile
+                ? userDetail.yearsOfExperience
+                : userDetail.yearsOfExperience}
+            </span>
             <br />
             <span>Presupuesto por día: </span>
-            <span>{userDetail.dailyBudget}</span>
+            <span>
+              {!userProfile ? userDetail.dailyBudget : userDetail.dailyBudget}
+            </span>
           </div>
           <div>
+            {userProfile && (
               <button
                 className={s.buttonBack}
-                onClick={(e) => {handleBack(e)}}
-              > Volver
+                onClick={() => navigate("/create")}
+              >
+                {userByEmail.postulado ? `EDITAR POSTULACION` : `POSTULARME`}
               </button>
+            )}
+            <button
+              className={s.buttonBack}
+              onClick={(e) => {
+                handleBack(e);
+              }}
+            >
+              {" "}
+              Volver
+            </button>
             <Link to="">
               <button
                 className={s.buttonL}
