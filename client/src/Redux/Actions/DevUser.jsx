@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GrAction } from "react-icons/gr";
 
 export function postDevUser(payload) {
   return async function (dispatch) {
@@ -49,8 +50,7 @@ export function getUserId(id) {
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-      console.log(userId, "este es el user id");
-      return dispatch({
+           return dispatch({
         type: "GET_USER_ID",
         payload: userId,
       });
@@ -93,3 +93,23 @@ export function getUserSearchBar() {
     });
   };
 }
+
+export function detailIdDev(id){
+  return function(dispatch){
+    return dispatch({
+      type: "DETAIL_ID_DEV",
+      payload: id
+    })
+
+  }
+}
+
+ export function getUserContrato(email){
+  return async function (dispatch){
+    let userId = (await axios.get(`/usuarios?=${email}`)).data;
+    return dispatch ({
+      type: "USER_CONTRATO",
+      payload: userId
+    })
+  }
+ }

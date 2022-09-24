@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { detailReset, getUserId } from "../../Redux/Actions/DevUser";
+import { detailIdDev, detailReset, getUserId } from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
@@ -34,17 +34,21 @@ export default function Details() {
   const paises = useSelector((state) => state.countries.allCountries);
   let nombreContratista = user?.given_name;
   let mailContrado = userDetail?.email;
+  
 
   const handleContact = () => {
+    if(userDetail){
+      dispatch(detailIdDev(userDetail.id))
+      //navigate("/contratos")
+    }
     if (nombreContratista && mailContrado) {
-      setDisabled(true);
-      dispatch(
-        emailer({
-          nombreContratista: nombreContratista,
-          mailContrado: mailContrado,
-        })
-      );
-      console.log("se apretó");
+      // setDisabled(true);
+      // dispatch(
+      //   emailer({
+      //     nombreContratista: nombreContratista,
+      //     mailContrado: mailContrado,
+      //   })
+      // );
     }
   };
 
@@ -493,7 +497,7 @@ export default function Details() {
                 onClick={(e) => {handleBack(e)}}
               > Volver
               </button>
-            <Link to="">
+            <Link to="/contratos">
               <button
                 className={s.buttonL}
                 onClick={(e) => {
