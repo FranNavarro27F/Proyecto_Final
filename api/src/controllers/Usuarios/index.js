@@ -57,6 +57,10 @@ const getUsers = async () => {
         dailyBudget: cur.dailyBudget,
         englishLevel: cur.englishLevel,
         bio: cur.bio,
+        visible: cur.visible,
+        postulado: cur.postulado,
+        registrado: cur.registrado,
+        reputacion: cur.reputacion,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
         servicios: cur.servicios
           ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
@@ -97,7 +101,9 @@ const postUsers = async (data) => {
       servicios,
       paiseId,
       registrado,
-      visible
+      visible,
+      postulado,
+      reputacion
     } = data;
 
     const [row, created] = await Usuarios.findOrCreate({
@@ -110,7 +116,7 @@ const postUsers = async (data) => {
         name,
         lastName,
         profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin: false,
+        isAdmin,
         webSite: webSite !== "" ? webSite : null,
         yearsOfExperience,
         dailyBudget: dailyBudget !== "" ? dailyBudget : null,
@@ -118,8 +124,10 @@ const postUsers = async (data) => {
         bio: bio !== "" ? bio : null,
         paiseId,
         city: city !== "" ? city : null,
-        registrado: false,
-        visible: false
+        registrado,
+        visible,
+        postulado,
+        reputacion
       },
     });
 
@@ -164,6 +172,7 @@ const getUserById = async (id) => {
     });
 
     let userM = User.dataValues;
+    console.log(userM)
     let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
@@ -245,6 +254,10 @@ const getUserByName = async (name) => {
         dailyBudget: cur.dailyBudget,
         englishLevel: cur.englishLevel,
         bio: cur.bio,
+        visible: cur.visible,
+        postulado: cur.postulado,
+        registrado: cur.registrado,
+        reputacion: cur.reputacion,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
         servicios: cur.servicios
           ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
@@ -297,6 +310,7 @@ const modifUser = async (data) => {
   try {
     
     let {
+      id,
       name,
       lastName,
       profilePicture,
@@ -309,49 +323,108 @@ const modifUser = async (data) => {
       dailyBudget,
       englishLevel,
       bio,
+      visible,
+      postulado,
+      registrado,
+      reputacion,
       city,
       tecnologias,
       lenguajes,
       servicios,
       paiseId} = data
 
-
-      // let userMod = await Usuarios.findByPk(idUs)
-
-      // if(name) userMod.name = name
-      // if(lastName) userMod.lastName = lastName
-      // if(profilePicture) userMod.profilePicture = profilePicture
-      // if(linkedIn) userMod.linkedIn = linkedIn
-      // if(gitHub) userMod.gitHub = gitHub
-      // if(webSite) userMod.webSite = webSite
-      // if(yearsOfExperience) userMod.yearsOfExperience = yearsOfExperience
-      // if(dailyBudget) userMod.dailyBudget = dailyBudget
-      // if(englishLevel) userMod.englishLevel = englishLevel
-      // if(bio) userMod.bio = bio
-      // if(city) userMod.city = city
-      // if(paiseId) userMod.paiseId = paiseId
+      // console.log("data", data)
      
-      let userMod = await Usuarios.update({
-        name: name ? name = toUperCase(name) : name = [],
-        lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
-        profilePicture,
-        isAdmin,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        city,
-        paiseId
-      }, {where: {email: email}})
+      // let userMod = await Usuarios.update({
+      //   name: name ? name = toUperCase(name) : name = [],
+      //   lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+      //   profilePicture,
+      //   isAdmin,
+      //   linkedIn,
+      //   gitHub,
+      //   webSite,
+      //   yearsOfExperience,
+      //   dailyBudget,
+      //   englishLevel,
+      //   bio,
+      //   city,
+      //   visible,
+      //   postulado,
+      //   registrado,
+      //   reputacion,
+      //   paiseId
+      // }, {where: {email: email}})
 
-      // userMod.addLenguajes(lenguajes)
-      // userMod.addServicios(servicios)
-      // userMod.addTecnologias(tecnologias)
+      let modUsr = await Usuarios.findOne({
+        where: {
+          email: email,
+        },
+        include: [
+          {
+            model: Servicios,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+          {
+            model: Lenguajes,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+          {
+            model: Tecnologias,
+            attributes: ["name"],
+            through: { attributes: [] },
+          },
+        ],
+      });
 
-      return userMod
+      let modUs = modUsr.dataValues
+
+      if(name) modUs.name = name
+      if(lastName) modUs.lastName = lastName
+      if(profilePicture) modUs.profilePicture = profilePicture
+      if(isAdmin) modUs.isAdmin = isAdmin
+      if(linkedIn) modUs.linkedIn = linkedIn
+      if(gitHub) modUs.gitHub = gitHub
+      if(webSite) modUs.webSite = webSite
+      if(yearsOfExperience) modUs.yearsOfExperience = yearsOfExperience
+      if(dailyBudget) modUs.dailyBudget = dailyBudget
+      if(englishLevel) modUs.englishLevel = englishLevel
+      if(bio) modUs.bio = bio
+      if(visible) modUs.visible = visible
+      if(postulado) modUs.postulado = postulado
+      if(registrado) modUs.registrado = registrado
+      if(reputacion) modUs.reputacion = reputacion
+      if(city) modUs.city = city
+      
+      if(paiseId){
+        let namePais = (await Paises.findByPk(paiseId)).dataValues.name
+        modUs.paiseId = namePais
+      }
+
+      if(tecnologias.length >= 1){
+        let nameTec = await Promise.all(tecnologias?.map(async cur =>{
+          let name = (await Tecnologias.findByPk(cur)).dataValues.name
+          return name
+        }))
+        modUs.tecnologias = nameTec
+      }
+      if(lenguajes.length >= 1){
+        let nameLeg = await Promise.all(lenguajes?.map(async cur =>{
+          let name = (await Lenguajes.findByPk(cur)).dataValues.name
+          return name
+        }))
+        modUs.lenguajes = nameLeg
+      }
+      if(servicios.length >= 1){
+        let nameSer = await Promise.all(servicios?.map(async cur =>{
+          let name = (await Servicios.findByPk(cur)).dataValues.name
+          return name
+        }))
+        modUs.servicios = nameSer
+      }
+      
+      return modUs
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
   }
