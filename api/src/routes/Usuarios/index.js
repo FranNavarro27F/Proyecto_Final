@@ -14,8 +14,6 @@ const {
 
 const router = Router();
 
-const PATH = "/usuarios";
-
 // -----------------------------------------------
 
 router.get("/", async (req, res) => {
@@ -71,7 +69,7 @@ router.put("/", async (req, res) => {
     } else {
       let usuario = await modifUser(req.body);
 
-      res.json(usuario);
+      res.status(201).json(usuario);
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
@@ -99,12 +97,11 @@ router.post("/", async(req, res)=>{
 
 router.delete("/:id", async (req, res) => {
   try {
-    let {id}= req.params;
+    let { id } = req.params;
     res.json(await deleteUser(id));
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
-
 
 module.exports = router;
