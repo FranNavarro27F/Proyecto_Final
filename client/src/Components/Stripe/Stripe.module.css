@@ -1,0 +1,17 @@
+.backgroundC{
+    background: linear-gradient(290.74deg, #5EAAAF 6.83%, #2F2E6C 52.53%, #251F3E 85.61%);
+    width: 100%;
+    height: 100vh;
+}
+.cardEle{
+ box-sizing: border-box;
+position: absolute;
+width: 66vh;
+height: 40vh;
+left: 60vh;
+top: 30vh;
+background: linear-gradient(158.72deg, rgba(255, 255, 255, 0.4) 3.01%, rgba(255, 255, 255, 0) 103.3%);
+backdrop-filter: blur(21px);
+border-radius: 40px;    
+
+}

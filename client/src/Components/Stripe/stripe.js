@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements, CardElement, useStripe, useElements}from '@stripe/react-stripe-js'
 import axios from 'axios';
+import s from "../Stripe/Stripe.module.css"
 //import Loader from '../'
 
 
@@ -41,9 +42,16 @@ const CheckOutForm = () => {
     //setLoading(true)
     }
  };
+ 
   return (
+    <div className={s.backgroundC}>
   <form onSubmit={handleSubmit} >
-   <CardElement/>
+    <div className={s.cardEle}>
+    <div className={s.textCard}>
+      
+    <CardElement />
+    </div>  
+    </div>
    <button disabled={!stripe}>
     {/* loading ? (
       <Loader/>
@@ -51,6 +59,7 @@ const CheckOutForm = () => {
     Contratar
     </button>
   </form>
+  </div>
   );
 };
 
