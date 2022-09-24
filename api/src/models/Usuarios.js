@@ -133,7 +133,7 @@ module.exports = (sequelize) => {
 
       visible: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
       },
 
       postulado: {
@@ -143,7 +143,7 @@ module.exports = (sequelize) => {
 
       registrado: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        // allowNull: false,
       },
 
       tarjeta_numero: {
