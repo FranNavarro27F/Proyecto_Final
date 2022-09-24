@@ -1,0 +1,13 @@
+.buttonImg {
+  background: none;
+}
+.img {
+  width: 10vw;
+  height: 5vh;
+  border-radius: 50%;
+}
+
+.divImg {
+  width: 5vw;
+  height: 10vh;
+}

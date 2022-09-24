@@ -42,6 +42,8 @@ export default function Home() {
         <ScrollTop className={s.buttonTop} />
       </div>
       <NavMenuHome
+        user={user}
+        isAuthenticated={isAuthenticated}
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}

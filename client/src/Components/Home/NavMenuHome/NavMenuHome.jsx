@@ -2,14 +2,18 @@ import React from "react";
 import { useRef } from "react";
 import s from "./NavMenuHome.module.css";
 import logo from "./Logo/logo chico.png";
+import ButtonProfile from "./ButtonProfile/ButtonProfile";
 
 export default function NavMenuHome({
   scrollToSeccion,
   work,
   home,
   landing,
+  isAuthenticated,
+  user,
   // about,
 }) {
+  console.log(user);
   return (
     <div className={s.container}>
       <ui>
@@ -29,6 +33,7 @@ export default function NavMenuHome({
           WORK
         </li>
       </ui>
+      {isAuthenticated && <ButtonProfile user={user} />}
     </div>
   );
 }
