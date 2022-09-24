@@ -18,22 +18,24 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-const { jsonPaises } = require('./src/controllers/Paises/index');
-const { guardarTecnologiasDB } = require('./src/controllers/Tecnologias/index.js');
-const { guardarServiciosEnDB } = require('./src/controllers/Servicios/index.js');
-const { saveLanguages } = require('./src/controllers/Lenguajes/index')
-
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const { jsonPaises } = require("./src/controllers/Paises/index");
+const {
+  guardarTecnologiasDB,
+} = require("./src/controllers/Tecnologias/index.js");
+const {
+  guardarServiciosEnDB,
+} = require("./src/controllers/Servicios/index.js");
+const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 
 // Syncing all the models at once.
 
-conn.sync({ force: false }).then(() => {
-  const PORT= 3001;
+conn.sync({ alter: false }).then(() => {
+  const PORT = 3001;
 
   server.listen(process.env.PORT || PORT, async () => {
-  
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
     await jsonPaises();
 
     await guardarTecnologiasDB();
