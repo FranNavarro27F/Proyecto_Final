@@ -199,9 +199,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log(`hay errores`, errors);
+      alert(`hay errores`, errors);
     }
   };
+
+  const handleDefaultCountrie = [
+    {
+      label: cache?.paiseId,
+    },
+  ];
+
   const handleReset = () => {
     refCountries.current.setValue({
       value: "default",
@@ -526,6 +533,7 @@ export default function DevUsersCreate() {
               isMulti={false}
               styles={customStyles}
               placeholder="Selecciona un pais"
+              defaultValue={handleDefaultCountrie}
               onChange={(e) => {
                 console.log(e);
                 setInput({
@@ -629,6 +637,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              // defaultValue={handleDefaultService}
               ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}

@@ -63,11 +63,6 @@ export default function NavBar() {
   const refExperience = useRef();
   const refBudget = useRef();
   const refSearch = useRef();
-  // console.log(refTecnologies.current.props.value);
-
-  // const defaultValue =
-  //   refTecnologies.current.props.value === cacheFilter?.filterTecnologies;
-  // refSearch.current.value = `${cacheFilter?.filterTecnologies}`;
 
   const handleClear = () => {
     refSearch.current.value = "";
@@ -79,6 +74,7 @@ export default function NavBar() {
       value: "default",
       label: "Ordenar por costo diario",
     });
+
     refBudget.current.setValue({
       value: "default",
       label: "Ordenar por costo diario",
@@ -107,27 +103,36 @@ export default function NavBar() {
     // });
   };
 
-  const handleDefault = cacheFilter?.filterLanguajes.map((e) => {
-    return {
-      label: e,
-    };
-  });
-  const handleDefaultCountrie = cacheFilter?.filterCountries.map((e) => {
-    return {
-      label: e,
-    };
-  });
+  const handleDefault = cacheFilter?.filterLanguajes
+    ? cacheFilter?.filterLanguajes.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
-  const handleDefaultService = cacheFilter?.filterServices.map((e) => {
-    return {
-      label: e,
-    };
-  });
-  const handleDefaultTecnologies = cacheFilter?.filterTecnologies.map((e) => {
-    return {
-      label: e,
-    };
-  });
+  const handleDefaultCountrie = cacheFilter?.filterCountries
+    ? cacheFilter?.filterCountries.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultService = cacheFilter?.filterServices
+    ? cacheFilter?.filterServices.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
+    ? cacheFilter?.filterTecnologies.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
