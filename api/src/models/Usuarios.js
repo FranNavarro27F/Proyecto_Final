@@ -13,17 +13,17 @@ module.exports = (sequelize) => {
 
       profilePicture: {
         type: DataTypes.TEXT,
-        // allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
+        allowNull: true, // Si el usuario no sube una foto de perfil, se le asigna una por defecto
       },
 
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        // allowNull: false,
+        allowNull: false,
       },
 
       name: {
         type: DataTypes.STRING(20),
-        // allowNull: false,
+        allowNull: false,
         validate: {
           isAlpha: true,
         },
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
 
       lastName: {
         type: DataTypes.STRING(20),
-        // allowNull: false,
+        allowNull: false,
         validate: {
           isAlpha: true,
         },
@@ -39,13 +39,13 @@ module.exports = (sequelize) => {
 
       // GETTER / SETTER → NAME + LAST-NAME
       //   userName: {
-      //     type: DataTypes.STRING,
-      //     allowNull: false,
-      //   },
+      //         type: DataTypes.STRING,
+      //         allowNull: false,
+      //       },
 
       email: {
         type: DataTypes.STRING(60),
-        // allowNull: false,
+        allowNull: false,
         unique: true,
         validate: {
           // is: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, // REGEX para Email
@@ -63,13 +63,13 @@ module.exports = (sequelize) => {
 
       city: {
         type: DataTypes.STRING(50),
-        // allowNull: true,
+        allowNull: true,
         //  /^[a-zA-Z \u00f1\u00d1\u00C0-\u017F]+$/g;
       },
 
       linkedIn: {
         type: DataTypes.STRING(200),
-        // allowNull: true,
+        allowNull: true,
         unique: true,
         validate: {
           isUrl: true,
@@ -78,7 +78,7 @@ module.exports = (sequelize) => {
 
       gitHub: {
         type: DataTypes.STRING(200),
-        // allowNull: true,
+        allowNull: true,
         unique: true,
         validate: {
           isUrl: true,
@@ -87,7 +87,7 @@ module.exports = (sequelize) => {
 
       webSite: {
         type: DataTypes.STRING(200),
-        // allowNull: true,
+        allowNull: true,
         unique: true,
         validate: {
           isUrl: true,
@@ -96,7 +96,7 @@ module.exports = (sequelize) => {
 
       yearsOfExperience: {
         type: DataTypes.INTEGER,
-        // allowNull: true, //antes estaba en false (explicar Auth0)
+        allowNull: true, //antes estaba en false (explicar Auth0)
         validate: {
           len: [1, 2], // no permitir mas de dos dígitos
           min: 1, // valor mínimo: 1
@@ -106,7 +106,7 @@ module.exports = (sequelize) => {
 
       dailyBudget: {
         type: DataTypes.INTEGER,
-        // allowNull: true,
+        allowNull: true,
         validate: {
           len: [1, 3], // no permitir mas de dos dígitos
           min: 1, // valor mínimo: 1
@@ -115,19 +115,20 @@ module.exports = (sequelize) => {
       },
 
       englishLevel: {
-        type: DataTypes.ENUM(
-          "Básico",
-          "Intermedio",
-          "Avanzado",
-          "Profesional",
-          "Nativo / Bilingüe"
-        ),
-        // allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
+        type: DataTypes.STRING(20),
+        //   type: DataTypes.ENUM(
+        //     "Básico",
+        //     "Intermedio",
+        //     "Avanzado",
+        //     "Profesional",
+        //     "Nativo / Bilingüe"
+        //   ),
+        allowNull: true, // Si el Dev no ingresa un nivel de inglés → No especificado o N/A
       },
 
       bio: {
         type: DataTypes.TEXT,
-        // allowNull: true,
+        allowNull: true,
       },
 
       visible: {
@@ -137,7 +138,7 @@ module.exports = (sequelize) => {
 
       postulado: {
         type: DataTypes.BOOLEAN,
-        // allowNull: true,
+        allowNull: true,
       },
 
       registrado: {
@@ -147,7 +148,7 @@ module.exports = (sequelize) => {
 
       tarjeta_numero: {
         type: DataTypes.INTEGER,
-        // allowNull: true,
+        allowNull: true,
         validate: {
           isCreditCard: true,
         },
@@ -155,7 +156,7 @@ module.exports = (sequelize) => {
 
       tarjeta_nombreCompleto: {
         type: DataTypes.STRING(50),
-        // allowNull: true,
+        allowNull: true,
         validate: {
           is: /\w+\s+\w+\s*\w*/gi,
         },
@@ -163,7 +164,7 @@ module.exports = (sequelize) => {
 
       tarjeta_vencimiento: {
         type: DataTypes.STRING(5),
-        // allowNull: true,
+        allowNull: true,
         validate: {
           is: /\d{2}\/\d{2}/gi,
           //   isAfter: new Date(),
@@ -172,7 +173,7 @@ module.exports = (sequelize) => {
 
       tarjeta_codigoSeguridad: {
         type: DataTypes.STRING(4),
-        // allowNull: true,
+        allowNull: true,
         validate: {
           is: /\d{3,4}/g,
         },
@@ -180,7 +181,7 @@ module.exports = (sequelize) => {
 
       cbu: {
         type: DataTypes.INTEGER,
-        // allowNull: true,
+        allowNull: true,
         validate: {
           is: /\d{22}/g,
         },
@@ -188,7 +189,7 @@ module.exports = (sequelize) => {
 
       cvu: {
         type: DataTypes.INTEGER,
-        // allowNull: true,
+        allowNull: true,
         validate: {
           is: /\d{22}/g,
         },
