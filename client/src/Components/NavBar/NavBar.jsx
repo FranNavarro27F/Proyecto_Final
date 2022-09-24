@@ -9,13 +9,12 @@ import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
 import Select from "react-select";
 
-
 import Selectores from "../Selectores/Selectores";
 import makeAnimated from "react-select/animated";
 
 //actions
 import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
-import { getUsersBd } from "../../Redux/Actions/DevUser";
+
 import { HiOutlineSearch } from "react-icons/hi";
 
 export default function NavBar() {
@@ -29,13 +28,15 @@ export default function NavBar() {
     optionsServices,
   } = Selectores();
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getUsersBd());
-  // }, [dispatch]);
+  let checked = useSelector((state) => state.devUser.flag);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  const [checked, setChecked]= useState(false);
+  // const [checked, setChecked] = useState(false);
+  // const [cacheSearched, setCacheSearched] = useLocalStorage({});
+  // const [searched, setSearched] = useState({
+  //   value: cacheSearched?.value ? cacheSearched?.value : "",
+  // });
+
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
@@ -54,7 +55,6 @@ export default function NavBar() {
     OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "",
     name: "",
   });
-  
 
   const refCountries = useRef();
   const refServices = useRef();
@@ -63,10 +63,9 @@ export default function NavBar() {
   const refExperience = useRef();
   const refBudget = useRef();
   const refSearch = useRef();
-  
 
   const handleClear = () => {
-    refSearch.current.value="";
+    refSearch.current.value = "";
     refCountries.current.clearValue();
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
@@ -75,13 +74,14 @@ export default function NavBar() {
       value: "default",
       label: "Ordenar por costo diario",
     });
+
     refBudget.current.setValue({
       value: "default",
       label: "Ordenar por costo diario",
     });
 
     setActualFilter({
-      name:"",
+      name: "",
       filterTecnologies: [],
       filterServices: [],
       filterLanguajes: [],
@@ -98,7 +98,41 @@ export default function NavBar() {
       OrderBud: ("OrderBud", ""),
       name: ("name", ""),
     });
+    // setCacheSearched({
+    //   value: ("value", ""),
+    // });
   };
+
+  const handleDefault = cacheFilter?.filterLanguajes
+    ? cacheFilter?.filterLanguajes.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultCountrie = cacheFilter?.filterCountries
+    ? cacheFilter?.filterCountries.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultService = cacheFilter?.filterServices
+    ? cacheFilter?.filterServices.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
+    ? cacheFilter?.filterTecnologies.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -117,41 +151,51 @@ export default function NavBar() {
         <AiOutlineClear />
       </button>
       <div className={s.bodySearch}>
-
         {/* <label className={s.switch}>
-          <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
+          <input type="checkbox" />
           <span className={s.slider_round}></span>
         </label> */}
-        
-      <form>
-        <span>
-          <HiOutlineSearch />
-        </span>
 
-        <input
-          value={cacheFilter?.name}
-          className={s.searchBar}
-          type={"text"}
-          placeholder={"Buscar..."}
-          onChange={(e)=>{
-            // if(!checked){
-            //   dispatch( searchInput(e.target.value) )
-            //   console.log("checked", e.target.value)
-            // }else{
-              // console.log("no check", e.target.value)
+        <form>
+          <span>
+            <HiOutlineSearch />
+          </span>
+
+          <input
+            value={cacheFilter?.name}
+            className={s.searchBar}
+            type={"text"}
+            placeholder={"Buscar..."}
+            name={checked ? "value" : "name"}
+            onChange={(e) => {
               e.preventDefault();
               setActualFilter({
-                  ...actualFilter, name: e.target.value.trim() 
+                ...actualFilter,
+                name: e.target.value.trim(),
               });
-              setCacheFilter( {
-                ...cacheFilter, name: e.target.value.trim() 
+              setCacheFilter({
+                ...cacheFilter,
+                name: e.target.value.trim(),
               });
-            // }
-          }}
-          ref={refSearch}
-        ></input>
-      </form>
-    </div>
+              // if (!checked) {
+              //   console.log("nocheck", e.target.value);
+              // } else {
+              //   setSearched({
+              //     ...searched,
+              //     value: e.target.value.trim(),
+              //   });
+              //   setCacheSearched({
+              //     ...cacheSearched,
+              //     value: e.target.value.trim(),
+              //   });
+              //   console.log("check", e.target.value);
+              //   dispatch(searchInput(cacheSearched));
+              // }
+            }}
+            ref={refSearch}
+          ></input>
+        </form>
+      </div>
       <div className={s.divGen}>
         <div className={s.filterCountrie}>
           <Select
@@ -177,6 +221,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por país..."
             styles={customStyles}
+            defaultValue={handleDefaultCountrie}
           />
         </div>
         <div>
@@ -203,6 +248,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por lenguaje..."
             styles={customStyles}
+            defaultValue={handleDefault}
           />
         </div>
         <div>
@@ -229,12 +275,12 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por servicios..."
             styles={customStyles}
+            defaultValue={handleDefaultService}
           />
         </div>
         <div>
           <Select
             onChange={(e) => {
-              console.log(e);
               setActualFilter({
                 ...actualFilter,
                 filterTecnologies: e.map((e) => e.label),
@@ -256,6 +302,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por tecnología..."
             styles={customStyles}
+            defaultValue={handleDefaultTecnologies}
           />
         </div>
         <div>
