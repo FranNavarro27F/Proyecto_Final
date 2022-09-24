@@ -14,7 +14,7 @@ import makeAnimated from "react-select/animated";
 
 //actions
 import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
-
+import { getUsersBd } from "../../Redux/Actions/DevUser";
 import { HiOutlineSearch } from "react-icons/hi";
 
 export default function NavBar() {
@@ -28,15 +28,13 @@ export default function NavBar() {
     optionsServices,
   } = Selectores();
   const dispatch = useDispatch();
-  let checked = useSelector((state) => state.devUser.flag);
+
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  // const [checked, setChecked] = useState(false);
-  // const [cacheSearched, setCacheSearched] = useLocalStorage({});
-  // const [searched, setSearched] = useState({
-  //   value: cacheSearched?.value ? cacheSearched?.value : "",
-  // });
-
+  const [checked, setChecked] = useState(false);
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
@@ -74,7 +72,6 @@ export default function NavBar() {
       value: "default",
       label: "Ordenar por costo diario",
     });
-
     refBudget.current.setValue({
       value: "default",
       label: "Ordenar por costo diario",
@@ -98,41 +95,7 @@ export default function NavBar() {
       OrderBud: ("OrderBud", ""),
       name: ("name", ""),
     });
-    // setCacheSearched({
-    //   value: ("value", ""),
-    // });
   };
-
-  const handleDefault = cacheFilter?.filterLanguajes
-    ? cacheFilter?.filterLanguajes.map((e) => {
-        return {
-          label: e,
-        };
-      })
-    : false;
-
-  const handleDefaultCountrie = cacheFilter?.filterCountries
-    ? cacheFilter?.filterCountries.map((e) => {
-        return {
-          label: e,
-        };
-      })
-    : false;
-
-  const handleDefaultService = cacheFilter?.filterServices
-    ? cacheFilter?.filterServices.map((e) => {
-        return {
-          label: e,
-        };
-      })
-    : false;
-  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
-    ? cacheFilter?.filterTecnologies.map((e) => {
-        return {
-          label: e,
-        };
-      })
-    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -143,6 +106,7 @@ export default function NavBar() {
       <Link to="/">
         <img src={logo} alt="programax" className={s.logo} />
       </Link>
+
       <button
         className={!filtrados.length ? s.buttonClearAlert : s.buttonClear}
         onClick={() => handleClear()}
@@ -150,9 +114,10 @@ export default function NavBar() {
         <span> LIMPIAR FILTROS</span>
         <AiOutlineClear />
       </button>
+
       <div className={s.bodySearch}>
         {/* <label className={s.switch}>
-          <input type="checkbox" />
+          <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
           <span className={s.slider_round}></span>
         </label> */}
 
@@ -166,8 +131,12 @@ export default function NavBar() {
             className={s.searchBar}
             type={"text"}
             placeholder={"Buscar..."}
-            name={checked ? "value" : "name"}
             onChange={(e) => {
+              // if(!checked){
+              //   dispatch( searchInput(e.target.value) )
+              //   console.log("checked", e.target.value)
+              // }else{
+              // console.log("no check", e.target.value)
               e.preventDefault();
               setActualFilter({
                 ...actualFilter,
@@ -177,19 +146,6 @@ export default function NavBar() {
                 ...cacheFilter,
                 name: e.target.value.trim(),
               });
-              // if (!checked) {
-              //   console.log("nocheck", e.target.value);
-              // } else {
-              //   setSearched({
-              //     ...searched,
-              //     value: e.target.value.trim(),
-              //   });
-              //   setCacheSearched({
-              //     ...cacheSearched,
-              //     value: e.target.value.trim(),
-              //   });
-              //   console.log("check", e.target.value);
-              //   dispatch(searchInput(cacheSearched));
               // }
             }}
             ref={refSearch}
@@ -221,7 +177,20 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por país..."
             styles={customStyles}
-            defaultValue={handleDefaultCountrie}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -248,7 +217,20 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por lenguaje..."
             styles={customStyles}
-            defaultValue={handleDefault}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -274,13 +256,27 @@ export default function NavBar() {
             isSearchable={true}
             isMulti={true}
             placeholder="Filtra por servicios..."
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
             styles={customStyles}
-            defaultValue={handleDefaultService}
           />
         </div>
         <div>
           <Select
             onChange={(e) => {
+              console.log(e);
               setActualFilter({
                 ...actualFilter,
                 filterTecnologies: e.map((e) => e.label),
@@ -302,7 +298,20 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por tecnología..."
             styles={customStyles}
-            defaultValue={handleDefaultTecnologies}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -321,6 +330,20 @@ export default function NavBar() {
                 OrderExp: e.value,
               });
             }}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
             className={s.select}
             isDisabled={false}
             options={optionsOrderExp}
@@ -355,6 +378,20 @@ export default function NavBar() {
             isMulti={false}
             placeholder="Ordenar por costo diario"
             styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
 
