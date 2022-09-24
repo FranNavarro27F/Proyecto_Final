@@ -11,6 +11,7 @@ export default function NavMenuHome({
   landing,
   isAuthenticated,
   user,
+  logout,
   // about,
 }) {
   console.log(user);
@@ -33,7 +34,7 @@ export default function NavMenuHome({
           DESTACADOS
         </li>
       </ui>
-      {isAuthenticated && <ButtonProfile user={user} />}
+      {isAuthenticated && <ButtonProfile user={user} logout={logout} />}
     </div>
   );
 }
