@@ -8,6 +8,7 @@ const {
 
 const { Op } = require("sequelize");
 
+
 const ERROR = "Error @ controllers/Usuarios";
 
 // -----------------------------------------------
@@ -335,25 +336,25 @@ const modifUser = async (data) => {
 
       // console.log("data", data)
      
-      // let userMod = await Usuarios.update({
-      //   name: name ? name = toUperCase(name) : name = [],
-      //   lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
-      //   profilePicture,
-      //   isAdmin,
-      //   linkedIn,
-      //   gitHub,
-      //   webSite,
-      //   yearsOfExperience,
-      //   dailyBudget,
-      //   englishLevel,
-      //   bio,
-      //   city,
-      //   visible,
-      //   postulado,
-      //   registrado,
-      //   reputacion,
-      //   paiseId
-      // }, {where: {email: email}})
+      let userMod = await Usuarios.update({
+        name: name ? name = toUperCase(name) : name = [],
+        lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+        profilePicture,
+        isAdmin,
+        linkedIn,
+        gitHub,
+        webSite,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
+        city,
+        visible,
+        postulado,
+        registrado,
+        reputacion,
+        paiseId
+      }, {where: {email: email}})
 
       let modUsr = await Usuarios.findOne({
         where: {
@@ -378,53 +379,56 @@ const modifUser = async (data) => {
         ],
       });
 
-      let modUs = modUsr.dataValues
+      modUsr.setTecnologias(tecnologias);
+      modUsr.setLenguajes(lenguajes);
+      modUsr.setServicios(servicios);
 
-      if(name) modUs.name = name
-      if(lastName) modUs.lastName = lastName
-      if(profilePicture) modUs.profilePicture = profilePicture
-      if(isAdmin) modUs.isAdmin = isAdmin
-      if(linkedIn) modUs.linkedIn = linkedIn
-      if(gitHub) modUs.gitHub = gitHub
-      if(webSite) modUs.webSite = webSite
-      if(yearsOfExperience) modUs.yearsOfExperience = yearsOfExperience
-      if(dailyBudget) modUs.dailyBudget = dailyBudget
-      if(englishLevel) modUs.englishLevel = englishLevel
-      if(bio) modUs.bio = bio
-      if(visible) modUs.visible = visible
-      if(postulado) modUs.postulado = postulado
-      if(registrado) modUs.registrado = registrado
-      if(reputacion) modUs.reputacion = reputacion
-      if(city) modUs.city = city
-      
-      if(paiseId){
-        let namePais = (await Paises.findByPk(paiseId)).dataValues.name
-        modUs.paiseId = namePais
-      }
 
-      if(tecnologias.length >= 1){
-        let nameTec = await Promise.all(tecnologias?.map(async cur =>{
-          let name = (await Tecnologias.findByPk(cur)).dataValues.name
-          return name
-        }))
-        modUs.tecnologias = nameTec
-      }
-      if(lenguajes.length >= 1){
-        let nameLeg = await Promise.all(lenguajes?.map(async cur =>{
-          let name = (await Lenguajes.findByPk(cur)).dataValues.name
-          return name
-        }))
-        modUs.lenguajes = nameLeg
-      }
-      if(servicios.length >= 1){
-        let nameSer = await Promise.all(servicios?.map(async cur =>{
-          let name = (await Servicios.findByPk(cur)).dataValues.name
-          return name
-        }))
-        modUs.servicios = nameSer
-      }
+      // if(name) modUs.name = name
+      // if(lastName) modUs.lastName = lastName
+      // if(profilePicture) modUs.profilePicture = profilePicture
+      // if(isAdmin) modUs.isAdmin = isAdmin
+      // if(linkedIn) modUs.linkedIn = linkedIn
+      // if(gitHub) modUs.gitHub = gitHub
+      // if(webSite) modUs.webSite = webSite
+      // if(yearsOfExperience) modUs.yearsOfExperience = yearsOfExperience
+      // if(dailyBudget) modUs.dailyBudget = dailyBudget
+      // if(englishLevel) modUs.englishLevel = englishLevel
+      // if(bio) modUs.bio = bio
+      // if(visible) modUs.visible = visible
+      // if(postulado) modUs.postulado = postulado
+      // if(registrado) modUs.registrado = registrado
+      // if(reputacion) modUs.reputacion = reputacion
+      // if(city) modUs.city = city
+
+      // if(paiseId){
+      //   let namePais = (await Paises.findByPk(paiseId)).dataValues.name
+      //   modUs.paiseId = namePais
+      // }
+
+      // if(tecnologias.length >= 1){
+      //   let nameTec = await Promise.all(tecnologias?.map(async cur =>{
+      //     let name = (await Tecnologias.findByPk(cur)).dataValues.name
+      //     return name
+      //   }))
+      //   modUs.tecnologias = nameTec
+      // }
+      // if(lenguajes.length >= 1){
+      //   let nameLeg = await Promise.all(lenguajes?.map(async cur =>{
+      //     let name = (await Lenguajes.findByPk(cur)).dataValues.name
+      //     return name
+      //   }))
+      //   modUs.lenguajes = nameLeg
+      // }
+      // if(servicios.length >= 1){
+      //   let nameSer = await Promise.all(servicios?.map(async cur =>{
+      //     let name = (await Servicios.findByPk(cur)).dataValues.name
+      //     return name
+      //   }))
+      //   modUs.servicios = nameSer
+      // }
       
-      return modUs
+      return modUsr
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
   }
@@ -440,10 +444,6 @@ const getByEmail = async (email) => {
         email: email,
       },
       include: [
-        {
-          model: Paises,
-          attributes: ["name"],
-        },
         {
           model: Servicios,
           attributes: ["name"],
@@ -462,7 +462,42 @@ const getByEmail = async (email) => {
       ],
     });
 
-    return await userEmail
+    let useEmail = (await userEmail).dataValues
+
+    console.log(useEmail)
+
+    return{
+      id: useEmail.id,
+      profilePicture: useEmail.profilePicture,
+      isAdmin: useEmail.isAdmin,
+      name: useEmail.name,
+      lastName: useEmail.lastName,
+      email: useEmail.email,
+      city: useEmail.city,
+      linkedIn: useEmail.linkedIn,
+      gitHub: useEmail.gitHub,
+      webSite: useEmail.webSite,
+      yearsOfExperience: useEmail.yearsOfExperience,
+      dailyBudget: useEmail.dailyBudget,
+      englishLevel: useEmail.englishLevel,
+      bio: useEmail.bio,
+      visible: useEmail.visible,
+      postulado: useEmail.postulado,
+      registrado: useEmail.registrado,
+      reputacion: useEmail.reputacion,
+      paiseId: useEmail.paiseId,
+      servicios: useEmail.servicios
+          ? useEmail.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        lenguajes: useEmail.lenguajes
+          ? useEmail.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        tecnologias: useEmail.tecnologias
+          ? useEmail.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+    }
+
+    
   } catch (e) {
     console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
   }
