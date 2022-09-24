@@ -29,7 +29,7 @@ export default function CardW1() {
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_39_337" result="shape"/>
 </filter>
 <linearGradient id="paint0_linear_39_337" x1="0" y1="270" x2="421.211" y2="349.736" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
+<stop stopColor="white"/>
 <stop offset="1"/>
 </linearGradient>
 </defs>

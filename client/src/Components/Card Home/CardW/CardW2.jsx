@@ -21,11 +21,11 @@ export default function CardW2() {
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 </pattern>
 <linearGradient id="paint0_linear_39_329" x1="190" y1="0" x2="190" y2="280" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
-<stop offset="1" stop-color="white" stop-opacity="0"/>
+<stop stopColor="white"/>
+<stop offset="1" stopColor="white" stop-opacity="0"/>
 </linearGradient>
 <linearGradient id="paint1_linear_39_329" x1="0" y1="0" x2="353" y2="280" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
+<stop stopColor="white"/>
 <stop offset="1"/>
 </linearGradient>
 </defs>

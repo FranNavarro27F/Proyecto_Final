@@ -12,7 +12,7 @@ export default function NavMenuHome({
 }) {
   return (
     <div className={s.container}>
-      <ui>
+      <ul>
         <li onClick={() => scrollToSeccion(landing)} className={s.link}>
           BIENVENIDO
         </li>
@@ -28,7 +28,7 @@ export default function NavMenuHome({
         <li onClick={() => scrollToSeccion(work)} className={s.link}>
           DESTACADOS
         </li>
-      </ui>
+      </ul>
     </div>
   );
 }
