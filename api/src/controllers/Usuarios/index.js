@@ -96,6 +96,8 @@ const postUsers = async (data) => {
       lenguajes,
       servicios,
       paiseId,
+      registrado,
+      visible
     } = data;
 
     const [row, created] = await Usuarios.findOrCreate({
@@ -116,6 +118,8 @@ const postUsers = async (data) => {
         bio: bio !== "" ? bio : null,
         paiseId,
         city: city !== "" ? city : null,
+        registrado: false,
+        visible: false
       },
     });
 

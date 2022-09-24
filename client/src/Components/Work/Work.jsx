@@ -15,7 +15,7 @@ import SideMenuWork from "./SideMenuWork/SideMenuWork";
 export default function Work() {
   const dispatch = useDispatch();
 
-  const filtrados = useSelector((state) => state.devUser.filteredUsers);
+  let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
   const allUsers = useSelector((state) => state.devUser.allUsers);

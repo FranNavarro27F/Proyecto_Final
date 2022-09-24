@@ -5,11 +5,11 @@
   align-items: center;
   padding: 0px;
   gap: 100px;
-
   position: absolute;
   width: 60vw;
   height: 10vh;
   left: 20vw;
+  z-index: 99;
   /* top: 34px; */
 }
 .link {
@@ -19,7 +19,6 @@
   /* width: 85px; */
   height: 4vh;
   font-family: "Poppins";
-
   font-weight: 600;
   font-size: 1.3vw;
   line-height: 26px;
@@ -27,6 +26,7 @@
   color: #ffffff;
   flex: none;
   order: 0;
+  z-index: 9999;
   flex-grow: 0;
   cursor: pointer;
 }
