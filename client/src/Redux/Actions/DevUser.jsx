@@ -48,11 +48,7 @@ export function getUserId(id) {
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-<<<<<<< HEAD
-           return dispatch({
-=======
       return dispatch({
->>>>>>> dev
         type: "GET_USER_ID",
         payload: userId,
       });
