@@ -67,3 +67,13 @@ export function detailReset() {
     });
   };
 }
+
+export function getUserSearchBar() {
+  return async function (dispatch) {
+    const userSB = (await axios.get(`/usuarios`)).data
+    return dispatch({
+      type: "GET_USER_SEARCHBAR",
+      payload: userSB,
+       })
+  }
+}
