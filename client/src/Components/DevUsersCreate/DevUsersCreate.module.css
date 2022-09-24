@@ -276,6 +276,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 .buttonCreate:enabled {
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
   box-sizing: border-box;

@@ -69,11 +69,11 @@ function validaciones(input) {
   //yearsOfExperience
   if (input.yearsOfExperience === 0)
     errors.yearsOfExperience = "El valor no puede ser 0!";
-  if (input.yearsOfExperience > 99 || input.yearsOfExperience <= 1)
+  if (input.yearsOfExperience > 99 || input.yearsOfExperience < 1)
     errors.yearsOfExperience = "El valor debe estar entre 1 y 99";
   //dailyBudget
   if (input.dailyBudget === 0) errors.dailyBudget = "El valor no puede ser 0!";
-  if (input.dailyBudget > 999 || input.dailyBudget <= 1)
+  if (input.dailyBudget > 999 || input.dailyBudget < 1)
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie

@@ -18,19 +18,19 @@ export default function NavMenuHome({
     <div className={s.container}>
       <ui>
         <li onClick={() => scrollToSeccion(landing)} className={s.link}>
-          LANDING
+          BIENVENIDO
         </li>
         <li onClick={() => scrollToSeccion(home)} className={s.link}>
-          HOME
+          INICIO
         </li>
         <li onClick={() => scrollToSeccion(home)} className={s.link}>
           <img className={s.imgLogo} src={logo} alt="logo" />
         </li>
         <li onClick={() => scrollToSeccion(home)} className={s.link}>
-          ABOUT
+          ACERCA DE
         </li>
         <li onClick={() => scrollToSeccion(work)} className={s.link}>
-          WORK
+          DESTACADOS
         </li>
       </ui>
       {isAuthenticated && <ButtonProfile user={user} />}
