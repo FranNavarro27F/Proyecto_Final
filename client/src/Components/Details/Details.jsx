@@ -40,12 +40,6 @@ export default function Details() {
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
-<<<<<<< HEAD
-  const paises = useSelector((state) => state.countries.allCountries);
-  let nombreContratista = user?.given_name;
-  let mailContrado = userDetail?.email;
-  
-=======
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
 
@@ -54,7 +48,6 @@ export default function Details() {
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [id, userByEmail?.id]);
->>>>>>> dev
 
   const handleContact = () => {
     if(userDetail){
@@ -62,15 +55,6 @@ export default function Details() {
       //navigate("/contratos")
     }
     if (nombreContratista && mailContrado) {
-<<<<<<< HEAD
-      // setDisabled(true);
-      // dispatch(
-      //   emailer({
-      //     nombreContratista: nombreContratista,
-      //     mailContrado: mailContrado,
-      //   })
-      // );
-=======
       setDisabled(true);
       dispatch(
         emailer({
@@ -78,7 +62,6 @@ export default function Details() {
           mailContrado: mailContrado,
         })
       );
->>>>>>> dev
     }
   };
 
@@ -572,16 +555,23 @@ export default function Details() {
             </span>
           </div>
           <div>
-            {userProfile && (
+          {userProfile ? (
               <button
                 className={s.buttonBack}
                 onClick={() => navigate("/create")}
               >
                 {userByEmail.postulado ? `EDITAR POSTULACION` : `POSTULARME`}
               </button>
-<<<<<<< HEAD
-            <Link to="/contratos">
-=======
+            ) : (
+              <button
+                className={s.buttonL}
+                onClick={(e) => {
+                  handleContact(e);
+                }}
+                disabled={disabled}
+              >
+                Contactame!
+              </button>
             )}
             <button
               className={s.buttonBack}
@@ -592,18 +582,7 @@ export default function Details() {
               {" "}
               Volver
             </button>
-            <Link to="">
->>>>>>> dev
-              <button
-                className={s.buttonL}
-                onClick={(e) => {
-                  handleContact(e);
-                }}
-                disabled={disabled}
-              >
-                Contactame!
-              </button>
-            </Link>
+            <Link to=""></Link>
           </div>
         </div>
       </div>
