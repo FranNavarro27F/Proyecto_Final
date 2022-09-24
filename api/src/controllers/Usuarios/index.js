@@ -334,8 +334,7 @@ const modifUser = async (data) => {
       servicios,
       paiseId} = data
 
-      // console.log("data", data)
-     
+
       let userMod = await Usuarios.update({
         name: name ? name = toUperCase(name) : name = [],
         lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
@@ -445,6 +444,10 @@ const getByEmail = async (email) => {
       },
       include: [
         {
+          model: Paises,
+          attributes: ["name"],
+        },
+        {
           model: Servicios,
           attributes: ["name"],
           through: { attributes: [] },
@@ -463,8 +466,6 @@ const getByEmail = async (email) => {
     });
 
     let useEmail = (await userEmail).dataValues
-
-    console.log(useEmail)
 
     return{
       id: useEmail.id,
@@ -485,7 +486,7 @@ const getByEmail = async (email) => {
       postulado: useEmail.postulado,
       registrado: useEmail.registrado,
       reputacion: useEmail.reputacion,
-      paiseId: useEmail.paiseId,
+      paiseId:  useEmail.paise ? useEmail.paise.dataValues.name : "",
       servicios: useEmail.servicios
           ? useEmail.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
           : [],
