@@ -14,7 +14,7 @@ import makeAnimated from "react-select/animated";
 
 //actions
 import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
-import { getUsersBd } from "../../Redux/Actions/DevUser";
+
 import { HiOutlineSearch } from "react-icons/hi";
 
 export default function NavBar() {
@@ -28,9 +28,15 @@ export default function NavBar() {
     optionsServices,
   } = Selectores();
   const dispatch = useDispatch();
+  let checked = useSelector((state) => state.devUser.flag);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
+  // const [cacheSearched, setCacheSearched] = useLocalStorage({});
+  // const [searched, setSearched] = useState({
+  //   value: cacheSearched?.value ? cacheSearched?.value : "",
+  // });
+
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
@@ -57,6 +63,11 @@ export default function NavBar() {
   const refExperience = useRef();
   const refBudget = useRef();
   const refSearch = useRef();
+  // console.log(refTecnologies.current.props.value);
+
+  // const defaultValue =
+  //   refTecnologies.current.props.value === cacheFilter?.filterTecnologies;
+  // refSearch.current.value = `${cacheFilter?.filterTecnologies}`;
 
   const handleClear = () => {
     refSearch.current.value = "";
@@ -91,7 +102,32 @@ export default function NavBar() {
       OrderBud: ("OrderBud", ""),
       name: ("name", ""),
     });
+    // setCacheSearched({
+    //   value: ("value", ""),
+    // });
   };
+
+  const handleDefault = cacheFilter?.filterLanguajes.map((e) => {
+    return {
+      label: e,
+    };
+  });
+  const handleDefaultCountrie = cacheFilter?.filterCountries.map((e) => {
+    return {
+      label: e,
+    };
+  });
+
+  const handleDefaultService = cacheFilter?.filterServices.map((e) => {
+    return {
+      label: e,
+    };
+  });
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies.map((e) => {
+    return {
+      label: e,
+    };
+  });
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -111,7 +147,7 @@ export default function NavBar() {
       </button>
       <div className={s.bodySearch}>
         {/* <label className={s.switch}>
-          <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
+          <input type="checkbox" />
           <span className={s.slider_round}></span>
         </label> */}
 
@@ -125,12 +161,8 @@ export default function NavBar() {
             className={s.searchBar}
             type={"text"}
             placeholder={"Buscar..."}
+            name={checked ? "value" : "name"}
             onChange={(e) => {
-              // if(!checked){
-              //   dispatch( searchInput(e.target.value) )
-              //   console.log("checked", e.target.value)
-              // }else{
-              // console.log("no check", e.target.value)
               e.preventDefault();
               setActualFilter({
                 ...actualFilter,
@@ -140,6 +172,19 @@ export default function NavBar() {
                 ...cacheFilter,
                 name: e.target.value.trim(),
               });
+              // if (!checked) {
+              //   console.log("nocheck", e.target.value);
+              // } else {
+              //   setSearched({
+              //     ...searched,
+              //     value: e.target.value.trim(),
+              //   });
+              //   setCacheSearched({
+              //     ...cacheSearched,
+              //     value: e.target.value.trim(),
+              //   });
+              //   console.log("check", e.target.value);
+              //   dispatch(searchInput(cacheSearched));
               // }
             }}
             ref={refSearch}
@@ -171,6 +216,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por país..."
             styles={customStyles}
+            defaultValue={handleDefaultCountrie}
           />
         </div>
         <div>
@@ -197,6 +243,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por lenguaje..."
             styles={customStyles}
+            defaultValue={handleDefault}
           />
         </div>
         <div>
@@ -223,12 +270,12 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por servicios..."
             styles={customStyles}
+            defaultValue={handleDefaultService}
           />
         </div>
         <div>
           <Select
             onChange={(e) => {
-              console.log(e);
               setActualFilter({
                 ...actualFilter,
                 filterTecnologies: e.map((e) => e.label),
@@ -250,6 +297,7 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por tecnología..."
             styles={customStyles}
+            defaultValue={handleDefaultTecnologies}
           />
         </div>
         <div>
