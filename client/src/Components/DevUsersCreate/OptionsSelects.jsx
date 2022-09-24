@@ -9,23 +9,16 @@ import { getTecnologies } from "../../Redux/Actions/Tecnologies";
 
 export const Selectores = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCountries());
-    dispatch(getLanguajes());
-    dispatch(getTecnologies());
-    dispatch(getServices());
-  });
-
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
   const services = useSelector((state) => state.services.allServices);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
   const countries = useSelector((state) => state.countries.allCountries);
 
-  const optionsCountries = countries.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
+  useEffect(() => {
+    if (!countries) dispatch(getCountries());
+    if (!languajes) dispatch(getLanguajes());
+    if (!tecnologies) dispatch(getTecnologies());
+    if (!services) dispatch(getServices());
   });
 
   const optionsTecnologias = tecnologies.map((e) => {
@@ -49,7 +42,14 @@ export const Selectores = () => {
     };
   });
 
-  module.exports = {
+  const optionsCountries = countries.map((e) => {
+    return {
+      value: e.id,
+      label: e.name,
+    };
+  });
+
+  return {
     optionsServices,
     optionsLanguajes,
     optionsTecnologias,

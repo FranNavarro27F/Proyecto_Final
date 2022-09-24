@@ -249,9 +249,10 @@ export default function DevUsersCreate() {
   const {
     optionsTecnologias,
     optionsLanguajes,
-    // optionsCountries,
     optionsServices,
+    // optionsCountries,
   } = Selectores();
+
   const countries = useSelector((state) => state.countries.allCountries);
 
   const optionsCountries = countries.map((e) => {
@@ -260,9 +261,7 @@ export default function DevUsersCreate() {
       label: e.name,
     };
   });
-  console.log(optionsCountries);
 
-  console.log(optionsTecnologias);
   return !isAuthenticated ? (
     loginWithRedirect()
   ) : isLoading ? (
