@@ -62,7 +62,7 @@ export default function Details() {
       //   })
       // );
     }
-    SetContratoDetail(true);
+    SetContratoDetail(!contratoDetail);
   };
 
   const handleBack = () => {
@@ -101,7 +101,7 @@ export default function Details() {
           <div>
             <button
               className={s.buttonVolver}
-              onClick={() => SetContratoDetail(false)}
+              onClick={() => SetContratoDetail(!contratoDetail)}
             >
               VOLVER
             </button>

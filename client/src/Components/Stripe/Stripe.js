@@ -10,7 +10,10 @@ import axios from "axios";
 
 import Contracts from "../Contracts/Contracts";
 import { useSelector } from "react-redux";
-//import s from "../Stripe/Stripe.module.css"
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
+import { useAuth0 } from "@auth0/auth0-react";
+import s from "../Stripe/Stripe.module.css";
+import { Navigate, useNavigate } from "react-router-dom";
 //import Loader from '../'
 
 const stripePromise = loadStripe(
@@ -18,6 +21,7 @@ const stripePromise = loadStripe(
 );
 
 const CheckOutForm = () => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
@@ -37,7 +41,7 @@ const CheckOutForm = () => {
 
     if (!error) {
       try {
-        console.log(paymentMethod);
+        console.log(paymentMethod, "paymentMethod id");
         const { id } = paymentMethod;
         console.log(id, "holi");
         const info = await axios.post(
@@ -83,11 +87,20 @@ const CheckOutForm = () => {
 };
 
 function Stripe() {
-  const userDetail = useSelector((state) => state.allUser.details);
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+  const { userByEmail } = useFetchUsers(user?.email);
+
+  const userDetail = useSelector((state) => state.devUser.details);
   console.log(userDetail, "DETAILSSSSSSS");
   return (
-    <div>
-      <Contracts />
+    <div className={s.bodyPagos}>
+      <h1>{userByEmail?.id}</h1>
+      <h1>{userDetail?.id}</h1>
+      <Contracts
+        idDesarroyador={userDetail?.id}
+        idEmpleador={userByEmail?.id}
+      />
       <Elements stripe={stripePromise}>
         <div>
           <CheckOutForm />
