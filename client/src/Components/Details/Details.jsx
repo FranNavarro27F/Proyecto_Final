@@ -17,6 +17,7 @@ import "boxicons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
+import Pagos from "../Stripe/Stripe";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -43,14 +44,15 @@ export default function Details() {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [id, userByEmail?.id]);
   console.log(userByEmail);
-  // const [modal setModal] = useState
 
   const [contratoDetail, SetContratoDetail] = useState(false);
+  const [pagos, setPagos] = useState(false);
+
   const handleContact = () => {
-    if(userDetail){
-      dispatch(detailIdDev(userDetail.id))
-      navigate("/checkout")
-    }
+    // if (userDetail) {
+    //   // dispatch(detailIdDev(userDetail.id));
+    //   // navigate("/checkout");
+    // }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
       // dispatch(
@@ -59,8 +61,8 @@ export default function Details() {
       //     mailContrado: mailContrado,
       //   })
       // );
-      SetContratoDetail(true);
     }
+    SetContratoDetail(true);
   };
 
   const handleBack = () => {
@@ -105,7 +107,7 @@ export default function Details() {
             </button>
             <button
               className={s.buttonPago}
-              onClick={() => SetContratoDetail(false)}
+              onClick={() => navigate("/checkout")}
             >
               METODO DE PAGO
             </button>
@@ -641,13 +643,10 @@ export default function Details() {
                     >
                       Volver
                     </button>
-                    <Link to=""></Link>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
