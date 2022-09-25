@@ -2,7 +2,8 @@
 const { Router } = require("express");
 
 const Stripe = require('stripe')
-const cors = require('cors')
+const cors = require('cors');
+const { Contratos } = require("../../db")
 const router = Router();
 
 //a esta clave la podemos poner en una variable de entorno
@@ -13,17 +14,46 @@ router.use (cors({origin: 'http://localhost:3000'}))
 router.post('/', async (req, res) =>{
   try{
   //aca me traigo todas las props del pago
-  const { id } = req.body;
-console.log(req.body)
+  const { 
+    description,
+    date,
+    expiration_date,
+    price,
+    id,
+    employer,
+    developer,
+    status,
+    payment_id,
+    amount,
+    currency
+
+   } = req.body;
+  console.log(req.body)
 
   const payment = await stripe.paymentIntents.create({
     payment_method: id,
+    amount,
+    currency
     
   });
-console.log(payment)
+  console.log(payment)
+
+  const contrato = await Contratos.create({
+    description,
+    date,
+    expiration_date,
+    price,
+    employer,
+    developer,
+    status,
+    payment_id,
+    
+  })
+  console.log(contrato,"Este es el contrato que creee")
+
   res.send({message: "Pago realizado con éxito"})
 } catch(error){
-  console.log(error)
+  console.log("***********",error, "este es el error de catch")
   res.send({message: error.raw.message})
 }
 })

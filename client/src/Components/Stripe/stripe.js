@@ -16,7 +16,7 @@ const CheckOutForm = () => {
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
- let contrato = useSelector((state)=> state.countries.contrato)
+ let contrato = useSelector((state)=> state.contracts.contrato)
  console.log(contrato, "ACACONTRATOOOOO")
 
 
@@ -39,7 +39,10 @@ const CheckOutForm = () => {
       console.log(id, "holi")
       const info  = await axios.post('http://localhost:3001/checkout',{
         ...contrato,
-        payment_id: id
+        payment_id: id,
+        id: id,
+        currency:"usd",
+        amount: contrato.price
       })  
       
 
