@@ -8,7 +8,12 @@ import { setearContratoGlobal } from "../../Redux/Actions/Contracts";
 import { useNavigate } from "react-router-dom";
 // import { getUserContrato } from '../../Redux/Actions/DevUser';
 
-export default function Contracts({ idEmpleador, idDesarroyador }) {
+export default function Contracts({
+  idEmpleador,
+  idDesarroyador,
+  contrato,
+  setContrato,
+}) {
   const dispatch = useDispatch();
   // useEffect(()=>{
   //    dispatch(getUserContrato(user.email))
@@ -30,17 +35,17 @@ export default function Contracts({ idEmpleador, idDesarroyador }) {
   const developer = idDesarroyador;
   // const developer = "1e4d9511-6d10-4f19-9c00-08c3808a552c";
 
-  const [contrato, setContrato] = useState({
-    description: "",
-    date: "",
-    expiration_date: "",
-    price: "",
+  // const [contrato, setContrato] = useState({
+  //   description: "",
+  //   date: "",
+  //   expiration_date: "",
+  //   price: "",
 
-    employer: employer1,
-    developer: developer,
-    status: "Activo",
-    payment_id: "",
-  });
+  //   employer: employer1,
+  //   developer: developer,
+  //   status: "Activo",
+  //   payment_id: "",
+  // });
 
   function handleChange(e) {
     e.preventDefault();
@@ -54,8 +59,7 @@ export default function Contracts({ idEmpleador, idDesarroyador }) {
     console.log("tocaron");
     dispatch(setearContratoGlobal(contrato));
   }
-  const userDetail = useSelector((state) => state.devUser.details);
-  const navigate = useNavigate();
+
   return (
     <div>
       {/* <div>
@@ -91,9 +95,6 @@ export default function Contracts({ idEmpleador, idDesarroyador }) {
           onChange={(e) => handleChange(e)}
         ></input>
         <button>Mande</button>
-        <button onClick={() => navigate(`/work/details/${userDetail?.id}`)}>
-          VOLVER
-        </button>
       </form>
     </div>
   );

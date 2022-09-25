@@ -7,6 +7,8 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+// import "bootswatch/dist/lux/bootstrap.min.css";
+// import "bootswatch/dist/slate/bootstrap.min.css";
 
 import Contracts from "../Contracts/Contracts";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,19 +18,19 @@ import s from "../Stripe/Stripe.module.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
 //import Loader from '../'
-
 const stripePromise = loadStripe(
   "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
 );
 
-const CheckOutForm = () => {
+const CheckOutForm = ({ contrato }) => {
   const navigate = useNavigate();
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
+  const userDetail = useSelector((state) => state.devUser.details);
 
-  let contrato = useSelector((state) => state.contracts.contrato);
-  console.log(contrato, "ACACONTRATOOOOO");
+  let contratoA = useSelector((state) => state.contracts.contrato);
+  console.log(contratoA, "ACACONTRATOOOOO");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,11 +51,11 @@ const CheckOutForm = () => {
           "https://programax.up.railway.app/checkout" ||
             "http://localhost:3001/checkout",
           {
-            ...contrato,
+            ...contratoA,
             payment_id: id,
             id: id,
             currency: "usd",
-            amount: contrato.price,
+            amount: contratoA.price,
           }
         );
 
@@ -67,22 +69,107 @@ const CheckOutForm = () => {
   };
 
   return (
-    // <div className={s.backgroundC}>
     <div>
-      <form onSubmit={handleSubmit}>
-        {/* <div className={s.cardEle}>
-    <div className={s.textCard}>
-       */}
-        <CardElement />
-        {/* </div>  
-    </div> */}
-        <button disabled={!stripe}>
-          {/* loading ? (
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div className={s.cardEle}>
+            <div className={s.textCard}>
+              <div class="form-group">
+                <label for="card-element" className={s.text}>
+                  Credit or debit card
+                </label>
+                <div className={s.dataForm}>
+                  <label for="">Descripcion: {contrato?.description}</label>
+                  <label for="">Fecha de inicio: {contrato?.date}</label>
+                  <label for="">
+                    Fecha de finalizacion: {contrato?.expiration_date}
+                  </label>
+                  <label for="">Precio: {contrato?.price} USD</label>
+                </div>
+
+                <div id="card-element" className={`"form-control", ${s.asd}`}>
+                  <div className={s.divChipCardSvg}>
+                    <svg
+                      width="65"
+                      height="44"
+                      viewBox="0 0 65 44"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        width="64.625"
+                        height="44"
+                        rx="8"
+                        fill="url(#paint0_linear_2_12)"
+                      />
+                      <rect
+                        x="40.4375"
+                        y="7"
+                        width="29.6562"
+                        height="16.5938"
+                        rx="8.29688"
+                        transform="rotate(90 40.4375 7)"
+                        stroke="#9A9797"
+                        stroke-width="3"
+                      />
+                      <path
+                        d="M-5.36887e-07 27.8437L16.9926 27.8437C19.9276 27.8437 22.3778 25.6047 22.6415 22.6816V22.6816C22.6721 22.3425 22.6721 22.0013 22.6415 21.6622V21.6622C22.3778 18.7391 19.9276 16.5 16.9926 16.5L4.54815e-07 16.5"
+                        stroke="#9A9797"
+                        stroke-width="3"
+                      />
+                      <path
+                        d="M64.625 16.5L47.3289 16.5C44.5071 16.5 42.0856 18.5686 41.597 21.3477V21.3477C41.4822 22.0007 41.4842 22.6776 41.606 23.3293V23.3293C42.0949 25.9465 44.3794 27.8437 47.0418 27.8437L64.625 27.8437"
+                        stroke="#9A9797"
+                        stroke-width="3"
+                      />
+                      <line
+                        x1="33.125"
+                        x2="33.125"
+                        y2="6.1875"
+                        stroke="#9A9797"
+                        stroke-width="3"
+                      />
+                      <line
+                        x1="33.125"
+                        y1="37.8125"
+                        x2="33.125"
+                        y2="44"
+                        stroke="#9A9797"
+                        stroke-width="3"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="paint0_linear_2_12"
+                          x1="-7.5625"
+                          y1="28.1875"
+                          x2="54.3125"
+                          y2="28.1875"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <stop stop-color="#969090" />
+                          <stop offset="1" stop-color="#F4E8E8" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
+                <div className={s.cardDetail}>
+                  <CardElement />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button onClick={() => navigate(`/work/details/${userDetail?.id}`)}>
+            VOLVER
+          </button>
+          <button disabled={!stripe}>
+            {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
-          Contratar
-        </button>
-      </form>
+            Contratar
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
@@ -90,26 +177,45 @@ const CheckOutForm = () => {
 function Stripe() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  const dispatch = useDispatch();
-  // const { userByEmail } = useFetchUsers(user?.email);
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user]);
+
+  const { userByEmail } = useFetchUsers(user?.email);
+
   const userDetail = useSelector((state) => state.devUser.details);
-  const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  console.log(userDetail, "DETAILSSSSSSS");
-  console.log(userByEmail, "DETAILSSSSSSS EMAIL");
+  const employer1 = userByEmail?.id;
+
+  const developer = userDetail?.id;
+  const [contrato, setContrato] = useState({
+    description: "",
+    date: "",
+    expiration_date: "",
+    price: "",
+
+    employer: employer1,
+    developer: developer,
+    status: "Activo",
+    payment_id: "",
+  });
+
   return (
-    <div className={s.bodyPagos}>
-      <h1>{userByEmail?.id}</h1>
-      <h1>{userDetail?.id}</h1>
-      <Contracts
-        idDesarroyador={userDetail?.id}
-        idEmpleador={userByEmail?.id}
-      />
+    <div className={s.backgroundC}>
+      <div>
+        <Contracts
+          idDesarroyador={userDetail?.id}
+          idEmpleador={userByEmail?.id}
+          contrato={contrato}
+          setContrato={setContrato}
+        />
+      </div>
+
       <Elements stripe={stripePromise}>
-        <div>
-          <CheckOutForm />
+        <div className="container p-4">
+          <div className="row">
+            <div className="col-md-4 offset-md-4">
+              {/* <div className={s.checkOut}> */}
+              <CheckOutForm contrato={contrato} setContrato={setContrato} />
+              {/* </div> */}
+            </div>
+          </div>
         </div>
       </Elements>
     </div>
