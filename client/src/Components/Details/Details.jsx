@@ -83,12 +83,20 @@ export default function Details() {
 
   const contrato = () => {
     return (
-      <div className={s.bodyContrato}>
-        <h1>PROPUESTA</h1>
-        <h2>Contrata a {userDetail?.name} Y HAZLE UNA PROPUESTA</h2>
-        <textarea type="textarea" rows="50" cols="50" />
-        <div>
-          <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
+      <div className={s.bodyPropuesta}>
+        <div className={s.conteiner}>
+          <h1>PROPUESTA</h1>
+          <h2>
+            Contrata a {userDetail?.name} {userDetail?.lastName} y hazle una
+            propuesta !
+          </h2>
+          <textarea type="textarea" rows="10" cols="70" />
+          <div>
+            <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
+            <button onClick={() => SetContratoDetail(false)}>
+              METODO DE PAGO
+            </button>
+          </div>
         </div>
       </div>
     );
