@@ -24,11 +24,11 @@ export default function Contracts({ idEmpleador, idDesarroyador }) {
   // const limpio = (employer?.filter(c => c.email === user.email));
   // console.log(limpio, "ID")
   //gus
-  const employer1 = "5b77759a-ddb9-4b74-b562-8afb981dfd79";
-  // const employer1 = idEmpleador;
+  // const employer1 = "5b77759a-ddb9-4b74-b562-8afb981dfd79";
+  const employer1 = idEmpleador;
   //fran
-  // const developer = idDesarroyador;
-  const developer = "1e4d9511-6d10-4f19-9c00-08c3808a552c";
+  const developer = idDesarroyador;
+  // const developer = "1e4d9511-6d10-4f19-9c00-08c3808a552c";
 
   const [contrato, setContrato] = useState({
     description: "",
