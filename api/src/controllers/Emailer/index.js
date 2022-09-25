@@ -1,12 +1,8 @@
 const nodemailer = require("nodemailer");
-const {
-    GMAILPW,
-    GMAILUSER
-} = process.env;
+const { GMAILPW, GMAILUSER } = process.env;
 
-console.log( GMAILPW, GMAILUSER)
+// console.log( GMAILPW, GMAILUSER)
 async function main(nombreContratista, mailContrado) {
-
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -14,11 +10,11 @@ async function main(nombreContratista, mailContrado) {
     secure: true, // true for 465, false for other ports
     auth: {
       user: GMAILUSER, // generated ethereal user
-      pass: GMAILPW // generated ethereal password
+      pass: GMAILPW, // generated ethereal password
     },
     tls: {
-      rejectUnauthorized: false
-  }
+      rejectUnauthorized: false,
+    },
   });
 
   // send mail with defined transport object
@@ -45,5 +41,5 @@ async function main(nombreContratista, mailContrado) {
 }
 
 module.exports = {
-    main,
-}
+  main,
+};
