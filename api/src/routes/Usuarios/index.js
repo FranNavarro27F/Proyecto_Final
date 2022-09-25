@@ -8,24 +8,21 @@ const {
   getUserByName,
   modifUser,
   postUserAuth,
-  getByEmail
-
+  getByEmail,
 } = require("../../controllers/Usuarios");
 
 const router = Router();
-
-const PATH = "/usuarios";
 
 // -----------------------------------------------
 
 router.get("/", async (req, res) => {
   try {
-    let {name, email}=req.query;
-    if(name){
-      res.json(await getUserByName(name))
-    }else if(email){
-      res.json(await getByEmail(email))
-    }else{
+    let { name, email } = req.query;
+    if (name) {
+      res.json(await getUserByName(name));
+    } else if (email) {
+      res.json(await getByEmail(email));
+    } else {
       res.json(await getUsers());
     }
   } catch (e) {
@@ -59,52 +56,45 @@ router.get("/:id", async (req, res) => {
 //   }
 // });
 
-
 router.put("/", async (req, res) => {
   try {
-
     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
 
     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
       res.sendStatus(400).send(`Error --→ ${e}`);
-        // .json("Falta alguno de los campos importantes. Por favor revisar");
+      // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
       let usuario = await modifUser(req.body);
 
-      res.json(usuario);
+      res.status(201).json(usuario);
     }
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
-
-router.post("/", async(req, res)=>{
+router.post("/", async (req, res) => {
   try {
+    let { email, family_name, given_name, picture } = req.body;
 
-    let {email, family_name, given_name, picture} = req.body
-
-    if(!family_name || !given_name || !email){
-      res.sendStatus(400)
-    }else{
-      let usuario = await postUserAuth(req.body)
-      res.json(usuario)
+    if (!family_name || !given_name || !email) {
+      res.sendStatus(400);
+    } else {
+      let usuario = await postUserAuth(req.body);
+      res.json(usuario);
     }
-    
   } catch (e) {
-    res.sendStatus(400).send(`Error --→ ${e}`)
+    res.sendStatus(400).send(`Error --→ ${e}`);
   }
-})
-
+});
 
 router.delete("/:id", async (req, res) => {
   try {
-    let {id}= req.params;
+    let { id } = req.params;
     res.json(await deleteUser(id));
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
-
 
 module.exports = router;

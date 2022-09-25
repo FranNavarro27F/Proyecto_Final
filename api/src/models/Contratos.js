@@ -1,60 +1,73 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("contratos", {
-    //
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-
-    employer: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    developer: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
-
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-
-    date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      validate: {
-        isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+  sequelize.define(
+    "contratos",
+    {
+      //
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
-    },
 
-    expiration_date: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      validate: {
-        isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+      //  EMPLOYER & DEVELOPER TRAEN SUS IDs DEL LOGIN
+
+      employer: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-    },
 
-    status: {
-      type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+      developer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        validate: {
+          isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+        },
+      },
+
+      expiration_date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        validate: {
+          isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
+        },
+      },
+
+      status: {
+        // type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+        type: DataTypes.STRING(20),
+        validate: {
+          isAlpha: true,
+        },
+      },
+
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+
+      payment_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      //
     },
-    precio:{
-      type: DataTypes.INTEGER,
-      allowNull: false,   
-    },
-    
-    //
-  },{
-    createdAt: false,
-    updatedAt: false,
-  })
+    {
+      createdAt: false,
+      updatedAt: false,
+    }
+  );
 };
 
 // -----------------------------------------

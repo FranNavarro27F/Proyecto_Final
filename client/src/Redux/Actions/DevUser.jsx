@@ -43,16 +43,28 @@ export function getDevUsers(payload) {
     }
   };
 }
-
 export function getUserId(id) {
-  console.log(id, "id action");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-      console.log(userId, "este es el user id");
       return dispatch({
         type: "GET_USER_ID",
         payload: userId,
+      });
+    } catch (error) {
+      console.log(error, "error TryCatch");
+    }
+  };
+}
+
+export function getUserEmail(email) {
+  console.log(email, "action");
+  return async function (dispatch) {
+    try {
+      const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
+      return dispatch({
+        type: "GET_USER_EMAIL",
+        payload: userEmail,
       });
     } catch (error) {
       console.log(error, "error TryCatch");
@@ -70,10 +82,10 @@ export function detailReset() {
 
 export function getUserSearchBar() {
   return async function (dispatch) {
-    const userSB = (await axios.get(`/usuarios`)).data
+    const userSB = (await axios.get(`/usuarios`)).data;
     return dispatch({
       type: "GET_USER_SEARCHBAR",
       payload: userSB,
-       })
-  }
+    });
+  };
 }

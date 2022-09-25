@@ -9,7 +9,6 @@ import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
 import Select from "react-select";
 
-
 import Selectores from "../Selectores/Selectores";
 import makeAnimated from "react-select/animated";
 
@@ -35,7 +34,7 @@ export default function NavBar() {
   // }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  const [checked, setChecked]= useState(false);
+  const [checked, setChecked] = useState(false);
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
@@ -54,7 +53,6 @@ export default function NavBar() {
     OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "",
     name: "",
   });
-  
 
   const refCountries = useRef();
   const refServices = useRef();
@@ -63,10 +61,9 @@ export default function NavBar() {
   const refExperience = useRef();
   const refBudget = useRef();
   const refSearch = useRef();
-  
 
   const handleClear = () => {
-    refSearch.current.value="";
+    refSearch.current.value = "";
     refCountries.current.clearValue();
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
@@ -81,7 +78,7 @@ export default function NavBar() {
     });
 
     setActualFilter({
-      name:"",
+      name: "",
       filterTecnologies: [],
       filterServices: [],
       filterLanguajes: [],
@@ -99,6 +96,36 @@ export default function NavBar() {
       name: ("name", ""),
     });
   };
+  const handleDefault = cacheFilter?.filterLanguajes
+    ? cacheFilter?.filterLanguajes.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultCountrie = cacheFilter?.filterCountries
+    ? cacheFilter?.filterCountries.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultService = cacheFilter?.filterServices
+    ? cacheFilter?.filterServices.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
+    ? cacheFilter?.filterTecnologies.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -109,6 +136,7 @@ export default function NavBar() {
       <Link to="/">
         <img src={logo} alt="programax" className={s.logo} />
       </Link>
+
       <button
         className={!filtrados.length ? s.buttonClearAlert : s.buttonClear}
         onClick={() => handleClear()}
@@ -116,42 +144,44 @@ export default function NavBar() {
         <span> LIMPIAR FILTROS</span>
         <AiOutlineClear />
       </button>
-      <div className={s.bodySearch}>
 
+      <div className={s.bodySearch}>
         {/* <label className={s.switch}>
           <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
           <span className={s.slider_round}></span>
         </label> */}
-        
-      <form>
-        <span>
-          <HiOutlineSearch />
-        </span>
 
-        <input
-          value={cacheFilter?.name}
-          className={s.searchBar}
-          type={"text"}
-          placeholder={"Buscar..."}
-          onChange={(e)=>{
-            // if(!checked){
-            //   dispatch( searchInput(e.target.value) )
-            //   console.log("checked", e.target.value)
-            // }else{
+        <form>
+          <span>
+            <HiOutlineSearch />
+          </span>
+
+          <input
+            value={cacheFilter?.name}
+            className={s.searchBar}
+            type={"text"}
+            placeholder={"Buscar..."}
+            onChange={(e) => {
+              // if(!checked){
+              //   dispatch( searchInput(e.target.value) )
+              //   console.log("checked", e.target.value)
+              // }else{
               // console.log("no check", e.target.value)
               e.preventDefault();
               setActualFilter({
-                  ...actualFilter, name: e.target.value.trim() 
+                ...actualFilter,
+                name: e.target.value.trim(),
               });
-              setCacheFilter( {
-                ...cacheFilter, name: e.target.value.trim() 
+              setCacheFilter({
+                ...cacheFilter,
+                name: e.target.value.trim(),
               });
-            // }
-          }}
-          ref={refSearch}
-        ></input>
-      </form>
-    </div>
+              // }
+            }}
+            ref={refSearch}
+          ></input>
+        </form>
+      </div>
       <div className={s.divGen}>
         <div className={s.filterCountrie}>
           <Select
@@ -177,6 +207,21 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por país..."
             styles={customStyles}
+            defaultValue={handleDefaultCountrie}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -203,6 +248,21 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por lenguaje..."
             styles={customStyles}
+            defaultValue={handleDefault}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -227,7 +287,22 @@ export default function NavBar() {
             isClearable={true}
             isSearchable={true}
             isMulti={true}
+            defaultValue={handleDefaultService}
             placeholder="Filtra por servicios..."
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
             styles={customStyles}
           />
         </div>
@@ -256,6 +331,21 @@ export default function NavBar() {
             isMulti={true}
             placeholder="Filtra por tecnología..."
             styles={customStyles}
+            defaultValue={handleDefaultTecnologies}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
         <div>
@@ -274,6 +364,20 @@ export default function NavBar() {
                 OrderExp: e.value,
               });
             }}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
             className={s.select}
             isDisabled={false}
             options={optionsOrderExp}
@@ -308,6 +412,20 @@ export default function NavBar() {
             isMulti={false}
             placeholder="Ordenar por costo diario"
             styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
           />
         </div>
 

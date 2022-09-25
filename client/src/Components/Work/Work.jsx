@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Card from "./Card/Card";
 import s from "./Work.module.css";
 import NavBar from "../NavBar/NavBar";
@@ -15,12 +15,12 @@ import SideMenuWork from "./SideMenuWork/SideMenuWork";
 export default function Work() {
   const dispatch = useDispatch();
 
-  const filtrados = useSelector((state) => state.devUser.filteredUsers);
+  let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
   const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
   }, [dispatch, allUsers]);
 

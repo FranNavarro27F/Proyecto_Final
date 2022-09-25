@@ -17,15 +17,17 @@ import Loader from "../Loader/Loader";
 import useFetchAllData from "../../Hooks/useFetchAllData";
 
 //actions
-import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
+import {
+  getUserEmail,
+  getUserId,
+  getUsersBd,
+  postDevUser,
+} from "../../Redux/Actions/DevUser";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
-import { getCountries } from "../../Redux/Actions/Countries";
-import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import { getServices } from "../../Redux/Actions/Services";
-import { getLanguajes } from "../../Redux/Actions/Languajes";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
@@ -37,17 +39,22 @@ export default function DevUsersCreate() {
   const refServices = useRef();
   const refLanguajes = useRef();
   const refTecnologies = useRef();
-  // console.log(refTecnologies.current.props.value);
+
+  useEffect(() => {
+    getUserEmail(user?.email);
+  });
+
+  const { userByEmail } = useFetchUsers(user?.email);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache?.name : `${user?.given_name}`,
-    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
+    name: cache?.name ? cache?.name : `${userByEmail?.name}`,
+    lastName: cache?.lastName ? cache?.lastName : `${userByEmail?.lastName}`,
     profilePicture: cache?.profilePicture
       ? cache?.profilePicture
-      : `${user?.picture}`,
-    email: cache?.email ? cache?.email : `${user?.email}`,
+      : `${userByEmail?.profilePicture}`,
+    email: cache?.email ? cache?.email : `${userByEmail?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
@@ -183,10 +190,10 @@ export default function DevUsersCreate() {
         navigate("/work");
       }, 1500);
       setCache({
-        name: ("name", `${user?.given_name}`),
-        lastName: ("lastName", `${user?.family_name}`),
+        name: ("name", `${userByEmail?.name}`),
+        lastName: ("lastName", `${userByEmail?.lastName}`),
         profilePicture: ("profilePicture", `${cache?.profilePicture}`),
-        email: ("email", `${user?.email}`),
+        email: ("email", `${userByEmail?.email}`),
         linkedIn: ("linkedIn", ""),
         gitHub: ("gitHub", ""),
         webSite: ("webSite", ""),
@@ -199,10 +206,16 @@ export default function DevUsersCreate() {
         servicios: ("servicios", []),
       });
     } else {
-      console.log(`hay errores`, errors);
+      alert(`hay errores`, errors);
     }
   };
-  // console.log(user);
+
+  const handleDefaultCountrie = [
+    {
+      label: cache?.paiseId,
+    },
+  ];
+
   const handleReset = () => {
     refCountries.current.setValue({
       value: "default",
@@ -215,7 +228,7 @@ export default function DevUsersCreate() {
       name: ("name", ``),
       lastName: ("lastName", ``),
       profilePicture: ("profilePicture", ``),
-      email: `${user?.email}`,
+      email: `${userByEmail?.email}`,
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
@@ -231,7 +244,7 @@ export default function DevUsersCreate() {
       name: ``,
       lastName: ``,
       profilePicture: ``,
-      email: `${user?.email}`,
+      email: `${userByEmail?.email}`,
       linkedIn: "",
       gitHub: "",
       webSite: "",
@@ -250,17 +263,29 @@ export default function DevUsersCreate() {
   const {
     optionsTecnologias,
     optionsLanguajes,
-    optionsCountries,
     optionsServices,
+    // optionsCountries,
   } = Selectores();
 
-  console.log(optionsTecnologias);
+  const countries = useSelector((state) => state.countries.allCountries);
+
+  const optionsCountries = countries.map((e) => {
+    return {
+      value: e.id,
+      label: e.name,
+    };
+  });
+
+  if (isLoading && !user.email && !userByEmail.email) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
   return !isAuthenticated ? (
     loginWithRedirect()
-  ) : isLoading ? (
-    <Loader />
-  ) : !user.email ? (
-    <Loader />
   ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
@@ -275,7 +300,7 @@ export default function DevUsersCreate() {
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               // value={cache?.name}
-              defaultValue={input.name}
+              defaultValue={input?.name}
               name="name"
               className={s.inputName}
             />
@@ -292,7 +317,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input.lastName}
+              defaultValue={input?.lastName}
               // value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
@@ -519,20 +544,22 @@ export default function DevUsersCreate() {
               isMulti={false}
               styles={customStyles}
               placeholder="Selecciona un pais"
+              defaultValue={handleDefaultCountrie}
               onChange={(e) => {
+                console.log(e);
                 setInput({
                   ...input,
-                  paiseId: e.value,
+                  paiseId: e.label,
                 });
                 setErrors(
                   validaciones({
                     ...input,
-                    paiseId: e.value,
+                    paiseId: e.label,
                   })
                 );
                 setCache({
                   ...cache,
-                  paiseId: e.value,
+                  paiseId: e.label,
                 });
               }}
             />
@@ -621,6 +648,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              // defaultValue={handleDefaultService}
               ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}
@@ -661,13 +689,23 @@ export default function DevUsersCreate() {
           <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
-          <button
-            className={s.buttonCreate}
-            // disabled={disabledButton}
-            onClick={(e) => handleCreate(e)}
-          >
-            <span className={s.button_top}> CREAR PERFIL</span>
-          </button>
+          {!userByEmail?.postulado ? (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> CREAR POSTULACION</span>
+            </button>
+          ) : (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> EDITAR POSTULACION</span>
+            </button>
+          )}
         </div>
       </div>
     </div>
