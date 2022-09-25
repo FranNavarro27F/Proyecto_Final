@@ -58,9 +58,9 @@ router.get("/:id", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-    let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
+    let { email, paiseId } = req.body;
 
-    if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
+    if (!email || !paiseId) {
       res.sendStatus(400).send(`Error --→ ${e}`);
       // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
