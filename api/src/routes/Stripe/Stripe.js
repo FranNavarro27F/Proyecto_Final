@@ -27,7 +27,7 @@ router.post('/', async (req, res) =>{
     currency
 
    } = req.body;
-  
+  console.log(req.body)
 
    //aca creo el pago en Stripe
   const payment = await stripe.paymentIntents.create({
