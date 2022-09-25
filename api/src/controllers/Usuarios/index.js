@@ -280,7 +280,7 @@ const getUserByName = async (name) => {
 const postUserAuth = async (data)=>{
     try {
       
-      let {email, family_name, given_name, picture, isAdmin} = data
+      let {email, family_name, given_name, picture, isAdmin, registrado} = data
 
       const [row, created] = await Usuarios.findOrCreate({
         where: {
@@ -290,7 +290,8 @@ const postUserAuth = async (data)=>{
           name: given_name,
           lastName: family_name,
           profilePicture: picture,
-          isAdmin: isAdmin
+          isAdmin: isAdmin,
+          registrado: registrado
         }
       })
 
@@ -427,7 +428,7 @@ const modifUser = async (data) => {
       //   modUs.servicios = nameSer
       // }
       
-      return modUsr
+      return "Usuario modificado correctamente"
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
   }
