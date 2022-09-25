@@ -538,6 +538,10 @@ export default function Details() {
             </a>
             {/* <span>{userDetail.webSite}</span> */}
             <br />
+            <box-icon 
+            color="white"
+            name='diamond'>
+            </box-icon>
             <span>Años de Experiencia: </span>
             <span>
               {" "}
@@ -546,6 +550,10 @@ export default function Details() {
                 : userDetail.yearsOfExperience}
             </span>
             <br />
+            <box-icon 
+            name='money'
+            color="white" 
+            ></box-icon>
             <span>Presupuesto por día: </span>
             <span>
               {!userProfile ? userDetail.dailyBudget : userDetail.dailyBudget}
