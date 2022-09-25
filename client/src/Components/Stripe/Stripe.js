@@ -1,102 +1,114 @@
-import React, { useState } from 'react';
-import {loadStripe} from '@stripe/stripe-js'
-import {Elements, CardElement, useStripe, useElements}from '@stripe/react-stripe-js'
-import axios from 'axios';
+import React, { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
 
-import Contracts from '../Contracts/Contracts';
-import { useSelector } from 'react-redux';
-//import s from "../Stripe/Stripe.module.css"
+import Contracts from "../Contracts/Contracts";
+import { useSelector } from "react-redux";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
+import { useAuth0 } from "@auth0/auth0-react";
+import s from "../Stripe/Stripe.module.css";
+import { Navigate, useNavigate } from "react-router-dom";
 //import Loader from '../'
-
 
 const stripePromise = loadStripe(
   "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
 );
 
 const CheckOutForm = () => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
 
- let contrato = useSelector((state)=> state.contracts.contrato)
- console.log(contrato, "ACACONTRATOOOOO")
-
-
+  let contrato = useSelector((state) => state.contracts.contrato);
+  console.log(contrato, "ACACONTRATOOOOO");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-  const {error, paymentMethod} = await stripe.createPaymentMethod({
-    type: 'card',
-    card: element.getElement(CardElement)
 
-  });
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: element.getElement(CardElement),
+    });
 
-  //setLoading(true)
-
-  if (!error){
-    try {
-      console.log(paymentMethod)
-      const { id } = paymentMethod;
-      console.log(id, "holi")
-      const info  = await axios.post( "https://programax.up.railway.app/checkout"||'http://localhost:3001/checkout'  ,{
-        ...contrato,
-        payment_id: id,
-        id: id,
-        currency:"usd",
-        amount: contrato.price
-      })  
-      
-
-      element.getElement(CardElement).clear();
-    } catch (error) {
-      //console.log(info)
-      console.log(error)      
-
-    }
     //setLoading(true)
-    }
- };
 
- 
+    if (!error) {
+      try {
+        console.log(paymentMethod, "paymentMethod id");
+        const { id } = paymentMethod;
+        console.log(id, "holi");
+        const info = await axios.post(
+          "https://programax.up.railway.app/checkout" ||
+            "http://localhost:3001/checkout",
+          {
+            ...contrato,
+            payment_id: id,
+            id: id,
+            currency: "usd",
+            amount: contrato.price,
+          }
+        );
+
+        element.getElement(CardElement).clear();
+      } catch (error) {
+        //console.log(info)
+        console.log(error);
+      }
+      //setLoading(true)
+    }
+  };
+
   return (
     // <div className={s.backgroundC}>
     <div>
-  <form onSubmit={handleSubmit} >
-    {/* <div className={s.cardEle}>
+      <form onSubmit={handleSubmit}>
+        {/* <div className={s.cardEle}>
     <div className={s.textCard}>
        */}
-    <CardElement />
-    {/* </div>  
+        <CardElement />
+        {/* </div>  
     </div> */}
-   <button  disabled={!stripe}>
-
-    {/* loading ? (
+        <button disabled={!stripe}>
+          {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
-    Contratar
-    </button>
-  </form>
-
-  </div>
-  );
-};
-
-function Stripe(){
-  return (
-    <div>
-      <Contracts/>
-    <Elements stripe={stripePromise}>
-      <div>
-        
-        <CheckOutForm />
-      </div>
-    </Elements>
+          Contratar
+        </button>
+      </form>
     </div>
-
   );
 };
 
+function Stripe() {
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+  const { userByEmail } = useFetchUsers(user?.email);
+
+  const userDetail = useSelector((state) => state.devUser.details);
+  console.log(userDetail, "DETAILSSSSSSS");
+  return (
+    <div className={s.bodyPagos}>
+      <h1>{userByEmail?.id}</h1>
+      <h1>{userDetail?.id}</h1>
+      <Contracts
+        idDesarroyador={userDetail?.id}
+        idEmpleador={userByEmail?.id}
+      />
+      <Elements stripe={stripePromise}>
+        <div>
+          <CheckOutForm />
+        </div>
+      </Elements>
+    </div>
+  );
+}
 
 export default Stripe;
 
