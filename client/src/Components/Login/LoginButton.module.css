@@ -25,3 +25,9 @@
   line-height: 26px;
   cursor: pointer;
 }
+.buttonLg:hover {
+  transition-delay: 0.2s;
+  transition: 0.3s;
+  transform: scale(1.03);
+  cursor: pointer;
+}
