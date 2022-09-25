@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements, CardElement, useStripe, useElements}from '@stripe/react-stripe-js'
 import axios from 'axios';
+
+import Contracts from '../Contracts/Contracts';
+import { useSelector } from 'react-redux';
+//import s from "../Stripe/Stripe.module.css"
 //import Loader from '../'
 
 
@@ -14,13 +18,20 @@ const CheckOutForm = () => {
   const element = useElements();
   //const [loading, setLoading] =useState(false);
 
+ let contrato = useSelector((state)=> state.contracts.contrato)
+ console.log(contrato, "ACACONTRATOOOOO")
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
   const {error, paymentMethod} = await stripe.createPaymentMethod({
     type: 'card',
     card: element.getElement(CardElement)
+
   });
+
   //setLoading(true)
 
   if (!error){
@@ -28,41 +39,64 @@ const CheckOutForm = () => {
       console.log(paymentMethod)
       const { id } = paymentMethod;
       console.log(id, "holi")
-      const info  = await axios.post('http://localhost:3001/checkout',{
-        id,
-        amount: 100000
-      })   
-      element.getElement(CardElement).clear();
+      const info  = await axios.post( "https://programax.up.railway.app/checkout"||'http://localhost:3001/checkout'  ,{
+        ...contrato,
+        payment_id: id,
+        id: id,
+        currency:"usd",
+        amount: contrato.price
+      })  
       
+
+      element.getElement(CardElement).clear();
     } catch (error) {
-      // console.log(info)
-       console.log(error)      
+      //console.log(info)
+      console.log(error)      
+
     }
     //setLoading(true)
     }
  };
+
+ 
   return (
+    // <div className={s.backgroundC}>
+    <div>
   <form onSubmit={handleSubmit} >
-   <CardElement/>
-   <button disabled={!stripe}>
+    {/* <div className={s.cardEle}>
+    <div className={s.textCard}>
+       */}
+    <CardElement />
+    {/* </div>  
+    </div> */}
+   <button  disabled={!stripe}>
+
     {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
     Contratar
     </button>
   </form>
+
+  </div>
   );
 };
 
-function Stripe() {
+function Stripe(){
   return (
+    <div>
+      <Contracts/>
     <Elements stripe={stripePromise}>
       <div>
+        
         <CheckOutForm />
       </div>
     </Elements>
+    </div>
+
   );
-}
+};
+
 
 export default Stripe;
 
