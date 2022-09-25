@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import s from "./DevUsersCreate.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import { validaciones } from "./Validaciones";
+import { validacionesEdit } from "./ValidacionesEdit";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
@@ -19,15 +20,13 @@ import useFetchAllData from "../../Hooks/useFetchAllData";
 //actions
 import {
   getUserEmail,
-  getUserId,
   getUsersBd,
-  postDevUser,
+  putDevUser,
 } from "../../Redux/Actions/DevUser";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
-import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
@@ -39,12 +38,14 @@ export default function DevUsersCreate() {
   const refServices = useRef();
   const refLanguajes = useRef();
   const refTecnologies = useRef();
+  const refName = useRef();
+  const reflastName = useRef();
 
   useEffect(() => {
-    getUserEmail(user?.email);
-  });
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch]);
 
-  const { userByEmail } = useFetchUsers(user?.email);
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -63,7 +64,7 @@ export default function DevUsersCreate() {
       ? cache?.yearsOfExperience
       : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : "",
+    paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
       [],
@@ -73,6 +74,7 @@ export default function DevUsersCreate() {
     servicios:
       // cache?.servicios ? cache?.servicios :
       [],
+    postulado: true,
   });
 
   const handleChangeInput = (e) => {
@@ -80,12 +82,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    if (userByEmail.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: e.target.value,
@@ -115,12 +126,23 @@ export default function DevUsersCreate() {
             ...input,
             profilePicture: url,
           });
-          setErrors(
-            validaciones({
-              ...cache,
-              profilePicture: url,
-            })
-          );
+
+          if (userByEmail?.postulado) {
+            setErrors(
+              validacionesEdit({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          } else {
+            setErrors(
+              validaciones({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          }
+
           setCache({
             ...cache,
             profilePicture: url,
@@ -152,12 +174,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: ingles(),
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: ingles(),
-      })
-    );
+    if (userByEmail?.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: ingles(),
@@ -175,20 +206,7 @@ export default function DevUsersCreate() {
       refServices.current.clearValue();
       refLanguajes.current.clearValue();
       refTecnologies.current.clearValue();
-      dispatch(
-        postDevUser({
-          ...input,
-          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-          lastName:
-            input.lastName[0].toUpperCase() +
-            input.lastName.slice(1).toLowerCase(),
-        })
-      );
       setModal(true);
-      dispatch(getUsersBd());
-      setTimeout(() => {
-        navigate("/work");
-      }, 1500);
       setCache({
         name: ("name", `${userByEmail?.name}`),
         lastName: ("lastName", `${userByEmail?.lastName}`),
@@ -200,11 +218,22 @@ export default function DevUsersCreate() {
         yearsOfExperience: ("yearsOfExperience", "0"),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", ""),
+        paiseId: ("paiseId", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
+        postulado: ("postulado", true),
       });
+      setTimeout(() => {
+        navigate("/work");
+      }, 1500);
+      dispatch(
+        putDevUser({
+          ...input,
+          postulado: true,
+        })
+      );
+      dispatch(getUsersBd());
     } else {
       alert(`hay errores`, errors);
     }
@@ -221,6 +250,8 @@ export default function DevUsersCreate() {
       value: "default",
       label: "Selecciona un país...",
     });
+    refName.current.value = "";
+    reflastName.current.value = "";
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
@@ -228,17 +259,18 @@ export default function DevUsersCreate() {
       name: ("name", ``),
       lastName: ("lastName", ``),
       profilePicture: ("profilePicture", ``),
-      email: `${userByEmail?.email}`,
+      email: ("email", `${userByEmail?.email}`),
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
+      paiseId: ("paiseId", []),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
+      postulado: true,
     });
     setInput({
       name: ``,
@@ -251,10 +283,11 @@ export default function DevUsersCreate() {
       yearsOfExperience: "0",
       dailyBudget: "0",
       englishLevel: "Básico",
-      paiseId: "",
+      paiseId: [],
       tecnologias: [],
       lenguajes: [],
       servicios: [],
+      postulado: true,
     });
     setLoader(false);
   };
@@ -276,7 +309,13 @@ export default function DevUsersCreate() {
     };
   });
 
-  if (isLoading && !user.email && !userByEmail.email) {
+  if (
+    isLoading &&
+    input.name === undefined &&
+    userByEmail?.email === undefined &&
+    input.email === undefined &&
+    input.profile.Picture === undefined
+  ) {
     return (
       <div>
         <Loader />
@@ -295,6 +334,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
+              ref={refName}
               type="text"
               placeholder="Tu Nombre..."
               autoComplete="on"
@@ -313,6 +353,7 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
+              ref={reflastName}
               type="text"
               placeholder="Tu Apellido..."
               autoComplete="on"
@@ -546,20 +587,30 @@ export default function DevUsersCreate() {
               placeholder="Selecciona un pais"
               defaultValue={handleDefaultCountrie}
               onChange={(e) => {
-                console.log(e);
                 setInput({
                   ...input,
-                  paiseId: e.label,
+                  paiseId: e?.value,
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    paiseId: e.label,
-                  })
-                );
+
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
-                  paiseId: e.label,
+                  paiseId: e?.value,
                 });
               }}
             />
@@ -589,12 +640,22 @@ export default function DevUsersCreate() {
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    tecnologias: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
                   tecnologias: e.map((ele) => ele.value),
@@ -627,12 +688,22 @@ export default function DevUsersCreate() {
                   ...input,
                   lenguajes: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    lenguajes: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
                   lenguajes: e.map((ele) => ele.value),
@@ -666,12 +737,22 @@ export default function DevUsersCreate() {
                   ...input,
                   servicios: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    servicios: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...input,
                   servicios: e.map((ele) => ele.value),

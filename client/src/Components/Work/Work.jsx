@@ -11,6 +11,7 @@ import Paged from "../Paged/Paged";
 import ModalWork from "./ModalWork/ModalWork";
 import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function Work() {
   const dispatch = useDispatch();
@@ -18,11 +19,11 @@ export default function Work() {
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const allUsers = useSelector((state) => state.devUser.allUsers);
+  const { allUsers } = useFetchUsers();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
-  }, [dispatch, allUsers]);
+  }, [allUsers.length, dispatch]);
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
