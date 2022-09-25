@@ -11,9 +11,16 @@ export default function CardHome({ work }) {
       <Ellipse />
       <h1 className={s.titlew}>Trabajos recientes</h1>
       <div>
-        <CardW1 />
-        <CardW2 />
-        <CardW3 />
+        <section class="container">
+          <div
+            id="carousel"
+            // style={{ transform: "translateZ(-288px) rotateY(-360deg)" }}
+          >
+            <CardW1 />
+            <CardW2 />
+            <CardW3 />
+          </div>
+        </section>
       </div>
     </div>
   );

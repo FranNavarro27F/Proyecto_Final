@@ -1,5 +1,20 @@
 import axios from "axios";
 
+export function putDevUser(payload) {
+  return async function (dispatch) {
+    console.log(payload, "PUT action ");
+    try {
+      let json = (await axios.put(`/usuarios`, payload)).data;
+      return dispatch({
+        type: "PUT_DEVUSER",
+        payload: json,
+      });
+    } catch (error) {
+      console.log("Catch del post");
+      console.error(error.message, "error en el post: actions");
+    }
+  };
+}
 export function postDevUser(payload) {
   return async function (dispatch) {
     console.log(payload, "Post action ");
@@ -43,13 +58,10 @@ export function getDevUsers(payload) {
     }
   };
 }
-
 export function getUserId(id) {
-  console.log(id, "id action");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-      console.log(userId, "este es el user id");
       return dispatch({
         type: "GET_USER_ID",
         payload: userId,
@@ -61,11 +73,10 @@ export function getUserId(id) {
 }
 
 export function getUserEmail(email) {
-  console.log(email, "email action");
+  console.log(email, "action");
   return async function (dispatch) {
     try {
-      const userEmail = (await axios.get(`/usuarios?=${email}`)).data;
-      console.log(userEmail, "este es el user email");
+      const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
       return dispatch({
         type: "GET_USER_EMAIL",
         payload: userEmail,

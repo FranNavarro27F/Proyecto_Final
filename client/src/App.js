@@ -9,7 +9,7 @@ import Users from "./Components/UserProfile/Users.jsx";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
-import Stripe from "./Components/Stripe/stripe";
+import Stripe from "./Components/Stripe/Stripe";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import About from "./Components/About/About"
 
