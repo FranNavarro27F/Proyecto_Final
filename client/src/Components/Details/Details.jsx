@@ -37,23 +37,23 @@ export default function Details() {
   const [userProfile, setUserProfile] = useState(false);
 
   let nombreContratista = userByEmail?.name;
-  let mailContrado = userByEmail?.email;
+  let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [id, userByEmail?.id]);
-
+  console.log(userByEmail);
   // const [modal setModal] = useState
 
   const [contratoDetail, SetContratoDetail] = useState(false);
   const handleContact = () => {
     if (nombreContratista && mailContrado) {
       setDisabled(true);
-      // dispatch(
-      //   emailer({
-      //     nombreContratista: nombreContratista,
-      //     mailContrado: mailContrado,
-      //   })
-      // );
+      dispatch(
+        emailer({
+          nombreContratista: nombreContratista,
+          mailContrado: mailContrado,
+        })
+      );
       SetContratoDetail(true);
     }
   };
@@ -83,12 +83,20 @@ export default function Details() {
 
   const contrato = () => {
     return (
-      <div className={s.bodyContrato}>
-        <h1>PROPUESTA</h1>
-        <h2>Contrata a {userDetail?.name} Y HAZLE UNA PROPUESTA</h2>
-        <textarea type="textarea" rows="50" cols="50" />
-        <div>
-          <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
+      <div className={s.bodyPropuesta}>
+        <div className={s.conteiner}>
+          <h1>PROPUESTA</h1>
+          <h2>
+            Contrata a {userDetail?.name} {userDetail?.lastName} y hazle una
+            propuesta !
+          </h2>
+          <textarea type="textarea" rows="10" cols="70" />
+          <div>
+            <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
+            <button onClick={() => SetContratoDetail(false)}>
+              METODO DE PAGO
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -625,141 +633,6 @@ export default function Details() {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-=======
-            <br />
-            <a
-              href={`mailto:${
-                !userProfile ? userDetail?.email : userByEmail?.email
-              }`}
-              className={s.link}
-            >
-              <span className={s.mail}>
-                {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
-                <box-icon
-                  border="circle"
-                  animation="tada"
-                  color="white"
-                  type="logo"
-                  name="gmail"
-                ></box-icon>
-                Email:
-              </span>
-              <span>{`${
-                !userProfile ? userDetail?.email : userByEmail?.email
-              }`}</span>
-            </a>
-            <br />
-            <br />
-            <box-icon name="code-alt" color="white"></box-icon>
-            <span> Lenguajes: </span>
-            <span>
-              {/* {!userProfile
-                ? userDetail?.lenguajes?.map((e) => e)
-                : userByEmail.lenguajes?.map((e) => e)} */}
-              {userDetail?.lenguajes?.map((e) => e)}
-            </span>
-            <br />
-            <br />
-            <box-icon color="white" name="donate-heart"></box-icon>
-            <span> Servicios: </span>
-            <span>
-              {userDetail?.servicios?.map((e) => e)}
-
-              {/* {!userProfile
-                ? userDetail?.servicios?.map((e) => e)
-                : userByEmail.servicios?.map((e) => e)} */}
-            </span>
-            <br />
-            <br />
-            <a href={userDetail.linkedIn} className={s.link}>
-              <box-icon color="white" name="linkedin" type="logo"></box-icon>
-              <span>LinkedIn</span>
-            </a>
-            {/* <a href={userDetail.linkedIn}>{userDetail.linkedIn}</a> */}
-            <br />
-            <br />
-            <box-icon color="white" name="mouse"></box-icon>
-            <span> Tecnologias: </span>
-            <span>
-              {userDetail?.tecnologias?.map((e) => e)}
-              {/* {!userProfile
-                ? userDetail?.tecnologias?.map((e) => e)
-                : userByEmail.tecnologias?.map((e) => e)} */}
-            </span>
-            <br />
-            <br />
-            <box-icon name="world" color="white"></box-icon>
-            <span> Pais: </span>
-            <span>
-              {!userProfile ? userDetail.paiseId : userDetail.paiseId}
-            </span>
-            <br />
-            <br />
-            <a
-              href={!userProfile ? userDetail.webSite : userDetail.webSite}
-              className={s.link}
-            >
-              <box-icon
-                name="planet"
-                animation="flashing"
-                color="white"
-              ></box-icon>
-              <span> Sitio Web </span>
-            </a>
-            {/* <span>{userDetail.webSite}</span> */}
-            <br />
-            <box-icon 
-            color="white"
-            name='diamond'>
-            </box-icon>
-            <span>Años de Experiencia: </span>
-            <span>
-              {" "}
-              {!userProfile
-                ? userDetail.yearsOfExperience
-                : userDetail.yearsOfExperience}
-            </span>
-            <br />
-            <box-icon 
-            name='money'
-            color="white" 
-            ></box-icon>
-            <span>Presupuesto por día: </span>
-            <span>
-              {!userProfile ? userDetail.dailyBudget : userDetail.dailyBudget}
-            </span>
-          </div>
-          <div>
-            {userProfile ? (
-              <button
-                className={s.buttonBack}
-                onClick={() => navigate("/create")}
-              >
-                {userByEmail.postulado ? `EDITAR POSTULACION` : `POSTULARME`}
-              </button>
-            ) : (
-              <button
-                className={s.buttonL}
-                onClick={(e) => {
-                  handleContact(e);
-                }}
-                disabled={disabled}
-              >
-                Contactame!
-              </button>
-            )}
-            <button
-              className={s.buttonBack}
-              onClick={(e) => {
-                handleBack(e);
-              }}
-            >
-              {" "}
-              Volver
-            </button>
-            <Link to=""></Link>
->>>>>>> dev
           </div>
         </div>
       </div>

@@ -138,3 +138,19 @@
 .link span {
   margin-left: 1vh;
 }
+
+/*PROPUESTA*/
+.bodyPropuesta {
+  display: grid;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+  color: wheat;
+  text-align: center;
+  margin-top: 20vh;
+}
+.conteiner {
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: rgba(245, 222, 179, 0.226);
+}
