@@ -57,7 +57,6 @@
   left: 152vh;
   top: 60vh;
 }
-
 .imageBox {
   /* background-color: #C961DE; */
   width: 22vw;
@@ -66,7 +65,7 @@
   margin-top: -7vh;
   right: -82vh;
 }
-.svgImg,
+.imgSvg,
 .imgRender {
   width: 16vw;
   height: 30vh;
