@@ -46,7 +46,7 @@ export default function DevUsersCreate() {
   }, [dispatch]);
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-
+  console.log(userByEmail);
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
