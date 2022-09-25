@@ -48,12 +48,12 @@ export default function Details() {
   const handleContact = () => {
     if (nombreContratista && mailContrado) {
       setDisabled(true);
-      dispatch(
-        emailer({
-          nombreContratista: nombreContratista,
-          mailContrado: mailContrado,
-        })
-      );
+      // dispatch(
+      //   emailer({
+      //     nombreContratista: nombreContratista,
+      //     mailContrado: mailContrado,
+      //   })
+      // );
       SetContratoDetail(true);
     }
   };
@@ -87,13 +87,21 @@ export default function Details() {
         <div className={s.conteiner}>
           <h1>PROPUESTA</h1>
           <h2>
-            Contrata a {userDetail?.name} {userDetail?.lastName} y hazle una
+            Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta !
           </h2>
           <textarea type="textarea" rows="10" cols="70" />
           <div>
-            <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
-            <button onClick={() => SetContratoDetail(false)}>
+            <button
+              className={s.buttonVolver}
+              onClick={() => SetContratoDetail(false)}
+            >
+              VOLVER
+            </button>
+            <button
+              className={s.buttonPago}
+              onClick={() => SetContratoDetail(false)}
+            >
               METODO DE PAGO
             </button>
           </div>
