@@ -1,22 +1,31 @@
-/* .backgroundC{
-    background: linear-gradient(290.74deg, #5EAAAF 6.83%, #2F2E6C 52.53%, #251F3E 85.61%);
-    width: 100%;
-    height: 100vh;
+.backgroundC {
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  width: 100%;
+  height: 100vh;
 }
-.cardEle{
- box-sizing: border-box;
-position: absolute;
-width: 66vh;
-height: 40vh;
-left: 60vh;
-top: 30vh;
-background: linear-gradient(158.72deg, rgba(255, 255, 255, 0.4) 3.01%, rgba(255, 255, 255, 0) 103.3%);
-backdrop-filter: blur(21px);
-border-radius: 40px;    
+.cardEle {
+  overflow: hidden;
+  box-sizing: border-box;
+  position: absolute;
+  width: 66vh;
+  height: 40vh;
+  left: 60vh;
+  top: 30vh;
+  background: linear-gradient(
+    158.72deg,
+    rgba(255, 255, 255, 0.4) 3.01%,
+    rgba(255, 255, 255, 0) 103.3%
+  );
+  backdrop-filter: blur(21px);
+  border-radius: 40px;
+}
 
-} */
-
-.bodyPagos {
+/* .bodyPagos {
   font-size: 1vh;
   display: grid;
   grid-template-columns: 1fr;
@@ -25,4 +34,73 @@ border-radius: 40px;
   width: 50vw;
   align-items: center;
   justify-content: center;
+} */
+
+.bodyContrato {
+  /* background-color: red; */
+}
+.textCard {
+}
+.text {
+  display: flex;
+  font-family: Poppins;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(255, 253, 255);
+  font-size: 1.2vw;
+  font-weight: 600;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+  /* color: red; */
+}
+
+.checkOut {
+  /* color: red; */
+  background-color: rgb(163, 163, 163);
+}
+
+.asd {
+  height: 2.4em;
+  /* padding-top: 7em; */
+  color: wheat;
+}
+.asd label {
+}
+.cardDetail {
+  font-size: 10vh;
+  color: wheat;
+  background-color: rgba(219, 215, 215, 0.671);
+  padding: 1rem;
+  font-family: Roboto;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 49px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.divChipCardSvg {
+  position: absolute;
+
+  top: 14vh;
+  left: 1vw;
+}
+.card {
+  font-family: Roboto;
+  font-size: 40vw;
+  font-weight: 400;
+  line-height: 49px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.dataForm {
+  font-family: monospace;
+  min-height: 12vh;
+  max-height: 17vh;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
 }

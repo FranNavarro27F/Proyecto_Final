@@ -41,11 +41,10 @@ export default function DevUsersCreate() {
   const refName = useRef();
   const reflastName = useRef();
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch]);
-
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  useLayoutEffect(() => {
+    if (!userByEmail) dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email, userByEmail]);
   console.log(userByEmail);
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -56,15 +55,41 @@ export default function DevUsersCreate() {
       ? cache?.profilePicture
       : `${userByEmail?.profilePicture}`,
     email: cache?.email ? cache?.email : `${userByEmail?.email}`,
-    linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
-    gitHub: cache?.gitHub ? cache?.gitHub : "",
-    webSite: cache?.webSite ? cache?.webSite : "",
-    dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
+    linkedIn: cache?.linkedIn
+      ? cache?.linkedIn
+      : userByEmail?.linkedin
+      ? `${userByEmail?.linkedin}`
+      : "",
+    gitHub: cache?.gitHub
+      ? cache?.gitHub
+      : userByEmail?.gitHub
+      ? `${userByEmail?.gitHub}`
+      : "",
+    webSite: cache?.webSite
+      ? cache?.webSite
+      : userByEmail?.webSite
+      ? `${userByEmail?.webSite}`
+      : "",
+    dailyBudget: cache?.dailyBudget
+      ? cache?.dailyBudget
+      : userByEmail?.dailyBudget
+      ? `${userByEmail?.dailyBudget}`
+      : "0",
     yearsOfExperience: cache?.yearsOfExperience
       ? cache?.yearsOfExperience
+      : userByEmail?.yearsOfExperience
+      ? `${userByEmail?.yearsOfExperience}`
       : "0",
-    englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : [],
+    englishLevel: cache?.englishLevel
+      ? cache?.englishLevel
+      : userByEmail?.englishLevel
+      ? `${userByEmail?.englishLevel}`
+      : "Básico",
+    paiseId: cache?.paiseId
+      ? cache?.paiseId
+      : userByEmail?.paiseId
+      ? `${userByEmail?.paiseId}`
+      : [],
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
       [],
@@ -256,17 +281,31 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", ``),
-      lastName: ("lastName", ``),
-      profilePicture: ("profilePicture", ``),
+      name: ("name", `${userByEmail?.lastName && userByEmail?.lastName}`),
+      lastName:
+        ("lastName", `${userByEmail?.lastName && userByEmail?.lastName}`),
+      profilePicture:
+        ("profilePicture",
+        `${userByEmail?.profilePicture ? userByEmail?.profilePicture : ""}`),
       email: ("email", `${userByEmail?.email}`),
-      linkedIn: ("linkedIn", ""),
-      gitHub: ("gitHub", ""),
-      webSite: ("webSite", ""),
-      yearsOfExperience: ("yearsOfExperience", "0"),
-      dailyBudget: ("dailyBudget", "0"),
-      englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", []),
+      linkedIn:
+        ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`),
+      gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`),
+      webSite:
+        ("webSite", `${userByEmail?.webSite ? userByEmail?.webSite : ""}`),
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget:
+        ("dailyBudget",
+        `${userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"}`),
+      englishLevel:
+        ("englishLevel",
+        `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
+      paiseId:
+        ("paiseId", `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),

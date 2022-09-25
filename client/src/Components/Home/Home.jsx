@@ -53,18 +53,16 @@ export default function Home() {
     });
   }, [userEmail, user]);
 
-  console.log(userEmail, "user");
+  // console.log(userEmail, "user");
 
-  // useEffect(() => {
-  //   !userEmail?.registrado &&
-  //     dispatch(
-  //       postDevUser({
-  //         ...cacheLogin,
-  //         registrado: true,
-  //       })
-  //     );
-  //   console.log("no registrado");
-  // }, [cacheLogin, dispatch, userEmail?.registrado]);
+  useEffect(() => {
+    dispatch(
+      postDevUser({
+        ...cacheLogin,
+        registrado: true,
+      })
+    );
+  }, [cacheLogin, dispatch]);
 
   //HASTA ARREGLAR BACK
 
