@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GrAction } from "react-icons/gr";
 
 export function putDevUser(payload) {
   return async function (dispatch) {
@@ -54,7 +55,7 @@ export function getDevUsers(payload) {
         payload: devUsers,
       });
     } catch (error) {
-      console.error(error.message, "Error en el get DevUsers,actions");
+      console.log(error.message, "Error en el get DevUsers,actions");
     }
   };
 }
@@ -104,3 +105,23 @@ export function getUserSearchBar() {
     });
   };
 }
+
+export function detailIdDev(id){
+  return function(dispatch){
+    return dispatch({
+      type: "DETAIL_ID_DEV",
+      payload: id
+    })
+
+  }
+}
+
+ export function getUserContrato(email){
+  return async function (dispatch){
+    let userId = (await axios.get(`/usuarios?=${email}`)).data;
+    return dispatch ({
+      type: "USER_CONTRATO",
+      payload: userId
+    })
+  }
+ }

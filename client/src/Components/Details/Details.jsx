@@ -4,6 +4,7 @@ import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  detailIdDev,
   detailReset,
   getUserEmail,
   getUserId,
@@ -16,6 +17,7 @@ import "boxicons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
+import Pagos from "../Stripe/Stripe";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -42,20 +44,25 @@ export default function Details() {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [id, userByEmail?.id]);
   console.log(userByEmail);
-  // const [modal setModal] = useState
 
   const [contratoDetail, SetContratoDetail] = useState(false);
+  const [pagos, setPagos] = useState(false);
+
   const handleContact = () => {
+    // if (userDetail) {
+    //   // dispatch(detailIdDev(userDetail.id));
+    //   // navigate("/checkout");
+    // }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
-      dispatch(
-        emailer({
-          nombreContratista: nombreContratista,
-          mailContrado: mailContrado,
-        })
-      );
-      SetContratoDetail(true);
+      // dispatch(
+      //   emailer({
+      //     nombreContratista: nombreContratista,
+      //     mailContrado: mailContrado,
+      //   })
+      // );
     }
+    SetContratoDetail(!contratoDetail);
   };
 
   const handleBack = () => {
@@ -87,13 +94,21 @@ export default function Details() {
         <div className={s.conteiner}>
           <h1>PROPUESTA</h1>
           <h2>
-            Contrata a {userDetail?.name} {userDetail?.lastName} y hazle una
+            Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta !
           </h2>
           <textarea type="textarea" rows="10" cols="70" />
           <div>
-            <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
-            <button onClick={() => SetContratoDetail(false)}>
+            <button
+              className={s.buttonVolver}
+              onClick={() => SetContratoDetail(!contratoDetail)}
+            >
+              VOLVER
+            </button>
+            <button
+              className={s.buttonPago}
+              onClick={() => navigate("/checkout")}
+            >
               METODO DE PAGO
             </button>
           </div>
@@ -628,7 +643,6 @@ export default function Details() {
                     >
                       Volver
                     </button>
-                    <Link to=""></Link>
                   </div>
                 </div>
               </div>

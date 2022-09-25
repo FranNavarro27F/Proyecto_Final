@@ -5,6 +5,7 @@ const { paises } = require("../../json/Paises.json");
 const ERROR = "Error @ controllers/Countries";
 
 // -----------------------------------------------
+
 const jsonPaises = async () => {
   try {
     paises.map(async (name) => {
@@ -12,7 +13,7 @@ const jsonPaises = async () => {
         where: { name },
       });
     });
-    console.log("Paises por default caragados en la DB");
+    console.log("Paises por default cargados en la DB");
   } catch (e) {
     console.error(`ERROR @ controllers/jsonPaises --→ ${e}`);
   }
@@ -50,6 +51,7 @@ const deletePaises = async (id) => {
     console.error(`ERROR @ controllers/deletePaises --→ ${e}`);
   }
 };
+
 const putPaises = async (id, name) => {
   try {
     await Paises.update(

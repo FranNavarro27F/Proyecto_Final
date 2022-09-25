@@ -40,7 +40,7 @@ export default function Home() {
       : user?.given_name,
     email: cacheLogin?.email ? cacheLogin?.email : user?.email,
     picture: cacheLogin?.picture ? cacheLogin?.picture : user?.picture,
-    registrado: true,
+    // registrado: true,
   });
 
   useEffect(() => {
@@ -49,14 +49,20 @@ export default function Home() {
       given_name: ("given_name", `${user?.given_name}`),
       email: ("email", `${user?.email}`),
       picture: ("picture", `${user?.picture}`),
-      registrado: ("registrado", true),
+      // registrado: ("registrado", true),
     });
   }, [userEmail, user]);
 
-  console.log(userEmail);
+  console.log(userEmail, "user");
 
   // useEffect(() => {
-  //   !userEmail?.registrado && dispatch(postDevUser(cacheLogin));
+  //   !userEmail?.registrado &&
+  //     dispatch(
+  //       postDevUser({
+  //         ...cacheLogin,
+  //         registrado: true,
+  //       })
+  //     );
   //   console.log("no registrado");
   // }, [cacheLogin, dispatch, userEmail?.registrado]);
 

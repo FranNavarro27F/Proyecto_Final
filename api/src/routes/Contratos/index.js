@@ -13,7 +13,7 @@ const router = Router();
 
 const ERROR = `Error @ routes/Contratos --> `;
 
-// -----------------------------------------------
+// -------------------------------------------
 
 // ---------- GET CONTRACTS ----------
 router.get("/", async (req, res) => {

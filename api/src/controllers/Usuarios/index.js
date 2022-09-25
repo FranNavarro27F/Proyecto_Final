@@ -61,6 +61,12 @@ const getUsers = async () => {
         visible: cur.visible,
         postulado: cur.postulado,
         registrado: cur.registrado,
+        tarjeta_numero: cur.tarjeta_numero,
+        tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
+        tarjeta_vencimiento: cur.tarjeta_vencimiento,
+        tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
+        cbu: cur.cbu,
+        cvu: cur.cvu,
         reputacion: cur.reputacion,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
         servicios: cur.servicios
@@ -74,7 +80,7 @@ const getUsers = async () => {
           : [],
       };
     });
-
+    console.log(Promise.all(arrUsersListo), "******")
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);

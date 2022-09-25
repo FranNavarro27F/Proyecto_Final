@@ -9,12 +9,10 @@ import Home from "./Components/Home/Home";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
-<<<<<<< HEAD
-import Stripe from "./Components/Stripe/stripe";
-=======
 import Stripe from "./Components/Stripe/Stripe";
->>>>>>> dev
 import UserProfile from "./Components/UserProfile/UserProfile";
+//import About from "./Components/About/About"
+import Contracts from "./Components/Contracts/Contracts";
 
 function App() {
   return (
@@ -28,6 +26,7 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/create" element={<DevUsersCreate />} />
         {/* <Route path="/users" element={<Users />} /> */}
+        {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
       </Routes>
     </>
   );
