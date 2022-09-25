@@ -2,17 +2,23 @@ import React from "react";
 import { useRef } from "react";
 import s from "./NavMenuHome.module.css";
 import logo from "./Logo/logo chico.png";
+import ButtonProfile from "./ButtonProfile/ButtonProfile";
 
 export default function NavMenuHome({
   scrollToSeccion,
   work,
   home,
   landing,
+  isAuthenticated,
+  user,
+  logout,
+  setOpen,
+  open,
   // about,
 }) {
   return (
     <div className={s.container}>
-      <ui>
+      <ul>
         <li onClick={() => scrollToSeccion(landing)} className={s.link}>
           BIENVENIDO
         </li>
@@ -28,7 +34,15 @@ export default function NavMenuHome({
         <li onClick={() => scrollToSeccion(work)} className={s.link}>
           DESTACADOS
         </li>
-      </ui>
+      </ul>
+      {isAuthenticated && (
+        <ButtonProfile
+          user={user}
+          logout={logout}
+          setOpen={setOpen}
+          open={open}
+        />
+      )}
     </div>
   );
 }

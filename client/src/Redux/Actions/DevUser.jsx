@@ -1,5 +1,20 @@
 import axios from "axios";
 
+export function putDevUser(payload) {
+  return async function (dispatch) {
+    console.log(payload, "PUT action ");
+    try {
+      let json = (await axios.put(`/usuarios`, payload)).data;
+      return dispatch({
+        type: "PUT_DEVUSER",
+        payload: json,
+      });
+    } catch (error) {
+      console.log("Catch del post");
+      console.error(error.message, "error en el post: actions");
+    }
+  };
+}
 export function postDevUser(payload) {
   return async function (dispatch) {
     console.log(payload, "Post action ");
@@ -43,16 +58,28 @@ export function getDevUsers(payload) {
     }
   };
 }
-
 export function getUserId(id) {
-  console.log(id, "id action");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-      console.log(userId, "este es el user id");
       return dispatch({
         type: "GET_USER_ID",
         payload: userId,
+      });
+    } catch (error) {
+      console.log(error, "error TryCatch");
+    }
+  };
+}
+
+export function getUserEmail(email) {
+  console.log(email, "action");
+  return async function (dispatch) {
+    try {
+      const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
+      return dispatch({
+        type: "GET_USER_EMAIL",
+        payload: userEmail,
       });
     } catch (error) {
       console.log(error, "error TryCatch");
@@ -64,6 +91,16 @@ export function detailReset() {
     return dispatch({
       type: "DETAIL_RESET",
       payload: [],
+    });
+  };
+}
+
+export function getUserSearchBar() {
+  return async function (dispatch) {
+    const userSB = (await axios.get(`/usuarios`)).data;
+    return dispatch({
+      type: "GET_USER_SEARCHBAR",
+      payload: userSB,
     });
   };
 }

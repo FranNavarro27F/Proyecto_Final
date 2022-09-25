@@ -65,7 +65,7 @@
   margin-top: -7vh;
   right: -82vh;
 }
-
+.imgSvg,
 .imgRender {
   width: 16vw;
   height: 30vh;
@@ -92,9 +92,36 @@
   line-height: 23px;
   cursor: pointer;
 }
+.buttonBack {
+  position: relative;
+  left: 45vh;
+  top: 70vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: 11vw;
+  height: 6vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1.1vw;
+  line-height: 23px;
+  cursor: pointer;
+  margin-right: 0.7rem;
+}
 
-.divButton{
+.buttonBack:hover,
+.buttonL:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.divButton {
   display: flex;
+  background-color: red;
 }
 
 .svg {
@@ -110,4 +137,20 @@
 }
 .link span {
   margin-left: 1vh;
+}
+
+/*PROPUESTA*/
+.bodyPropuesta {
+  display: grid;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+  color: wheat;
+  text-align: center;
+  margin-top: 20vh;
+}
+.conteiner {
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: rgba(245, 222, 179, 0.226);
 }

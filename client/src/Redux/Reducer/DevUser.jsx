@@ -4,12 +4,20 @@ const initialState = {
   filteredUsers: [],
   page: 1,
   devPerPage: 10,
-  scroll: false,
+  usuariosSB: [],
+  userByEmail: [],
+  flag: true,
 };
 
 export default function devUser(state = initialState, action) {
   switch (action.type) {
     case "POST_DEVUSER":
+      return {
+        ...state,
+        allUsers: [...state.allUsers, action.payload],
+      };
+
+    case "PUT_DEVUSER":
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
@@ -21,6 +29,7 @@ export default function devUser(state = initialState, action) {
         allUsers: action.payload,
         filteredUsers: action.payload,
         scroll: false,
+        // flag: true,
       };
 
     case "SET_CURRENT_PAGE":
@@ -37,6 +46,7 @@ export default function devUser(state = initialState, action) {
 
     case "FILTERS_ORDERS":
       let {
+        name,
         filterTecnologies,
         filterServices,
         filterLanguajes,
@@ -63,7 +73,7 @@ export default function devUser(state = initialState, action) {
 
       if (filterCountries?.length !== 0)
         filtro = [...filtro]?.filter((ele) =>
-          ele.country?.includes(filterCountries.toString())
+          ele.paiseId?.includes(filterCountries.toString())
         );
 
       //ORDENAMIENTOS
@@ -87,9 +97,162 @@ export default function devUser(state = initialState, action) {
         filtro.sort((a, b) => (a.dailyBudget > b.dailyBudget ? -1 : 1));
       }
 
+      //-----------------searchBar----------------------
+      if (name) {
+        let nameFilter = filtro.filter((cur) =>
+          cur.name.toLowerCase().includes(name.toLowerCase())
+        );
+
+        let lastNameFilter = filtro.filter((cur) =>
+          cur.lastName.toLowerCase().includes(name.toLowerCase())
+        );
+
+        let dailyBudgetFilter = filtro.filter((cur) => cur.dailyBudget == name);
+
+        let paisesFilter = filtro.filter((cur) =>
+          cur.paiseId.toLowerCase().includes(name.toLowerCase())
+        );
+
+        let lenguajesFilter6 = filtro.filter((cur) => {
+          let hayL = cur.lenguajes.filter((curr) =>
+            curr.toLowerCase().includes(name.toLowerCase())
+          );
+          if (hayL.length !== 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        let serviciosFilter = filtro.filter((cur) => {
+          let hayS = cur.servicios.filter((cur) =>
+            cur.toLowerCase().includes(name.toLowerCase())
+          );
+          if (hayS.length !== 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        let tecnologiasFilter = filtro.filter((cur) => {
+          let hayT = cur.tecnologias.filter((cur) =>
+            cur.toLowerCase().includes(name.toLowerCase())
+          );
+          if (hayT.length !== 0) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        let resultadosConcatenados = [
+          ...nameFilter,
+          ...lastNameFilter,
+          ...dailyBudgetFilter,
+          ...paisesFilter,
+          ...lenguajesFilter6,
+          ...serviciosFilter,
+          ...tecnologiasFilter,
+        ];
+
+        function removeDuplicates(originalArray, prop) {
+          let arr = [];
+          let lookupObject = {};
+          for (let i in originalArray) {
+            lookupObject[originalArray[i][prop]] = originalArray[i];
+          }
+          for (let j in lookupObject) {
+            arr.push(lookupObject[j]);
+          }
+          return arr;
+        }
+
+        var uniqueArray = removeDuplicates(resultadosConcatenados, "email");
+
+        filtro = uniqueArray;
+      }
+
       return {
         ...state,
         filteredUsers: filtro,
+      };
+    //-------------------------------------------
+    case "SEARCH_INPUT":
+      let Usuarios = [...state.usuariosSB];
+
+      console.log(action.payload);
+
+      let nameFilter = Usuarios.filter((cur) =>
+        cur.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      let lastNameFilter = Usuarios.filter((cur) =>
+        cur.lastName.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      let dailyBudgetFilter = Usuarios.filter(
+        (cur) => cur.dailyBudget == action.payload
+      );
+
+      let paisesFilter = Usuarios.filter((cur) =>
+        cur.paiseId.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      let lenguajesFilter6 = Usuarios.filter((cur) => {
+        let hayL = cur.lenguajes.filter((curr) =>
+          curr.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        if (hayL.length !== 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      let serviciosFilter = Usuarios.filter((cur) => {
+        let hayS = cur.servicios.filter((cur) =>
+          cur.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        if (hayS.length !== 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      let tecnologiasFilter = Usuarios.filter((cur) => {
+        let hayT = cur.tecnologias.filter((cur) =>
+          cur.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        if (hayT.length !== 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      let resultadosConcatenados = [
+        ...nameFilter,
+        ...lastNameFilter,
+        ...dailyBudgetFilter,
+        ...paisesFilter,
+        ...lenguajesFilter6,
+        ...serviciosFilter,
+        ...tecnologiasFilter,
+      ];
+
+      function removeDuplicates(originalArray, prop) {
+        let arr = [];
+        let lookupObject = {};
+        for (let i in originalArray) {
+          lookupObject[originalArray[i][prop]] = originalArray[i];
+        }
+        for (let j in lookupObject) {
+          arr.push(lookupObject[j]);
+        }
+        return arr;
+      }
+
+      var uniqueArray2 = removeDuplicates(resultadosConcatenados, "email");
+
+      return {
+        ...state,
+        filteredUsers: uniqueArray2,
       };
 
     case "GET_USER_ID":
@@ -97,11 +260,24 @@ export default function devUser(state = initialState, action) {
         ...state,
         details: action.payload,
       };
+
+    case "GET_USER_EMAIL":
+      return {
+        ...state,
+        userByEmail: action.payload,
+      };
+
     case "DETAIL_RESET":
       return {
         ...state,
         details: action.payload,
       };
+    case "GET_USER_SEARCHBAR":
+      return {
+        ...state,
+        usuariosSB: action.payload,
+      };
+
     default:
       return state;
   }

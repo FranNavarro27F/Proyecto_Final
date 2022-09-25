@@ -9,6 +9,7 @@ export default function FIlterLenguajes({
   cacheFilter,
   customStyles,
   actualFilter,
+  refLanguajes,
 }) {
   const { languajes } = useFetchAllData();
 
@@ -32,6 +33,7 @@ export default function FIlterLenguajes({
             filterLanguajes: e.map((e) => e.label),
           });
         }}
+        ref={refLanguajes}
         set-value={cacheFilter?.filterLanguajes}
         className={s.select}
         isDisabled={false}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import s from "./DevUsersCreate.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import { validaciones } from "./Validaciones";
+import { validacionesEdit } from "./ValidacionesEdit";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
@@ -17,27 +18,44 @@ import Loader from "../Loader/Loader";
 import useFetchAllData from "../../Hooks/useFetchAllData";
 
 //actions
-import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
+import {
+  getUserEmail,
+  getUsersBd,
+  putDevUser,
+} from "../../Redux/Actions/DevUser";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
+import Selectores from "../Selectores/Selectores";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  const { services, languajes, tecnologies, countries } = useFetchAllData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const refCountries = useRef();
+  const refServices = useRef();
+  const refLanguajes = useRef();
+  const refTecnologies = useRef();
+  const refName = useRef();
+  const reflastName = useRef();
+
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch]);
+
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  console.log(userByEmail);
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache?.name : `${user?.given_name}`,
-    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
+    name: cache?.name ? cache?.name : `${userByEmail?.name}`,
+    lastName: cache?.lastName ? cache?.lastName : `${userByEmail?.lastName}`,
     profilePicture: cache?.profilePicture
       ? cache?.profilePicture
-      : `${user?.picture}`,
-    email: cache?.email ? cache?.email : `${user?.email}`,
+      : `${userByEmail?.profilePicture}`,
+    email: cache?.email ? cache?.email : `${userByEmail?.email}`,
     linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
     gitHub: cache?.gitHub ? cache?.gitHub : "",
     webSite: cache?.webSite ? cache?.webSite : "",
@@ -46,9 +64,7 @@ export default function DevUsersCreate() {
       ? cache?.yearsOfExperience
       : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId:
-      // cache?.paiseId ? cache?.paiseId :
-      "",
+    paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
       [],
@@ -58,6 +74,7 @@ export default function DevUsersCreate() {
     servicios:
       // cache?.servicios ? cache?.servicios :
       [],
+    postulado: true,
   });
 
   const handleChangeInput = (e) => {
@@ -65,12 +82,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    if (userByEmail.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: e.target.value,
@@ -100,12 +126,23 @@ export default function DevUsersCreate() {
             ...input,
             profilePicture: url,
           });
-          setErrors(
-            validaciones({
-              ...cache,
-              profilePicture: url,
-            })
-          );
+
+          if (userByEmail?.postulado) {
+            setErrors(
+              validacionesEdit({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          } else {
+            setErrors(
+              validaciones({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          }
+
           setCache({
             ...cache,
             profilePicture: url,
@@ -137,12 +174,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: ingles(),
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: ingles(),
-      })
-    );
+    if (userByEmail?.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: ingles(),
@@ -156,62 +202,105 @@ export default function DevUsersCreate() {
     e.preventDefault();
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
-      dispatch(
-        postDevUser({
-          ...input,
-          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-          lastName:
-            input.lastName[0].toUpperCase() +
-            input.lastName.slice(1).toLowerCase(),
-        })
-      );
+      refCountries.current.clearValue();
+      refServices.current.clearValue();
+      refLanguajes.current.clearValue();
+      refTecnologies.current.clearValue();
       setModal(true);
-      dispatch(getUsersBd());
-      setTimeout(() => {
-        navigate("/work");
-      }, 1500);
       setCache({
-        name: ("name", `${user?.given_name}`),
-        lastName: ("lastName", `${user?.family_name}`),
+        name: ("name", `${userByEmail?.name}`),
+        lastName: ("lastName", `${userByEmail?.lastName}`),
         profilePicture: ("profilePicture", `${cache?.profilePicture}`),
-        email: ("email", `${user?.email}`),
+        email: ("email", `${userByEmail?.email}`),
         linkedIn: ("linkedIn", ""),
         gitHub: ("gitHub", ""),
         webSite: ("webSite", ""),
         yearsOfExperience: ("yearsOfExperience", "0"),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", ""),
+        paiseId: ("paiseId", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
+        postulado: ("postulado", true),
       });
+      setTimeout(() => {
+        navigate("/work");
+      }, 1500);
+      dispatch(
+        putDevUser({
+          ...input,
+          postulado: true,
+        })
+      );
+      dispatch(getUsersBd());
     } else {
-      console.log(`hay errores`, errors);
+      alert(`hay errores`, errors);
     }
   };
-  // console.log(user);
+
+  const handleDefaultCountrie = [
+    {
+      label: cache?.paiseId,
+    },
+  ];
+
   const handleReset = () => {
+    refCountries.current.setValue({
+      value: "default",
+      label: "Selecciona un país...",
+    });
+    refName.current.value = "";
+    reflastName.current.value = "";
+    refServices.current.clearValue();
+    refLanguajes.current.clearValue();
+    refTecnologies.current.clearValue();
     setCache({
       name: ("name", ``),
       lastName: ("lastName", ``),
       profilePicture: ("profilePicture", ``),
-      email: `${user?.email}`,
+      email: ("email", `${userByEmail?.email}`),
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
+      paiseId: ("paiseId", []),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
+      postulado: true,
+    });
+    setInput({
+      name: ``,
+      lastName: ``,
+      profilePicture: ``,
+      email: `${userByEmail?.email}`,
+      linkedIn: "",
+      gitHub: "",
+      webSite: "",
+      yearsOfExperience: "0",
+      dailyBudget: "0",
+      englishLevel: "Básico",
+      paiseId: [],
+      tecnologias: [],
+      lenguajes: [],
+      servicios: [],
+      postulado: true,
     });
     setLoader(false);
   };
 
   //OPCIONES DE LOS SELECTS:
+  const {
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsServices,
+    // optionsCountries,
+  } = Selectores();
+
+  const countries = useSelector((state) => state.countries.allCountries);
 
   const optionsCountries = countries.map((e) => {
     return {
@@ -219,33 +308,23 @@ export default function DevUsersCreate() {
       label: e.name,
     };
   });
-  const optionsTecnologias = tecnologies.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
 
-  const optionsServices = services.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsLanguajes = languajes.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
+  if (
+    isLoading &&
+    input.name === undefined &&
+    userByEmail?.email === undefined &&
+    input.email === undefined &&
+    input.profile.Picture === undefined
+  ) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
 
   return !isAuthenticated ? (
     loginWithRedirect()
-  ) : isLoading ? (
-    <Loader />
-  ) : !user.email ? (
-    <Loader />
   ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
@@ -255,12 +334,13 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
+              ref={refName}
               type="text"
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               // value={cache?.name}
-              defaultValue={input.name}
+              defaultValue={input?.name}
               name="name"
               className={s.inputName}
             />
@@ -273,11 +353,12 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
+              ref={reflastName}
               type="text"
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input.lastName}
+              defaultValue={input?.lastName}
               // value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
@@ -493,6 +574,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="pais">Pais: </p>
             <Select
+              ref={refCountries}
               components={animatedComponents}
               set-value={cache?.paiseId}
               className={s.select}
@@ -502,23 +584,34 @@ export default function DevUsersCreate() {
               isSearchable={true}
               isMulti={false}
               styles={customStyles}
-              // classNamePrefix="react-select"
               placeholder="Selecciona un pais"
+              defaultValue={handleDefaultCountrie}
               onChange={(e) => {
                 setInput({
                   ...input,
-                  paiseId: e.value,
+                  paiseId: e?.value,
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    paiseId: e.value,
-                  })
-                );
-                // setCache({
-                //   ...cache,
-                //   paiseId: e.value,
-                // });
+
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                }
+
+                setCache({
+                  ...cache,
+                  paiseId: e?.value,
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -532,7 +625,7 @@ export default function DevUsersCreate() {
             <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
-              // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
+              ref={refTecnologies}
               set-value={cache?.tecnologias}
               className={s.select}
               isDisabled={false}
@@ -547,16 +640,26 @@ export default function DevUsersCreate() {
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    tecnologias: e.map((ele) => ele.value),
-                  })
-                );
-                // setCache({
-                //   ...cache,
-                //   tecnologias: e.map((ele) => ele.value),
-                // });
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
+                setCache({
+                  ...cache,
+                  tecnologias: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -568,6 +671,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="lenguajes">Lenguajes: </p>
             <Select
+              ref={refLanguajes}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.lenguajes}
@@ -584,16 +688,26 @@ export default function DevUsersCreate() {
                   ...input,
                   lenguajes: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    lenguajes: e.map((ele) => ele.value),
-                  })
-                );
-                // setCache({
-                //   ...cache,
-                //   lenguajes: e.map((ele) => ele.value),
-                // });
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
+                setCache({
+                  ...cache,
+                  lenguajes: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -605,6 +719,8 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              // defaultValue={handleDefaultService}
+              ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.servicios}
@@ -621,16 +737,26 @@ export default function DevUsersCreate() {
                   ...input,
                   servicios: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    servicios: e.map((ele) => ele.value),
-                  })
-                );
-                // setCache({
-                //   ...input,
-                //   servicios: e.map((ele) => ele.value),
-                // });
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
+                setCache({
+                  ...input,
+                  servicios: e.map((ele) => ele.value),
+                });
               }}
             />
             <div className={s.divErrors}>
@@ -644,13 +770,23 @@ export default function DevUsersCreate() {
           <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
-          <button
-            className={s.buttonCreate}
-            // disabled={disabledButton}
-            onClick={(e) => handleCreate(e)}
-          >
-            <span className={s.button_top}> CREAR PERFIL</span>
-          </button>
+          {!userByEmail?.postulado ? (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> CREAR POSTULACION</span>
+            </button>
+          ) : (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> EDITAR POSTULACION</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

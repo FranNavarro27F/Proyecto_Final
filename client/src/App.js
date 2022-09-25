@@ -9,7 +9,11 @@ import Home from "./Components/Home/Home";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
+<<<<<<< HEAD
 import Stripe from "./Components/Stripe/stripe";
+=======
+import Stripe from "./Components/Stripe/Stripe";
+>>>>>>> dev
 import UserProfile from "./Components/UserProfile/UserProfile";
 
 function App() {

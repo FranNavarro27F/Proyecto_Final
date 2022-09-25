@@ -29,8 +29,8 @@ export default function Circulo() {
               y2="620"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#C961DE" />
-              <stop offset="1" stop-color="#2954A3" />
+              <stop stopColor="#C961DE" />
+              <stop offset="1" stopColor="#2954A3" />
             </linearGradient>
           </defs>
         </svg>

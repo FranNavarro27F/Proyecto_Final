@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import s from "../NavBar/NavBar.module.css";
 import logo from "../../Logo/Logo-Sin-Fondo.png";
 import { Link } from "react-router-dom";
@@ -7,24 +7,34 @@ import { useState } from "react";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
+import Select from "react-select";
+
+import Selectores from "../Selectores/Selectores";
+import makeAnimated from "react-select/animated";
 
 //actions
-import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
-
-//modularizacion
-import FIlterTecnologie from "../Filters & Orders/Filters/FIlterTecnologie";
-import FIlterServices from "../Filters & Orders/Filters/FilterServices";
-import FIlterLenguajes from "../Filters & Orders/Filters/FilterLenguajes";
-import FIlterCountries from "../Filters & Orders/Filters/FilterCountries";
-import OrderyearsOfExperience from "../Filters & Orders/Order/OrderyearsOfExperience";
-import OrderDailyBudget from "../Filters & Orders/Order/OrderDailyBudget";
-import SearchBar from "../SearchBar/SearchBar";
+import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
+import { HiOutlineSearch } from "react-icons/hi";
 
 export default function NavBar() {
+  const animatedComponents = makeAnimated();
+  const {
+    optionsOrderBudget,
+    optionsOrderExp,
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
   const dispatch = useDispatch();
 
-  const filtrados = useSelector((state) => state.devUser.filteredUsers);
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
+  const filtrados = useSelector((state) => state.devUser.filteredUsers);
+  const [checked, setChecked] = useState(false);
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
@@ -44,8 +54,31 @@ export default function NavBar() {
     name: "",
   });
 
+  const refCountries = useRef();
+  const refServices = useRef();
+  const refLanguajes = useRef();
+  const refTecnologies = useRef();
+  const refExperience = useRef();
+  const refBudget = useRef();
+  const refSearch = useRef();
+
   const handleClear = () => {
+    refSearch.current.value = "";
+    refCountries.current.clearValue();
+    refServices.current.clearValue();
+    refLanguajes.current.clearValue();
+    refTecnologies.current.clearValue();
+    refExperience.current.setValue({
+      value: "default",
+      label: "Ordenar por costo diario",
+    });
+    refBudget.current.setValue({
+      value: "default",
+      label: "Ordenar por costo diario",
+    });
+
     setActualFilter({
+      name: "",
       filterTecnologies: [],
       filterServices: [],
       filterLanguajes: [],
@@ -60,8 +93,39 @@ export default function NavBar() {
       filterCountries: ("filterCountries", []),
       OrderExp: ("OrderExp", ""),
       OrderBud: ("OrderBud", ""),
+      name: ("name", ""),
     });
   };
+  const handleDefault = cacheFilter?.filterLanguajes
+    ? cacheFilter?.filterLanguajes.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultCountrie = cacheFilter?.filterCountries
+    ? cacheFilter?.filterCountries.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  const handleDefaultService = cacheFilter?.filterServices
+    ? cacheFilter?.filterServices.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+  const handleDefaultTecnologies = cacheFilter?.filterTecnologies
+    ? cacheFilter?.filterTecnologies.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
 
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
@@ -72,6 +136,7 @@ export default function NavBar() {
       <Link to="/">
         <img src={logo} alt="programax" className={s.logo} />
       </Link>
+
       <button
         className={!filtrados.length ? s.buttonClearAlert : s.buttonClear}
         onClick={() => handleClear()}
@@ -79,50 +144,290 @@ export default function NavBar() {
         <span> LIMPIAR FILTROS</span>
         <AiOutlineClear />
       </button>
-      <SearchBar setActualFilter={setActualFilter} />
+
+      <div className={s.bodySearch}>
+        {/* <label className={s.switch}>
+          <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
+          <span className={s.slider_round}></span>
+        </label> */}
+
+        <form>
+          <span>
+            <HiOutlineSearch />
+          </span>
+
+          <input
+            value={cacheFilter?.name}
+            className={s.searchBar}
+            type={"text"}
+            placeholder={"Buscar..."}
+            onChange={(e) => {
+              // if(!checked){
+              //   dispatch( searchInput(e.target.value) )
+              //   console.log("checked", e.target.value)
+              // }else{
+              // console.log("no check", e.target.value)
+              e.preventDefault();
+              setActualFilter({
+                ...actualFilter,
+                name: e.target.value.trim(),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                name: e.target.value.trim(),
+              });
+              // }
+            }}
+            ref={refSearch}
+          ></input>
+        </form>
+      </div>
       <div className={s.divGen}>
-        <FIlterCountries
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-          customStyles={customStyles}
-        />
-        <FIlterLenguajes
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-          customStyles={customStyles}
-        />
-        <FIlterServices
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <FIlterTecnologie
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <OrderyearsOfExperience
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
-        <OrderDailyBudget
-          customStyles={customStyles}
-          setActualFilter={setActualFilter}
-          actualFilter={actualFilter}
-          setCacheFilter={setCacheFilter}
-          cacheFilter={cacheFilter}
-        />
+        <div className={s.filterCountrie}>
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refCountries}
+            set-value={cacheFilter?.filterCountries}
+            options={optionsCountries}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterCountries: e.map((e) => e.value),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterCountries: e.map((e) => e.value),
+              });
+            }}
+            className={s.select}
+            isDisabled={false}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por país..."
+            styles={customStyles}
+            defaultValue={handleDefaultCountrie}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterLanguajes: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterLanguajes: e.map((e) => e.label),
+              });
+            }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refLanguajes}
+            set-value={cacheFilter?.filterLanguajes}
+            className={s.select}
+            isDisabled={false}
+            options={optionsLanguajes}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por lenguaje..."
+            styles={customStyles}
+            defaultValue={handleDefault}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                filterServices: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterServices: e.map((e) => e.label),
+              });
+            }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refServices}
+            className={s.select}
+            set-value={cacheFilter?.filterServices}
+            isDisabled={false}
+            options={optionsServices}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            defaultValue={handleDefaultService}
+            placeholder="Filtra por servicios..."
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            onChange={(e) => {
+              console.log(e);
+              setActualFilter({
+                ...actualFilter,
+                filterTecnologies: e.map((e) => e.label),
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                filterTecnologies: e.map((e) => e.label),
+              });
+            }}
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refTecnologies}
+            set-value={cacheFilter?.filterTecnologies}
+            className={s.select}
+            isDisabled={false}
+            options={optionsTecnologias}
+            isClearable={true}
+            isSearchable={true}
+            isMulti={true}
+            placeholder="Filtra por tecnología..."
+            styles={customStyles}
+            defaultValue={handleDefaultTecnologies}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#464646c7",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+          />
+        </div>
+        <div>
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refExperience}
+            set-value={cacheFilter?.OrderExp}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                OrderExp: e.value,
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                OrderExp: e.value,
+              });
+            }}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 20,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+            className={s.select}
+            isDisabled={false}
+            options={optionsOrderExp}
+            isClearable={false}
+            isSearchable={false}
+            isMulti={false}
+            placeholder="Ordenar por experiencia"
+            styles={customStyles}
+          />
+        </div>
+        <div>
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            ref={refBudget}
+            onChange={(e) => {
+              setActualFilter({
+                ...actualFilter,
+                OrderBud: e.value,
+              });
+              setCacheFilter({
+                ...cacheFilter,
+                OrderBud: e.value,
+              });
+            }}
+            set-value={cacheFilter?.OrderBud}
+            className={s.select}
+            isDisabled={false}
+            options={optionsOrderBudget}
+            isClearable={false}
+            isSearchable={false}
+            isMulti={false}
+            placeholder="Ordenar por costo diario"
+            styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                text: "#adadad",
+                font: "#9b5cffb9",
+                primary25: "#9b5cffb9",
+                primary: "#9b5cffb9",
+                neutral80: "#ffffffc8",
+                neutral50: "#ffffffc8",
+                color: "black",
+              },
+            })}
+          />
+        </div>
 
         {/* <button className={s.puntuacion}>Puntuación</button> */}
       </div>

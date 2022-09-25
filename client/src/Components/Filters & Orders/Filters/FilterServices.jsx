@@ -11,6 +11,7 @@ export default function FIlterServices({
   cacheFilter,
   customStyles,
   actualFilter,
+  refServices,
 }) {
   const { services } = useFetchAllData();
   const optionsServices = services.map((e) => {
@@ -33,6 +34,7 @@ export default function FIlterServices({
             filterServices: e.map((e) => e.label),
           });
         }}
+        ref={refServices}
         className={s.select}
         set-value={cacheFilter?.filterServices}
         isDisabled={false}
