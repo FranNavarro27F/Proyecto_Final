@@ -14,7 +14,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
 import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail, postDevUser } from "../../Redux/Actions/DevUser";
 import { useEffect } from "react";
@@ -42,7 +41,7 @@ export default function Home() {
     registrado: true,
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setCacheLogin({
       family_name: ("family_name", `${user?.family_name}`),
       given_name: ("given_name", `${user?.given_name}`),
@@ -50,12 +49,16 @@ export default function Home() {
       picture: ("picture", `${user?.picture}`),
       registrado: ("registrado", true),
     });
-  }, [setCacheLogin, user, userEmail]);
+  }, [userEmail, user]);
 
-  useEffect(() => {
-    !userEmail?.registrado && dispatch(postDevUser(cacheLogin));
-    console.log("no registrado");
-  }, [cacheLogin, dispatch, userEmail?.registrado]);
+  // useEffect(() => {
+  //   !userEmail?.registrado && dispatch(postDevUser(cacheLogin));
+  //   console.log("no registrado");
+  // }, [cacheLogin, dispatch, userEmail?.registrado]);
+
+  //HASTA ARREGLAR BACK
+
+  // console.log(userEmail.registrado);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({

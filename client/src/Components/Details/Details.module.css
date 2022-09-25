@@ -65,7 +65,7 @@
   margin-top: -7vh;
   right: -82vh;
 }
-
+.imgSvg,
 .imgRender {
   width: 16vw;
   height: 30vh;
@@ -112,15 +112,14 @@
 }
 
 .buttonBack:hover,
-.buttonL:hover
-{
+.buttonL:hover {
   transition-delay: 0.2s;
   transition: 0.8s;
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.divButton{
+.divButton {
   display: flex;
   background-color: red;
 }
