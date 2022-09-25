@@ -4,6 +4,7 @@ import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  detailIdDev,
   detailReset,
   getUserEmail,
   getUserId,
@@ -46,6 +47,10 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
   const handleContact = () => {
+    if(userDetail){
+      dispatch(detailIdDev(userDetail.id))
+      navigate("/checkout")
+    }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
       // dispatch(
@@ -641,6 +646,8 @@ export default function Details() {
                 </div>
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
