@@ -621,8 +621,8 @@ export default function Details() {
                         onClick={() => navigate("/create")}
                       >
                         {userByEmail?.postulado
-                          ? `EDITAR POSTULACION`
-                          : `POSTULARME`}
+                          ? `Editar postulación`
+                          : `Postularme`}
                       </button>
                     ) : (
                       <button
