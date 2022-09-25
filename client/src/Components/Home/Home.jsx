@@ -25,7 +25,9 @@ export default function Home() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
   const userEmail = useSelector((state) => state.devUser.userByEmail);
-
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
   // console.log(userEmail.registrado, "registrado");
 
   const [cacheLogin, setCacheLogin] = useLocalStorage({});
@@ -50,6 +52,8 @@ export default function Home() {
       registrado: ("registrado", true),
     });
   }, [userEmail, user]);
+
+  console.log(userEmail);
 
   // useEffect(() => {
   //   !userEmail?.registrado && dispatch(postDevUser(cacheLogin));

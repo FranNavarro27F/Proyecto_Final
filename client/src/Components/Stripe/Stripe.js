@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements, CardElement, useStripe, useElements}from '@stripe/react-stripe-js'
 import axios from 'axios';
+
 import Contracts from '../Contracts/Contracts';
 import { useSelector } from 'react-redux';
 //import s from "../Stripe/Stripe.module.css"
@@ -16,6 +17,7 @@ const CheckOutForm = () => {
   const stripe = useStripe();
   const element = useElements();
   //const [loading, setLoading] =useState(false);
+
  let contrato = useSelector((state)=> state.contracts.contrato)
  console.log(contrato, "ACACONTRATOOOOO")
 
@@ -50,10 +52,12 @@ const CheckOutForm = () => {
     } catch (error) {
       //console.log(info)
       console.log(error)      
+
     }
     //setLoading(true)
     }
  };
+
  
   return (
     // <div className={s.backgroundC}>
@@ -66,12 +70,14 @@ const CheckOutForm = () => {
     {/* </div>  
     </div> */}
    <button  disabled={!stripe}>
+
     {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
     Contratar
     </button>
   </form>
+
   </div>
   );
 };
@@ -87,8 +93,10 @@ function Stripe(){
       </div>
     </Elements>
     </div>
+
   );
-}
+};
+
 
 export default Stripe;
 
