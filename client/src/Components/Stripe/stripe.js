@@ -37,7 +37,7 @@ const CheckOutForm = () => {
       console.log(paymentMethod)
       const { id } = paymentMethod;
       console.log(id, "holi")
-      const info  = await axios.post('http://localhost:3001/checkout',{
+      const info  = await axios.post( "https://programax.up.railway.app/checkout"||'http://localhost:3001/checkout'  ,{
         ...contrato,
         payment_id: id,
         id: id,
