@@ -11,7 +11,8 @@ import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
 import Stripe from "./Components/Stripe/Stripe";
 import UserProfile from "./Components/UserProfile/UserProfile";
-import About from "./Components/About/About"
+//import About from "./Components/About/About"
+import Contracts from "./Components/Contracts/Contracts";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/work" element={<Work />} />
         <Route path="/create" element={<DevUsersCreate />} />
-        <Route path="/users" element={<Users />} />
+        {/* <Route path="/users" element={<Users />} /> */}
+        {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
       </Routes>
     </>
   );

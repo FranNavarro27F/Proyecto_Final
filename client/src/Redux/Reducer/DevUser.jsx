@@ -7,6 +7,8 @@ const initialState = {
   usuariosSB: [],
   userByEmail: [],
   flag: true,
+  idDev: "",
+  employer: []
 };
 
 export default function devUser(state = initialState, action) {
@@ -277,6 +279,18 @@ export default function devUser(state = initialState, action) {
         ...state,
         usuariosSB: action.payload,
       };
+    
+    case "DETAIL_ID_DEV":
+      return{
+        ...state,
+        idDev:action.payload 
+      }
+
+      case "USER_CONTRATO":
+        return{
+          ...state,
+          employer: action.payload
+        }
 
     default:
       return state;
