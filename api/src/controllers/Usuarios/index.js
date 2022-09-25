@@ -312,7 +312,6 @@ const modifUser = async (data) => {
   try {
     
     let {
-      id,
       name,
       lastName,
       profilePicture,
@@ -339,21 +338,21 @@ const modifUser = async (data) => {
       let userMod = await Usuarios.update({
         name: name ? name = toUperCase(name) : name = [],
         lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
-        profilePicture,
+        linkedIn: linkedIn !== "" ? linkedIn : null,
+        gitHub: gitHub !== "" ? gitHub : null,
+        profilePicture: profilePicture !== "" ? profilePicture : null,
         isAdmin,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        city,
+        webSite: webSite !== "" ? webSite : null,
+        yearsOfExperience: yearsOfExperience !== ""? yearsOfExperience : null,
+        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+        englishLevel: englishLevel !== "" ? englishLevel : null,
+        bio: bio !== "" ? bio : null,
+        paiseId,
+        city: city !== "" ? city : null,
+        registrado,
         visible,
         postulado,
-        registrado,
-        reputacion,
-        paiseId
+        reputacion: reputacion !== ""? reputacion : 1
       }, {where: {email: email}})
 
       let modUsr = await Usuarios.findOne({
