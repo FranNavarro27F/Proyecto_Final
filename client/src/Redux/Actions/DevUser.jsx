@@ -55,7 +55,7 @@ export function getDevUsers(payload) {
         payload: devUsers,
       });
     } catch (error) {
-      console.error(error.message, "Error en el get DevUsers,actions");
+      console.log(error.message, "Error en el get DevUsers,actions");
     }
   };
 }
