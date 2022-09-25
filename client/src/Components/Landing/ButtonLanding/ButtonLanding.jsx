@@ -8,12 +8,17 @@ import { useSelector } from "react-redux";
 export default function ButtonLanding() {
   const users = useSelector((state) => state.devUser.allUsers);
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  const email = user?.email;
+
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  const validateEmail = users?.filter((e) => e.email === email);
+  const validateEmail = users?.filter((e) => e.email === user?.email);
+
+  // useEffect(()=>{
+
+  // },)
 
   return (
     <div>
@@ -24,7 +29,7 @@ export default function ButtonLanding() {
       </Link>
 
       {validateEmail && isAuthenticated ? (
-        <Link to={"/profile"}>
+        <Link to={`/work/details/${userByEmail?.id}`}>
           <div className={s.possitionLg}>
             <button className={s.buttonLg}>Perfil</button>
           </div>

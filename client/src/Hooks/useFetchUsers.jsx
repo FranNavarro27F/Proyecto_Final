@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail, getUsersBd } from "../Redux/Actions/DevUser";
 
 export const useFetchUsers = (email) => {
-  const { user } = useAuth0();
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.devUser.allUsers);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);

@@ -1,6 +1,21 @@
 import axios from "axios";
 import { GrAction } from "react-icons/gr";
 
+export function putDevUser(payload) {
+  return async function (dispatch) {
+    console.log(payload, "PUT action ");
+    try {
+      let json = (await axios.put(`/usuarios`, payload)).data;
+      return dispatch({
+        type: "PUT_DEVUSER",
+        payload: json,
+      });
+    } catch (error) {
+      console.log("Catch del post");
+      console.error(error.message, "error en el post: actions");
+    }
+  };
+}
 export function postDevUser(payload) {
   return async function (dispatch) {
     console.log(payload, "Post action ");

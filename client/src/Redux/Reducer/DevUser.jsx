@@ -19,6 +19,12 @@ export default function devUser(state = initialState, action) {
         allUsers: [...state.allUsers, action.payload],
       };
 
+    case "PUT_DEVUSER":
+      return {
+        ...state,
+        allUsers: [...state.allUsers, action.payload],
+      };
+
     case "GET_USERSBD":
       return {
         ...state,
