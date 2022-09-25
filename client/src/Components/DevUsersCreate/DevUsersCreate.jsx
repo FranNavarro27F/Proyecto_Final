@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -22,6 +22,7 @@ import {
   getUserId,
   getUsersBd,
   postDevUser,
+  putDevUser,
 } from "../../Redux/Actions/DevUser";
 
 //imagenes
@@ -40,11 +41,11 @@ export default function DevUsersCreate() {
   const refLanguajes = useRef();
   const refTecnologies = useRef();
 
-  useEffect(() => {
-    getUserEmail(user?.email);
-  });
+  useLayoutEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email]);
 
-  const { userByEmail } = useFetchUsers(user?.email);
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
@@ -63,7 +64,7 @@ export default function DevUsersCreate() {
       ? cache?.yearsOfExperience
       : "0",
     englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : "",
+    paiseId: cache?.paiseId ? cache?.paiseId : [],
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
       [],
@@ -73,6 +74,7 @@ export default function DevUsersCreate() {
     servicios:
       // cache?.servicios ? cache?.servicios :
       [],
+    postulado: true,
   });
 
   const handleChangeInput = (e) => {
@@ -175,20 +177,7 @@ export default function DevUsersCreate() {
       refServices.current.clearValue();
       refLanguajes.current.clearValue();
       refTecnologies.current.clearValue();
-      dispatch(
-        postDevUser({
-          ...input,
-          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-          lastName:
-            input.lastName[0].toUpperCase() +
-            input.lastName.slice(1).toLowerCase(),
-        })
-      );
       setModal(true);
-      dispatch(getUsersBd());
-      setTimeout(() => {
-        navigate("/work");
-      }, 1500);
       setCache({
         name: ("name", `${userByEmail?.name}`),
         lastName: ("lastName", `${userByEmail?.lastName}`),
@@ -200,11 +189,22 @@ export default function DevUsersCreate() {
         yearsOfExperience: ("yearsOfExperience", "0"),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", ""),
+        paiseId: ("paiseId", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
+        postulado: ("postulado", true),
       });
+      setTimeout(() => {
+        navigate("/work");
+      }, 1500);
+      dispatch(
+        putDevUser({
+          ...input,
+          postulado: true,
+        })
+      );
+      dispatch(getUsersBd());
     } else {
       alert(`hay errores`, errors);
     }
@@ -221,6 +221,7 @@ export default function DevUsersCreate() {
       value: "default",
       label: "Selecciona un país...",
     });
+
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
@@ -228,17 +229,18 @@ export default function DevUsersCreate() {
       name: ("name", ``),
       lastName: ("lastName", ``),
       profilePicture: ("profilePicture", ``),
-      email: `${userByEmail?.email}`,
+      email: ("email", `${userByEmail?.email}`),
       linkedIn: ("linkedIn", ""),
       gitHub: ("gitHub", ""),
       webSite: ("webSite", ""),
       yearsOfExperience: ("yearsOfExperience", "0"),
       dailyBudget: ("dailyBudget", "0"),
       englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
+      paiseId: ("paiseId", []),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
+      postulado: true,
     });
     setInput({
       name: ``,
@@ -251,10 +253,11 @@ export default function DevUsersCreate() {
       yearsOfExperience: "0",
       dailyBudget: "0",
       englishLevel: "Básico",
-      paiseId: "",
+      paiseId: [],
       tecnologias: [],
       lenguajes: [],
       servicios: [],
+      postulado: true,
     });
     setLoader(false);
   };
@@ -276,7 +279,7 @@ export default function DevUsersCreate() {
     };
   });
 
-  if (isLoading && !user.email && !userByEmail.email) {
+  if ((isLoading, userByEmail.email === undefined)) {
     return (
       <div>
         <Loader />
@@ -546,20 +549,19 @@ export default function DevUsersCreate() {
               placeholder="Selecciona un pais"
               defaultValue={handleDefaultCountrie}
               onChange={(e) => {
-                console.log(e);
                 setInput({
                   ...input,
-                  paiseId: e.label,
+                  paiseId: e?.value,
                 });
                 setErrors(
                   validaciones({
                     ...input,
-                    paiseId: e.label,
+                    paiseId: e?.value,
                   })
                 );
                 setCache({
                   ...cache,
-                  paiseId: e.label,
+                  paiseId: e?.value,
                 });
               }}
             />

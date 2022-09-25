@@ -16,13 +16,46 @@ import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail } from "../../Redux/Actions/DevUser";
+import { getUserEmail, postDevUser } from "../../Redux/Actions/DevUser";
 import { useEffect } from "react";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
+import { useLocalStorage } from "../../Hooks/useLocalStorage";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
+  const userEmail = useSelector((state) => state.devUser.userByEmail);
+
+  // console.log(userEmail.registrado, "registrado");
+
+  const [cacheLogin, setCacheLogin] = useLocalStorage({});
+  const [userLocal, setUserLocal] = useState({
+    family_name: cacheLogin?.family_name
+      ? cacheLogin?.family_name
+      : user?.family_name,
+    given_name: cacheLogin?.given_name
+      ? cacheLogin?.given_name
+      : user?.given_name,
+    email: cacheLogin?.email ? cacheLogin?.email : user?.email,
+    picture: cacheLogin?.picture ? cacheLogin?.picture : user?.picture,
+    registrado: true,
+  });
+
+  useLayoutEffect(() => {
+    setCacheLogin({
+      family_name: ("family_name", `${user?.family_name}`),
+      given_name: ("given_name", `${user?.given_name}`),
+      email: ("email", `${user?.email}`),
+      picture: ("picture", `${user?.picture}`),
+      registrado: ("registrado", true),
+    });
+  }, [setCacheLogin, user, userEmail]);
+
+  useEffect(() => {
+    !userEmail?.registrado && dispatch(postDevUser(cacheLogin));
+    console.log("no registrado");
+  }, [cacheLogin, dispatch, userEmail?.registrado]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -42,7 +75,6 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
   const handleClick = () => {
-    console.log("HOLAAAAAAAA MUNDOOOOOOOO");
     setOpen(false);
   };
   return isLoading ? (

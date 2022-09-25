@@ -21,7 +21,6 @@ export default function ButtonProfile({
   }, [dispatch, user?.email]);
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  console.log(userByEmail.registrado ? "registrado" : "no registrado");
 
   return (
     <div className={s.container}>

@@ -28,6 +28,13 @@ export default function Work() {
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
+  // if (currentDev.map((e) => e.tecnologias === undefined))
+  //   return (
+  //     <div>
+  //       <Loader />
+  //     </div>
+  //   );
+
   return !allUsers.length ? (
     <Loader />
   ) : (

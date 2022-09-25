@@ -45,6 +45,8 @@ export default function Details() {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [id, userByEmail?.id]);
 
+  // const [modal setModal] = useState
+
   const handleContact = () => {
     if (nombreContratista && mailContrado) {
       setDisabled(true);
@@ -54,6 +56,7 @@ export default function Details() {
           mailContrado: mailContrado,
         })
       );
+      navigate("/contratos");
     }
   };
 
@@ -492,7 +495,7 @@ export default function Details() {
 
               {/* {!userProfile
                 ? userDetail?.servicios?.map((e) => e)
-                : userByEmail.servicios?.map((e) => e)} */}
+                : userByEmail?.servicios?.map((e) => e)} */}
             </span>
             <br />
             <br />
@@ -535,7 +538,6 @@ export default function Details() {
             <br />
             <span>Años de Experiencia: </span>
             <span>
-              {" "}
               {!userProfile
                 ? userDetail.yearsOfExperience
                 : userDetail.yearsOfExperience}

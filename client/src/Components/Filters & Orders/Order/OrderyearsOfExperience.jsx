@@ -19,7 +19,6 @@ export default function OrderyearsOfExperience({
 
   const handleOrderExp = (e) => {
     setActualFilter((state) => {
-      // console.log(e.value, "exp");
       return {
         ...state,
         OrderExp: e.value,
