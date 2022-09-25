@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -9,11 +9,12 @@ import {
 import axios from "axios";
 
 import Contracts from "../Contracts/Contracts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "../Stripe/Stripe.module.css";
 import { Navigate, useNavigate } from "react-router-dom";
+import { getUserEmail } from "../../Redux/Actions/DevUser";
 //import Loader from '../'
 
 const stripePromise = loadStripe(
@@ -89,10 +90,15 @@ const CheckOutForm = () => {
 function Stripe() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  const { userByEmail } = useFetchUsers(user?.email);
-
+  const dispatch = useDispatch();
+  // const { userByEmail } = useFetchUsers(user?.email);
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user]);
   const userDetail = useSelector((state) => state.devUser.details);
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
   console.log(userDetail, "DETAILSSSSSSS");
+  console.log(userByEmail, "DETAILSSSSSSS EMAIL");
   return (
     <div className={s.bodyPagos}>
       <h1>{userByEmail?.id}</h1>
