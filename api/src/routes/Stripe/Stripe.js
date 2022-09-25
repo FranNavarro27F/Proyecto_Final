@@ -1,41 +1,44 @@
 // const express = require('express');
 const { Router } = require("express");
 
-const Stripe = require('stripe')
-const cors = require('cors')
+const Stripe = require("stripe");
+const cors = require("cors");
 const router = Router();
 
 //a esta clave la podemos poner en una variable de entorno
- const stripe = new Stripe('sk_test_51LkCysDY7badEkJlamkZPnFP3RBDv8JiK3uH9Ppv0BKxIinBUfz1I7wopdGtVUZcRXCUv8amtBvF2NxDYZNEhMRJ00mPeWn11N')
+const stripe = new Stripe(
+  "sk_test_51LkCysDY7badEkJlamkZPnFP3RBDv8JiK3uH9Ppv0BKxIinBUfz1I7wopdGtVUZcRXCUv8amtBvF2NxDYZNEhMRJ00mPeWn11N"
+);
 
-router.use (cors({origin:'http://localhost:3000'}))
+router.use(cors({ origin: "http://localhost:3000" }));
 
-router.post('/', async (req, res) =>{
-  try{
-  //aca me traigo todas las props del pago
-  const { id, amount} = req.body;
+router.post("/", async (req, res) => {
+  try {
+    //aca me traigo todas las props del pago
+    const { id, amount } = req.body;
 
-  const payment = await stripe.paymentIntents.create({
-    amount,
-    currency: "USD",
-    description: "algo",
-    payment_method: id,
-    confirm: true
-  });
-console.log(payment)
-  res.send({message: "Pago realizado con éxito"})
-} catch(error){
-  console.log(error)
-  res.send({message: error.raw.message})
-}
-})
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "USD",
+      description: "algo",
+      payment_method: id,
+      confirm: true,
+    });
+
+    // console.log(payment)
+    res.send({ message: "Pago realizado con éxito" });
+    //
+  } catch (error) {
+    console.log(error);
+    res.send({ message: error.raw.message });
+  }
+});
 
 module.exports = router;
 
 // / This is your test secret API key
 // const stripe = require('stripe')('sk_test_51LkCysDY7badEkJlamkZPnFP3RBDv8JiK3uH9Ppv0BKxIinBUfz1I7wopdGtVUZcRXCUv8amtBvF2NxDYZNEhMRJ00mPeWn11N');
 // const express = require('express');
-
 
 // const YOUR_DOMAIN = 'http://localhost:4242';
 

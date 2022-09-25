@@ -13,7 +13,7 @@ const router = Router();
 
 const ERROR = `Error @ routes/Contratos --> `;
 
-// -----------------------------------------------
+// -------------------------------------------
 
 // ---------- GET CONTRACTS ----------
 router.get("/", async (req, res) => {
@@ -67,7 +67,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ---------- PUT CONTRACT (CANCEL) ----------
-router.put("/:id", async (req, res) => {
+router.put("/cancel/:id", async (req, res) => {
   try {
     //
     const { id } = req.params;

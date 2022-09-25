@@ -17,7 +17,7 @@ const guardarServiciosEnDB = async () => {
     console.log("Servicios guardadas en DB :)");
     return "Servicios guardadas correctamente en DB :) ";
   } catch (e) {
-    console.error(`${ERROR}/deleteService --> ${e}`);
+    console.error(`${ERROR}/guardarServiciosEnDB --> ${e}`);
   }
 };
 
@@ -26,7 +26,7 @@ const todosLosServicios = async () => {
     let servi = await Servicios.findAll();
     return servi;
   } catch (e) {
-    console.error(`${ERROR}/deleteService --> ${e}`);
+    console.error(`${ERROR}/todosLosServicios --> ${e}`);
   }
 };
 
@@ -41,8 +41,6 @@ const deleteService = async (id) => {
     console.error(`${ERROR}/deleteService --> ${e}`);
   }
 };
-
-
 
 module.exports = {
   todosLosServicios,
