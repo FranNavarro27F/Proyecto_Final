@@ -296,7 +296,7 @@ const postUserAuth = async (data) => {
         name: given_name,
         lastName: family_name,
         profilePicture: picture,
-        isAdmin,
+        isAdmin: false,
         registrado: true,
       },
     });
