@@ -14,7 +14,7 @@ server.name = "API";
 
 /////app.use(express.json());
 
-server.use (cors({origin: "https://programax.up.railway.app"}))
+server.use (cors())
 
 server.use(express.static('public'));
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
