@@ -76,7 +76,7 @@ const CheckOutForm = () => {
   );
 };
 
-function Stripe() {
+function Stripe(){
   return (
     <div>
       <Contracts/>
