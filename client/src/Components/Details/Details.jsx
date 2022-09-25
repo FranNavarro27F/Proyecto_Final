@@ -625,8 +625,6 @@ export default function Details() {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-=======
             <br />
             <a
               href={`mailto:${
@@ -759,7 +757,6 @@ export default function Details() {
               Volver
             </button>
             <Link to=""></Link>
->>>>>>> dev
           </div>
         </div>
       </div>
