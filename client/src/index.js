@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 axios.defaults.baseURL =
-  "https://programax.up.railway.app" || "http://localhost:3001";
+    "http://localhost:3001" || "https://programax.up.railway.app"
 
 ReactDOM.render(
   <BrowserRouter>

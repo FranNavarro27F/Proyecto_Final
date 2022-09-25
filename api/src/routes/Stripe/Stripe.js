@@ -8,19 +8,17 @@ const router = Router();
 //a esta clave la podemos poner en una variable de entorno
  const stripe = new Stripe('sk_test_51LkCysDY7badEkJlamkZPnFP3RBDv8JiK3uH9Ppv0BKxIinBUfz1I7wopdGtVUZcRXCUv8amtBvF2NxDYZNEhMRJ00mPeWn11N')
 
-router.use (cors({origin: "https://programax.up.railway.app" || 'http://localhost:3000'}))
+router.use (cors({origin: 'http://localhost:3000'}))
 
 router.post('/', async (req, res) =>{
   try{
   //aca me traigo todas las props del pago
-  const { id, amount} = req.body;
+  const { id } = req.body;
+console.log(req.body)
 
   const payment = await stripe.paymentIntents.create({
-    amount,
-    currency: "USD",
-    description: "algo",
     payment_method: id,
-    confirm: true
+    
   });
 console.log(payment)
   res.send({message: "Pago realizado con éxito"})

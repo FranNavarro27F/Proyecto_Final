@@ -1,5 +1,6 @@
  const initialState = {
   allCountries: [],
+  contrato:{}
 
 };
 
@@ -10,6 +11,11 @@ export default function countries(state = initialState, action) {
         ...state,
         allCountries: action.payload,
       };
+      case "SETEO_CONTRATO_GLOBAL":
+        return {
+          ...state,
+          contrato: action.payload,
+        };
     
     default:
       return state;

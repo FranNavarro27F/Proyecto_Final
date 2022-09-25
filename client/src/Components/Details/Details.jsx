@@ -4,6 +4,7 @@ import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  detailIdDev,
   detailReset,
   getUserEmail,
   getUserId,
@@ -48,7 +49,7 @@ export default function Details() {
   const handleContact = () => {
     if(userDetail){
       dispatch(detailIdDev(userDetail.id))
-      //navigate("/contratos")
+      navigate("/checkout")
     }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
@@ -578,7 +579,7 @@ export default function Details() {
               {" "}
               Volver
             </button>
-            <Link to=""></Link>
+            
           </div>
         </div>
       </div>
