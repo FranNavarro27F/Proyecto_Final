@@ -71,6 +71,8 @@ function validacionesEdit(input) {
     if (input.dailyBudget > 999 || input.dailyBudget < 0)
       errors.dailyBudget = "El valor debe estar entre 1 y 999";
   }
+  //countrie
+  if (input.paiseId?.length === 0) errors.countries = "Ingresa un pais!";
   return errors;
 }
 
