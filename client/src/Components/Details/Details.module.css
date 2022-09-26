@@ -149,8 +149,15 @@
   justify-content: center;
   color: wheat;
   text-align: center;
-  margin-top: 20vh;
+  /* margin-top: 20vh; */
   font-family: Poppins;
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  height: 100vh;
 }
 .conteiner {
   padding: 2rem;
