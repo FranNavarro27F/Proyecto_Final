@@ -12,28 +12,52 @@ import ModalWork from "./ModalWork/ModalWork";
 import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
+import { useAuth0 } from "@auth0/auth0-react";
+import Selectores from "../Selectores/Selectores";
 
 export default function Work() {
   const dispatch = useDispatch();
-
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const { allUsers } = useFetchUsers();
+  const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  useLayoutEffect(() => {
-    if (!allUsers.length) dispatch(getUsersBd());
-  }, [allUsers.length, dispatch]);
+  useEffect(() => {
+    dispatch(getUsersBd());
+  }, [dispatch]);
+
+  const {
+    optionsOrderBudget,
+    optionsOrderExp,
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return !allUsers.length ? (
     <Loader />
   ) : (
     <main className={s.body}>
-      <NavBar className={s.navMenu} />
+      <NavBar
+        optionsOrderBudget={optionsOrderBudget}
+        optionsOrderExp={optionsOrderExp}
+        optionsTecnologias={optionsTecnologias}
+        optionsLanguajes={optionsLanguajes}
+        optionsServices={optionsServices}
+        optionsCountries={optionsCountries}
+        className={s.navMenu}
+      />
       <div className={s.sideMenu}>
         <SideMenuWork />
       </div>

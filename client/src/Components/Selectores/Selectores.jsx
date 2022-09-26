@@ -1,7 +1,16 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import useFetchAllData from "../../Hooks/useFetchAllData";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
 
 export default function Selectores() {
+  const dispatch = useDispatch();
+
   const { countries, languajes, services, tecnologies } = useFetchAllData();
+  useEffect(() => {
+    dispatch(getUsersBd());
+  }, [dispatch]);
+
   const optionsLanguajes = languajes.map((e) => {
     return {
       value: e.id,

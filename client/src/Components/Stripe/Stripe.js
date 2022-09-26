@@ -17,6 +17,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import s from "../Stripe/Stripe.module.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
+import Loader from "../Loader/Loader";
 //import Loader from '../'
 const stripePromise = loadStripe(
   "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
@@ -30,14 +31,17 @@ const CheckOutForm = ({ contrato }) => {
   const userDetail = useSelector((state) => state.devUser.details);
 
   let contratoA = useSelector((state) => state.contracts.contrato);
-  console.log("Contrato seteado correctamente");
+  console.log(contratoA, "ACACONTRATOOOOO");
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+
+  const { userByEmail } = useFetchUsers(user?.email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: element.getElement(CardElement),
-
     });
 
     //setLoading(true)
@@ -68,7 +72,21 @@ const CheckOutForm = ({ contrato }) => {
     }
   };
 
-  return (
+  if (
+    !isLoading &&
+    !userByEmail?.id !== undefined &&
+    !userDetail?.id !== undefined
+  ) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
+  return !userByEmail?.id && !userDetail?.id ? (
+    <Loader />
+  ) : (
     <div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -201,7 +219,9 @@ function Stripe() {
     payment_id: "",
   });
 
-  return (
+  return !userByEmail?.id && !userDetail?.id ? (
+    <Loader />
+  ) : (
     <div className={s.backgroundC}>
       <div>
         <Contracts

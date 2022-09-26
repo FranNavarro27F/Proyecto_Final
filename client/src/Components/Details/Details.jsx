@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -18,6 +18,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
+import Landing from "../Landing/Landing";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -83,7 +84,8 @@ export default function Details() {
     isLoading &&
     user?.email &&
     userDetail?.name === undefined &&
-    userByEmail?.name === undefined
+    userByEmail?.name === undefined &&
+    userByEmail?.profilePicture === undefined
   ) {
     return (
       <div>
