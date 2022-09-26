@@ -7,11 +7,19 @@ const initialState = {
   usuariosSB: [],
   userByEmail: [],
   flag: true,
+  idDev: "",
+  employer: []
 };
 
 export default function devUser(state = initialState, action) {
   switch (action.type) {
     case "POST_DEVUSER":
+      return {
+        ...state,
+        allUsers: [...state.allUsers, action.payload],
+      };
+
+    case "PUT_DEVUSER":
       return {
         ...state,
         allUsers: [...state.allUsers, action.payload],
@@ -271,6 +279,18 @@ export default function devUser(state = initialState, action) {
         ...state,
         usuariosSB: action.payload,
       };
+    
+    case "DETAIL_ID_DEV":
+      return{
+        ...state,
+        idDev:action.payload 
+      }
+
+      case "USER_CONTRATO":
+        return{
+          ...state,
+          employer: action.payload
+        }
 
     default:
       return state;

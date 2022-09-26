@@ -12,12 +12,13 @@ export default function NavMenuHome({
   isAuthenticated,
   user,
   logout,
+  setOpen,
+  open,
   // about,
 }) {
-  console.log(user);
   return (
     <div className={s.container}>
-      <ui>
+      <ul>
         <li onClick={() => scrollToSeccion(landing)} className={s.link}>
           BIENVENIDO
         </li>
@@ -33,8 +34,15 @@ export default function NavMenuHome({
         <li onClick={() => scrollToSeccion(work)} className={s.link}>
           DESTACADOS
         </li>
-      </ui>
-      {isAuthenticated && <ButtonProfile user={user} logout={logout} />}
+      </ul>
+      {isAuthenticated && (
+        <ButtonProfile
+          user={user}
+          logout={logout}
+          setOpen={setOpen}
+          open={open}
+        />
+      )}
     </div>
   );
 }

@@ -4,30 +4,36 @@ const { Contratos, Usuarios } = require("../../db");
 const ERROR = "Error @ controllers/Contratos";
 
 const setStatus = (date = null, expiration_date = null) => {
-  const today = new Date();
-  let status;
+  try {
+    //
+    const today = new Date();
+    let status;
 
-  //   const minute = 1000 * 60;
-  //   const hour = minute * 60;
-  //   const day = hour * 24;
+    //   const minute = 1000 * 60;
+    //   const hour = minute * 60;
+    //   const day = hour * 24;
 
-  //   const d = Date.parse(expiration_date);
-  //   let days = Math.round(d / day);
+    //   const d = Date.parse(expiration_date);
+    //   let days = Math.round(d / day);
 
-  if (date) {
-    status =
-      today.setHours(0, 0, 0, 0) < date.setHours(0, 0, 0, 0)
-        ? "Inactivo"
-        : "Activo";
+    if (date) {
+      status =
+        today.setHours(0, 0, 0, 0) < date.setHours(0, 0, 0, 0)
+          ? "Inactivo"
+          : "Activo";
+    }
+
+    if (
+      expiration_date &&
+      today.setHours(0, 0, 0, 0) > expiration_date.setHours(0, 0, 0, 0)
+    )
+      status = "Completado";
+
+    return status;
+    //
+  } catch (e) {
+    console.warn(ERROR, `(setStatus → Date)`);
   }
-
-  if (
-    expiration_date &&
-    today.setHours(0, 0, 0, 0) > expiration_date.setHours(0, 0, 0, 0)
-  )
-    status = "Completado";
-
-  return status;
 };
 
 // -----------------------------------------------

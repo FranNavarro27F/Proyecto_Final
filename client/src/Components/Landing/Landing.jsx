@@ -8,8 +8,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import ButtonScrollSection from "../Home/ButtonScrollSection";
+import { useSelector } from "react-redux";
 
-export default function Landing({ landing, scrollTo, goToSectionRef }) {
+export default function Landing({
+  landing,
+  scrollTo,
+  goToSectionRef,
+  open,
+  setOpen,
+}) {
   const { user, isAuthenticated, isLoading, loginWithRedirect, home } =
     useAuth0();
   // console.log(user);
