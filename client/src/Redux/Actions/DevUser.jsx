@@ -3,7 +3,7 @@ import { GrAction } from "react-icons/gr";
 
 export function putDevUser(payload) {
   return async function (dispatch) {
-    console.log(payload, "PUT action ");
+    console.log("PUT action", payload);
     try {
       let json = (await axios.put(`/usuarios`, payload)).data;
       return dispatch({
