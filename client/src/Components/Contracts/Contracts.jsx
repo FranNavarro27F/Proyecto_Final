@@ -8,6 +8,7 @@ import { setearContratoGlobal } from "../../Redux/Actions/Contracts";
 import { useNavigate } from "react-router-dom";
 // import { getUserContrato } from '../../Redux/Actions/DevUser';
 
+import s from "./Contracts.module.css";
 export default function Contracts({
   idEmpleador,
   idDesarroyador,
@@ -61,41 +62,54 @@ export default function Contracts({
   }
 
   return (
-    <div>
+    <div className={s.bodyForm}>
       {/* <div>
             <Stripe/>
         </div> */}
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label>Fecha Inicio:</label>
-        <input
-          type={"date"}
-          name={"date"}
-          value={contrato.date}
-          onChange={(e) => handleChange(e)}
-        />
-        <label>Fecha fin:</label>
-        <input
-          type={"date"}
-          name={"expiration_date"}
-          value={contrato.expiration_date}
-          onChange={(e) => handleChange(e)}
-        />
-        <label>Descripción</label>
-        <input
-          type="text-area"
-          name={"description"}
-          value={contrato.description}
-          onChange={(e) => handleChange(e)}
-        />
-        <label>Precio</label>
-        <input
-          type={"number"}
-          name={"price"}
-          value={contrato.price}
-          onChange={(e) => handleChange(e)}
-        ></input>
-        <button>Mande</button>
-      </form>
+      <div className={s.form}>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className={s.divInputs}>
+            {" "}
+            <label>Fecha Inicio:</label>
+            <input
+              type={"date"}
+              name={"date"}
+              value={contrato.date}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div className={s.divInputs}>
+            <label>Fecha fin:</label>
+            <input
+              type={"date"}
+              name={"expiration_date"}
+              value={contrato.expiration_date}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div className={s.divInputs}>
+            <label>Descripción</label>
+            <input
+              type="text-area"
+              name={"description"}
+              value={contrato.description}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+          <div className={s.divInputs}>
+            <label>Precio</label>
+            <input
+              type={"number"}
+              name={"price"}
+              value={contrato.price}
+              onChange={(e) => handleChange(e)}
+            ></input>
+          </div>
+          <div className={s.divbutton}>
+            <button className={s.buttonMande}>ESTABLECER CONTRATO</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
