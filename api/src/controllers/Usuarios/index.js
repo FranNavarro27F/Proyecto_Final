@@ -111,7 +111,6 @@ const postUsers = async (data) => {
   //     postulado,
   //     reputacion,
   //   } = data;
-
   //   const [row, created] = await Usuarios.findOrCreate({
   //     where: {
   //       email,
@@ -136,11 +135,9 @@ const postUsers = async (data) => {
   //       reputacion,
   //     },
   //   });
-
   //   row.addTecnologias(tecnologias);
   //   row.addLenguajes(lenguajes);
   //   row.addServicios(servicios);
-
   //   if (!created) {
   //     throw new Error("El usuario ya existe");
   //   } else {
@@ -312,7 +309,7 @@ const postUserAuth = async (data) => {
 };
 
 const modifUser = async (data) => {
-  try { 
+  try {
     let {
       name,
       lastName,
@@ -334,9 +331,9 @@ const modifUser = async (data) => {
       tecnologias,
       lenguajes,
       servicios,
-      paiseId, 
+      paiseId,
     } = data;
-    
+
     let userMod = await Usuarios.update(
       {
         name: name ? (name = toUperCase(name)) : (name = []),
@@ -348,7 +345,7 @@ const modifUser = async (data) => {
         profilePicture,
         isAdmin,
         webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience: yearsOfExperience !== ""? yearsOfExperience : 1,
+        yearsOfExperience: yearsOfExperience !== "" ? yearsOfExperience : 1,
         dailyBudget: dailyBudget !== "" ? dailyBudget : 1,
         englishLevel: englishLevel !== "" ? englishLevel : null,
         bio: bio !== "" ? bio : null,
@@ -360,7 +357,7 @@ const modifUser = async (data) => {
         reputacion: reputacion !== "" ? reputacion : 1,
       },
       { where: { email: email } }
-    );  
+    );
 
     let modUsr = await Usuarios.findOne({
       where: {
@@ -459,7 +456,7 @@ const getByEmail = async (email) => {
         : [],
     };
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
+    console.error(`ERROR @ controllers/getByEmail --→ ${e}`);
   }
 };
 
