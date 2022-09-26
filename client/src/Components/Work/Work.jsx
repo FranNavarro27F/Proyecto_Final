@@ -26,7 +26,7 @@ export default function Work() {
 
   useEffect(() => {
     dispatch(getUsersBd());
-  }, [allUsers.length, dispatch]);
+  }, [dispatch]);
 
   const {
     optionsOrderBudget,

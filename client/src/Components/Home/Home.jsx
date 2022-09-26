@@ -15,7 +15,12 @@ import Loader from "../Loader/Loader";
 import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail, postDevUser } from "../../Redux/Actions/DevUser";
+import {
+  getDevUsers,
+  getUserEmail,
+  getUsersBd,
+  postDevUser,
+} from "../../Redux/Actions/DevUser";
 import { useEffect } from "react";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
@@ -36,20 +41,21 @@ export default function Home() {
     // registrado: true,
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    dispatch(getUsersBd());
     setUserLocal({
       family_name: `${user?.family_name}`,
       given_name: `${user?.given_name}`,
       email: `${user?.email}`,
       picture: `${user?.picture}`,
     });
-  }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     dispatch(
-      postDevUser({
+      getUserEmail({
         ...userLocal,
-        registrado: true,
+        // registrado: true,
       })
     );
   }, [dispatch, userLocal]);
