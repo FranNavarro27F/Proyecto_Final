@@ -19,14 +19,14 @@ async function main(nombreContratista, mailContrado) {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Programax 👻" <appprogramax@gmail.com>', // sender address
+    from: '"Programax" <appprogramax@gmail.com>', // sender address
     to: mailContrado, // list of receivers
-    subject: "Hello ✔", // Subject line
+    subject: "Te han contactado!", // Subject line
     // text: `Hola! ${nombreContratista} te ha contactado! Esto es texto`, // plain text body
     // BORRAMOS EL TEXT. OJO.
-    html: `<b>Hola! ${nombreContratista} te ha contactado! Ingresa a Programax para comunicarse entre las partes mediante el chat</b>
+    html: `<b>Hola! <strong>${nombreContratista}</strong> te ha contactado! Ingresa a Programax para ponerse de acuerdo y cerrar el contrato. </b>
     <br>
-    <img src=${"../../../../Logo/icon-1200x1200.png"}></img>
+    <img src=${"../../../../Logo/logo chico.png"}></img>
     `, // html body
   });
 

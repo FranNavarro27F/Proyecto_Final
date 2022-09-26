@@ -50,7 +50,7 @@ const CheckOutForm = ({ contrato }) => {
       try {
         console.log(paymentMethod, "paymentMethod id");
         const { id } = paymentMethod;
-        console.log(id, "holi");
+        console.log(id, paymentMethod, "Contrato y pago exitosos.");
         const info = await axios.post(
           "https://programax.up.railway.app/checkout" ||
             "http://localhost:3001/checkout",
