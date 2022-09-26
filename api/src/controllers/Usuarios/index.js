@@ -79,7 +79,7 @@ const getUsers = async () => {
           : [],
       };
     });
-    console.log(Promise.all(arrUsersListo), "******");
+
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
@@ -180,7 +180,6 @@ const getUserById = async (id) => {
     });
 
     let userM = User.dataValues;
-    console.log(userM);
     let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
@@ -195,7 +194,6 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-    console.log(userM);
 
     return userM;
   } catch (e) {
@@ -445,16 +443,16 @@ const getByEmail = async (email) => {
       postulado: useEmail.postulado,
       registrado: useEmail.registrado,
       reputacion: useEmail.reputacion,
-      paiseId: useEmail.paise ? useEmail.paise.dataValues.name : "",
+      paiseId: useEmail.paise ? useEmail.paise?.dataValues.name : "",
       servicios: useEmail.servicios
-        ? useEmail.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+        ? useEmail.servicios.map((cur) => cur?.dataValues).map((cur) => cur.name)
         : [],
       lenguajes: useEmail.lenguajes
-        ? useEmail.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+        ? useEmail.lenguajes.map((cur) => cur?.dataValues).map((cur) => cur.name)
         : [],
       tecnologias: useEmail.tecnologias
         ? useEmail.tecnologias
-            .map((cur) => cur.dataValues)
+            .map((cur) => cur?.dataValues)
             .map((cur) => cur.name)
         : [],
     };
