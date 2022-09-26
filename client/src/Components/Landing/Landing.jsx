@@ -22,7 +22,7 @@ export default function Landing({
   // console.log(user);
 
   return (
-    <div ref={landing} className={s.bodyLanding}>
+    <div ref={landing} onClick={() => setOpen(false)} className={s.bodyLanding}>
       <PlanetasChicos />
       <Planeta />
       {/* <SideMenu /> */}

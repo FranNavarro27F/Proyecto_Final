@@ -1,7 +1,19 @@
+.body {
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 .sideM {
   z-index: 4;
-  width: auto;
-  height: auto;
+  /* width: auto;
+  height: auto; */
   /* position: fixed; */
 }
 .backGroundDiv {
@@ -18,10 +30,12 @@
   height: 80vh;
   left: 25vw;
   top: 10vh;
-  background: rgba(47, 47, 138, 0.6);
+  background: rgba(47, 47, 138, 0.247);
   border-radius: 30px;
   overflow: hidden;
   font-size: 1px;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
 }
 .textBox {
   width: 15vw;
@@ -40,7 +54,8 @@
 .girlCelu {
   position: absolute;
   width: 40vh;
-  height: 90vh;
+  height: auto;
+  overflow: hidden;
   bottom: 16vh;
 }
 .diamantitos {
@@ -56,6 +71,7 @@
   height: 45vh;
   left: 152vh;
   top: 60vh;
+  display: none;
 }
 .imageBox {
   /* background-color: #C961DE; */
@@ -94,6 +110,25 @@
   cursor: pointer;
   margin-right: 0.9rem;
 }
+.buttonL:disabled {
+  box-sizing: border-box;
+  cursor: default;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.7vw;
+  line-height: 2vw;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  border: 1px solid black;
+}
 .buttonBack {
   position: relative;
   left: 45vh;
@@ -114,7 +149,7 @@
 }
 
 .buttonBack:hover,
-.buttonL:hover {
+.buttonL:hover:enabled {
   transition-delay: 0.2s;
   transition: 0.8s;
   transform: scale(1.1);
@@ -123,13 +158,13 @@
 
 .divButton {
   display: flex;
-  background-color: red;
 }
 
 .svg {
   width: 27vw;
   height: auto;
   z-index: 1000;
+  margin-bottom: -18vh;
 }
 
 /* width="520" height="1039"  */

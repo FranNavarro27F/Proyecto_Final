@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
-
 import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
@@ -49,13 +48,14 @@ export default function Home() {
   const work = useRef(null);
 
   const [open, setOpen] = useState(false);
+
   const handleClick = () => {
     setOpen(false);
   };
   return isLoading ? (
     <Loader />
   ) : (
-    <div className={s.body} onclick={handleClick}>
+    <div className={s.body}>
       <div className={s.buttonTop}>
         <ScrollTop className={s.buttonTop} />
       </div>
@@ -70,7 +70,6 @@ export default function Home() {
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
-        // about={about}
         work={work}
       />
       <Landing
@@ -108,7 +107,6 @@ export default function Home() {
           scrollToSeccion={scrollToSeccion}
           landing={landing}
           home={home}
-          // about={about}
           work={work}
         />
       </div>

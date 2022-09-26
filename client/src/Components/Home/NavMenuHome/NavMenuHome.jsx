@@ -10,13 +10,8 @@ export default function NavMenuHome({
   work,
   home,
   landing,
-  userByEmail,
-  // isAuthenticated,
-  // user,
-  // logout,
   setOpen,
   open,
-  // about,
 }) {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
@@ -41,7 +36,6 @@ export default function NavMenuHome({
       </ul>
       {isAuthenticated && (
         <ButtonProfile
-          // userByEmailHome={userByEmailHome}
           user={user}
           logout={logout}
           setOpen={setOpen}

@@ -21,14 +21,8 @@ import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 
 export default function Details() {
-  const {
-    user,
-    isAuthenticated,
-    isLoading,
-    loginWithRedirect,
-    logout,
-    boenasss,
-  } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
@@ -50,30 +44,25 @@ export default function Details() {
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    // return function () {
-    //   return dispatch(detailReset());
-    // };
   }, [dispatch, id, userByEmail?.id]);
-  console.log(userByEmail);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
-  const [pagos, setPagos] = useState(false);
 
   const handleContact = () => {
-    // if (userDetail) {
-    //   // dispatch(detailIdDev(userDetail.id));
-    //   // navigate("/checkout");
-    // }
-    if (nombreContratista && mailContrado) {
-      setDisabled(true);
-      dispatch(
-        emailer({
-          nombreContratista: nombreContratista,
-          mailContrado: mailContrado,
-        })
-      );
+    if (isAuthenticated) {
+      if (nombreContratista && mailContrado) {
+        setDisabled(true);
+        dispatch(
+          emailer({
+            nombreContratista: nombreContratista,
+            mailContrado: mailContrado,
+          })
+        );
+      }
+      SetContratoDetail(!contratoDetail);
+    } else {
+      loginWithRedirect();
     }
-    SetContratoDetail(!contratoDetail);
   };
 
   const handleBack = () => {
@@ -89,41 +78,12 @@ export default function Details() {
       </div>
     );
   }
-  console.log(boenasss, "EL DETAIL");
-  const contrato = () => {
-    return (
-      <div className={s.bodyPropuesta}>
-        <div className={s.conteiner}>
-          <h1>PROPUESTA</h1>
-          <h2>
-            Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
-            propuesta!
-          </h2>
-          <textarea type="textarea" rows="10" cols="70" />
-          <div>
-            <button
-              className={s.buttonVolver}
-              onClick={() => SetContratoDetail(!contratoDetail)}
-            >
-              VOLVER
-            </button>
-            <button
-              className={s.buttonPago}
-              onClick={() => navigate("/checkout")}
-            >
-              METODO DE PAGO
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const detail = () => {
     return loader ? (
       <Loader />
     ) : (
-      <div className={s.modal}>
+      <div className={s.body}>
         <div className={s.sideM}>
           <div className={s.modal}>
             <div className={s.container}>
@@ -651,6 +611,35 @@ export default function Details() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const contrato = () => {
+    return (
+      <div className={s.bodyPropuesta}>
+        <div className={s.conteiner}>
+          <h1>PROPUESTA</h1>
+          <h2>
+            Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
+            propuesta!
+          </h2>
+          <textarea type="textarea" rows="10" cols="70" />
+          <div>
+            <button
+              className={s.buttonVolver}
+              onClick={() => SetContratoDetail(!contratoDetail)}
+            >
+              VOLVER
+            </button>
+            <button
+              className={s.buttonPago}
+              onClick={() => navigate("/checkout")}
+            >
+              METODO DE PAGO
+            </button>
           </div>
         </div>
       </div>
