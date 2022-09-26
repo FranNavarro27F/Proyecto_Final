@@ -27,6 +27,7 @@ function App() {
         <Route path="/create" element={<DevUsersCreate />} />
         {/* <Route path="/users" element={<Users />} /> */}
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
+        **<Route path="*" element={<h1>404</h1>}></Route>**
       </Routes>
     </>
   );

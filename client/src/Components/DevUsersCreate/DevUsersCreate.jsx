@@ -95,10 +95,10 @@ export default function DevUsersCreate() {
       : cache?.englishLevel
       ? `${cache?.englishLevel}`
       : "Básico",
-    paiseId: userByEmail?.lastName
-      ? `${userByEmail?.lastName}`
-      : cache?.lastName
-      ? `${cache?.lastName}`
+    paiseId: userByEmail?.paiseId
+      ? `${userByEmail?.paiseId}`
+      : cache?.paiseId
+      ? `${cache?.paiseId}`
       : [],
     tecnologias:
       // cache?.tecnologias ? cache?.tecnologias :
@@ -270,13 +270,14 @@ export default function DevUsersCreate() {
       );
       dispatch(getUsersBd());
     } else {
-      alert(`hay errores`, errors);
+      console.log(`hay errores`, errors);
     }
   };
 
   const handleDefaultCountrie = [
     {
       label: cache?.paiseId,
+      value: cache?.paiseId,
     },
   ];
 
@@ -291,11 +292,9 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${userByEmail?.lastName}`),
+      name: ("name", `${userByEmail?.name}`),
       lastName: ("lastName", `${userByEmail?.lastName}`),
-      profilePicture:
-        ("profilePicture",
-        `${userByEmail?.profilePicture ? userByEmail?.profilePicture : ""}`),
+      profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
       email: ("email", `${userByEmail?.email}`),
       linkedIn:
         ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`),
@@ -321,21 +320,28 @@ export default function DevUsersCreate() {
       postulado: true,
     });
     setInput({
-      name: ``,
-      lastName: ``,
-      profilePicture: ``,
+      name: `${userByEmail?.name}`,
+      lastName: `${userByEmail?.lastname}`,
+      profilePicture: `${userByEmail?.profilePicture}`,
       email: `${userByEmail?.email}`,
-      linkedIn: "",
-      gitHub: "",
-      webSite: "",
-      yearsOfExperience: "0",
-      dailyBudget: "0",
-      englishLevel: "Básico",
-      paiseId: [],
+      linkedIn: `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`,
+      gitHub: `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`,
+      webSite: `${userByEmail?.webSite ? userByEmail?.webSite : ""}`,
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget: `${
+        userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"
+      }`,
+      englishLevel: `${
+        userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
+      }`,
+      paiseId: `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`,
       tecnologias: [],
       lenguajes: [],
       servicios: [],
-      postulado: true,
     });
     setLoader(false);
   };
@@ -387,8 +393,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              // value={cache?.name}
-              defaultValue={input?.name}
+              value={cache?.name}
+              defaultValue={cache?.name}
               name="name"
               className={s.inputName}
             />
@@ -407,7 +413,7 @@ export default function DevUsersCreate() {
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               defaultValue={input?.lastName}
-              // value={cache?.lastName}
+              value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
             />
@@ -430,7 +436,7 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  // defaultValue={input?.profilePicture}
+                  // defaultValue={cache?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>

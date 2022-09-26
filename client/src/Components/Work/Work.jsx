@@ -12,22 +12,28 @@ import ModalWork from "./ModalWork/ModalWork";
 import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Work() {
   const dispatch = useDispatch();
-
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const { allUsers } = useFetchUsers();
+  const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  useLayoutEffect(() => {
-    if (!allUsers.length) dispatch(getUsersBd());
+  useEffect(() => {
+    dispatch(getUsersBd());
   }, [allUsers.length, dispatch]);
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return !allUsers.length ? (
     <Loader />

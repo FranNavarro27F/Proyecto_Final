@@ -31,39 +31,28 @@ export default function Home() {
   // }, [dispatch, user?.email]);
   // console.log(userEmail.registrado, "registrado");
 
-  const [cacheLogin, setCacheLogin] = useLocalStorage({});
+  // const [cacheLogin, setCacheLogin] = useLocalStorage({});
   const [userLocal, setUserLocal] = useState({
-    family_name: cacheLogin?.family_name
-      ? cacheLogin?.family_name
-      : user?.family_name,
-    given_name: cacheLogin?.given_name
-      ? cacheLogin?.given_name
-      : user?.given_name,
-    email: cacheLogin?.email ? cacheLogin?.email : user?.email,
-    picture: cacheLogin?.picture ? cacheLogin?.picture : user?.picture,
     // registrado: true,
   });
 
-  useEffect(() => {
-    setCacheLogin({
-      family_name: ("family_name", `${user?.family_name}`),
-      given_name: ("given_name", `${user?.given_name}`),
-      email: ("email", `${user?.email}`),
-      picture: ("picture", `${user?.picture}`),
-      // registrado: ("registrado", true),
+  useLayoutEffect(() => {
+    setUserLocal({
+      family_name: `${user?.family_name}`,
+      given_name: `${user?.given_name}`,
+      email: `${user?.email}`,
+      picture: `${user?.picture}`,
     });
-  }, [userEmail, user]);
-
-  // console.log(userEmail, "user");
+  }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
 
   useEffect(() => {
     dispatch(
       postDevUser({
-        ...cacheLogin,
+        ...userLocal,
         registrado: true,
       })
     );
-  }, [cacheLogin, dispatch]);
+  }, [dispatch, userLocal]);
 
   //HASTA ARREGLAR BACK
 
