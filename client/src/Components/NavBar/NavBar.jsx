@@ -17,16 +17,16 @@ import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
 import { getUsersBd } from "../../Redux/Actions/DevUser";
 import { HiOutlineSearch } from "react-icons/hi";
 
-export default function NavBar() {
+export default function NavBar({
+  optionsOrderBudget,
+  optionsOrderExp,
+  optionsTecnologias,
+  optionsLanguajes,
+  optionsCountries,
+  optionsServices,
+}) {
   const animatedComponents = makeAnimated();
-  const {
-    optionsOrderBudget,
-    optionsOrderExp,
-    optionsTecnologias,
-    optionsLanguajes,
-    optionsCountries,
-    optionsServices,
-  } = Selectores();
+
   const dispatch = useDispatch();
 
   // useEffect(() => {

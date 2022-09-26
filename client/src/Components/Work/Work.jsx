@@ -13,6 +13,7 @@ import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useAuth0 } from "@auth0/auth0-react";
+import Selectores from "../Selectores/Selectores";
 
 export default function Work() {
   const dispatch = useDispatch();
@@ -27,6 +28,15 @@ export default function Work() {
     dispatch(getUsersBd());
   }, [allUsers.length, dispatch]);
 
+  const {
+    optionsOrderBudget,
+    optionsOrderExp,
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
+
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
@@ -39,7 +49,15 @@ export default function Work() {
     <Loader />
   ) : (
     <main className={s.body}>
-      <NavBar className={s.navMenu} />
+      <NavBar
+        optionsOrderBudget={optionsOrderBudget}
+        optionsOrderExp={optionsOrderExp}
+        optionsTecnologias={optionsTecnologias}
+        optionsLanguajes={optionsLanguajes}
+        optionsServices={optionsServices}
+        optionsCountries={optionsCountries}
+        className={s.navMenu}
+      />
       <div className={s.sideMenu}>
         <SideMenuWork />
       </div>
