@@ -36,6 +36,7 @@ const CheckOutForm = ({ contrato }) => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
+      
       card: element.getElement(CardElement),
     });
 
