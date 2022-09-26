@@ -87,69 +87,69 @@ const getUsers = async () => {
 };
 
 const postUsers = async (data) => {
-  try {
-    const {
-      name,
-      lastName,
-      profilePicture,
-      isAdmin,
-      email,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
-      paiseId,
-      registrado,
-      visible,
-      postulado,
-      reputacion,
-    } = data;
+  // try {
+  //   const {
+  //     name,
+  //     lastName,
+  //     profilePicture,
+  //     isAdmin,
+  //     email,
+  //     linkedIn,
+  //     gitHub,
+  //     webSite,
+  //     yearsOfExperience,
+  //     dailyBudget,
+  //     englishLevel,
+  //     bio,
+  //     city,
+  //     tecnologias,
+  //     lenguajes,
+  //     servicios,
+  //     paiseId,
+  //     registrado,
+  //     visible,
+  //     postulado,
+  //     reputacion,
+  //   } = data;
 
-    const [row, created] = await Usuarios.findOrCreate({
-      where: {
-        email,
-        linkedIn: linkedIn !== "" ? linkedIn : null,
-        gitHub: gitHub !== "" ? gitHub : null,
-      },
-      defaults: {
-        name,
-        lastName,
-        profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin,
-        webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience,
-        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
-        englishLevel: englishLevel !== "" ? englishLevel : null,
-        bio: bio !== "" ? bio : null,
-        paiseId,
-        city: city !== "" ? city : null,
-        registrado,
-        visible,
-        postulado,
-        reputacion,
-      },
-    });
+  //   const [row, created] = await Usuarios.findOrCreate({
+  //     where: {
+  //       email,
+  //       linkedIn: linkedIn !== "" ? linkedIn : null,
+  //       gitHub: gitHub !== "" ? gitHub : null,
+  //     },
+  //     defaults: {
+  //       name,
+  //       lastName,
+  //       profilePicture: profilePicture !== "" ? profilePicture : null,
+  //       isAdmin,
+  //       webSite: webSite !== "" ? webSite : null,
+  //       yearsOfExperience,
+  //       dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+  //       englishLevel: englishLevel !== "" ? englishLevel : null,
+  //       bio: bio !== "" ? bio : null,
+  //       paiseId,
+  //       city: city !== "" ? city : null,
+  //       registrado,
+  //       visible,
+  //       postulado,
+  //       reputacion,
+  //     },
+  //   });
 
-    row.addTecnologias(tecnologias);
-    row.addLenguajes(lenguajes);
-    row.addServicios(servicios);
+  //   row.addTecnologias(tecnologias);
+  //   row.addLenguajes(lenguajes);
+  //   row.addServicios(servicios);
 
-    if (!created) {
-      throw new Error("El usuario ya existe");
-    } else {
-      return "Usuario creado correctamente";
-    }
-    //
-  } catch (e) {
-    console.error(`ERROR @ controllers/postUsers --→ ${e}`);
-  }
+  //   if (!created) {
+  //     throw new Error("El usuario ya existe");
+  //   } else {
+  //     return "Usuario creado correctamente";
+  //   }
+  //   //
+  // } catch (e) {
+  //   console.error(`ERROR @ controllers/postUsers --→ ${e}`);
+  // }
 };
 
 const toUperCase = (nombre) => {

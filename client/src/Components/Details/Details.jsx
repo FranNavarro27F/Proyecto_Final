@@ -68,6 +68,7 @@ export default function Details() {
   const handleBack = () => {
     dispatch(detailReset());
     navigate("/work");
+    console.log("SKIPPEA ESTO A VER...")
   };
 
   // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
@@ -95,7 +96,7 @@ export default function Details() {
           <h1>PROPUESTA</h1>
           <h2>
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
-            propuesta !
+            propuesta!
           </h2>
           <textarea type="textarea" rows="10" cols="70" />
           <div>

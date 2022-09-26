@@ -33,7 +33,6 @@ const CheckOutForm = ({ contrato }) => {
   console.log("Contrato seteado correctamente");
 
   const handleSubmit = async (e) => {
-    console.log("SKIPPEA ESTO A VER...")
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
