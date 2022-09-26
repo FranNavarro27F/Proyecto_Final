@@ -9,6 +9,7 @@ import { getTecnologies } from "../Redux/Actions/Tecnologies";
 export default function useFetchAllData() {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getUsersBd());
     dispatch(getCountries());
     dispatch(getTecnologies());
     dispatch(getServices());

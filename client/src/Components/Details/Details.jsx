@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -18,6 +18,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
+import Landing from "../Landing/Landing";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -35,6 +36,7 @@ export default function Details() {
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
+  const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
 
@@ -42,7 +44,10 @@ export default function Details() {
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [id, userByEmail?.id]);
+    // return function () {
+    //   return dispatch(detailReset());
+    // };
+  }, [dispatch, id, userByEmail?.id]);
   console.log(userByEmail);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
@@ -55,12 +60,12 @@ export default function Details() {
     // }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
-      // dispatch(
-      //   emailer({
-      //     nombreContratista: nombreContratista,
-      //     mailContrado: mailContrado,
-      //   })
-      // );
+      dispatch(
+        emailer({
+          nombreContratista: nombreContratista,
+          mailContrado: mailContrado,
+        })
+      );
     }
     SetContratoDetail(!contratoDetail);
   };
@@ -68,6 +73,7 @@ export default function Details() {
   const handleBack = () => {
     dispatch(detailReset());
     navigate("/work");
+    console.log("SKIPPEA ESTO A VER...");
   };
 
   // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
@@ -75,12 +81,7 @@ export default function Details() {
   //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
   // }
 
-  if (
-    isLoading &&
-    user?.email &&
-    userDetail?.name === undefined &&
-    userByEmail?.name === undefined
-  ) {
+  if (loader && isLoading) {
     return (
       <div>
         <Loader />
@@ -95,7 +96,7 @@ export default function Details() {
           <h1>PROPUESTA</h1>
           <h2>
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
-            propuesta !
+            propuesta!
           </h2>
           <textarea type="textarea" rows="10" cols="70" />
           <div>
@@ -118,7 +119,9 @@ export default function Details() {
   };
 
   const detail = () => {
-    return (
+    return loader ? (
+      <Loader />
+    ) : (
       <div className={s.modal}>
         <div className={s.sideM}>
           <div className={s.modal}>

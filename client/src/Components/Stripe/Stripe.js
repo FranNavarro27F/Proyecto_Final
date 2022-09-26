@@ -17,6 +17,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import s from "../Stripe/Stripe.module.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
+import Loader from "../Loader/Loader";
 //import Loader from '../'
 const stripePromise = loadStripe(
   "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
@@ -31,6 +32,10 @@ const CheckOutForm = ({ contrato }) => {
 
   let contratoA = useSelector((state) => state.contracts.contrato);
   console.log(contratoA, "ACACONTRATOOOOO");
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+
+  const { userByEmail } = useFetchUsers(user?.email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +50,7 @@ const CheckOutForm = ({ contrato }) => {
       try {
         console.log(paymentMethod, "paymentMethod id");
         const { id } = paymentMethod;
-        console.log(id, "holi");
+        console.log(id, paymentMethod, "Contrato y pago exitosos.");
         const info = await axios.post(
           "https://programax.up.railway.app/checkout" ||
             "http://localhost:3001/checkout",
@@ -71,106 +76,109 @@ const CheckOutForm = ({ contrato }) => {
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <div className={s.cardEle}>
-            <div className={s.textCard}>
-              <div class="form-group">
-                <label for="card-element" className={s.text}>
-                  Credit or debit card
-                </label>
-                <div className={s.dataForm}>
-                  <label for="">Descripcion: {contrato?.description}</label>
-                  <label for="">Fecha de inicio: {contrato?.date}</label>
-                  <label for="">
-                    Fecha de finalizacion: {contrato?.expiration_date}
+          <div className={s.bodyCard}>
+            {" "}
+            <div className={s.cardEle}>
+              <div className={s.textCard}>
+                <div class="form-group">
+                  <label for="card-element" className={s.text}>
+                    Credit or debit card
                   </label>
-                  <label for="">Precio: {contrato?.price} USD</label>
-                </div>
-
-                <div id="card-element" className={`"form-control", ${s.asd}`}>
-                  <div className={s.divChipCardSvg}>
-                    <svg
-                      width="65"
-                      height="44"
-                      viewBox="0 0 65 44"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect
-                        width="64.625"
-                        height="44"
-                        rx="8"
-                        fill="url(#paint0_linear_2_12)"
-                      />
-                      <rect
-                        x="40.4375"
-                        y="7"
-                        width="29.6562"
-                        height="16.5938"
-                        rx="8.29688"
-                        transform="rotate(90 40.4375 7)"
-                        stroke="#9A9797"
-                        stroke-width="3"
-                      />
-                      <path
-                        d="M-5.36887e-07 27.8437L16.9926 27.8437C19.9276 27.8437 22.3778 25.6047 22.6415 22.6816V22.6816C22.6721 22.3425 22.6721 22.0013 22.6415 21.6622V21.6622C22.3778 18.7391 19.9276 16.5 16.9926 16.5L4.54815e-07 16.5"
-                        stroke="#9A9797"
-                        stroke-width="3"
-                      />
-                      <path
-                        d="M64.625 16.5L47.3289 16.5C44.5071 16.5 42.0856 18.5686 41.597 21.3477V21.3477C41.4822 22.0007 41.4842 22.6776 41.606 23.3293V23.3293C42.0949 25.9465 44.3794 27.8437 47.0418 27.8437L64.625 27.8437"
-                        stroke="#9A9797"
-                        stroke-width="3"
-                      />
-                      <line
-                        x1="33.125"
-                        x2="33.125"
-                        y2="6.1875"
-                        stroke="#9A9797"
-                        stroke-width="3"
-                      />
-                      <line
-                        x1="33.125"
-                        y1="37.8125"
-                        x2="33.125"
-                        y2="44"
-                        stroke="#9A9797"
-                        stroke-width="3"
-                      />
-                      <defs>
-                        <linearGradient
-                          id="paint0_linear_2_12"
-                          x1="-7.5625"
-                          y1="28.1875"
-                          x2="54.3125"
-                          y2="28.1875"
-                          gradientUnits="userSpaceOnUse"
-                        >
-                          <stop stop-color="#969090" />
-                          <stop offset="1" stop-color="#F4E8E8" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
+                  <div className={s.dataForm}>
+                    <label for="">Descripcion: {contrato?.description}</label>
+                    <label for="">Fecha de inicio: {contrato?.date}</label>
+                    <label for="">
+                      Fecha de finalizacion: {contrato?.expiration_date}
+                    </label>
+                    <label for="">Precio: {contrato?.price} USD</label>
                   </div>
-                </div>
-                <div className={s.cardDetail}>
-                  <CardElement />
+
+                  <div id="card-element" className={`"form-control", ${s.asd}`}>
+                    <div className={s.divChipCardSvg}>
+                      <svg
+                        width="65"
+                        height="44"
+                        viewBox="0 0 65 44"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          width="64.625"
+                          height="44"
+                          rx="8"
+                          fill="url(#paint0_linear_2_12)"
+                        />
+                        <rect
+                          x="40.4375"
+                          y="7"
+                          width="29.6562"
+                          height="16.5938"
+                          rx="8.29688"
+                          transform="rotate(90 40.4375 7)"
+                          stroke="#9A9797"
+                          stroke-width="3"
+                        />
+                        <path
+                          d="M-5.36887e-07 27.8437L16.9926 27.8437C19.9276 27.8437 22.3778 25.6047 22.6415 22.6816V22.6816C22.6721 22.3425 22.6721 22.0013 22.6415 21.6622V21.6622C22.3778 18.7391 19.9276 16.5 16.9926 16.5L4.54815e-07 16.5"
+                          stroke="#9A9797"
+                          stroke-width="3"
+                        />
+                        <path
+                          d="M64.625 16.5L47.3289 16.5C44.5071 16.5 42.0856 18.5686 41.597 21.3477V21.3477C41.4822 22.0007 41.4842 22.6776 41.606 23.3293V23.3293C42.0949 25.9465 44.3794 27.8437 47.0418 27.8437L64.625 27.8437"
+                          stroke="#9A9797"
+                          stroke-width="3"
+                        />
+                        <line
+                          x1="33.125"
+                          x2="33.125"
+                          y2="6.1875"
+                          stroke="#9A9797"
+                          stroke-width="3"
+                        />
+                        <line
+                          x1="33.125"
+                          y1="37.8125"
+                          x2="33.125"
+                          y2="44"
+                          stroke="#9A9797"
+                          stroke-width="3"
+                        />
+                        <defs>
+                          <linearGradient
+                            id="paint0_linear_2_12"
+                            x1="-7.5625"
+                            y1="28.1875"
+                            x2="54.3125"
+                            y2="28.1875"
+                            gradientUnits="userSpaceOnUse"
+                          >
+                            <stop stop-color="#969090" />
+                            <stop offset="1" stop-color="#F4E8E8" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className={s.cardDetail}>
+                    <CardElement />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className={s.divButtons}>
-            <button
-              className={s.buttons}
-              onClick={() => navigate(`/work/details/${userDetail?.id}`)}
-            >
-              VOLVER
-            </button>
-            <button className={s.buttons} disabled={!stripe}>
-              {/* loading ? (
+            <div className={s.divButtons}>
+              <button
+                className={s.buttons}
+                onClick={() => navigate(`/work/details/${userDetail?.id}`)}
+              >
+                VOLVER
+              </button>
+              <button className={s.buttons} disabled={!stripe}>
+                {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
-              PAGAR
-            </button>
+                PAGAR
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -87,69 +87,66 @@ const getUsers = async () => {
 };
 
 const postUsers = async (data) => {
-  try {
-    const {
-      name,
-      lastName,
-      profilePicture,
-      isAdmin,
-      email,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
-      paiseId,
-      registrado,
-      visible,
-      postulado,
-      reputacion,
-    } = data;
-
-    const [row, created] = await Usuarios.findOrCreate({
-      where: {
-        email,
-        linkedIn: linkedIn !== "" ? linkedIn : null,
-        gitHub: gitHub !== "" ? gitHub : null,
-      },
-      defaults: {
-        name,
-        lastName,
-        profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin,
-        webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience,
-        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
-        englishLevel: englishLevel !== "" ? englishLevel : null,
-        bio: bio !== "" ? bio : null,
-        paiseId,
-        city: city !== "" ? city : null,
-        registrado,
-        visible,
-        postulado,
-        reputacion,
-      },
-    });
-
-    row.addTecnologias(tecnologias);
-    row.addLenguajes(lenguajes);
-    row.addServicios(servicios);
-
-    if (!created) {
-      throw new Error("El usuario ya existe");
-    } else {
-      return "Usuario creado correctamente";
-    }
-    //
-  } catch (e) {
-    console.error(`ERROR @ controllers/postUsers --→ ${e}`);
-  }
+  // try {
+  //   const {
+  //     name,
+  //     lastName,
+  //     profilePicture,
+  //     isAdmin,
+  //     email,
+  //     linkedIn,
+  //     gitHub,
+  //     webSite,
+  //     yearsOfExperience,
+  //     dailyBudget,
+  //     englishLevel,
+  //     bio,
+  //     city,
+  //     tecnologias,
+  //     lenguajes,
+  //     servicios,
+  //     paiseId,
+  //     registrado,
+  //     visible,
+  //     postulado,
+  //     reputacion,
+  //   } = data;
+  //   const [row, created] = await Usuarios.findOrCreate({
+  //     where: {
+  //       email,
+  //       linkedIn: linkedIn !== "" ? linkedIn : null,
+  //       gitHub: gitHub !== "" ? gitHub : null,
+  //     },
+  //     defaults: {
+  //       name,
+  //       lastName,
+  //       profilePicture: profilePicture !== "" ? profilePicture : null,
+  //       isAdmin,
+  //       webSite: webSite !== "" ? webSite : null,
+  //       yearsOfExperience,
+  //       dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+  //       englishLevel: englishLevel !== "" ? englishLevel : null,
+  //       bio: bio !== "" ? bio : null,
+  //       paiseId,
+  //       city: city !== "" ? city : null,
+  //       registrado,
+  //       visible,
+  //       postulado,
+  //       reputacion,
+  //     },
+  //   });
+  //   row.addTecnologias(tecnologias);
+  //   row.addLenguajes(lenguajes);
+  //   row.addServicios(servicios);
+  //   if (!created) {
+  //     throw new Error("El usuario ya existe");
+  //   } else {
+  //     return "Usuario creado correctamente";
+  //   }
+  //   //
+  // } catch (e) {
+  //   console.error(`ERROR @ controllers/postUsers --→ ${e}`);
+  // }
 };
 
 const toUperCase = (nombre) => {
@@ -310,7 +307,7 @@ const postUserAuth = async (data) => {
 };
 
 const modifUser = async (data) => {
-  try { 
+  try {
     let {
       name,
       lastName,
@@ -332,9 +329,9 @@ const modifUser = async (data) => {
       tecnologias,
       lenguajes,
       servicios,
-      paiseId, 
+      paiseId,
     } = data;
-    
+
     let userMod = await Usuarios.update(
       {
         name: name ? (name = toUperCase(name)) : (name = []),
@@ -346,7 +343,7 @@ const modifUser = async (data) => {
         profilePicture,
         isAdmin,
         webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience: yearsOfExperience !== ""? yearsOfExperience : 1,
+        yearsOfExperience: yearsOfExperience !== "" ? yearsOfExperience : 1,
         dailyBudget: dailyBudget !== "" ? dailyBudget : 1,
         englishLevel: englishLevel !== "" ? englishLevel : null,
         bio: bio !== "" ? bio : null,
@@ -358,7 +355,7 @@ const modifUser = async (data) => {
         reputacion: reputacion !== "" ? reputacion : 1,
       },
       { where: { email: email } }
-    );  
+    );
 
     let modUsr = await Usuarios.findOne({
       where: {
@@ -457,7 +454,9 @@ const getByEmail = async (email) => {
         : [],
     };
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserByEmail --→ ${e}`);
+
+    console.error(`ERROR @ controllers/getByEmail --→ ${e}`);
+
   }
 };
 

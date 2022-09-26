@@ -15,7 +15,12 @@ import Loader from "../Loader/Loader";
 import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail, postDevUser } from "../../Redux/Actions/DevUser";
+import {
+  getDevUsers,
+  getUserEmail,
+  getUsersBd,
+  postDevUser,
+} from "../../Redux/Actions/DevUser";
 import { useEffect } from "react";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
@@ -24,6 +29,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
+  console.log(user);
   const userEmail = useSelector((state) => state.devUser.userByEmail);
 
   // useEffect(() => {
@@ -31,39 +37,34 @@ export default function Home() {
   // }, [dispatch, user?.email]);
   // console.log(userEmail.registrado, "registrado");
 
-  const [cacheLogin, setCacheLogin] = useLocalStorage({});
-  const [userLocal, setUserLocal] = useState({
-    family_name: cacheLogin?.family_name
-      ? cacheLogin?.family_name
-      : user?.family_name,
-    given_name: cacheLogin?.given_name
-      ? cacheLogin?.given_name
-      : user?.given_name,
-    email: cacheLogin?.email ? cacheLogin?.email : user?.email,
-    picture: cacheLogin?.picture ? cacheLogin?.picture : user?.picture,
-    // registrado: true,
-  });
+  // const [cacheLogin, setCacheLogin] = useLocalStorage({});
+  const [userLocal, setUserLocal] = useState({});
 
   useEffect(() => {
-    setCacheLogin({
-      family_name: ("family_name", `${user?.family_name}`),
-      given_name: ("given_name", `${user?.given_name}`),
-      email: ("email", `${user?.email}`),
-      picture: ("picture", `${user?.picture}`),
-      // registrado: ("registrado", true),
+    dispatch(getUsersBd());
+    setUserLocal({
+      family_name: `${user?.family_name}`,
+      given_name: `${user?.given_name}`,
+      email: `${user?.email}`,
+      picture: `${user?.picture}`,
     });
-  }, [userEmail, user]);
-
-  // console.log(userEmail, "user");
+  }, [
+    dispatch,
+    user?.email,
+    user?.family_name,
+    user?.given_name,
+    user?.picture,
+  ]);
 
   useEffect(() => {
     dispatch(
-      postDevUser({
-        ...cacheLogin,
-        registrado: true,
+      getUserEmail({
+        ...userLocal,
+        // registrado: true,
       })
     );
-  }, [cacheLogin, dispatch]);
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email, userLocal]);
 
   //HASTA ARREGLAR BACK
 

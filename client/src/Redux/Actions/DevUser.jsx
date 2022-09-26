@@ -91,7 +91,7 @@ export function detailReset() {
   return function (dispatch) {
     return dispatch({
       type: "DETAIL_RESET",
-      payload: [],
+      // payload: [],
     });
   };
 }
@@ -106,22 +106,21 @@ export function getUserSearchBar() {
   };
 }
 
-export function detailIdDev(id){
-  return function(dispatch){
+export function detailIdDev(id) {
+  return function (dispatch) {
     return dispatch({
       type: "DETAIL_ID_DEV",
-      payload: id
-    })
-
-  }
+      payload: id,
+    });
+  };
 }
 
- export function getUserContrato(email){
-  return async function (dispatch){
+export function getUserContrato(email) {
+  return async function (dispatch) {
     let userId = (await axios.get(`/usuarios?=${email}`)).data;
-    return dispatch ({
+    return dispatch({
       type: "USER_CONTRATO",
-      payload: userId
-    })
-  }
- }
+      payload: userId,
+    });
+  };
+}
