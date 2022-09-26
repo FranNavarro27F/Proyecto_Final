@@ -44,9 +44,9 @@ export default function Details() {
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    return function () {
-      return dispatch(detailReset());
-    };
+    // return function () {
+    //   return dispatch(detailReset());
+    // };
   }, [dispatch, id, userByEmail?.id]);
   console.log(userByEmail);
 

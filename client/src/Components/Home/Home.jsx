@@ -29,6 +29,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
+  console.log(user);
   const userEmail = useSelector((state) => state.devUser.userByEmail);
 
   // useEffect(() => {
@@ -56,12 +57,12 @@ export default function Home() {
   ]);
 
   useEffect(() => {
-    // dispatch(
-    //   getUserEmail({
-    //     ...userLocal,
-    //     // registrado: true,
-    //   })
-    // );
+    dispatch(
+      getUserEmail({
+        ...userLocal,
+        // registrado: true,
+      })
+    );
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email, userLocal]);
 
