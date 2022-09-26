@@ -34,7 +34,6 @@ const CheckOutForm = ({ contrato }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: element.getElement(CardElement),
@@ -213,13 +212,9 @@ function Stripe() {
       </div>
 
       <Elements stripe={stripePromise}>
-        <div className="container p-4">
-          <div className="row">
-            <div className="col-md-4 offset-md-4">
-              {/* <div className={s.checkOut}> */}
-              <CheckOutForm contrato={contrato} setContrato={setContrato} />
-              {/* </div> */}
-            </div>
+        <div>
+          <div className={s.checkOut}>
+            <CheckOutForm contrato={contrato} setContrato={setContrato} />
           </div>
         </div>
       </Elements>

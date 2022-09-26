@@ -10,7 +10,7 @@
 }
 .cardEle {
   margin-top: 12vh;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-sizing: border-box;
   position: absolute;
   width: 66vh;
@@ -59,27 +59,24 @@
 
 .checkOut {
   /* color: red; */
-  background-color: rgb(163, 163, 163);
+  /* background-color: rgb(163, 163, 163); */
 }
 
 .asd {
   height: 2.4em;
   /* padding-top: 7em; */
-  color: wheat;
+  /* color: wheat; */
 }
 .asd label {
 }
 .cardDetail {
   font-size: 10vh;
-  color: wheat;
   background-color: rgba(219, 215, 215, 0.671);
-  padding: 1rem;
-  font-family: Roboto;
-  font-size: 42px;
-  font-weight: 400;
-  line-height: 49px;
+  padding: 1vh;
+
   letter-spacing: 0em;
   text-align: left;
+  height: 5vh;
 }
 
 .divChipCardSvg {
@@ -89,12 +86,6 @@
   left: 1vw;
 }
 .card {
-  font-family: Roboto;
-  font-size: 40vw;
-  font-weight: 400;
-  line-height: 49px;
-  letter-spacing: 0em;
-  text-align: left;
 }
 
 .dataForm {
