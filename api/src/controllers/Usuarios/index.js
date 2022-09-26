@@ -312,7 +312,8 @@ const postUserAuth = async (data) => {
 };
 
 const modifUser = async (data) => {
-  try {
+  console.log(data, "****")
+  try { 
     let {
       name,
       lastName,
