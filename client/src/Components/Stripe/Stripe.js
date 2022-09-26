@@ -84,9 +84,7 @@ const CheckOutForm = ({ contrato }) => {
     );
   }
 
-  return !userByEmail?.id && !userDetail?.id ? (
-    <Loader />
-  ) : (
+  return (
     <div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -219,9 +217,7 @@ function Stripe() {
     payment_id: "",
   });
 
-  return !userByEmail?.id && !userDetail?.id ? (
-    <Loader />
-  ) : (
+  return (
     <div className={s.backgroundC}>
       <div>
         <Contracts
