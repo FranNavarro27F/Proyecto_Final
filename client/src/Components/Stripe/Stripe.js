@@ -72,18 +72,6 @@ const CheckOutForm = ({ contrato }) => {
     }
   };
 
-  if (
-    !isLoading &&
-    !userByEmail?.id !== undefined &&
-    !userDetail?.id !== undefined
-  ) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
-
   return (
     <div>
       <div>
