@@ -360,7 +360,7 @@ const modifUser = async (data) => {
         reputacion: reputacion !== "" ? reputacion : 1,
       },
       { where: { email: email } }
-    );
+    );  
 
     let modUsr = await Usuarios.findOne({
       where: {
