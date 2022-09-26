@@ -21,8 +21,14 @@ import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 
 export default function Details() {
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    loginWithRedirect,
+    logout,
+    boenasss,
+  } = useAuth0();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
@@ -76,11 +82,6 @@ export default function Details() {
     console.log("SKIPPEA ESTO A VER...");
   };
 
-  // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
-  // function toUpperCase(userDetail){
-  //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
-  // }
-
   if (loader && isLoading) {
     return (
       <div>
@@ -88,7 +89,7 @@ export default function Details() {
       </div>
     );
   }
-
+  console.log(boenasss, "EL DETAIL");
   const contrato = () => {
     return (
       <div className={s.bodyPropuesta}>

@@ -8,13 +8,10 @@ import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import { customStyles } from "./StyleSelect";
 import { AiOutlineClear } from "react-icons/ai";
 import Select from "react-select";
-
-import Selectores from "../Selectores/Selectores";
 import makeAnimated from "react-select/animated";
 
 //actions
-import { filtersOrders, searchInput } from "../../Redux/Actions/FiltersOrders";
-import { getUsersBd } from "../../Redux/Actions/DevUser";
+import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { HiOutlineSearch } from "react-icons/hi";
 
 export default function NavBar({
@@ -28,10 +25,6 @@ export default function NavBar({
   const animatedComponents = makeAnimated();
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getUsersBd());
-  // }, [dispatch]);
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
   const [checked, setChecked] = useState(false);

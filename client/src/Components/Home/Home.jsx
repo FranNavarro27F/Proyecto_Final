@@ -12,63 +12,25 @@ import NavMenuHome from "./NavMenuHome/NavMenuHome";
 import ScrollTop from "./ScrollTop";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
-import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getDevUsers,
-  getUserEmail,
-  getUsersBd,
-  postDevUser,
-} from "../../Redux/Actions/DevUser";
-import { useEffect } from "react";
-import { useFetchUsers } from "../../Hooks/useFetchUsers";
-import { useLocalStorage } from "../../Hooks/useLocalStorage";
+import { useDispatch } from "react-redux";
+import { getUserEmail } from "../../Redux/Actions/DevUser";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  console.log(user);
-  const userEmail = useSelector((state) => state.devUser.userByEmail);
 
-  // useEffect(() => {
-  //   dispatch(getUserEmail(user?.email));
-  // }, [dispatch, user?.email]);
-  // console.log(userEmail.registrado, "registrado");
+  const [userLocal, setUserLocal] = useState({
+    family_name: `${user?.family_name}`,
+    given_name: `${user?.given_name}`,
+    email: `${user?.email}`,
+    picture: `${user?.picture}`,
+  });
 
-  // const [cacheLogin, setCacheLogin] = useLocalStorage({});
-  const [userLocal, setUserLocal] = useState({});
-
-  useEffect(() => {
-    dispatch(getUsersBd());
-    setUserLocal({
-      family_name: `${user?.family_name}`,
-      given_name: `${user?.given_name}`,
-      email: `${user?.email}`,
-      picture: `${user?.picture}`,
-    });
-  }, [
-    dispatch,
-    user?.email,
-    user?.family_name,
-    user?.given_name,
-    user?.picture,
-  ]);
-
-  useEffect(() => {
-    dispatch(
-      getUserEmail({
-        ...userLocal,
-        // registrado: true,
-      })
-    );
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email, userLocal]);
-
-  //HASTA ARREGLAR BACK
-
-  // console.log(userEmail.registrado);
+  useLayoutEffect(() => {
+    dispatch(getUserEmail(userLocal));
+  }, [dispatch, userLocal]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -99,6 +61,7 @@ export default function Home() {
       </div>
 
       <NavMenuHome
+        userByEmailHome={userLocal}
         setOpen={setOpen}
         open={open}
         logout={logout}
