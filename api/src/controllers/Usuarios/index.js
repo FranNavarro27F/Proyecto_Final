@@ -334,9 +334,9 @@ const modifUser = async (data) => {
       tecnologias,
       lenguajes,
       servicios,
-      paiseId,
+      paiseId, 
     } = data;
-
+    
     let userMod = await Usuarios.update(
       {
         name: name ? (name = toUperCase(name)) : (name = []),
