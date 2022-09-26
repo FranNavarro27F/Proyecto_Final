@@ -16,7 +16,7 @@ export default function ButtonProfile({
   const navigate = useNavigate();
   const refSelect = useRef();
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
