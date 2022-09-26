@@ -389,50 +389,6 @@ const modifUser = async (data) => {
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
 
-    // if(name) modUs.name = name
-    // if(lastName) modUs.lastName = lastName
-    // if(profilePicture) modUs.profilePicture = profilePicture
-    // if(isAdmin) modUs.isAdmin = isAdmin
-    // if(linkedIn) modUs.linkedIn = linkedIn
-    // if(gitHub) modUs.gitHub = gitHub
-    // if(webSite) modUs.webSite = webSite
-    // if(yearsOfExperience) modUs.yearsOfExperience = yearsOfExperience
-    // if(dailyBudget) modUs.dailyBudget = dailyBudget
-    // if(englishLevel) modUs.englishLevel = englishLevel
-    // if(bio) modUs.bio = bio
-    // if(visible) modUs.visible = visible
-    // if(postulado) modUs.postulado = postulado
-    // if(registrado) modUs.registrado = registrado
-    // if(reputacion) modUs.reputacion = reputacion
-    // if(city) modUs.city = city
-
-    // if(paiseId){
-    //   let namePais = (await Paises.findByPk(paiseId)).dataValues.name
-    //   modUs.paiseId = namePais
-    // }
-
-    // if(tecnologias.length >= 1){
-    //   let nameTec = await Promise.all(tecnologias?.map(async cur =>{
-    //     let name = (await Tecnologias.findByPk(cur)).dataValues.name
-    //     return name
-    //   }))
-    //   modUs.tecnologias = nameTec
-    // }
-    // if(lenguajes.length >= 1){
-    //   let nameLeg = await Promise.all(lenguajes?.map(async cur =>{
-    //     let name = (await Lenguajes.findByPk(cur)).dataValues.name
-    //     return name
-    //   }))
-    //   modUs.lenguajes = nameLeg
-    // }
-    // if(servicios.length >= 1){
-    //   let nameSer = await Promise.all(servicios?.map(async cur =>{
-    //     let name = (await Servicios.findByPk(cur)).dataValues.name
-    //     return name
-    //   }))
-    //   modUs.servicios = nameSer
-    // }
-
     return "Usuario modificado correctamente";
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
