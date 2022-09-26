@@ -459,7 +459,7 @@ const getByEmail = async (email) => {
         : [],
     };
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
+    console.error(`ERROR @ controllers/getUserByEmail --→ ${e}`);
   }
 };
 
