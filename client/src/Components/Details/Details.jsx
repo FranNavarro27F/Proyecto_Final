@@ -36,7 +36,6 @@ export default function Details() {
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
-  const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
 
@@ -73,7 +72,7 @@ export default function Details() {
   const handleBack = () => {
     dispatch(detailReset());
     navigate("/work");
-    console.log("SKIPPEA ESTO A VER...");
+    console.log("SKIPPEA ESTO A VER...")
   };
 
   // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
@@ -81,7 +80,13 @@ export default function Details() {
   //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
   // }
 
-  if (loader && isLoading) {
+  if (
+    isLoading &&
+    user?.email &&
+    userDetail?.name === undefined &&
+    userByEmail?.name === undefined &&
+    userByEmail?.profilePicture === undefined
+  ) {
     return (
       <div>
         <Loader />
@@ -119,9 +124,7 @@ export default function Details() {
   };
 
   const detail = () => {
-    return loader ? (
-      <Loader />
-    ) : (
+    return (
       <div className={s.modal}>
         <div className={s.sideM}>
           <div className={s.modal}>

@@ -91,7 +91,7 @@ export function detailReset() {
   return function (dispatch) {
     return dispatch({
       type: "DETAIL_RESET",
-      // payload: [],
+      payload: [],
     });
   };
 }

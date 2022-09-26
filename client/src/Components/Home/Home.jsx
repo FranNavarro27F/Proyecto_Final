@@ -37,7 +37,9 @@ export default function Home() {
   // console.log(userEmail.registrado, "registrado");
 
   // const [cacheLogin, setCacheLogin] = useLocalStorage({});
-  const [userLocal, setUserLocal] = useState({});
+  const [userLocal, setUserLocal] = useState({
+    // registrado: true,
+  });
 
   useEffect(() => {
     dispatch(getUsersBd());
@@ -47,23 +49,16 @@ export default function Home() {
       email: `${user?.email}`,
       picture: `${user?.picture}`,
     });
-  }, [
-    dispatch,
-    user?.email,
-    user?.family_name,
-    user?.given_name,
-    user?.picture,
-  ]);
+  }, [dispatch, user]);
 
   useEffect(() => {
-    // dispatch(
-    //   getUserEmail({
-    //     ...userLocal,
-    //     // registrado: true,
-    //   })
-    // );
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email, userLocal]);
+    dispatch(
+      getUserEmail({
+        ...userLocal,
+        // registrado: true,
+      })
+    );
+  }, [dispatch, userLocal]);
 
   //HASTA ARREGLAR BACK
 

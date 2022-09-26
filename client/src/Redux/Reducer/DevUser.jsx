@@ -8,8 +8,7 @@ const initialState = {
   userByEmail: [],
   flag: true,
   idDev: "",
-  employer: [],
-  loader: true,
+  employer: []
 };
 
 export default function devUser(state = initialState, action) {
@@ -32,7 +31,7 @@ export default function devUser(state = initialState, action) {
         allUsers: action.payload,
         filteredUsers: action.payload,
         scroll: false,
-        loader: false,
+        // flag: true,
       };
 
     case "SET_CURRENT_PAGE":
@@ -256,14 +255,12 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         filteredUsers: uniqueArray2,
-        loader: false,
       };
 
     case "GET_USER_ID":
       return {
         ...state,
         details: action.payload,
-        loader: false,
       };
 
     case "GET_USER_EMAIL":
@@ -275,25 +272,25 @@ export default function devUser(state = initialState, action) {
     case "DETAIL_RESET":
       return {
         ...state,
-        details: [],
+        details: action.payload,
       };
     case "GET_USER_SEARCHBAR":
       return {
         ...state,
         usuariosSB: action.payload,
       };
-
+    
     case "DETAIL_ID_DEV":
-      return {
+      return{
         ...state,
-        idDev: action.payload,
-      };
+        idDev:action.payload 
+      }
 
-    case "USER_CONTRATO":
-      return {
-        ...state,
-        employer: action.payload,
-      };
+      case "USER_CONTRATO":
+        return{
+          ...state,
+          employer: action.payload
+        }
 
     default:
       return state;

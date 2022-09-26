@@ -3,22 +3,19 @@ import { useRef } from "react";
 import s from "./NavMenuHome.module.css";
 import logo from "./Logo/logo chico.png";
 import ButtonProfile from "./ButtonProfile/ButtonProfile";
-import { useAuth0 } from "@auth0/auth0-react";
 
 export default function NavMenuHome({
   scrollToSeccion,
   work,
   home,
   landing,
-  // isAuthenticated,
-  // user,
-  // logout,
+  isAuthenticated,
+  user,
+  logout,
   setOpen,
   open,
   // about,
 }) {
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
   return (
     <div className={s.container}>
       <ul>
