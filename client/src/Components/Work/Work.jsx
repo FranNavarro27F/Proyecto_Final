@@ -21,7 +21,7 @@ export default function Work() {
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
   const { allUsers } = useFetchUsers();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!allUsers.length) dispatch(getUsersBd());
   }, [allUsers.length, dispatch]);
 

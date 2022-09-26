@@ -42,7 +42,10 @@ export default function Details() {
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [id, userByEmail?.id]);
+    return function () {
+      return dispatch(detailReset());
+    };
+  }, [dispatch, id, userByEmail?.id]);
   console.log(userByEmail);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
@@ -55,12 +58,12 @@ export default function Details() {
     // }
     if (nombreContratista && mailContrado) {
       setDisabled(true);
-      // dispatch(
-      //   emailer({
-      //     nombreContratista: nombreContratista,
-      //     mailContrado: mailContrado,
-      //   })
-      // );
+      dispatch(
+        emailer({
+          nombreContratista: nombreContratista,
+          mailContrado: mailContrado,
+        })
+      );
     }
     SetContratoDetail(!contratoDetail);
   };
