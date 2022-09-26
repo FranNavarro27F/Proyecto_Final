@@ -30,7 +30,7 @@ const CheckOutForm = ({ contrato }) => {
   const userDetail = useSelector((state) => state.devUser.details);
 
   let contratoA = useSelector((state) => state.contracts.contrato);
-  console.log(contratoA, "ACACONTRATOOOOO");
+  console.log("Contrato seteado correctamente");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ const CheckOutForm = ({ contrato }) => {
       try {
         console.log(paymentMethod, "paymentMethod id");
         const { id } = paymentMethod;
-        console.log(id, "holi");
+        console.log(id, paymentMethod, "Contrato y pago exitosos.");
         const info = await axios.post(
           "https://programax.up.railway.app/checkout" ||
             "http://localhost:3001/checkout",
