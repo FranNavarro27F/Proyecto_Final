@@ -159,15 +159,20 @@ const CheckOutForm = ({ contrato }) => {
               </div>
             </div>
           </div>
-          <button onClick={() => navigate(`/work/details/${userDetail?.id}`)}>
-            VOLVER
-          </button>
-          <button disabled={!stripe}>
-            {/* loading ? (
+          <div className={s.divButtons}>
+            <button
+              className={s.buttons}
+              onClick={() => navigate(`/work/details/${userDetail?.id}`)}
+            >
+              VOLVER
+            </button>
+            <button className={s.buttons} disabled={!stripe}>
+              {/* loading ? (
       <Loader/>
     ) : ("Contratar") */}
-            Contratar
-          </button>
+              PAGAR
+            </button>
+          </div>
         </form>
       </div>
     </div>

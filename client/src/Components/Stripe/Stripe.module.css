@@ -9,6 +9,7 @@
   height: 100vh;
 }
 .cardEle {
+  margin-top: 12vh;
   overflow: hidden;
   box-sizing: border-box;
   position: absolute;
@@ -23,6 +24,7 @@
   );
   backdrop-filter: blur(21px);
   border-radius: 40px;
+  margin-left: 10vh;
 }
 
 /* .bodyPagos {
@@ -47,7 +49,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: rgb(255, 253, 255);
+  /* color: rgb(255, 253, 255); */
   font-size: 1.2vw;
   font-weight: 600;
   padding-top: 1vh;
@@ -103,4 +105,32 @@
   align-items: flex-end;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.divButtons {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.buttons {
+  margin-top: 1vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: 8vw;
+  height: 4vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.8vw;
+  line-height: 23px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
 }
