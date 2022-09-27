@@ -17,6 +17,7 @@ const getUsers = async () => {
     let usuarios = await Usuarios.findAll({
       //     where: {
       //     habilitado: true,
+      //     visible: true,
       //   },
       include: [
         {
@@ -220,6 +221,7 @@ const getUserByName = async (name) => {
     let userByName = await Usuarios.findAll({
       where: {
         // habilitado: true,
+        // visible: true,
         name: { [Op.iLike]: `%${name}%` },
       },
       include: [
@@ -301,6 +303,7 @@ const postUserAuth = async (data) => {
         isAdmin: false,
         registrado: true,
         habilitado: true,
+        visible: false,
       },
     });
 
