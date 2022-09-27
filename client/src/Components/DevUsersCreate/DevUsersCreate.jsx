@@ -45,7 +45,7 @@ export default function DevUsersCreate() {
   useEffect(() => {
     if (!userByEmail) dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email, userByEmail]);
-  console.log(userByEmail);
+
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
@@ -100,9 +100,13 @@ export default function DevUsersCreate() {
       : cache?.paiseId
       ? `${cache?.paiseId}`
       : [],
-    tecnologias:
-      // cache?.tecnologias ? cache?.tecnologias :
-      [],
+    paiseIdLabel: userByEmail?.paiseIdLabel
+      ? `${userByEmail?.paiseIdLabel}`
+      : cache?.paiseIdLabel
+      ? `${cache?.paiseIdLabel}`
+      : [],
+    tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
+    tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
     lenguajes:
       // cache?.lenguajes ? cache?.lenguajes :
       [],
@@ -242,22 +246,27 @@ export default function DevUsersCreate() {
       refLanguajes.current.clearValue();
       refTecnologies.current.clearValue();
       setModal(true);
+      refCountries.current.setValue({
+        value: "default",
+        label: "Selecciona un país...",
+      });
       setCache({
-        name: ("name", `${userByEmail?.name}`),
-        lastName: ("lastName", `${userByEmail?.lastName}`),
-        profilePicture: ("profilePicture", `${cache?.profilePicture}`),
+        name: ("name", ``),
+        lastName: ("lastName", ``),
+        profilePicture: ("profilePicture", ``),
         email: ("email", `${userByEmail?.email}`),
-        linkedIn: ("linkedIn", ""),
-        gitHub: ("gitHub", ""),
-        webSite: ("webSite", ""),
-        yearsOfExperience: ("yearsOfExperience", "0"),
+        linkedIn: ("linkedIn", ``),
+        gitHub: ("gitHub", ``),
+        webSite: ("webSite", ``),
+        yearsOfExperience: ("yearsOfExperience", ``),
         dailyBudget: ("dailyBudget", "0"),
-        englishLevel: ("englishLevel", "Básico"),
+        englishLevel: ("englishLevel", ``),
         paiseId: ("paiseId", []),
+        paiseIdLabel: ("paiseIdLabel", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
-        postulado: ("postulado", true),
+        postulado: true,
       });
       setTimeout(() => {
         navigate("/work");
@@ -274,12 +283,28 @@ export default function DevUsersCreate() {
     }
   };
 
-  const handleDefaultCountrie = [
-    {
-      label: cache?.paiseId,
-      value: cache?.paiseId,
-    },
-  ];
+  const handleDefaultCountrie =
+    cache?.paiseIdLabel && cache?.paiseId
+      ? [
+          {
+            label: cache?.paiseIdLabel,
+            value: cache?.paiseId,
+          },
+        ]
+      : [{ value: "default", label: "Selecciona un país..." }];
+
+  const handleDefaultTEcnologias = cache?.tecnologiasLabel
+    ? cache?.tecnologiasLabel.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  console.log(
+    Array(cache).map((e) => e.tecnologiasLabel),
+    "aaaaaaaa"
+  );
 
   const handleReset = () => {
     refCountries.current.setValue({
@@ -314,6 +339,9 @@ export default function DevUsersCreate() {
         `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
       paiseId:
         ("paiseId", `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`),
+      paiseIdLabel:
+        ("paiseIdLabel",
+        `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -393,8 +421,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.name}
               value={cache?.name}
-              defaultValue={cache?.name}
               name="name"
               className={s.inputName}
             />
@@ -505,6 +533,7 @@ export default function DevUsersCreate() {
               placeholder="Tu LinkedIn..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.linkedIn}
               value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
@@ -522,6 +551,7 @@ export default function DevUsersCreate() {
               placeholder="Tu GitHub..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.gitHub}
               value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
@@ -539,6 +569,7 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.webSite}
               value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
@@ -557,10 +588,10 @@ export default function DevUsersCreate() {
               max="99"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.yearsOfExperience}
               name="yearsOfExperience"
               className={s.inputExperience}
-              defaultValue="1"
+              defaultValue={input?.yearsOfExperience}
+              value={cache?.yearsOfExperience}
               // step=".01"
             />
             <div className={s.divErrors}>
@@ -577,6 +608,7 @@ export default function DevUsersCreate() {
               max="999"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.dailyBudget}
               value={cache?.dailyBudget}
               name="dailyBudget"
               // step=".01"
@@ -599,7 +631,8 @@ export default function DevUsersCreate() {
               onChange={(e) => handleChangeEnglish(e)}
               // value={`${cache?.englishLevel}`}
               name="englishLevel"
-              defaultValue="1"
+              defaultValue={input?.englishLevel}
+              value={cache?.englishLevel}
               className={s.inputEnglish}
             />
             <label
@@ -644,6 +677,7 @@ export default function DevUsersCreate() {
                 setInput({
                   ...input,
                   paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
 
                 if (userByEmail?.postulado) {
@@ -665,6 +699,7 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
               }}
             />
@@ -689,10 +724,12 @@ export default function DevUsersCreate() {
               isMulti={true}
               styles={customStyles}
               placeholder="Selecciona una tecnología"
+              defaultvalue={handleDefaultTEcnologias}
               onChange={(e) => {
                 setInput({
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.value),
                 });
                 if (userByEmail?.postulado) {
                   setErrors(
@@ -713,6 +750,7 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.label),
                 });
               }}
             />
