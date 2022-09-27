@@ -15,6 +15,9 @@ const ERROR = "Error @ controllers/Usuarios";
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
+      //     where: {
+      //     habilitado: true,
+      //   },
       include: [
         {
           model: Paises,
@@ -60,6 +63,7 @@ const getUsers = async () => {
         visible: cur.visible,
         postulado: cur.postulado,
         registrado: cur.registrado,
+        habilitado: cur.habilitado,
         tarjeta_numero: cur.tarjeta_numero,
         tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
         tarjeta_vencimiento: cur.tarjeta_vencimiento,
@@ -215,6 +219,7 @@ const getUserByName = async (name) => {
   try {
     let userByName = await Usuarios.findAll({
       where: {
+        // habilitado: true,
         name: { [Op.iLike]: `%${name}%` },
       },
       include: [
@@ -283,7 +288,7 @@ const getUserByName = async (name) => {
 
 const postUserAuth = async (data) => {
   try {
-    let { email, family_name, given_name, picture, isAdmin, registrado } = data;
+    let { email, family_name, given_name, picture } = data;
 
     const [row, created] = await Usuarios.findOrCreate({
       where: {
@@ -295,6 +300,7 @@ const postUserAuth = async (data) => {
         profilePicture: picture,
         isAdmin: false,
         registrado: true,
+        habilitado: true,
       },
     });
 
@@ -326,6 +332,7 @@ const modifUser = async (data) => {
       visible,
       postulado,
       registrado,
+      habilitado,
       reputacion,
       city,
       tecnologias,
@@ -352,6 +359,7 @@ const modifUser = async (data) => {
         paiseId,
         city: city !== "" ? city : null,
         registrado,
+        habilitado: habilitado ? habilitado : true,
         visible,
         postulado,
         reputacion: reputacion !== "" ? reputacion : 1,
@@ -387,6 +395,7 @@ const modifUser = async (data) => {
     modUsr.setServicios(servicios);
 
     return "Usuario modificado correctamente";
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
   }
@@ -396,7 +405,8 @@ const getByEmail = async (email) => {
   try {
     let userEmail = await Usuarios.findOne({
       where: {
-        email: email,
+        email,
+        // habilitado: true,
       },
       include: [
         {

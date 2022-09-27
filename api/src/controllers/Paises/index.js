@@ -1,8 +1,6 @@
 const { Paises } = require("../../db");
 const { paises } = require("../../json/Paises.json");
 
-
-
 const ERROR = "Error @ controllers/Countries";
 
 // -----------------------------------------------
@@ -14,7 +12,7 @@ const jsonPaises = async () => {
         where: { name },
       });
     });
-    console.log("Paises por default cargados en la DB");
+    console.log("✔ Paises cargados.");
   } catch (e) {
     console.error(`ERROR @ controllers/jsonPaises --→ ${e}`);
   }

@@ -58,11 +58,14 @@ const getContracts = async () => {
         id: c.id,
         employer: c.employer,
         developer: c.developer,
+        description: c.description,
         date: c.date,
         expiration_date: c.expiration_date,
         status: c.status,
         price: c.price,
         payment: c.payment_id,
+        aceptado: c.aceptado,
+        habilitado: c.habilitado,
       };
     });
 
@@ -119,6 +122,8 @@ const createContract = async (data) => {
       status: setStatus(date),
       price,
       payment_id,
+      aceptado: false,
+      habilitado: true,
     });
 
     return `Contrato suscrito correctamente.
@@ -138,7 +143,15 @@ const createContract = async (data) => {
 const modifyContract = async (id, data) => {
   try {
     //
-    const { description, date, expiration_date, price, payment_id } = data;
+    const {
+      description,
+      date,
+      expiration_date,
+      price,
+      payment_id,
+      aceptado,
+      habilitado,
+    } = data;
     const contract = await Contratos.findByPk(id);
 
     if (description) contract.description = description;
@@ -146,6 +159,8 @@ const modifyContract = async (id, data) => {
     if (expiration_date) contract.expiration_date = expiration_date;
     if (price) contract.price = price;
     if (payment_id) contract.payment_id = payment_id;
+    if (aceptado) contract.aceptado = aceptado;
+    if (habilitado) contract.habilitado = habilitado;
     contract.status = setStatus(date, expiration_date);
 
     await contract.save();
@@ -178,6 +193,22 @@ const cancelContract = async (id) => {
 
 // -----------------------------------------------
 
+// PUT (ACCEPT) CONTRACT
+const acceptContract = async (id) => {
+  try {
+    //
+    const contract = await Contratos.findByPk(id);
+    contract.aceptado = true;
+
+    return `Propuesta aceptada exitosamente.`;
+    //
+  } catch (e) {
+    console.error(`${ERROR}/acceptContract --> ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
 // DELETE (EXISTING) CONTRACT
 const deleteContract = async (id) => {
   try {
@@ -200,6 +231,7 @@ module.exports = {
   getContractById,
   createContract,
   modifyContract,
+  acceptContract,
   cancelContract,
   deleteContract,
 };
