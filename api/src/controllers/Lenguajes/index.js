@@ -11,8 +11,11 @@ const saveLanguages = async () => {
   try {
     lenguajes.forEach(
       async (curr) => await Lenguajes.findOrCreate({ where: { name: curr } })
+      // .then((result) =>
+      //   result.forEach((e) => (e.habilitado = true))
+      // )
     );
-    console.log("Lenguajes agregados correctamente");
+    console.log("✔ Lenguajes cargados.");
     return "Lenguajes agregados correctamente";
   } catch (e) {
     console.error(`${ERROR}/saveLanguages --> ${e}`);

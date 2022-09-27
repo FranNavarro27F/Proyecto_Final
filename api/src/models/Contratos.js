@@ -59,7 +59,17 @@ module.exports = (sequelize) => {
 
       payment_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        // allowNull: false,
+      },
+
+      aceptado: {
+        type: DataTypes.BOOLEAN,
+        // allowNull: false,
+      },
+
+      habilitado: {
+        type: DataTypes.BOOLEAN,
+        // allowNull: false,
       },
       //
     },
