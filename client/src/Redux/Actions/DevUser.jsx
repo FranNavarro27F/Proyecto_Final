@@ -74,7 +74,7 @@ export function getUserId(id) {
 }
 
 export function getUserEmail(email) {
-  console.log(email, "action");
+  console.log(email, "action user email");
   return async function (dispatch) {
     try {
       const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;

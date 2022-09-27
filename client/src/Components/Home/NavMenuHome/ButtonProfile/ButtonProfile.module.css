@@ -10,6 +10,7 @@
   height: 8vh;
 }
 .picture {
+  object-fit: cover;
   width: 4vw;
   height: 8vh;
 }

@@ -10,12 +10,8 @@ export default function NavMenuHome({
   work,
   home,
   landing,
-  // isAuthenticated,
-  // user,
-  // logout,
   setOpen,
   open,
-  // about,
 }) {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();

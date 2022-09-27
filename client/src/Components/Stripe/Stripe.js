@@ -208,7 +208,9 @@ function Stripe() {
     payment_id: "",
   });
 
-  return (
+  return !isAuthenticated ? (
+    loginWithRedirect()
+  ) : (
     <div className={s.backgroundC}>
       <div>
         <Contracts

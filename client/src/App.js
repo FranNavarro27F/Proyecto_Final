@@ -13,6 +13,7 @@ import Stripe from "./Components/Stripe/Stripe";
 import UserProfile from "./Components/UserProfile/UserProfile";
 //import About from "./Components/About/About"
 import Contracts from "./Components/Contracts/Contracts";
+import Error404 from "./Components/error404/error404";
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
         <Route path="/create" element={<DevUsersCreate />} />
         {/* <Route path="/users" element={<Users />} /> */}
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
-        **<Route path="*" element={<h1>404</h1>}></Route>**
+        **<Route path="*" element={<Error404 />}></Route>**
       </Routes>
     </>
   );
