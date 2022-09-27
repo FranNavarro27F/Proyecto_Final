@@ -17,6 +17,7 @@ const getUsers = async () => {
     let usuarios = await Usuarios.findAll({
       //     where: {
       //     habilitado: true,
+      //     visible: true,
       //   },
       include: [
         {
@@ -181,7 +182,7 @@ const getUserById = async (id) => {
     });
 
     let userM = User.dataValues;
-    console.log(userM);
+    // console.log(userM);
     let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
@@ -196,7 +197,7 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-    console.log(userM);
+    // console.log(userM);
 
     return userM;
   } catch (e) {
@@ -220,6 +221,7 @@ const getUserByName = async (name) => {
     let userByName = await Usuarios.findAll({
       where: {
         // habilitado: true,
+        // visible: true,
         name: { [Op.iLike]: `%${name}%` },
       },
       include: [
@@ -301,6 +303,7 @@ const postUserAuth = async (data) => {
         isAdmin: false,
         registrado: true,
         habilitado: true,
+        visible: false,
       },
     });
 
@@ -349,7 +352,7 @@ const modifUser = async (data) => {
           : (lastName = []),
         linkedIn: linkedIn !== "" ? linkedIn : null,
         gitHub: gitHub !== "" ? gitHub : null,
-        profilePicture,
+        profilePicture: profilePicture !== "" ? profilePicture : null,
         isAdmin,
         webSite: webSite !== "" ? webSite : null,
         yearsOfExperience: yearsOfExperience !== "" ? yearsOfExperience : 1,
