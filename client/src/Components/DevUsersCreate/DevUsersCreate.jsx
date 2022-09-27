@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import s from "./DevUsersCreate.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import { validaciones } from "./Validaciones";
+import { validacionesEdit } from "./ValidacionesEdit";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import makeAnimated from "react-select/animated";
 import { customStyles } from "./StyleSelect";
@@ -13,62 +14,106 @@ import ModalCreate from "./ModalCreate/ModalCreate";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
+import Loader from "../Loader/Loader";
+import useFetchAllData from "../../Hooks/useFetchAllData";
 
 //actions
-import { getCountries } from "../../Redux/Actions/Countries";
-import { getServices } from "../../Redux/Actions/Services";
-import { getLanguajes } from "../../Redux/Actions/Languajes";
-import { getUsersBd, postDevUser } from "../../Redux/Actions/DevUser";
-import { getTecnologies } from "../../Redux/Actions/Tecnologies";
-import Loader from "../Loader/Loader";
+import {
+  getUserEmail,
+  getUsersBd,
+  putDevUser,
+} from "../../Redux/Actions/DevUser";
 
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
+import Selectores from "../Selectores/Selectores";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const refCountries = useRef();
+  const refServices = useRef();
+  const refLanguajes = useRef();
+  const refTecnologies = useRef();
+  const refName = useRef();
+  const reflastName = useRef();
+
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
   useEffect(() => {
-    dispatch(getCountries());
-    dispatch(getTecnologies());
-    dispatch(getServices());
-    dispatch(getLanguajes());
-    dispatch(getUsersBd());
-  }, [dispatch]);
-
-  const countries = useSelector((state) => state.countries.allCountries);
-  const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
-  const services = useSelector((state) => state.services.allServices);
-  const languajes = useSelector((state) => state.languajes.allLanguajes);
-
-  // async function promesa(obj, prop) {
-  //   const result = await obj[prop];
-  //   return result[["PromiseResult"]];
-  // }
-
-  // console.log(promesa(user, "email"), "aca estoy");
+    if (!userByEmail) dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email, userByEmail]);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache.name : `${user?.given_name}`,
-    lastName: cache?.lastName ? cache.lastName : `${user?.family_name}`,
-    profilePicture: cache?.profilePicture ? cache?.profilePicture : "",
-    email: cache?.email ? cache?.email : `${user?.email}`,
-    linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
-    gitHub: cache?.gitHub ? cache?.gitHub : "",
-    webSite: cache?.webSite ? cache?.webSite : "",
-    dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
-    yearsOfExperience: cache?.yearsOfExperience
-      ? cache?.yearsOfExperience
-      : "0",
-    englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : [],
+    name: userByEmail?.name
+      ? `${userByEmail?.name}`
+      : cache?.name
+      ? `${cache?.name}`
+      : "",
+    lastName: userByEmail?.lastName
+      ? `${userByEmail?.lastName}`
+      : cache?.lastName
+      ? `${cache?.lastName}`
+      : "",
+    profilePicture: userByEmail?.profilePicture
+      ? `${userByEmail?.profilePicture}`
+      : cache?.profilePicture
+      ? `${cache?.profilePicture}`
+      : "",
+    email: `${userByEmail?.email}`,
+    linkedIn: userByEmail?.linkedIn
+      ? `${userByEmail?.linkedIn}`
+      : cache?.linkedIn
+      ? `${cache?.linkedIn}`
+      : "",
+    gitHub: userByEmail?.gitHub
+      ? `${userByEmail?.gitHub}`
+      : cache?.gitHub
+      ? `${cache?.gitHub}`
+      : "",
+    webSite: userByEmail?.webSite
+      ? `${userByEmail?.webSite}`
+      : cache?.webSite
+      ? `${cache?.webSite}`
+      : "",
+    dailyBudget: userByEmail?.dailyBudget
+      ? `${userByEmail?.dailyBudget}`
+      : cache?.dailyBudget
+      ? `${cache?.dailyBudget}`
+      : "",
+    yearsOfExperience: userByEmail?.yearsOfExperience
+      ? `${userByEmail?.yearsOfExperience}`
+      : cache?.yearsOfExperience
+      ? `${cache?.yearsOfExperience}`
+      : "",
+    englishLevel: userByEmail?.englishLevel
+      ? `${userByEmail?.englishLevel}`
+      : cache?.englishLevel
+      ? `${cache?.englishLevel}`
+      : "Básico",
+    paiseId: userByEmail?.paiseId
+      ? `${userByEmail?.paiseId}`
+      : cache?.paiseId
+      ? `${cache?.paiseId}`
+      : [],
+    paiseIdLabel: userByEmail?.paiseIdLabel
+      ? `${userByEmail?.paiseIdLabel}`
+      : cache?.paiseIdLabel
+      ? `${cache?.paiseIdLabel}`
+      : [],
     tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
-    lenguajes: cache?.lenguajes ? cache?.lenguajes : [],
-    servicios: cache?.servicios ? cache?.servicios : [],
+    tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
+    lenguajes:
+      // cache?.lenguajes ? cache?.lenguajes :
+      [],
+    servicios:
+      // cache?.servicios ? cache?.servicios :
+      [],
+    postulado: true,
   });
 
   const handleChangeInput = (e) => {
@@ -76,12 +121,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
+    if (userByEmail.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: e.target.value,
@@ -97,29 +151,37 @@ export default function DevUsersCreate() {
         const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log(percent, "percent");
         if (percent === 0 && percent === 100) {
           return setLoader(false);
         } else {
           setLoader(true);
         }
-        console.log(loader);
       },
       (err) => console.log(err),
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          // console.log(url);
           setInput({
             ...input,
             profilePicture: url,
           });
-          setErrors(
-            validaciones({
-              ...cache,
-              profilePicture: url,
-            })
-          );
+
+          if (userByEmail?.postulado) {
+            setErrors(
+              validacionesEdit({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          } else {
+            setErrors(
+              validaciones({
+                ...cache,
+                profilePicture: url,
+              })
+            );
+          }
+
           setCache({
             ...cache,
             profilePicture: url,
@@ -128,6 +190,7 @@ export default function DevUsersCreate() {
       }
     );
   };
+
   const handleChangeEnglish = (e) => {
     const ingles = () => {
       if (e.target.value === "1") {
@@ -150,12 +213,21 @@ export default function DevUsersCreate() {
       ...input,
       [e.target.name]: ingles(),
     });
-    setErrors(
-      validaciones({
-        ...input,
-        [e.target.name]: ingles(),
-      })
-    );
+    if (userByEmail?.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    } else {
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: ingles(),
+        })
+      );
+    }
     setCache({
       ...cache,
       [e.target.name]: ingles(),
@@ -168,62 +240,149 @@ export default function DevUsersCreate() {
   const handleCreate = (e) => {
     e.preventDefault();
     setVerErrores(true);
-    if (errors.length === 0) {
-      dispatch(
-        postDevUser({
-          ...input,
-          name: input.name[0].toUpperCase() + input.name.slice(1).toLowerCase(),
-          lastName:
-            input.lastName[0].toUpperCase() +
-            input.lastName.slice(1).toLowerCase(),
-        })
-      );
+    if (Object.keys(errors).length === 0) {
+      refCountries.current.clearValue();
+      refServices.current.clearValue();
+      refLanguajes.current.clearValue();
+      refTecnologies.current.clearValue();
       setModal(true);
-      setTimeout(() => {
-        navigate("/work");
-      }, 1000);
+      refCountries.current.setValue({
+        value: "default",
+        label: "Selecciona un país...",
+      });
       setCache({
-        name: ("name", `${user?.given_name}`),
-        lastName: ("lastName", `${user?.family_name}`),
-        profilePicture: ("profilePicture", ""),
-        email: ("email", `${user?.email}`),
-        linkedIn: ("linkedIn", ""),
-        gitHub: ("gitHub", ""),
-        webSite: ("webSite", ""),
-        yearsOfExperience: ("yearsOfExperience", "0"),
+        name: ("name", ``),
+        lastName: ("lastName", ``),
+        profilePicture: ("profilePicture", ``),
+        email: ("email", `${userByEmail?.email}`),
+        linkedIn: ("linkedIn", ``),
+        gitHub: ("gitHub", ``),
+        webSite: ("webSite", ``),
+        yearsOfExperience: ("yearsOfExperience", ``),
         dailyBudget: ("dailyBudget", "0"),
-        englishLevel: ("englishLevel", "Básico"),
-        paiseId: ("paiseId", ""),
+        englishLevel: ("englishLevel", ``),
+        paiseId: ("paiseId", []),
+        paiseIdLabel: ("paiseIdLabel", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
+        postulado: true,
       });
+      setTimeout(() => {
+        navigate("/work");
+      }, 1500);
+      dispatch(
+        putDevUser({
+          ...input,
+          postulado: true,
+        })
+      );
+      dispatch(getUsersBd());
     } else {
-      console.log("Hay errores!", errors);
+      console.log(`hay errores`, errors);
     }
   };
 
+  const handleDefaultCountrie =
+    cache?.paiseIdLabel && cache?.paiseId
+      ? [
+          {
+            label: cache?.paiseIdLabel,
+            value: cache?.paiseId,
+          },
+        ]
+      : [{ value: "default", label: "Selecciona un país..." }];
+
+  const handleDefaultTEcnologias = cache?.tecnologiasLabel
+    ? cache?.tecnologiasLabel.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  console.log(
+    Array(cache).map((e) => e.tecnologiasLabel),
+    "aaaaaaaa"
+  );
+
   const handleReset = () => {
+    refCountries.current.setValue({
+      value: "default",
+      label: "Selecciona un país...",
+    });
+    refName.current.value = "";
+    reflastName.current.value = "";
+    refServices.current.clearValue();
+    refLanguajes.current.clearValue();
+    refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${user?.given_name}`),
-      lastName: ("lastName", `${user?.family_name}`),
-      profilePicture: ("profilePicture", ""),
-      email: `${user?.family_name}`,
-      linkedIn: ("linkedIn", ""),
-      gitHub: ("gitHub", ""),
-      webSite: ("webSite", ""),
-      yearsOfExperience: ("yearsOfExperience", "0"),
-      dailyBudget: ("dailyBudget", "0"),
-      englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", ""),
+      name: ("name", `${userByEmail?.name}`),
+      lastName: ("lastName", `${userByEmail?.lastName}`),
+      profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
+      email: ("email", `${userByEmail?.email}`),
+      linkedIn:
+        ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`),
+      gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`),
+      webSite:
+        ("webSite", `${userByEmail?.webSite ? userByEmail?.webSite : ""}`),
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget:
+        ("dailyBudget",
+        `${userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"}`),
+      englishLevel:
+        ("englishLevel",
+        `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
+      paiseId:
+        ("paiseId", `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`),
+      paiseIdLabel:
+        ("paiseIdLabel",
+        `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
+      postulado: true,
+    });
+    setInput({
+      name: `${userByEmail?.name}`,
+      lastName: `${userByEmail?.lastname}`,
+      profilePicture: `${userByEmail?.profilePicture}`,
+      email: `${userByEmail?.email}`,
+      linkedIn: `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`,
+      gitHub: `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`,
+      webSite: `${userByEmail?.webSite ? userByEmail?.webSite : ""}`,
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget: `${
+        userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"
+      }`,
+      englishLevel: `${
+        userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
+      }`,
+      paiseId: `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`,
+      tecnologias: [],
+      lenguajes: [],
+      servicios: [],
     });
     setLoader(false);
   };
 
   //OPCIONES DE LOS SELECTS:
+  const {
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsServices,
+    // optionsCountries,
+  } = Selectores();
+
+  const countries = useSelector((state) => state.countries.allCountries);
 
   const optionsCountries = countries.map((e) => {
     return {
@@ -231,84 +390,23 @@ export default function DevUsersCreate() {
       label: e.name,
     };
   });
-  const optionsTecnologias = tecnologies.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
 
-  const optionsServices = services.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  const optionsLanguajes = languajes.map((e) => {
-    return {
-      value: e.id,
-      label: e.name,
-    };
-  });
-
-  // const [disabledButton, setDisabledButton] = useState(true);
-
-  // useEffect(() => {
-  //   if (
-  //     //name
-  //     input.name === "" ||
-  //     /[^\w\s]/.test(input.name) ||
-  //     /[1-9]/.test(input.name) ||
-  //     /[\s]/.test(input.name) ||
-  //     //lastname
-  //     input.lastName === "" ||
-  //     /[^\w\s]/.test(input.lastName) ||
-  //     /[1-9]/.test(input.lastName) ||
-  //     /[\s]/.test(input.lastName) ||
-  //     //image
-  //     // input.profilePicture === "" ||
-  //     // /[\s]/.test(input.profilePicture) ||
-  //     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
-  //     //email
-  //     input.email === "" ||
-  //     !/^\S+@\S+\.\S+$/.test(input.email) ||
-  //     /[\s]/.test(input.email) ||
-  //     //linkedin
-  //     input.linkedIn === "" ||
-  //     /[\s]/.test(input.linkedIn) ||
-  //     //github
-  //     input.gitHub === "" ||
-  //     /[\s]/.test(input.gitHub) ||
-  //     //website
-  //     input.webSite === "" ||
-  //     /[\s]/.test(input.webSite) ||
-  //     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
-  //       input.webSite
-  //     ) ||
-  //     //yearsOfExperience
-  //     input.yearsOfExperience?.length < 1 ||
-  //     input.yearsOfExperience?.length > 99 ||
-  //     // /dailyBudget
-  //     input.dailyBudget?.length < 1 ||
-  //     input.dailyBudget?.length > 999 ||
-  //     !input.paiseId?.length ||
-  //     !input.tecnologias?.length ||
-  //     !input.lenguajes?.length ||
-  //     !input.servicios?.length
-  //   ) {
-  //     setDisabledButton(true);
-  //   } else {
-  //     setDisabledButton(false);
-  //   }
-  // }, [errors, input, setDisabledButton]);
+  if (
+    isLoading &&
+    input.name === undefined &&
+    userByEmail?.email === undefined &&
+    input.email === undefined &&
+    input.profile.Picture === undefined
+  ) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
 
   return !isAuthenticated ? (
     loginWithRedirect()
-  ) : isLoading ? (
-    <Loader />
-  ) : !user.email ? (
-    <Loader />
   ) : (
     <div className={s.divGeneral}>
       {modal && <ModalCreate />}
@@ -318,25 +416,31 @@ export default function DevUsersCreate() {
           <div className={s.inputContainer}>
             <p>Nombre: </p>
             <input
+              ref={refName}
               type="text"
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.name}
               value={cache?.name}
               name="name"
               className={s.inputName}
             />
             <div className={s.divErrors}>
-              {verErrores && errors.name && <label>⚠ {errors.name}</label>}
+              {verErrores && errors.name && (
+                <label className={s.errors}>⚠ {errors.name}</label>
+              )}
             </div>
           </div>
           <div className={s.inputContainer}>
             <p>Apellido: </p>
             <input
+              ref={reflastName}
               type="text"
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.lastName}
               value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
@@ -349,20 +453,18 @@ export default function DevUsersCreate() {
           </div>
           <div className={s.inputContainer_1fila}>
             <p>Imagen: </p>
-            {!cache.profilePicture && loader ? (
+            {!cache?.profilePicture && loader ? (
               <div className={s.barra}>
                 <span></span>
               </div>
-            ) : !cache.profilePicture ? (
+            ) : !input?.profilePicture ? (
               <label className={s.divInput}>
                 <input
                   className={s.addImg}
                   type="file"
-                  // value={cache?.profilePicture}
                   onChange={(e) => getFile(e.target.files[0])}
-                  // onClick={() => setLoader(false)}
                   name="profilePicture"
-                  // className={s.inputImg}
+                  // defaultValue={cache?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -374,24 +476,30 @@ export default function DevUsersCreate() {
                   <div></div>
                 </div>
                 <img
-                  src={cache?.profilePicture}
+                  src={
+                    input?.profilePicture
+                      ? input?.profilePicture
+                      : cache?.profilePicture
+                  }
                   alt={cache?.name}
                   className={s.imgForm}
                 />
-                <button
-                  className={s.buttonImg}
-                  onClick={() => {
-                    setCache({
-                      profilePicture: ("profilePicture", ""),
-                    });
-                    setInput({
-                      profilePicture: "",
-                    });
-                    setLoader(false);
-                  }}
-                >
-                  <AiOutlineCloseCircle />
-                </button>
+                {
+                  <button
+                    className={s.buttonImg}
+                    onClick={() => {
+                      setCache({
+                        profilePicture: ("profilePicture", ""),
+                      });
+                      setInput({
+                        profilePicture: "",
+                      });
+                      setLoader(false);
+                    }}
+                  >
+                    <AiOutlineCloseCircle />
+                  </button>
+                }
               </div>
             )}
             <div className={s.divErrors}>
@@ -408,10 +516,9 @@ export default function DevUsersCreate() {
               placeholder="Tu Email..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              value={user?.email}
+              value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
-              // defaultValue={user?.email}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (
@@ -426,6 +533,7 @@ export default function DevUsersCreate() {
               placeholder="Tu LinkedIn..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.linkedIn}
               value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
@@ -443,6 +551,7 @@ export default function DevUsersCreate() {
               placeholder="Tu GitHub..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.gitHub}
               value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
@@ -460,6 +569,7 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.webSite}
               value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
@@ -478,10 +588,10 @@ export default function DevUsersCreate() {
               max="99"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.yearsOfExperience}
               name="yearsOfExperience"
               className={s.inputExperience}
-              defaultValue="1"
+              defaultValue={input?.yearsOfExperience}
+              value={cache?.yearsOfExperience}
               // step=".01"
             />
             <div className={s.divErrors}>
@@ -498,6 +608,7 @@ export default function DevUsersCreate() {
               max="999"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.dailyBudget}
               value={cache?.dailyBudget}
               name="dailyBudget"
               // step=".01"
@@ -520,7 +631,8 @@ export default function DevUsersCreate() {
               onChange={(e) => handleChangeEnglish(e)}
               // value={`${cache?.englishLevel}`}
               name="englishLevel"
-              defaultValue="1"
+              defaultValue={input?.englishLevel}
+              value={cache?.englishLevel}
               className={s.inputEnglish}
             />
             <label
@@ -549,6 +661,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="pais">Pais: </p>
             <Select
+              ref={refCountries}
               components={animatedComponents}
               set-value={cache?.paiseId}
               className={s.select}
@@ -558,22 +671,35 @@ export default function DevUsersCreate() {
               isSearchable={true}
               isMulti={false}
               styles={customStyles}
-              // classNamePrefix="react-select"
               placeholder="Selecciona un pais"
+              defaultValue={handleDefaultCountrie}
               onChange={(e) => {
                 setInput({
                   ...input,
-                  paiseId: e.value,
+                  paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    paiseId: e.value,
-                  })
-                );
+
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      paiseId: e?.value,
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
-                  paiseId: e.value,
+                  paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
               }}
             />
@@ -588,7 +714,7 @@ export default function DevUsersCreate() {
             <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
-              // defaultValue={optionsTecnologias2 ? optionsTecnologias2 : false}
+              ref={refTecnologies}
               set-value={cache?.tecnologias}
               className={s.select}
               isDisabled={false}
@@ -598,20 +724,33 @@ export default function DevUsersCreate() {
               isMulti={true}
               styles={customStyles}
               placeholder="Selecciona una tecnología"
+              defaultvalue={handleDefaultTEcnologias}
               onChange={(e) => {
                 setInput({
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    tecnologias: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      tecnologias: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.label),
                 });
               }}
             />
@@ -624,6 +763,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="lenguajes">Lenguajes: </p>
             <Select
+              ref={refLanguajes}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.lenguajes}
@@ -640,12 +780,22 @@ export default function DevUsersCreate() {
                   ...input,
                   lenguajes: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    lenguajes: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      lenguajes: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...cache,
                   lenguajes: e.map((ele) => ele.value),
@@ -661,6 +811,8 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="servicios">Servicios: </p>
             <Select
+              // defaultValue={handleDefaultService}
+              ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}
               set-value={cache?.servicios}
@@ -677,12 +829,22 @@ export default function DevUsersCreate() {
                   ...input,
                   servicios: e.map((ele) => ele.value),
                 });
-                setErrors(
-                  validaciones({
-                    ...input,
-                    servicios: e.map((ele) => ele.value),
-                  })
-                );
+                if (userByEmail?.postulado) {
+                  setErrors(
+                    validacionesEdit({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                } else {
+                  setErrors(
+                    validaciones({
+                      ...input,
+                      servicios: e.map((ele) => ele.value),
+                    })
+                  );
+                }
+
                 setCache({
                   ...input,
                   servicios: e.map((ele) => ele.value),
@@ -700,13 +862,23 @@ export default function DevUsersCreate() {
           <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
             <span className={s.button_top}>RESETEAR FORMULARIO</span>
           </button>
-          <button
-            className={s.buttonCreate}
-            // disabled={disabledButton}
-            onClick={(e) => handleCreate(e)}
-          >
-            <span className={s.button_top}> CREAR PERFIL</span>
-          </button>
+          {!userByEmail?.postulado ? (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> CREAR POSTULACION</span>
+            </button>
+          ) : (
+            <button
+              className={s.buttonCreate}
+              // disabled={disabledButton}
+              onClick={(e) => handleCreate(e)}
+            >
+              <span className={s.button_top}> EDITAR POSTULACION</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

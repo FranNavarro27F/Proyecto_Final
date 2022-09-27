@@ -1,18 +1,16 @@
-.modal {
+.body {
+  background-color: #28223f;
+  font-family: Montserrat, sans-serif;
+
   display: flex;
-  /* position: fixed; */
-  z-index: 999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  /* background-color: rgba(0, 0, 0, 0); */
-  /* display: none; */
-  justify-content: center;
   align-items: center;
-  /* background-color: red; */
-  backdrop-filter: blur(3px);
+  justify-content: center;
+  flex-direction: column;
+
+  min-height: 100vh;
+  margin: 0;
 }
+
 .verificacionT {
   color: rgb(9, 255, 0);
 }
@@ -21,30 +19,86 @@
 }
 .picture {
   border-radius: 50%;
+  width: 5vw;
+}
+.container h3 {
+  margin: 10px 0;
+}
+.container h6 {
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+.container {
+  background-color: #231e39;
+  border-radius: 5px;
+  font-family: Montserrat, sans-serif;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  color: #b3b8cd;
+  padding-top: 30px;
+  position: relative;
+  min-width: 20vw;
+  max-width: 100%;
+  height: 40vh;
+  max-height: 35vh;
+  text-align: center;
+  line-height: 3vh;
 }
 
-.container {
-  color: wheat;
-  -webkit-box-shadow: 0px 0px 18px 1px #c961de;
-  -moz-box-shadow: 0px 0px 18px 1px #c961de;
-  box-shadow: 0px 0px 18px 1px #c961de;
-  border-radius: 34px 34px 34px 34px;
-  -moz-border-radius: 34px 34px 34px 34px;
-  -webkit-border-radius: 34px 34px 34px 34px;
-  border: 0px solid #00000034;
-  background-color: rgba(45, 43, 43, 0.595);
-  backdrop-filter: blur(3px);
-  border: black 2px solid;
-  padding: 1rem;
-  margin: 1rem;
+.container .picture {
+  border: 1px solid rgb(153, 142, 142);
+  border-radius: 50%;
+  padding: 7px;
+  min-height: 9vh;
+  max-height: 9vh;
+  /* min-width: 4vw; */
+  width: auto;
+}
+
+.addImg {
+  /* background-color: red; */
+  display: none;
+}
+.divInputImg {
+  margin-bottom: 22vh;
+  font-size: 1.1vw;
+  border: 1px solid rgb(153, 142, 142);
+  cursor: pointer;
+  background-color: rgba(230, 220, 220, 0.082);
+  color: #c961de;
+  border: none;
+}
+
+.buttons {
+}
+
+.buttonPrimary {
+  margin-right: 0.4vw;
+  background-color: #c961de;
+  border: 1px solid #c961de;
+  border-radius: 3px;
+  color: #231e39;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  padding: 10px 25px;
+  cursor: pointer;
+}
+.buttonSecondary {
+  cursor: pointer;
+  background-color: #c961de;
+  border: 1px solid #c961de;
+  border-radius: 3px;
+  color: #231e39;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  padding: 10px 25px;
+  background-color: transparent;
+  color: #b1b1b1;
+}
+.email {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 15vw;
-  text-align: center;
-  min-height: 20vh;
-  margin-bottom: 20vh;
-
-  overflow-x: auto;
+}
+.email p {
+  margin-left: 0.4vw;
 }

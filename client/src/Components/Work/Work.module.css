@@ -1,11 +1,9 @@
 .body {
   /* position: absolute; */
-
   background: #0f103f;
   height: auto !important;
   min-height: 100%;
   width: auto !important;
-
   /* width: 100%; */
   /* overflow: hidden; */
   display: flex;

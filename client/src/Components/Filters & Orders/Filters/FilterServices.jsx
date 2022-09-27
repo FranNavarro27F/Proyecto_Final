@@ -3,33 +3,23 @@ import s from "./FIlterServices.module.css";
 
 import { useSelector } from "react-redux";
 import Select from "react-select";
+import useFetchAllData from "../../../Hooks/useFetchAllData";
 
 export default function FIlterServices({
   setActualFilter,
-  setOrder,
   setCacheFilter,
   cacheFilter,
   customStyles,
   actualFilter,
+  refServices,
 }) {
-  const services = useSelector((state) => state.services.allServices);
-
+  const { services } = useFetchAllData();
   const optionsServices = services.map((e) => {
     return {
       value: e.id,
       label: e.name,
     };
   });
-
-  const handleServices = (e) => {
-    setActualFilter((state) => {
-      return {
-        ...state,
-        filterServices: e.map((e) => e.label),
-      };
-    });
-    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  };
 
   return (
     <div>
@@ -42,9 +32,9 @@ export default function FIlterServices({
           setCacheFilter({
             ...cacheFilter,
             filterServices: e.map((e) => e.label),
-            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
           });
         }}
+        ref={refServices}
         className={s.select}
         set-value={cacheFilter?.filterServices}
         isDisabled={false}

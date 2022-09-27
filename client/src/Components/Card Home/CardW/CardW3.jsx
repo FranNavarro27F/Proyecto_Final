@@ -10,7 +10,7 @@ export default function CardW3() {
 <g filter="url(#filter0_b_39_329)">
 <rect width="380" height="280" rx="30" fill="url(#paint0_linear_39_329)" fillOpacity="0.4"/>
 <rect x="51" y="15" width="262" height="186" fill="url(#pattern0)"/>
-<rect x="0.5" y="0.5" width="379" height="279" rx="29.5" stroke="url(#paint1_linear_39_329)" stroke-opacity="0.3"/>
+<rect x="0.5" y="0.5" width="379" height="279" rx="29.5" stroke="url(#paint1_linear_39_329)" strokeOpacity="0.3"/>
 </g>
 <defs>
 <filter id="filter0_b_39_329" x="-20" y="-20" width="420" height="320" filterUnits="userSpaceOnUse" colornterpolationFilters="sRGB">
@@ -22,11 +22,11 @@ export default function CardW3() {
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 </pattern>
 <linearGradient id="paint0_linear_39_329" x1="190" y1="0" x2="190" y2="280" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
-<stop offset="1" stop-color="white" stop-opacity="0"/>
+<stop stopColor="white"/>
+<stop offset="1" stopColor="white" stopOpacity="0"/>
 </linearGradient>
 <linearGradient id="paint1_linear_39_329" x1="0" y1="0" x2="353" y2="280" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
+<stop stopColor="white"/>
 <stop offset="1"/>
 </linearGradient>
 </defs>

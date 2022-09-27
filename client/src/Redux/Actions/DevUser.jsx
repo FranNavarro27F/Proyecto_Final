@@ -1,5 +1,21 @@
 import axios from "axios";
+import { GrAction } from "react-icons/gr";
 
+export function putDevUser(payload) {
+  return async function (dispatch) {
+    console.log("PUT action", payload);
+    try {
+      let json = (await axios.put(`/usuarios`, payload)).data;
+      return dispatch({
+        type: "PUT_DEVUSER",
+        payload: json,
+      });
+    } catch (error) {
+      console.log("Catch del post");
+      console.error(error.message, "error en el post: actions");
+    }
+  };
+}
 export function postDevUser(payload) {
   return async function (dispatch) {
     console.log(payload, "Post action ");
@@ -39,17 +55,14 @@ export function getDevUsers(payload) {
         payload: devUsers,
       });
     } catch (error) {
-      console.error(error.message, "Error en el get DevUsers,actions");
+      console.log(error.message, "Error en el get DevUsers,actions");
     }
   };
 }
-
 export function getUserId(id) {
-  console.log(id);
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
-      console.log(userId, "este es el user id");
       return dispatch({
         type: "GET_USER_ID",
         payload: userId,
@@ -59,12 +72,55 @@ export function getUserId(id) {
     }
   };
 }
+
+export function getUserEmail(email) {
+  console.log(email, "action user email");
+  return async function (dispatch) {
+    try {
+      const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
+      return dispatch({
+        type: "GET_USER_EMAIL",
+        payload: userEmail,
+      });
+    } catch (error) {
+      console.log(error, "error TryCatch");
+    }
+  };
+}
 export function detailReset() {
-  return function(dispatch) {
+  return function (dispatch) {
     return dispatch({
       type: "DETAIL_RESET",
-      payload: [],
-    })
-  }
-  
+      // payload: [],
+    });
+  };
+}
+
+export function getUserSearchBar() {
+  return async function (dispatch) {
+    const userSB = (await axios.get(`/usuarios`)).data;
+    return dispatch({
+      type: "GET_USER_SEARCHBAR",
+      payload: userSB,
+    });
+  };
+}
+
+export function detailIdDev(id) {
+  return function (dispatch) {
+    return dispatch({
+      type: "DETAIL_ID_DEV",
+      payload: id,
+    });
+  };
+}
+
+export function getUserContrato(email) {
+  return async function (dispatch) {
+    let userId = (await axios.get(`/usuarios?=${email}`)).data;
+    return dispatch({
+      type: "USER_CONTRATO",
+      payload: userId,
+    });
+  };
 }

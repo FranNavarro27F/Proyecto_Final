@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
-
 import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
@@ -12,11 +11,25 @@ import NavMenuHome from "./NavMenuHome/NavMenuHome";
 import ScrollTop from "./ScrollTop";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
-import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { getUserEmail } from "../../Redux/Actions/DevUser";
 
 export default function Home() {
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+
+  const [userLocal, setUserLocal] = useState({
+    family_name: `${user?.family_name}`,
+    given_name: `${user?.given_name}`,
+    email: `${user?.email}`,
+    picture: `${user?.picture}`,
+  });
+
+  useLayoutEffect(() => {
+    dispatch(getUserEmail(userLocal));
+  }, [dispatch, userLocal]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -33,29 +46,43 @@ export default function Home() {
   const landing = useRef(null);
   const home = useRef(null);
   const work = useRef(null);
-  // const about = useRef(null);
 
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(false);
+  };
   return isLoading ? (
     <Loader />
   ) : (
-    <div>
+    <div className={s.body}>
       <div className={s.buttonTop}>
         <ScrollTop className={s.buttonTop} />
       </div>
+
       <NavMenuHome
+        userByEmailHome={userLocal}
+        setOpen={setOpen}
+        open={open}
+        logout={logout}
+        user={user}
+        isAuthenticated={isAuthenticated}
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
-        // about={about}
         work={work}
       />
-      <Landing landing={landing} goToSectionRef={home} />
+      <Landing
+        setOpen={setOpen}
+        open={open}
+        landing={landing}
+        goToSectionRef={home}
+      />
       <div>
         <div className={s.body} ref={home}>
           <div className={s.luz}></div>
 
           <Circulo className={s.circulo} />
-
           <Circulos className={s.circulos} />
           <Girl1 />
 
@@ -80,7 +107,6 @@ export default function Home() {
           scrollToSeccion={scrollToSeccion}
           landing={landing}
           home={home}
-          // about={about}
           work={work}
         />
       </div>

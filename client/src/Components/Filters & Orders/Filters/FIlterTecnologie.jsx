@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Select from "react-select";
+import useFetchAllData from "../../../Hooks/useFetchAllData";
 
 import s from "./FIlterTecnologie.module.css";
 
@@ -11,8 +11,9 @@ export default function FIlterTecnologie({
   cacheFilter,
   actualFilter,
   customStyles,
+  refServices,
 }) {
-  const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
+  const { tecnologies } = useFetchAllData();
 
   const optionsTecnologias = tecnologies.map((e) => {
     return {
@@ -21,20 +22,10 @@ export default function FIlterTecnologie({
     };
   });
 
-  const handleTecnologies = (e) => {
-    setActualFilter((state) => {
-      return {
-        ...state,
-        filterTecnologies: e.map((e) => e.label),
-      };
-    });
-    setOrder(`Ordenado: ${e.map((e) => e.label)}`);
-  };
-
   return (
     <div>
       <Select
-        id="selectTecnologie"
+        // ref={selectInputRef}
         onChange={(e) => {
           setActualFilter({
             ...actualFilter,
@@ -43,11 +34,12 @@ export default function FIlterTecnologie({
           setCacheFilter({
             ...cacheFilter,
             filterTecnologies: e.map((e) => e.label),
-            // setOrder(`Ordenado: ${e.map((e) => e.label)}`);
           });
         }}
+        ref={refServices}
         set-value={cacheFilter?.filterTecnologies}
         className={s.select}
+        // onChange={setSelected}
         isDisabled={false}
         options={optionsTecnologias}
         isClearable={true}
@@ -56,6 +48,7 @@ export default function FIlterTecnologie({
         placeholder="Filtra por tecnología..."
         styles={customStyles}
       />
+      {/* <button>CLEAR</button> */}
     </div>
   );
 }

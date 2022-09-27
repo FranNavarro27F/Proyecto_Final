@@ -8,18 +8,25 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import ButtonScrollSection from "../Home/ButtonScrollSection";
+import { useSelector } from "react-redux";
 
-export default function Landing({ landing, scrollTo, goToSectionRef }) {
+export default function Landing({
+  landing,
+  scrollTo,
+  goToSectionRef,
+  open,
+  setOpen,
+}) {
   const { user, isAuthenticated, isLoading, loginWithRedirect, home } =
     useAuth0();
   // console.log(user);
 
   return (
-    <div ref={landing}>
+    <div ref={landing} onClick={() => setOpen(false)} className={s.bodyLanding}>
       <PlanetasChicos />
       <Planeta />
-      <SideMenu />
-      <ButtonLanding />
+      {/* <SideMenu /> */}
+
       <div className={s.textLanding}>
         <p className={s.text1landing}>
           {user?.given_name
@@ -33,7 +40,10 @@ export default function Landing({ landing, scrollTo, goToSectionRef }) {
           alcance de un click<span className={s.puntos}> ...</span>
         </p>
       </div>
-      <ButtonScrollSection goToSectionRef={goToSectionRef} />
+      <ButtonLanding />
+      <div className={s.divbuttonDown}>
+        <ButtonScrollSection goToSectionRef={goToSectionRef} />
+      </div>
     </div>
   );
 }

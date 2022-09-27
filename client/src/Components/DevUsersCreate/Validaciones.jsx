@@ -21,14 +21,14 @@ function validaciones(input) {
     errors.profilePicture = "Ingresa una url de tu imagen!";
   // if (/[\s]/.test(input.profilePicture))
   //   errors.profilePicture = "El url no debe contener espacios!";
-  // if (!/\.(jpg|png|gif)$/i.test(input.profilePicture))
+  // if (!/\.(png|bmp|jpe?g)$/i.test(input.profilePicture))
   //   errors.profilePicture = "El url que intentas colocar no es valida";
   //email
   if (input.email === "") errors.email = "Ingresa tu email!";
   if (/[\s]/.test(input.email))
     errors.email = "El email no debe contener espacios!";
-  if (!/^\S+@\S+\.\S+$/.test(input.email))
-    errors.email = "El email que intentas colocar no es valido";
+  // if (!/^\S+@\S+\.\S+$/.test(input.email))
+  //   errors.email = "El email que intentas colocar no es valido";
   //linkedin
   if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
   if (/[\s]/.test(input.linkedIn))
@@ -77,15 +77,15 @@ function validaciones(input) {
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie
-  if (!input.paiseId?.length !== 0) errors.countries = "Ingresa un pais!";
+  if (input.paiseId?.length === 0) errors.paiseId = "Ingresa un pais!";
   // tecnologias;
-  if (!input.tecnologias?.length !== 0)
+  if (input.tecnologias?.length === 0)
     errors.tecnologies = "Ingresa al menos una tecnologia!";
   //lenguajes
-  if (!input.lenguajes?.length !== 0)
+  if (input.lenguajes?.length === 0)
     errors.languajes = "Ingresa al menos un lenguaje!";
   //servicios
-  if (!input.servicios?.length !== 0)
+  if (input.servicios?.length === 0)
     errors.services = "Ingresa al menos un servicio!";
 
   return errors;
@@ -94,3 +94,54 @@ function validaciones(input) {
 module.exports = {
   validaciones,
 };
+
+// const [disabledButton, setDisabledButton] = useState(true);
+
+// useEffect(() => {
+//   if (
+//     //name
+//     input.name === "" ||
+//     /[^\w\s]/.test(input.name) ||
+//     /[1-9]/.test(input.name) ||
+//     /[\s]/.test(input.name) ||
+//     //lastname
+//     input.lastName === "" ||
+//     /[^\w\s]/.test(input.lastName) ||
+//     /[1-9]/.test(input.lastName) ||
+//     /[\s]/.test(input.lastName) ||
+//     //image
+//     // input.profilePicture === "" ||
+//     // /[\s]/.test(input.profilePicture) ||
+//     // !/\.(jpg|png|gif)$/i.test(input.profilePicture) ||
+//     //email
+//     input.email === "" ||
+//     !/^\S+@\S+\.\S+$/.test(input.email) ||
+//     /[\s]/.test(input.email) ||
+//     //linkedin
+//     input.linkedIn === "" ||
+//     /[\s]/.test(input.linkedIn) ||
+//     //github
+//     input.gitHub === "" ||
+//     /[\s]/.test(input.gitHub) ||
+//     //website
+//     input.webSite === "" ||
+//     /[\s]/.test(input.webSite) ||
+//     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
+//       input.webSite
+//     ) ||
+//     //yearsOfExperience
+//     input.yearsOfExperience?.length < 1 ||
+//     input.yearsOfExperience?.length > 99 ||
+//     // /dailyBudget
+//     input.dailyBudget?.length < 1 ||
+//     input.dailyBudget?.length > 999 ||
+//     !input.paiseId?.length ||
+//     !input.tecnologias?.length ||
+//     !input.lenguajes?.length ||
+//     !input.servicios?.length
+//   ) {
+//     setDisabledButton(true);
+//   } else {
+//     setDisabledButton(false);
+//   }
+// }, [errors, input, setDisabledButton]);

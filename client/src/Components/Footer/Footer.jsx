@@ -9,20 +9,20 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
       <div className={s.Footer}>
         <PlanetaFooter1 />
         <div className={s.container}>
-          <ui>
+          <ul>
             <li onClick={() => scrollToSeccion(landing)} className={s.link}>
-              LANDING
+              BIENVENIDO
             </li>
             <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              HOME
+              INICIO
             </li>
             <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              ABOUT
+              ACERCA DE
             </li>
             <li onClick={() => scrollToSeccion(work)} className={s.link}>
-              WORK
+              DESTACADOS
             </li>
-          </ui>
+          </ul>
         </div>
         <svg
           width="1700"
@@ -145,8 +145,8 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
               y2="200.693"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#20B038" />
-              <stop offset="1" stop-color="#60D66A" />
+              <stop stopColor="#20B038" />
+              <stop offset="1" stopColor="#60D66A" />
             </linearGradient>
             <linearGradient
               id="paint1_linear_52_406"
@@ -156,8 +156,8 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
               y2="200"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#F9F9F9" />
-              <stop offset="1" stop-color="white" />
+              <stop stopColor="#F9F9F9" />
+              <stop offset="1" stopColor="white" />
             </linearGradient>
             <clipPath id="clip0_52_406">
               <rect

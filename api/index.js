@@ -18,26 +18,33 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-const { jsonPaises } = require('./src/controllers/Paises/index');
-const { guardarTecnologiasDB } = require('./src/controllers/Tecnologias/index.js');
-const { guardarServiciosEnDB } = require('./src/controllers/Servicios/index.js');
-const { saveLanguages } = require('./src/controllers/Lenguajes/index')
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const { jsonPaises } = require("./src/controllers/Paises/index");
+const {
+  guardarTecnologiasDB,
+} = require("./src/controllers/Tecnologias/index.js");
+const {
+  guardarServiciosEnDB,
+} = require("./src/controllers/Servicios/index.js");
+const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 
 
-// Syncing all the models at once.
-
-conn.sync({ force: false}).then(() => {
-  const PORT= 3001;
-
-  server.listen(process.env.PORT || PORT, async () => {
+conn.sync({ alter: true }).then(() => {
+  const PORT = 3001;
   
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+  server.listen(process.env.PORT || PORT, async () => {
+    const port = process.env.PORT ? process.env.PORT : PORT;
+    console.log(
+      "------------------------------\nServer listening at port:",
+      port
+    );
     await jsonPaises();
-
-    await guardarTecnologiasDB();
     await guardarServiciosEnDB();
     await saveLanguages();
+    await guardarTecnologiasDB();
+    console.log("------------------------------");
   });
 });
+
+//levantando back-intento
