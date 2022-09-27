@@ -19,7 +19,7 @@ const CheckOutForm = () => {
   //const [loading, setLoading] =useState(false);
 
  let contrato = useSelector((state)=> state.contracts.contrato)
- console.log(contrato, "ACACONTRATOOOOO")
+ console.log(contrato, "ACA CONTRATOOOOO")
 
 
 
