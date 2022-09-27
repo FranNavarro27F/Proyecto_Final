@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
-
 import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
 import Circulos from "./Assets/Circulos/Circulos";
@@ -12,53 +11,25 @@ import NavMenuHome from "./NavMenuHome/NavMenuHome";
 import ScrollTop from "./ScrollTop";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loader from "../Loader/Loader";
-import ButtonScrollSection from "./ButtonScrollSection";
 import { BsChevronDoubleDown } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail, postDevUser } from "../../Redux/Actions/DevUser";
-import { useEffect } from "react";
-import { useFetchUsers } from "../../Hooks/useFetchUsers";
-import { useLocalStorage } from "../../Hooks/useLocalStorage";
+import { useDispatch } from "react-redux";
+import { getUserEmail } from "../../Redux/Actions/DevUser";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
-  const userEmail = useSelector((state) => state.devUser.userByEmail);
 
-  // console.log(userEmail.registrado, "registrado");
-
-  const [cacheLogin, setCacheLogin] = useLocalStorage({});
   const [userLocal, setUserLocal] = useState({
-    family_name: cacheLogin?.family_name
-      ? cacheLogin?.family_name
-      : user?.family_name,
-    given_name: cacheLogin?.given_name
-      ? cacheLogin?.given_name
-      : user?.given_name,
-    email: cacheLogin?.email ? cacheLogin?.email : user?.email,
-    picture: cacheLogin?.picture ? cacheLogin?.picture : user?.picture,
-    registrado: true,
+    family_name: `${user?.family_name}`,
+    given_name: `${user?.given_name}`,
+    email: `${user?.email}`,
+    picture: `${user?.picture}`,
   });
 
-  useEffect(() => {
-    setCacheLogin({
-      family_name: ("family_name", `${user?.family_name}`),
-      given_name: ("given_name", `${user?.given_name}`),
-      email: ("email", `${user?.email}`),
-      picture: ("picture", `${user?.picture}`),
-      registrado: ("registrado", true),
-    });
-  }, [userEmail, user]);
-
-  // useEffect(() => {
-  //   !userEmail?.registrado && dispatch(postDevUser(cacheLogin));
-  //   console.log("no registrado");
-  // }, [cacheLogin, dispatch, userEmail?.registrado]);
-
-  //HASTA ARREGLAR BACK
-
-  // console.log(userEmail.registrado);
+  useLayoutEffect(() => {
+    dispatch(getUserEmail(userLocal));
+  }, [dispatch, userLocal]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -77,18 +48,20 @@ export default function Home() {
   const work = useRef(null);
 
   const [open, setOpen] = useState(false);
+
   const handleClick = () => {
     setOpen(false);
   };
   return isLoading ? (
     <Loader />
   ) : (
-    <div className={s.body} onclick={handleClick}>
+    <div className={s.body}>
       <div className={s.buttonTop}>
         <ScrollTop className={s.buttonTop} />
       </div>
 
       <NavMenuHome
+        userByEmailHome={userLocal}
         setOpen={setOpen}
         open={open}
         logout={logout}
@@ -97,7 +70,6 @@ export default function Home() {
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
-        // about={about}
         work={work}
       />
       <Landing
@@ -135,7 +107,6 @@ export default function Home() {
           scrollToSeccion={scrollToSeccion}
           landing={landing}
           home={home}
-          // about={about}
           work={work}
         />
       </div>

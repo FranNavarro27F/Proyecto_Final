@@ -1,9 +1,10 @@
 import React, { useLayoutEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  detailIdDev,
   detailReset,
   getUserEmail,
   getUserId,
@@ -16,6 +17,8 @@ import "boxicons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
+import Pagos from "../Stripe/Stripe";
+import Landing from "../Landing/Landing";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -33,47 +36,42 @@ export default function Details() {
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
+  const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
 
   let nombreContratista = userByEmail?.name;
-  let mailContrado = userByEmail?.email;
+  let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [id, userByEmail?.id]);
-
-  // const [modal setModal] = useState
+  }, [dispatch, id, userByEmail?.id]);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
+
   const handleContact = () => {
-    if (nombreContratista && mailContrado) {
-      setDisabled(true);
-      // dispatch(
-      //   emailer({
-      //     nombreContratista: nombreContratista,
-      //     mailContrado: mailContrado,
-      //   })
-      // );
-      SetContratoDetail(true);
+    if (isAuthenticated) {
+      if (nombreContratista && mailContrado) {
+        setDisabled(true);
+        dispatch(
+          emailer({
+            nombreContratista: nombreContratista,
+            mailContrado: mailContrado,
+          })
+        );
+      }
+      SetContratoDetail(!contratoDetail);
+    } else {
+      loginWithRedirect();
     }
   };
 
   const handleBack = () => {
     dispatch(detailReset());
     navigate("/work");
+    console.log("SKIPPEA ESTO A VER...");
   };
 
-  // id !== userByEmail?.id ? setUserProfile(false) : setUserProfile(true);
-  // function toUpperCase(userDetail){
-  //   return userDetail[0].toUpperCase()+ userDetail.slice(1)
-  // }
-
-  if (
-    isLoading &&
-    user?.email &&
-    userDetail?.name === undefined &&
-    userByEmail?.name === undefined
-  ) {
+  if (loader && isLoading) {
     return (
       <div>
         <Loader />
@@ -81,22 +79,11 @@ export default function Details() {
     );
   }
 
-  const contrato = () => {
-    return (
-      <div className={s.bodyContrato}>
-        <h1>PROPUESTA</h1>
-        <h2>Contrata a {userDetail?.name} Y HAZLE UNA PROPUESTA</h2>
-        <textarea type="textarea" rows="50" cols="50" />
-        <div>
-          <button onClick={() => SetContratoDetail(false)}>VOLVER</button>
-        </div>
-      </div>
-    );
-  };
-
   const detail = () => {
-    return (
-      <div className={s.modal}>
+    return loader ? (
+      <Loader />
+    ) : (
+      <div className={s.body}>
         <div className={s.sideM}>
           <div className={s.modal}>
             <div className={s.container}>
@@ -598,8 +585,8 @@ export default function Details() {
                         onClick={() => navigate("/create")}
                       >
                         {userByEmail?.postulado
-                          ? `EDITAR POSTULACION`
-                          : `POSTULARME`}
+                          ? `Editar postulación`
+                          : `Postularme`}
                       </button>
                     ) : (
                       <button
@@ -620,143 +607,39 @@ export default function Details() {
                     >
                       Volver
                     </button>
-                    <Link to=""></Link>
                   </div>
                 </div>
               </div>
             </div>
-            <br />
-            <a
-              href={`mailto:${
-                !userProfile ? userDetail?.email : userByEmail?.email
-              }`}
-              className={s.link}
-            >
-              <span className={s.mail}>
-                {/* <i class='bx bxs-gmail bx-border-circle'></i> */}
-                <box-icon
-                  border="circle"
-                  animation="tada"
-                  color="white"
-                  type="logo"
-                  name="gmail"
-                ></box-icon>
-                Email:
-              </span>
-              <span>{`${
-                !userProfile ? userDetail?.email : userByEmail?.email
-              }`}</span>
-            </a>
-            <br />
-            <br />
-            <box-icon name="code-alt" color="white"></box-icon>
-            <span> Lenguajes: </span>
-            <span>
-              {/* {!userProfile
-                ? userDetail?.lenguajes?.map((e) => e)
-                : userByEmail.lenguajes?.map((e) => e)} */}
-              {userDetail?.lenguajes?.map((e) => e)}
-            </span>
-            <br />
-            <br />
-            <box-icon color="white" name="donate-heart"></box-icon>
-            <span> Servicios: </span>
-            <span>
-              {userDetail?.servicios?.map((e) => e)}
-
-              {/* {!userProfile
-                ? userDetail?.servicios?.map((e) => e)
-                : userByEmail.servicios?.map((e) => e)} */}
-            </span>
-            <br />
-            <br />
-            <a href={userDetail.linkedIn} className={s.link}>
-              <box-icon color="white" name="linkedin" type="logo"></box-icon>
-              <span>LinkedIn</span>
-            </a>
-            {/* <a href={userDetail.linkedIn}>{userDetail.linkedIn}</a> */}
-            <br />
-            <br />
-            <box-icon color="white" name="mouse"></box-icon>
-            <span> Tecnologias: </span>
-            <span>
-              {userDetail?.tecnologias?.map((e) => e)}
-              {/* {!userProfile
-                ? userDetail?.tecnologias?.map((e) => e)
-                : userByEmail.tecnologias?.map((e) => e)} */}
-            </span>
-            <br />
-            <br />
-            <box-icon name="world" color="white"></box-icon>
-            <span> Pais: </span>
-            <span>
-              {!userProfile ? userDetail.paiseId : userDetail.paiseId}
-            </span>
-            <br />
-            <br />
-            <a
-              href={!userProfile ? userDetail.webSite : userDetail.webSite}
-              className={s.link}
-            >
-              <box-icon
-                name="planet"
-                animation="flashing"
-                color="white"
-              ></box-icon>
-              <span> Sitio Web </span>
-            </a>
-            {/* <span>{userDetail.webSite}</span> */}
-            <br />
-            <box-icon 
-            color="white"
-            name='diamond'>
-            </box-icon>
-            <span>Años de Experiencia: </span>
-            <span>
-              {" "}
-              {!userProfile
-                ? userDetail.yearsOfExperience
-                : userDetail.yearsOfExperience}
-            </span>
-            <br />
-            <box-icon 
-            name='money'
-            color="white" 
-            ></box-icon>
-            <span>Presupuesto por día: </span>
-            <span>
-              {!userProfile ? userDetail.dailyBudget : userDetail.dailyBudget}
-            </span>
           </div>
+        </div>
+      </div>
+    );
+  };
+
+  const contrato = () => {
+    return (
+      <div className={s.bodyPropuesta}>
+        <div className={s.conteiner}>
+          <h1>PROPUESTA</h1>
+          <h2>
+            Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
+            propuesta!
+          </h2>
+          <textarea type="textarea" rows="10" cols="70" />
           <div>
-            {userProfile ? (
-              <button
-                className={s.buttonBack}
-                onClick={() => navigate("/create")}
-              >
-                {userByEmail.postulado ? `EDITAR POSTULACION` : `POSTULARME`}
-              </button>
-            ) : (
-              <button
-                className={s.buttonL}
-                onClick={(e) => {
-                  handleContact(e);
-                }}
-                disabled={disabled}
-              >
-                Contactame!
-              </button>
-            )}
             <button
-              className={s.buttonBack}
-              onClick={(e) => {
-                handleBack(e);
-              }}
+              className={s.buttonVolver}
+              onClick={() => SetContratoDetail(!contratoDetail)}
             >
-              {" "}
-              Volver
+              VOLVER
             </button>
-            <Link to=""></Link>
+            <button
+              className={s.buttonPago}
+              onClick={() => navigate("/checkout")}
+            >
+              METODO DE PAGO
+            </button>
           </div>
         </div>
       </div>

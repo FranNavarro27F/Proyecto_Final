@@ -41,33 +41,72 @@ export default function DevUsersCreate() {
   const refName = useRef();
   const reflastName = useRef();
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch]);
-
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  useEffect(() => {
+    if (!userByEmail) dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email, userByEmail]);
 
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: cache?.name ? cache?.name : `${userByEmail?.name}`,
-    lastName: cache?.lastName ? cache?.lastName : `${userByEmail?.lastName}`,
-    profilePicture: cache?.profilePicture
-      ? cache?.profilePicture
-      : `${userByEmail?.profilePicture}`,
-    email: cache?.email ? cache?.email : `${userByEmail?.email}`,
-    linkedIn: cache?.linkedIn ? cache?.linkedIn : "",
-    gitHub: cache?.gitHub ? cache?.gitHub : "",
-    webSite: cache?.webSite ? cache?.webSite : "",
-    dailyBudget: cache?.dailyBudget ? cache?.dailyBudget : "0",
-    yearsOfExperience: cache?.yearsOfExperience
-      ? cache?.yearsOfExperience
-      : "0",
-    englishLevel: cache?.englishLevel ? cache?.englishLevel : "Básico",
-    paiseId: cache?.paiseId ? cache?.paiseId : [],
-    tecnologias:
-      // cache?.tecnologias ? cache?.tecnologias :
-      [],
+    name: userByEmail?.name
+      ? `${userByEmail?.name}`
+      : cache?.name
+      ? `${cache?.name}`
+      : "",
+    lastName: userByEmail?.lastName
+      ? `${userByEmail?.lastName}`
+      : cache?.lastName
+      ? `${cache?.lastName}`
+      : "",
+    profilePicture: userByEmail?.profilePicture
+      ? `${userByEmail?.profilePicture}`
+      : cache?.profilePicture
+      ? `${cache?.profilePicture}`
+      : "",
+    email: `${userByEmail?.email}`,
+    linkedIn: userByEmail?.linkedIn
+      ? `${userByEmail?.linkedIn}`
+      : cache?.linkedIn
+      ? `${cache?.linkedIn}`
+      : "",
+    gitHub: userByEmail?.gitHub
+      ? `${userByEmail?.gitHub}`
+      : cache?.gitHub
+      ? `${cache?.gitHub}`
+      : "",
+    webSite: userByEmail?.webSite
+      ? `${userByEmail?.webSite}`
+      : cache?.webSite
+      ? `${cache?.webSite}`
+      : "",
+    dailyBudget: userByEmail?.dailyBudget
+      ? `${userByEmail?.dailyBudget}`
+      : cache?.dailyBudget
+      ? `${cache?.dailyBudget}`
+      : "",
+    yearsOfExperience: userByEmail?.yearsOfExperience
+      ? `${userByEmail?.yearsOfExperience}`
+      : cache?.yearsOfExperience
+      ? `${cache?.yearsOfExperience}`
+      : "",
+    englishLevel: userByEmail?.englishLevel
+      ? `${userByEmail?.englishLevel}`
+      : cache?.englishLevel
+      ? `${cache?.englishLevel}`
+      : "Básico",
+    paiseId: userByEmail?.paiseId
+      ? `${userByEmail?.paiseId}`
+      : cache?.paiseId
+      ? `${cache?.paiseId}`
+      : [],
+    paiseIdLabel: userByEmail?.paiseIdLabel
+      ? `${userByEmail?.paiseIdLabel}`
+      : cache?.paiseIdLabel
+      ? `${cache?.paiseIdLabel}`
+      : [],
+    tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
+    tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
     lenguajes:
       // cache?.lenguajes ? cache?.lenguajes :
       [],
@@ -207,22 +246,27 @@ export default function DevUsersCreate() {
       refLanguajes.current.clearValue();
       refTecnologies.current.clearValue();
       setModal(true);
+      refCountries.current.setValue({
+        value: "default",
+        label: "Selecciona un país...",
+      });
       setCache({
-        name: ("name", `${userByEmail?.name}`),
-        lastName: ("lastName", `${userByEmail?.lastName}`),
-        profilePicture: ("profilePicture", `${cache?.profilePicture}`),
+        name: ("name", ``),
+        lastName: ("lastName", ``),
+        profilePicture: ("profilePicture", ``),
         email: ("email", `${userByEmail?.email}`),
-        linkedIn: ("linkedIn", ""),
-        gitHub: ("gitHub", ""),
-        webSite: ("webSite", ""),
-        yearsOfExperience: ("yearsOfExperience", "0"),
+        linkedIn: ("linkedIn", ``),
+        gitHub: ("gitHub", ``),
+        webSite: ("webSite", ``),
+        yearsOfExperience: ("yearsOfExperience", ``),
         dailyBudget: ("dailyBudget", "0"),
-        englishLevel: ("englishLevel", "Básico"),
+        englishLevel: ("englishLevel", ``),
         paiseId: ("paiseId", []),
+        paiseIdLabel: ("paiseIdLabel", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
-        postulado: ("postulado", true),
+        postulado: true,
       });
       setTimeout(() => {
         navigate("/work");
@@ -235,15 +279,32 @@ export default function DevUsersCreate() {
       );
       dispatch(getUsersBd());
     } else {
-      alert(`hay errores`, errors);
+      console.log(`hay errores`, errors);
     }
   };
 
-  const handleDefaultCountrie = [
-    {
-      label: cache?.paiseId,
-    },
-  ];
+  const handleDefaultCountrie =
+    cache?.paiseIdLabel && cache?.paiseId
+      ? [
+          {
+            label: cache?.paiseIdLabel,
+            value: cache?.paiseId,
+          },
+        ]
+      : [{ value: "default", label: "Selecciona un país..." }];
+
+  const handleDefaultTEcnologias = cache?.tecnologiasLabel
+    ? cache?.tecnologiasLabel.map((e) => {
+        return {
+          label: e,
+        };
+      })
+    : false;
+
+  console.log(
+    Array(cache).map((e) => e.tecnologiasLabel),
+    "aaaaaaaa"
+  );
 
   const handleReset = () => {
     refCountries.current.setValue({
@@ -256,38 +317,59 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", ``),
-      lastName: ("lastName", ``),
-      profilePicture: ("profilePicture", ``),
+      name: ("name", `${userByEmail?.name}`),
+      lastName: ("lastName", `${userByEmail?.lastName}`),
+      profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
       email: ("email", `${userByEmail?.email}`),
-      linkedIn: ("linkedIn", ""),
-      gitHub: ("gitHub", ""),
-      webSite: ("webSite", ""),
-      yearsOfExperience: ("yearsOfExperience", "0"),
-      dailyBudget: ("dailyBudget", "0"),
-      englishLevel: ("englishLevel", "Básico"),
-      paiseId: ("paiseId", []),
+      linkedIn:
+        ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`),
+      gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`),
+      webSite:
+        ("webSite", `${userByEmail?.webSite ? userByEmail?.webSite : ""}`),
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget:
+        ("dailyBudget",
+        `${userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"}`),
+      englishLevel:
+        ("englishLevel",
+        `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
+      paiseId:
+        ("paiseId", `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`),
+      paiseIdLabel:
+        ("paiseIdLabel",
+        `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
       postulado: true,
     });
     setInput({
-      name: ``,
-      lastName: ``,
-      profilePicture: ``,
+      name: `${userByEmail?.name}`,
+      lastName: `${userByEmail?.lastname}`,
+      profilePicture: `${userByEmail?.profilePicture}`,
       email: `${userByEmail?.email}`,
-      linkedIn: "",
-      gitHub: "",
-      webSite: "",
-      yearsOfExperience: "0",
-      dailyBudget: "0",
-      englishLevel: "Básico",
-      paiseId: [],
+      linkedIn: `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`,
+      gitHub: `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`,
+      webSite: `${userByEmail?.webSite ? userByEmail?.webSite : ""}`,
+      yearsOfExperience:
+        ("yearsOfExperience",
+        `${
+          userByEmail?.yearsOfExperience ? userByEmail?.yearsOfExperience : "0"
+        }`),
+      dailyBudget: `${
+        userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"
+      }`,
+      englishLevel: `${
+        userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
+      }`,
+      paiseId: `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`,
       tecnologias: [],
       lenguajes: [],
       servicios: [],
-      postulado: true,
     });
     setLoader(false);
   };
@@ -339,8 +421,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              // value={cache?.name}
               defaultValue={input?.name}
+              value={cache?.name}
               name="name"
               className={s.inputName}
             />
@@ -359,7 +441,7 @@ export default function DevUsersCreate() {
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               defaultValue={input?.lastName}
-              // value={cache?.lastName}
+              value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
             />
@@ -382,7 +464,7 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  // defaultValue={input?.profilePicture}
+                  // defaultValue={cache?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -451,6 +533,7 @@ export default function DevUsersCreate() {
               placeholder="Tu LinkedIn..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.linkedIn}
               value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
@@ -468,6 +551,7 @@ export default function DevUsersCreate() {
               placeholder="Tu GitHub..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.gitHub}
               value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
@@ -485,6 +569,7 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.webSite}
               value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
@@ -503,10 +588,10 @@ export default function DevUsersCreate() {
               max="99"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              value={cache?.yearsOfExperience}
               name="yearsOfExperience"
               className={s.inputExperience}
-              defaultValue="1"
+              defaultValue={input?.yearsOfExperience}
+              value={cache?.yearsOfExperience}
               // step=".01"
             />
             <div className={s.divErrors}>
@@ -523,6 +608,7 @@ export default function DevUsersCreate() {
               max="999"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
+              defaultValue={input?.dailyBudget}
               value={cache?.dailyBudget}
               name="dailyBudget"
               // step=".01"
@@ -545,7 +631,8 @@ export default function DevUsersCreate() {
               onChange={(e) => handleChangeEnglish(e)}
               // value={`${cache?.englishLevel}`}
               name="englishLevel"
-              defaultValue="1"
+              defaultValue={input?.englishLevel}
+              value={cache?.englishLevel}
               className={s.inputEnglish}
             />
             <label
@@ -590,6 +677,7 @@ export default function DevUsersCreate() {
                 setInput({
                   ...input,
                   paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
 
                 if (userByEmail?.postulado) {
@@ -611,6 +699,7 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   paiseId: e?.value,
+                  paiseIdLabel: e?.label,
                 });
               }}
             />
@@ -635,10 +724,12 @@ export default function DevUsersCreate() {
               isMulti={true}
               styles={customStyles}
               placeholder="Selecciona una tecnología"
+              defaultvalue={handleDefaultTEcnologias}
               onChange={(e) => {
                 setInput({
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.value),
                 });
                 if (userByEmail?.postulado) {
                   setErrors(
@@ -659,6 +750,7 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   tecnologias: e.map((ele) => ele.value),
+                  tecnologiasLabel: e.map((ele) => ele.label),
                 });
               }}
             />

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../../../Redux/Actions/DevUser";
 import s from "./ButtonProfile.module.css";
 import { useNavigate } from "react-router-dom";
+import { useFetchUsers } from "../../../../Hooks/useFetchUsers";
 
 export default function ButtonProfile({
   user,
@@ -16,32 +17,35 @@ export default function ButtonProfile({
   const navigate = useNavigate();
   const refSelect = useRef();
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
 
-  const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const { userByEmail } = useFetchUsers(user?.email);
+  let boenasss = "apareci";
 
   return (
     <div className={s.container}>
-      {userByEmail.profilePicture && user?.picture && (
+      {
         <div onClick={() => setOpen(!open)} className={s.buttonImg}>
           <img
             src={
-              userByEmail.profilePicture
-                ? userByEmail.profilePicture
-                : user?.picture
+              userByEmail?.profilePicture
+              // ? userByEmail?.profilePicture
+              // : user?.picture
             }
-            alt={userByEmail.name}
+            alt={userByEmail?.name}
             className={s.picture}
           />
         </div>
-      )}
+      }
       {open && (
         <div ref={refSelect} className={s.bodySelect}>
           <div id="test" className={s.select}>
             <button
-              onClick={() => navigate(`/work/details/${userByEmail?.id}`)}
+              onClick={() =>
+                navigate(
+                  `/work/details/${userByEmail?.id} `,
+                  (boenasss = { boenasss })
+                )
+              }
               className={s.buttonSelect}
               value=""
             >

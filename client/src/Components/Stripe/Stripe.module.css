@@ -1,0 +1,137 @@
+.backgroundC {
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.cardEle {
+  margin-top: 12vh;
+  /* overflow: hidden; */
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 66vh;
+  height: 40vh;
+  left: 60vh;
+  top: 30vh;
+  background: linear-gradient(
+    158.72deg,
+    rgba(255, 255, 255, 0.4) 3.01%,
+    rgba(255, 255, 255, 0) 103.3%
+  );
+  backdrop-filter: blur(21px);
+  border-radius: 3.75vw;
+  margin-left: 10vh;
+}
+
+/* .bodyPagos {
+  font-size: 1vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: wheat;
+  height: 40vh;
+  width: 50vw;
+  align-items: center;
+  justify-content: center;
+} */
+
+.bodyContrato {
+  /* background-color: red; */
+}
+.textCard {
+}
+.text {
+  display: flex;
+  font-family: Poppins;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* color: rgb(255, 253, 255); */
+  font-size: 1.2vw;
+  font-weight: 600;
+  padding-top: 1vh;
+  padding-bottom: 3vh;
+  /* color: red; */
+}
+
+.checkOut {
+  /* color: red; */
+  /* background-color: rgb(163, 163, 163); */
+}
+
+.asd {
+  height: 2.4em;
+  /* padding-top: 7em; */
+  /* color: wheat; */
+}
+.asd label {
+}
+.cardDetail {
+  font-size: 10vh;
+  background-color: rgba(219, 215, 215, 0.671);
+  padding: 1vh;
+
+  letter-spacing: 0em;
+  text-align: left;
+  height: 5vh;
+}
+
+.divChipCardSvg {
+  position: absolute;
+
+  top: 14vh;
+  left: 1vw;
+}
+.card {
+}
+
+.dataForm {
+  font-family: monospace;
+  min-height: 12vh;
+  max-height: 17vh;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.divButtons {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.buttons {
+  margin-top: 1vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: 8vw;
+  height: 4vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.8vw;
+  line-height: 23px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.bodyCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

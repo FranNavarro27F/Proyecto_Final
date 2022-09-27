@@ -33,13 +33,18 @@ const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 // console.log(conn);
 conn.sync({ alter: true }).then(() => {
   const PORT = 3001;
+  
 
   server.listen(process.env.PORT || PORT, async () => {
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
+    const port = process.env.PORT ? process.env.PORT : PORT;
+    console.log(
+      "------------------------------\nServer listening at port:",
+      port
+    );
     await jsonPaises();
-
-    await guardarTecnologiasDB();
     await guardarServiciosEnDB();
     await saveLanguages();
+    await guardarTecnologiasDB();
+    console.log("------------------------------");
   });
 });
