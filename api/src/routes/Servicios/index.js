@@ -45,5 +45,6 @@ router.delete("/:id", async (req, res) => {
 //     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
 //   }
 // }
+//
 
 module.exports = router;
