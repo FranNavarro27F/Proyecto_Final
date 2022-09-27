@@ -33,7 +33,6 @@ export default function DevUsersCreate() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const refCountries = useRef();
   const refServices = useRef();
   const refLanguajes = useRef();
@@ -95,18 +94,15 @@ export default function DevUsersCreate() {
       : cache?.englishLevel
       ? `${cache?.englishLevel}`
       : "Básico",
-    paiseId: userByEmail?.paiseId
-      ? `${userByEmail?.paiseId}`
-      : cache?.paiseId
-      ? `${cache?.paiseId}`
-      : [],
-    paiseIdLabel: userByEmail?.paiseIdLabel
-      ? `${userByEmail?.paiseIdLabel}`
-      : cache?.paiseIdLabel
-      ? `${cache?.paiseIdLabel}`
-      : [],
-    tecnologias: cache?.tecnologias ? cache?.tecnologias : [],
-    tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
+    paiseId:
+      // userByEmail?.paiseId
+      // ? `${userByEmail?.paiseId}`
+      // : cache?.paiseId
+      // ? `${cache?.paiseId}`
+      //     :
+      "",
+    tecnologias: [],
+    // tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
     lenguajes:
       // cache?.lenguajes ? cache?.lenguajes :
       [],
@@ -115,6 +111,11 @@ export default function DevUsersCreate() {
       [],
     postulado: true,
   });
+  const [errorsCache, setErrorsCache] = useState(localStorage.getItem(errors));
+
+  useEffect(() => {
+    setErrorsCache(errors);
+  }, [errors]);
 
   const handleChangeInput = (e) => {
     setInput({
@@ -262,7 +263,7 @@ export default function DevUsersCreate() {
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", ``),
         paiseId: ("paiseId", []),
-        paiseIdLabel: ("paiseIdLabel", []),
+        // paiseIdLabel: ("paiseIdLabel", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
         servicios: ("servicios", []),
@@ -283,28 +284,28 @@ export default function DevUsersCreate() {
     }
   };
 
-  const handleDefaultCountrie =
-    cache?.paiseIdLabel && cache?.paiseId
-      ? [
-          {
-            label: cache?.paiseIdLabel,
-            value: cache?.paiseId,
-          },
-        ]
-      : [{ value: "default", label: "Selecciona un país..." }];
+  // const handleDefaultCountrie =
+  //   cache?.paiseIdLabel && cache?.paiseId
+  //     ? [
+  //         {
+  //           label: cache?.paiseIdLabel,
+  //           value: cache?.paiseId,
+  //         },
+  //       ]
+  //     : [
+  //         {
+  //           value: "default",
+  //           label: "Selecciona un país...",
+  //         },
+  //       ];
 
-  const handleDefaultTEcnologias = cache?.tecnologiasLabel
-    ? cache?.tecnologiasLabel.map((e) => {
-        return {
-          label: e,
-        };
-      })
-    : false;
-
-  console.log(
-    Array(cache).map((e) => e.tecnologiasLabel),
-    "aaaaaaaa"
-  );
+  // const handleDefaultTEcnologias = cache?.tecnologiasLabel
+  //   ? cache?.tecnologiasLabel.map((e) => {
+  //       return {
+  //         label: e,
+  //       };
+  //     })
+  //   : false;
 
   const handleReset = () => {
     refCountries.current.setValue({
@@ -337,11 +338,10 @@ export default function DevUsersCreate() {
       englishLevel:
         ("englishLevel",
         `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
-      paiseId:
-        ("paiseId", `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`),
-      paiseIdLabel:
-        ("paiseIdLabel",
-        `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
+      paiseId: ("paiseId", ` []`),
+      // paiseIdLabel:
+      //   ("paiseIdLabel",
+      //   `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
       tecnologias: ("tecnologias", []),
       lenguajes: ("lenguajes", []),
       servicios: ("servicios", []),
@@ -601,7 +601,7 @@ export default function DevUsersCreate() {
             </div>
           </div>
           <div className={s.inputContainer}>
-            <p>Precio por dia: </p>
+            <p>Presupuesto diario: </p>
             <input
               type="number"
               min="1"
@@ -629,7 +629,6 @@ export default function DevUsersCreate() {
               min="1"
               max="5"
               onChange={(e) => handleChangeEnglish(e)}
-              // value={`${cache?.englishLevel}`}
               name="englishLevel"
               defaultValue={input?.englishLevel}
               value={cache?.englishLevel}
@@ -672,7 +671,7 @@ export default function DevUsersCreate() {
               isMulti={false}
               styles={customStyles}
               placeholder="Selecciona un pais"
-              defaultValue={handleDefaultCountrie}
+              // defaultValue={handleDefaultCountrie}
               onChange={(e) => {
                 setInput({
                   ...input,
@@ -724,7 +723,7 @@ export default function DevUsersCreate() {
               isMulti={true}
               styles={customStyles}
               placeholder="Selecciona una tecnología"
-              defaultvalue={handleDefaultTEcnologias}
+              // defaultvalue={handleDefaultTEcnologias}
               onChange={(e) => {
                 setInput({
                   ...input,

@@ -7,7 +7,7 @@ export default function Error404() {
   const navigate = useNavigate();
   return (
     <div>
-      <h1>404 Error</h1>
+      <h1 className={s.titulo}> 404 Error</h1>
       <p className={s.zoom_area}>El url que solicita no existe.</p>
       <section className={s.error_container}>
         <span>
