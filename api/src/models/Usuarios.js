@@ -146,6 +146,11 @@ module.exports = (sequelize) => {
         // allowNull: false,
       },
 
+      habilitado: {
+        type: DataTypes.BOOLEAN,
+        // allowNull: false,
+      },
+
       tarjeta_numero: {
         type: DataTypes.INTEGER,
         allowNull: true,

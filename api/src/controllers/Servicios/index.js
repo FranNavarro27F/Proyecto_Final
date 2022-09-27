@@ -14,7 +14,7 @@ const guardarServiciosEnDB = async () => {
           where: { name: cur },
         })
     );
-    console.log("Servicios guardadas en DB :)");
+    console.log("✔ Servicios cargados.");
     return "Servicios guardadas correctamente en DB :) ";
   } catch (e) {
     console.error(`${ERROR}/guardarServiciosEnDB --> ${e}`);
