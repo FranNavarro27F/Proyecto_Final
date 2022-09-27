@@ -18,13 +18,15 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     let { name, email } = req.query;
+    let user;
     if (name) {
-      res.json(await getUserByName(name));
+      user = await getUserByName(name);
     } else if (email) {
-      res.json(await getByEmail(email));
+      user = await getByEmail(email);
     } else {
-      res.json(await getUsers());
+      return res.json(await getUsers());
     }
+    return res.send(user);
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }

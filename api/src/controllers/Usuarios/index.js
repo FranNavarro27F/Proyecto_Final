@@ -8,7 +8,6 @@ const {
 
 const { Op } = require("sequelize");
 
-
 const ERROR = "Error @ controllers/Usuarios";
 
 // -----------------------------------------------
@@ -16,6 +15,10 @@ const ERROR = "Error @ controllers/Usuarios";
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
+      //     where: {
+      //     habilitado: true,
+      //     visible: true,
+      //   },
       include: [
         {
           model: Paises,
@@ -61,6 +64,13 @@ const getUsers = async () => {
         visible: cur.visible,
         postulado: cur.postulado,
         registrado: cur.registrado,
+        habilitado: cur.habilitado,
+        tarjeta_numero: cur.tarjeta_numero,
+        tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
+        tarjeta_vencimiento: cur.tarjeta_vencimiento,
+        tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
+        cbu: cur.cbu,
+        cvu: cur.cvu,
         reputacion: cur.reputacion,
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
         servicios: cur.servicios
@@ -74,7 +84,7 @@ const getUsers = async () => {
           : [],
       };
     });
-
+    console.log(Promise.all(arrUsersListo), "******");
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
@@ -82,69 +92,68 @@ const getUsers = async () => {
 };
 
 const postUsers = async (data) => {
-  try {
-    const {
-      name,
-      lastName,
-      profilePicture,
-      isAdmin,
-      email,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      city,
-      tecnologias,
-      lenguajes,
-      servicios,
-      paiseId,
-      registrado,
-      visible,
-      postulado,
-      reputacion
-    } = data;
-
-    const [row, created] = await Usuarios.findOrCreate({
-      where: {
-        email,
-        linkedIn: linkedIn !== "" ? linkedIn : null,
-        gitHub: gitHub !== "" ? gitHub : null,
-      },
-      defaults: {
-        name,
-        lastName,
-        profilePicture: profilePicture !== "" ? profilePicture : null,
-        isAdmin,
-        webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience,
-        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
-        englishLevel: englishLevel !== "" ? englishLevel : null,
-        bio: bio !== "" ? bio : null,
-        paiseId,
-        city: city !== "" ? city : null,
-        registrado,
-        visible,
-        postulado,
-        reputacion
-      },
-    });
-
-    row.addTecnologias(tecnologias);
-    row.addLenguajes(lenguajes);
-    row.addServicios(servicios);
-
-    if (!created) {
-      throw new Error("El usuario ya existe");
-    } else {
-      return "Usuario creado correctamente";
-    }
-  } catch (e) {
-    console.error(`ERROR @ controllers/postUsers --→ ${e}`);
-  }
+  // try {
+  //   const {
+  //     name,
+  //     lastName,
+  //     profilePicture,
+  //     isAdmin,
+  //     email,
+  //     linkedIn,
+  //     gitHub,
+  //     webSite,
+  //     yearsOfExperience,
+  //     dailyBudget,
+  //     englishLevel,
+  //     bio,
+  //     city,
+  //     tecnologias,
+  //     lenguajes,
+  //     servicios,
+  //     paiseId,
+  //     registrado,
+  //     visible,
+  //     postulado,
+  //     reputacion,
+  //   } = data;
+  //   const [row, created] = await Usuarios.findOrCreate({
+  //     where: {
+  //       email,
+  //       linkedIn: linkedIn !== "" ? linkedIn : null,
+  //       gitHub: gitHub !== "" ? gitHub : null,
+  //     },
+  //     defaults: {
+  //       name,
+  //       lastName,
+  //       profilePicture: profilePicture !== "" ? profilePicture : null,
+  //       isAdmin,
+  //       webSite: webSite !== "" ? webSite : null,
+  //       yearsOfExperience,
+  //       dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+  //       englishLevel: englishLevel !== "" ? englishLevel : null,
+  //       bio: bio !== "" ? bio : null,
+  //       paiseId,
+  //       city: city !== "" ? city : null,
+  //       registrado,
+  //       visible,
+  //       postulado,
+  //       reputacion,
+  //     },
+  //   });
+  //   row.addTecnologias(tecnologias);
+  //   row.addLenguajes(lenguajes);
+  //   row.addServicios(servicios);
+  //   if (!created) {
+  //     throw new Error("El usuario ya existe");
+  //   } else {
+  //     return "Usuario creado correctamente";
+  //   }
+  //   //
+  // } catch (e) {
+  //   console.error(`ERROR @ controllers/postUsers --→ ${e}`);
+  // }
 };
+
 const toUperCase = (nombre) => {
   let nombree = nombre[0].toUpperCase() + nombre.slice(1);
   return nombree;
@@ -173,7 +182,7 @@ const getUserById = async (id) => {
     });
 
     let userM = User.dataValues;
-    console.log(userM)
+    // console.log(userM);
     let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
@@ -188,7 +197,7 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-    console.log(userM);
+    // console.log(userM);
 
     return userM;
   } catch (e) {
@@ -211,6 +220,8 @@ const getUserByName = async (name) => {
   try {
     let userByName = await Usuarios.findAll({
       where: {
+        // habilitado: true,
+        // visible: true,
         name: { [Op.iLike]: `%${name}%` },
       },
       include: [
@@ -277,40 +288,37 @@ const getUserByName = async (name) => {
   }
 };
 
-const postUserAuth = async (data)=>{
-    try {
-      
-      let {email, family_name, given_name, picture, isAdmin, registrado} = data
+const postUserAuth = async (data) => {
+  try {
+    let { email, family_name, given_name, picture } = data;
 
-      const [row, created] = await Usuarios.findOrCreate({
-        where: {
-          email
-        },
-        defaults: {
-          name: given_name,
-          lastName: family_name,
-          profilePicture: picture,
-          isAdmin: isAdmin,
-          registrado: registrado
-        }
-      })
+    const [row, created] = await Usuarios.findOrCreate({
+      where: {
+        email,
+      },
+      defaults: {
+        name: given_name,
+        lastName: family_name,
+        profilePicture: picture,
+        isAdmin: false,
+        registrado: true,
+        habilitado: true,
+        visible: false,
+      },
+    });
 
-      if (!created) {
-        throw new Error("El usuario ya existe");
-      } else {
-        return "Usuario creado correctamente";
-      }
-
-    } catch (e) {
-      console.error(`ERROR @ controllers/postUserAuth --→ ${e}`);
+    if (!created) {
+      throw new Error("El usuario ya existe");
+    } else {
+      return "Usuario creado correctamente";
     }
-}
-
+  } catch (e) {
+    console.error(`ERROR @ controllers/postUserAuth --→ ${e}`);
+  }
+};
 
 const modifUser = async (data) => {
-
   try {
-    
     let {
       name,
       lastName,
@@ -327,120 +335,81 @@ const modifUser = async (data) => {
       visible,
       postulado,
       registrado,
+      habilitado,
       reputacion,
       city,
       tecnologias,
       lenguajes,
       servicios,
-      paiseId} = data
+      paiseId,
+    } = data;
 
-
-      let userMod = await Usuarios.update({
-        name: name ? name = toUperCase(name) : name = [],
-        lastName: lastName ? lastName = toUperCase(lastName) : lastName = [],
+    let userMod = await Usuarios.update(
+      {
+        name: name ? (name = toUperCase(name)) : (name = []),
+        lastName: lastName
+          ? (lastName = toUperCase(lastName))
+          : (lastName = []),
         linkedIn: linkedIn !== "" ? linkedIn : null,
         gitHub: gitHub !== "" ? gitHub : null,
         profilePicture: profilePicture !== "" ? profilePicture : null,
         isAdmin,
         webSite: webSite !== "" ? webSite : null,
-        yearsOfExperience: yearsOfExperience !== ""? yearsOfExperience : null,
-        dailyBudget: dailyBudget !== "" ? dailyBudget : null,
+        yearsOfExperience: yearsOfExperience !== "" ? yearsOfExperience : 1,
+        dailyBudget: dailyBudget !== "" ? dailyBudget : 1,
         englishLevel: englishLevel !== "" ? englishLevel : null,
         bio: bio !== "" ? bio : null,
         paiseId,
         city: city !== "" ? city : null,
         registrado,
+        habilitado: habilitado ? habilitado : true,
         visible,
         postulado,
-        reputacion: reputacion !== ""? reputacion : 1
-      }, {where: {email: email}})
+        reputacion: reputacion !== "" ? reputacion : 1,
+      },
+      { where: { email: email } }
+    );
 
-      let modUsr = await Usuarios.findOne({
-        where: {
-          email: email,
+    let modUsr = await Usuarios.findOne({
+      where: {
+        email: email,
+      },
+      include: [
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
         },
-        include: [
-          {
-            model: Servicios,
-            attributes: ["name"],
-            through: { attributes: [] },
-          },
-          {
-            model: Lenguajes,
-            attributes: ["name"],
-            through: { attributes: [] },
-          },
-          {
-            model: Tecnologias,
-            attributes: ["name"],
-            through: { attributes: [] },
-          },
-        ],
-      });
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
 
-      modUsr.setTecnologias(tecnologias);
-      modUsr.setLenguajes(lenguajes);
-      modUsr.setServicios(servicios);
+    modUsr.setTecnologias(tecnologias);
+    modUsr.setLenguajes(lenguajes);
+    modUsr.setServicios(servicios);
 
-
-      // if(name) modUs.name = name
-      // if(lastName) modUs.lastName = lastName
-      // if(profilePicture) modUs.profilePicture = profilePicture
-      // if(isAdmin) modUs.isAdmin = isAdmin
-      // if(linkedIn) modUs.linkedIn = linkedIn
-      // if(gitHub) modUs.gitHub = gitHub
-      // if(webSite) modUs.webSite = webSite
-      // if(yearsOfExperience) modUs.yearsOfExperience = yearsOfExperience
-      // if(dailyBudget) modUs.dailyBudget = dailyBudget
-      // if(englishLevel) modUs.englishLevel = englishLevel
-      // if(bio) modUs.bio = bio
-      // if(visible) modUs.visible = visible
-      // if(postulado) modUs.postulado = postulado
-      // if(registrado) modUs.registrado = registrado
-      // if(reputacion) modUs.reputacion = reputacion
-      // if(city) modUs.city = city
-
-      // if(paiseId){
-      //   let namePais = (await Paises.findByPk(paiseId)).dataValues.name
-      //   modUs.paiseId = namePais
-      // }
-
-      // if(tecnologias.length >= 1){
-      //   let nameTec = await Promise.all(tecnologias?.map(async cur =>{
-      //     let name = (await Tecnologias.findByPk(cur)).dataValues.name
-      //     return name
-      //   }))
-      //   modUs.tecnologias = nameTec
-      // }
-      // if(lenguajes.length >= 1){
-      //   let nameLeg = await Promise.all(lenguajes?.map(async cur =>{
-      //     let name = (await Lenguajes.findByPk(cur)).dataValues.name
-      //     return name
-      //   }))
-      //   modUs.lenguajes = nameLeg
-      // }
-      // if(servicios.length >= 1){
-      //   let nameSer = await Promise.all(servicios?.map(async cur =>{
-      //     let name = (await Servicios.findByPk(cur)).dataValues.name
-      //     return name
-      //   }))
-      //   modUs.servicios = nameSer
-      // }
-      
-      return "Usuario modificado correctamente"
+    return "Usuario modificado correctamente";
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/modifUser --→ ${e}`);
   }
-
-
-}
-
+};
 
 const getByEmail = async (email) => {
   try {
     let userEmail = await Usuarios.findOne({
       where: {
-        email: email,
+        email,
+        // habilitado: true,
       },
       include: [
         {
@@ -465,9 +434,9 @@ const getByEmail = async (email) => {
       ],
     });
 
-    let useEmail = (await userEmail).dataValues
+    let useEmail = (await userEmail).dataValues;
 
-    return{
+    return {
       id: useEmail.id,
       profilePicture: useEmail.profilePicture,
       isAdmin: useEmail.isAdmin,
@@ -486,24 +455,23 @@ const getByEmail = async (email) => {
       postulado: useEmail.postulado,
       registrado: useEmail.registrado,
       reputacion: useEmail.reputacion,
-      paiseId:  useEmail.paise ? useEmail.paise.dataValues.name : "",
+      paiseId: useEmail.paise ? useEmail.paise.dataValues.name : "",
       servicios: useEmail.servicios
-          ? useEmail.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
-          : [],
-        lenguajes: useEmail.lenguajes
-          ? useEmail.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
-          : [],
-        tecnologias: useEmail.tecnologias
-          ? useEmail.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
-          : [],
-    }
-
-    
+        ? useEmail.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+        : [],
+      lenguajes: useEmail.lenguajes
+        ? useEmail.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+        : [],
+      tecnologias: useEmail.tecnologias
+        ? useEmail.tecnologias
+            .map((cur) => cur.dataValues)
+            .map((cur) => cur.name)
+        : [],
+    };
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserByName --→ ${e}`);
+    console.error(`ERROR @ controllers/getByEmail --→ ${e}`);
   }
-}
-
+};
 
 module.exports = {
   getUsers,
@@ -513,6 +481,5 @@ module.exports = {
   getUserByName,
   postUserAuth,
   modifUser,
-  getByEmail
+  getByEmail,
 };
-

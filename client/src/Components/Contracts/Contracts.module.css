@@ -1,0 +1,74 @@
+.bodyForm {
+  /* background-color: red; */
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.form {
+  margin-top: 4vh;
+  padding: 4vh;
+  /* width: 20vw; */
+
+  /* border: 2px black solid; */
+  flex-direction: row;
+  height: auto;
+  border-radius: 40px;
+  font-family: monospace;
+  font-size: 2vh;
+  background: linear-gradient(
+    158.72deg,
+    rgba(255, 255, 255, 0.4) 3.01%,
+    rgba(255, 255, 255, 0) 103.3%
+  );
+  backdrop-filter: blur(21px);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20vw;
+}
+
+.form input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(219, 215, 215, 0.471);
+  height: 3vh;
+  border-radius: 30px;
+  text-align: center;
+  width: 16vw;
+}
+
+.divInputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonMande {
+  margin-top: 1vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: auto;
+  height: 4vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.8vw;
+  line-height: 23px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  /* margin-left: 1vh; */
+}
+
+.divbutton {
+  display: flex;
+  justify-content: center;
+}

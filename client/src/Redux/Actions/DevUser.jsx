@@ -3,7 +3,7 @@ import { GrAction } from "react-icons/gr";
 
 export function putDevUser(payload) {
   return async function (dispatch) {
-    console.log(payload, "PUT action ");
+    console.log("PUT action", payload);
     try {
       let json = (await axios.put(`/usuarios`, payload)).data;
       return dispatch({
@@ -55,7 +55,7 @@ export function getDevUsers(payload) {
         payload: devUsers,
       });
     } catch (error) {
-      console.error(error.message, "Error en el get DevUsers,actions");
+      console.log(error.message, "Error en el get DevUsers,actions");
     }
   };
 }
@@ -74,7 +74,7 @@ export function getUserId(id) {
 }
 
 export function getUserEmail(email) {
-  console.log(email, "action");
+  console.log(email, "action user email");
   return async function (dispatch) {
     try {
       const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
@@ -91,7 +91,7 @@ export function detailReset() {
   return function (dispatch) {
     return dispatch({
       type: "DETAIL_RESET",
-      payload: [],
+      // payload: [],
     });
   };
 }
@@ -106,22 +106,21 @@ export function getUserSearchBar() {
   };
 }
 
-export function detailIdDev(id){
-  return function(dispatch){
+export function detailIdDev(id) {
+  return function (dispatch) {
     return dispatch({
       type: "DETAIL_ID_DEV",
-      payload: id
-    })
-
-  }
+      payload: id,
+    });
+  };
 }
 
- export function getUserContrato(email){
-  return async function (dispatch){
+export function getUserContrato(email) {
+  return async function (dispatch) {
     let userId = (await axios.get(`/usuarios?=${email}`)).data;
-    return dispatch ({
+    return dispatch({
       type: "USER_CONTRATO",
-      payload: userId
-    })
-  }
- }
+      payload: userId,
+    });
+  };
+}

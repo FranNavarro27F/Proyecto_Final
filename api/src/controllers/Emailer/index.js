@@ -1,12 +1,8 @@
 const nodemailer = require("nodemailer");
-const {
-    GMAILPW,
-    GMAILUSER
-} = process.env;
+const { GMAILPW, GMAILUSER } = process.env;
 
-console.log( GMAILPW, GMAILUSER)
+// console.log( GMAILPW, GMAILUSER)
 async function main(nombreContratista, mailContrado) {
-
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -14,23 +10,23 @@ async function main(nombreContratista, mailContrado) {
     secure: true, // true for 465, false for other ports
     auth: {
       user: GMAILUSER, // generated ethereal user
-      pass: GMAILPW // generated ethereal password
+      pass: GMAILPW, // generated ethereal password
     },
     tls: {
-      rejectUnauthorized: false
-  }
+      rejectUnauthorized: false,
+    },
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Programax 👻" <appprogramax@gmail.com>', // sender address
+    from: '"Programax" <appprogramax@gmail.com>', // sender address
     to: mailContrado, // list of receivers
-    subject: "Hello ✔", // Subject line
+    subject: "Te han contactado!", // Subject line
     // text: `Hola! ${nombreContratista} te ha contactado! Esto es texto`, // plain text body
     // BORRAMOS EL TEXT. OJO.
-    html: `<b>Hola! ${nombreContratista} te ha contactado! Ingresa a Programax para comunicarse entre las partes mediante el chat</b>
+    html: `<b>Hola! <strong>${nombreContratista}</strong> te ha contactado! Ingresa a Programax para ponerse de acuerdo y cerrar el contrato. </b>
     <br>
-    <img src=${"../../../../Logo/icon-1200x1200.png"}></img>
+    <img src=${"../../../../Logo/logo chico.png"}></img>
     `, // html body
   });
 
@@ -45,5 +41,5 @@ async function main(nombreContratista, mailContrado) {
 }
 
 module.exports = {
-    main,
-}
+  main,
+};

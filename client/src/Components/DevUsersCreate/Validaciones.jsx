@@ -77,7 +77,7 @@ function validaciones(input) {
     errors.dailyBudget = "El valor debe estar entre 1 y 999";
 
   //countrie
-  if (input.paiseId?.length === 0) errors.countries = "Ingresa un pais!";
+  if (input.paiseId?.length === 0) errors.paiseId = "Ingresa un pais!";
   // tecnologias;
   if (input.tecnologias?.length === 0)
     errors.tecnologies = "Ingresa al menos una tecnologia!";

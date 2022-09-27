@@ -5,6 +5,7 @@ const {
   getContractById,
   createContract,
   modifyContract,
+  acceptContract,
   cancelContract,
   deleteContract,
 } = require("../../controllers/Contratos");
@@ -13,7 +14,7 @@ const router = Router();
 
 const ERROR = `Error @ routes/Contratos --> `;
 
-// -----------------------------------------------
+// -------------------------------------------
 
 // ---------- GET CONTRACTS ----------
 router.get("/", async (req, res) => {
@@ -67,12 +68,25 @@ router.put("/:id", async (req, res) => {
 });
 
 // ---------- PUT CONTRACT (CANCEL) ----------
-router.put("/:id", async (req, res) => {
+router.put("/cancel/:id", async (req, res) => {
   try {
     //
     const { id } = req.params;
     const canceledContract = await cancelContract(id);
     res.send(canceledContract);
+    //
+  } catch (e) {
+    res.status(400).send(ERROR, e);
+  }
+});
+
+// ---------- PUT CONTRACT (ACCEPT) ----------
+router.put("/accept/:id", async (req, res) => {
+  try {
+    //
+    const { id } = req.params;
+    const acceptedContract = await acceptContract(id);
+    res.send(acceptedContract);
     //
   } catch (e) {
     res.status(400).send(ERROR, e);

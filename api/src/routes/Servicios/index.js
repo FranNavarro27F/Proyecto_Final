@@ -34,6 +34,7 @@ router.delete("/:id", async (req, res) => {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
+
 // const deleteUser = async (id) => {
 //   try {
 //     let toDelete= await Usuarios.findByPk(id);
@@ -44,5 +45,6 @@ router.delete("/:id", async (req, res) => {
 //     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
 //   }
 // }
+//
 
 module.exports = router;

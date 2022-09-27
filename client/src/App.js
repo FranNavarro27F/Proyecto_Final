@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 //componentes
 import Details from "./Components/Details/Details";
 import Home from "./Components/Home/Home";
-import Users from "./Components/UserProfile/Users.jsx";
+import Users from "./Components/UserProfile/Users";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
 import Profile from "./Components/Login/UserProfile/Profile";
@@ -14,6 +14,7 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import StripeSuscripciones from "./Components/Stripe/StripeSuscripciones"
 //import About from "./Components/About/About"
 import Contracts from "./Components/Contracts/Contracts";
+import Error404 from "./Components/error404/error404";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/create" element={<DevUsersCreate />} />
         {/* <Route path="/users" element={<Users />} /> */}
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
+        **<Route path="*" element={<Error404 />}></Route>**
       </Routes>
     </>
   );

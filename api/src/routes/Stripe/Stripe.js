@@ -1,4 +1,3 @@
-// const express = require('express');
 const { Router } = require("express");
 
 const Stripe = require('stripe')
@@ -9,7 +8,7 @@ const router = Router();
 //a esta clave la podemos poner en una variable de entorno
  const stripe = new Stripe('sk_test_51LkCysDY7badEkJlamkZPnFP3RBDv8JiK3uH9Ppv0BKxIinBUfz1I7wopdGtVUZcRXCUv8amtBvF2NxDYZNEhMRJ00mPeWn11N')
 
-router.use (cors({origin: "https://programax.up.railway.app"}))
+router.use (cors({origin: "https://programax.vercel.app"}))
 
 router.post('/', async (req, res) =>{
   try{
@@ -28,7 +27,7 @@ router.post('/', async (req, res) =>{
     currency
 
    } = req.body;
-  
+  console.log(req.body)
 
    //aca creo el pago en Stripe
   const payment = await stripe.paymentIntents.create({
