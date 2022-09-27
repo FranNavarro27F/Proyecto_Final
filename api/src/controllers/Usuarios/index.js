@@ -181,7 +181,7 @@ const getUserById = async (id) => {
     });
 
     let userM = User.dataValues;
-    console.log(userM);
+    // console.log(userM);
     let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
@@ -196,7 +196,7 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-    console.log(userM);
+    // console.log(userM);
 
     return userM;
   } catch (e) {
@@ -349,7 +349,7 @@ const modifUser = async (data) => {
           : (lastName = []),
         linkedIn: linkedIn !== "" ? linkedIn : null,
         gitHub: gitHub !== "" ? gitHub : null,
-        profilePicture,
+        profilePicture: profilePicture !== "" ? profilePicture : null,
         isAdmin,
         webSite: webSite !== "" ? webSite : null,
         yearsOfExperience: yearsOfExperience !== "" ? yearsOfExperience : 1,
