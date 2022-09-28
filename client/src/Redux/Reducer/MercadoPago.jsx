@@ -4,6 +4,7 @@ const initialState = {
 };
 
 export default function services(state = initialState, action) {
+  console.log(action.payload);
   switch (action.type) {
     case "MP_PAYMENT":
       return {
@@ -12,6 +13,7 @@ export default function services(state = initialState, action) {
       };
 
     case "MP_SUBSCRIPTION":
+      console.log(action.payload);
       return {
         ...state,
         Payment: action.payload,

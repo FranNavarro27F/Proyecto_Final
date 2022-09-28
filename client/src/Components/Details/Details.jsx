@@ -39,8 +39,10 @@ export default function Details() {
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const [userProfile, setUserProfile] = useState(false);
-  console.log(userByEmail, "userr");
+
+  console.log(Subscription, "sub");
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
@@ -86,8 +88,19 @@ export default function Details() {
   const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    dispatch(subscriptionMp(email, id));
-    dispatch(pagosMp(email, id));
+    // dispatch(subscriptionMp(email, id));
+    dispatch(
+      pagosMp({
+        email: email,
+        id: id,
+      })
+    );
+    dispatch(
+      subscriptionMp({
+        email: email,
+        id: id,
+      })
+    );
   };
 
   const detail = () => {
@@ -589,9 +602,9 @@ export default function Details() {
                         : userDetail?.dailyBudget}
                     </span>
                   </div>
-                  <div>
+                  <div className={s.bodyButtons}>
                     {userProfile ? (
-                      <div>
+                      <div className={s.buttonsLogeado}>
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
@@ -600,7 +613,9 @@ export default function Details() {
                             ? `Editar postulación`
                             : `Postularme`}
                         </button>
-                        <button onClick={handlePremiun}>SUSCRIPCION</button>
+                        <button className={s.buttonSub} onClick={handlePremiun}>
+                          SUSCRIPCION
+                        </button>
                       </div>
                     ) : (
                       <button
