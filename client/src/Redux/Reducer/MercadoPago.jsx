@@ -9,14 +9,13 @@ export default function services(state = initialState, action) {
     case "MP_PAYMENT":
       return {
         ...state,
-        Subscription: action.payload,
+        Payment: action.payload,
       };
 
     case "MP_SUBSCRIPTION":
-      console.log(action.payload);
       return {
         ...state,
-        Payment: action.payload,
+        Subscription: action.payload,
       };
 
     default:

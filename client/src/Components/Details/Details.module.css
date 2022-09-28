@@ -245,12 +245,89 @@
 
 .buttonSub {
   position: absolute;
-  display: flex;
-  right: 2vw;
-  flex-direction: column;
-  background-color: red;
+  left: 110vh;
+  top: 1vh;
+  box-sizing: border-box;
+  /* padding: 1.5vh; */
+  width: 8vw;
+  height: 3vh;
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.9vw;
+  line-height: 23px;
+  cursor: pointer;
+  margin-right: 0.9rem;
 }
 
 .bodyButtons {
   display: flex;
+}
+.bodyIframe {
+  position: fixed;
+  /* border-radius: 100px; */
+  background-color: rgba(0, 0, 0, 0.445);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  /* display: none; */
+  backdrop-filter: blur(2px);
+}
+.containerIframe {
+  backdrop-filter: blur(2px);
+  border-radius: 20px;
+  border: rgba(221, 98, 245, 0.993) 1px solid;
+  padding: 1.5vh;
+  background-color: rgba(79, 80, 80, 0.317);
+  width: 100vh;
+  height: 65vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.iframe {
+  width: 100vh;
+  height: 65vh;
+  border-radius: 20px;
+  /* transform: translateY(1px); */
+  /* z-index: -1; */
+}
+
+.bodydelosbodys {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.bodyIframeNone {
+  display: none;
+}
+
+.Icon {
+  position: absolute;
+  float: right;
+  background: none;
+  border: none; /* border: 1px solid red; */
+  width: 1.5vw;
+  height: 3vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 100vh;
+  margin-bottom: 66vh;
+  font-weight: 800;
+  overflow: hidden;
+  z-index: 99;
+  cursor: pointer;
+}
+.Icon span {
+  margin-top: 0.5vh;
+  color: rgba(255, 255, 255, 0.856);
+  font-size: 2.8vh;
 }

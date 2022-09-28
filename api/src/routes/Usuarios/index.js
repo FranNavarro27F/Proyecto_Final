@@ -9,6 +9,7 @@ const {
   modifUser,
   postUserAuth,
   getByEmail,
+  Contratos
 } = require("../../controllers/Usuarios");
 
 const router = Router();
