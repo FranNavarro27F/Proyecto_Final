@@ -160,6 +160,7 @@ const toUperCase = (nombre) => {
 };
 
 const getUserById = async (id) => {
+  console.log(id)
   try {
     let User = await Usuarios.findByPk(id, {
       include: [
