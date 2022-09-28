@@ -12,12 +12,12 @@ router.get("/", function (req, res, next) {
   });
 });
 
-router.get("/payment", function (req, res, next) {
+router.post("/payment", function (req, res, next) {
   // const { id, email } = req.body;
   PaymentInstance.getPaymentLink(req, res);
 });
 
-router.get("/subscription", function (req, res, next) {
+router.post("/subscription", function (req, res, next) {
   // const { email, id } = req.body;
   PaymentInstance.getSubscriptionLink(req, res);
 });

@@ -4,15 +4,13 @@ const {
     Lenguajes,
     Servicios,
     Paises,
-  } = require("../../db.js");
-  
+} = require("../../db.js");
+
 //   const { Op } = require("sequelize");
-  
-  const ERROR = "Error @ controllers/Admin";
 
-  // ----------------------------------------------------
+const ERROR = "Error @ controllers/Admin";
 
-  //Controladores para agregado y borrado lógico de Modelos.
+// ----------------------------------------------------
 
   const postLenguajes = async (name) =>{
     try {
@@ -30,26 +28,6 @@ const {
 
     } catch (e) {
         console.error(`ERROR @ controllers/Admin/postLenguajes --→ ${e}`);
-    }
-  }
-
-
-  const postTecnologias = async (data) =>{
-    try {
-        let {name} = data
-        
-    } catch (e) {
-        
-    }
-  }
-
-
-  const postPaises = async (data) =>{
-    try {
-        let {name} = data
-        
-    } catch (e) {
-        
     }
   }
 
@@ -93,23 +71,6 @@ const borrLogicLenguaje = async (data) =>{
     }
 }
 
-const borrLogicPaises = async (data) =>{
-    try {
-        let {id} = data
-        
-    } catch (e) {
-        
-    }
-}
-
-const borrLogicTecnologias = async (data) =>{
-    try {
-        let {id} = data
-        
-    } catch (e) {
-        
-    }
-}
 
 const borrLogicServicios = async (data) =>{
     try {
@@ -131,20 +92,82 @@ const borrLogicServicios = async (data) =>{
     }
 }
 
-const borrLogicUsuario = async (data) =>{
+
+const postTecnologias = async (name) => {
     try {
-        let {id} = data
-        
+        let tecnologia = await Tecnologias.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        return `successfull --→ ${tecnologia.data}`
     } catch (e) {
-        
+        console.error(`ERROR @ controllers/postTecnologias --→ ${e}`);
     }
 }
 
 
-module.exports = { 
-    postLenguajes, 
-    postPaises, 
-    postServicios, 
+const postPaises = async (name) => {
+    try {
+        let pais = await Paises.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        return `successfull --→ ${pais.data}`
+    } catch (e) {
+        console.error(`ERROR @ controllers/postPaises --→ ${e}`);
+    }
+}
+
+
+const borrLogicPaises = async (id) => {
+    try {
+        await Paises.update(
+            { habilitado: false },
+            {
+                where: { id },
+            }
+        );
+        console.log(`Country (${id}) updated successfully`);
+        return `Country (${id}) updated successfully`;
+    } catch (e) {
+        console.error(`ERROR @ controllers/putPaises --→ ${e}`);
+    }
+}
+
+const borrLogicTecnologias = async (id) => {
+    try {
+        await Tecnologias.update(
+            { habilitado: false },
+            {
+                where: { id },
+            }
+        );
+        console.log(`Tecnologias (${id}) updated successfully`);
+        return `Tecnologias (${id}) updated successfully`;
+    } catch (e) {
+        console.error(`ERROR @ controllers/putPaises --→ ${e}`);
+    }
+}
+
+
+const borrLogicUsuario = async (data) => {
+    try {
+        let { id } = data
+
+    } catch (error) {
+
+    }
+}
+
+
+module.exports = {
+    postLenguajes,
+    postPaises,
+    postServicios,
     postTecnologias,
-    borrLogicLenguaje,
-    borrLogicServicios };
+    borrLogicPaises,
+    borrLogicTecnologias
+};
+
