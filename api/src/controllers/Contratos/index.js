@@ -125,7 +125,6 @@ const createContract = async (data) => {
       aceptado: false,
       habilitado: true,
     });
-    console.log(newContract.dataValues.id)
 
     // traigo a las 2 partes del contrato para setear relacion con contrato.
     let el_que_contrata= await Usuarios.findByPk(employer);
