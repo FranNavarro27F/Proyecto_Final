@@ -11,6 +11,7 @@ class PaymentService {
     const url = "https://api.mercadopago.com/checkout/preferences";
     const body = {
       payer_email: "test_user_20874669@testuser.com",
+      reason: "CONTRATAR DESARROLLADOR",
       items: [
         {
           title: "CONTRATAR DESARROLLADOR",
