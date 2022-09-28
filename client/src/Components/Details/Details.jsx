@@ -45,11 +45,6 @@ export default function Details() {
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useEffect(() => {
-    // if (userByEmail.name !== undefined) {
-    // } else {
-    //   loginWithRedirect();
-    // }
-
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     dispatch(subscriptionMp());
     dispatch(pagosMp());
@@ -80,7 +75,6 @@ export default function Details() {
   const handleBack = () => {
     dispatch(detailReset());
     navigate("/work");
-    console.log("SKIPPEA ESTO A VER...");
   };
 
   if (loader && isLoading) {
