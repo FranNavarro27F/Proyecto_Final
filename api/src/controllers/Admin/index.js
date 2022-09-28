@@ -75,10 +75,21 @@ const {
 
 const borrLogicLenguaje = async (data) =>{
     try {
-        let {id} = data
+        
+        let {id, habilitado} = data
+        
+        await Lenguajes.update({
+            habilitado: habilitado
+        }, {where: {id: id}})
+
+        if(habilitado === false){
+            return "Lenguaje eliminado correctamente"
+        }else{
+            return "Lenguaje habilitado correctamente"
+        }  
         
     } catch (e) {
-        
+        console.error(`ERROR @ controllers/Admin/borrLogicLenguajes --→ ${e}`);
     }
 }
 
@@ -102,10 +113,21 @@ const borrLogicTecnologias = async (data) =>{
 
 const borrLogicServicios = async (data) =>{
     try {
-        let {id} = data
+        let {id, habilitado} = data
+        
+        await Servicios.update({
+            habilitado: habilitado
+        }, {where: {id: id}})
+
+
+        if(habilitado === false){
+            return "Servicio eliminado correctamente"
+        }else{
+            return "Servicio habilitado correctamente"
+        }       
         
     } catch (e) {
-        
+        console.error(`ERROR @ controllers/Admin/borrLogicServicios --→ ${e}`);
     }
 }
 
@@ -123,4 +145,6 @@ module.exports = {
     postLenguajes, 
     postPaises, 
     postServicios, 
-    postTecnologias };
+    postTecnologias,
+    borrLogicLenguaje,
+    borrLogicServicios };

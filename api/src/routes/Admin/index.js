@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { postLenguajes, postServicios } = require("../../controllers/Admin");
+const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios } = require("../../controllers/Admin");
 
 const router = Router();
 
@@ -33,7 +33,7 @@ router.post("/servicios", async (req, res)=>{
         if(!name){
             res.sendStatus(400).send(`Error --→ ${e}`);
         }else{
-            let newServ = await postServicios(req.body)
+            let newServ = await postServicios(name)
             
             res.status(200).json(newServ);
         }
@@ -49,10 +49,11 @@ router.post("/paises", (req, res)=>{
 
 //Put de borrado lógico
 
-router.put("/lenguajes/:id", async (req, res)=>{
+router.put("/lenguajes", async (req, res)=>{
     try {
 
-        let {id} = req.params
+        res.status(200).json(await borrLogicLenguaje(req.body))
+
 
     } catch (e) {
         res.status(400).send(`Error --→ ${e}`);
@@ -65,9 +66,9 @@ router.put("/tecnologias/:id", (req, res)=>{
 })
 
 
-router.put("/servicios/:id", async (req, res)=>{
+router.put("/servicios", async (req, res)=>{
     try {
-        
+        res.status(200).json(await borrLogicServicios(req.body))
     } catch (e) {
         res.status(400).send(`Error --→ ${e}`);
     }
