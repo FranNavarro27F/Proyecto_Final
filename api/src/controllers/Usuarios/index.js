@@ -4,9 +4,11 @@ const {
   Lenguajes,
   Servicios,
   Paises,
+  Contratos
 } = require("../../db.js");
 
 const { Op } = require("sequelize");
+
 
 const ERROR = "Error @ controllers/Usuarios";
 
@@ -160,6 +162,7 @@ const toUperCase = (nombre) => {
 };
 
 const getUserById = async (id) => {
+ 
   try {
     let User = await Usuarios.findByPk(id, {
       include: [
@@ -178,12 +181,15 @@ const getUserById = async (id) => {
           attributes: ["name"],
           through: { attributes: [] },
         },
+        {
+          model: Contratos,
+        }
       ],
     });
-
-    let userM = User.dataValues;
+    let userM = User?.dataValues;
+    console.log(userM, "controlers/usuarios/id")
     // console.log(userM);
-    let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
+    let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
     userM.lastName = toUperCase(userM.lastName);
