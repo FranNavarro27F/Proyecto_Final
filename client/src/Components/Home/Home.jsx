@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 import Landing from "../Landing/Landing";
@@ -19,13 +19,16 @@ export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
+  const userLocal = useMemo(() => {
+    const userLocal = {
+      family_name: `${user?.family_name}`,
+      given_name: `${user?.given_name}`,
+      email: `${user?.email}`,
+      picture: `${user?.picture}`,
+    };
 
-  const [userLocal, setUserLocal] = useState({
-    family_name: `${user?.family_name}`,
-    given_name: `${user?.given_name}`,
-    email: `${user?.email}`,
-    picture: `${user?.picture}`,
-  });
+    return userLocal;
+  }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
 
   useLayoutEffect(() => {
     dispatch(getUserEmail(userLocal));
