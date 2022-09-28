@@ -1,0 +1,37 @@
+class PaymentController {
+  constructor(subscriptionService) {
+    this.subscriptionService = subscriptionService;
+  }
+  async getPaymentLink(req, res, id) {
+    try {
+      //
+      const payment = await this.subscriptionService.createPayment(id);
+      return res.json(payment);
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(500)
+        .json({ error: true, msg: "Failed to create payment" });
+    }
+  }
+
+  async getSubscriptionLink(req, res, email, id) {
+    try {
+      const subscription = await this.subscriptionService.createSubscription(
+        email,
+        id
+      );
+
+      return res.json(subscription);
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(400)
+        .json({ error: true, msg: "Failed to create subscription" });
+    }
+  }
+}
+
+module.exports = PaymentController;

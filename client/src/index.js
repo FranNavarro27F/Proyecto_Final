@@ -12,10 +12,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const {REACT_APP_API}= process.env;
-
-// console.log(REACT_APP_API, "a ver que carajos hay en la variable de entorno")
-// console.log(process.env.REACT_APP_API, "a ver que carajos hay en la variable de entorno 2")
 
 axios.defaults.baseURL =
 process.env.REACT_APP_API || "https://programax.up.railway.app/" || "http://localhost:3001";
