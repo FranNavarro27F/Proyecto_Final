@@ -104,6 +104,11 @@ export default function Details() {
             </span>
           </button>
           <div className={s.containerIframe}>
+            <div className={s.lds_ring}>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
             <Iframe
               // style={}
               loading="CARGANDOOOOOOOOOOOOOOO..."

@@ -13,6 +13,7 @@
   object-fit: cover;
   width: 4vw;
   height: 8vh;
+  image-rendering: auto;
 }
 .bodySelect {
   margin-top: 12vh;
