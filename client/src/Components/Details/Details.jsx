@@ -19,6 +19,7 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
+import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -82,6 +83,12 @@ export default function Details() {
       </div>
     );
   }
+  const email = "test_user_20874669@testuser.com"; //TEST
+  // const idd = userByEmail?.id;
+  const handlePremiun = () => {
+    dispatch(subscriptionMp(email, id));
+    dispatch(pagosMp(email, id));
+  };
 
   const detail = () => {
     return loader ? (
@@ -584,14 +591,17 @@ export default function Details() {
                   </div>
                   <div>
                     {userProfile ? (
-                      <button
-                        className={s.buttonBack}
-                        onClick={() => navigate("/create")}
-                      >
-                        {userByEmail?.postulado
-                          ? `Editar postulación`
-                          : `Postularme`}
-                      </button>
+                      <div>
+                        <button
+                          className={s.buttonBack}
+                          onClick={() => navigate("/create")}
+                        >
+                          {userByEmail?.postulado
+                            ? `Editar postulación`
+                            : `Postularme`}
+                        </button>
+                        <button onClick={handlePremiun}>SUSCRIPCION</button>
+                      </div>
                     ) : (
                       <button
                         className={s.buttonL}

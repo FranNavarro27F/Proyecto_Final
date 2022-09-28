@@ -1,5 +1,4 @@
 import axios from "axios";
-import { GrAction } from "react-icons/gr";
 
 export function putDevUser(payload) {
   return async function (dispatch) {
