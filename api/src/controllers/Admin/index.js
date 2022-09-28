@@ -97,3 +97,6 @@ const borrLogicUsuario = async (data) =>{
         
     }
 }
+
+
+module.exports = { postLenguajes, postPaises, postServicios, postTecnologias };

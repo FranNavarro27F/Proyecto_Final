@@ -10,6 +10,8 @@ const contratosRouter = require("../routes/Contratos/index.js");
 const stripeRouter = require("../routes/Stripe/Stripe");
 const emailerRouter = require("../routes/Emailer/index");
 const mercadopagoRouter = require("../routes/MercadoPago/MercadoPago");
+const adminRouter = require ("../routes/Admin/index")
+
 
 const router = Router();
 
@@ -24,5 +26,6 @@ router.use("/contratos", contratosRouter);
 router.use("/checkout", stripeRouter);
 router.use("/emailer", emailerRouter);
 router.use("/pago", mercadopagoRouter);
+router.use("/admin", adminRouter)
 
 module.exports = router;
