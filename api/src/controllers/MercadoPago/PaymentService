@@ -50,7 +50,7 @@ class PaymentService {
 
     const body = {
       payer_email: "test_user_20874669@testuser.com",
-      reason: "SUSCRIPCION  MENSUAL A PROGRAMAX",
+      reason: "PROGRAMAX Premium",
       // auto_recurring: {
       //   frequency: 1,
       //   frequency_type: "months",
@@ -60,7 +60,7 @@ class PaymentService {
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
-        repetitions: 12,
+        repetitions: 1,
         billing_day: 10,
         billing_day_proportional: true,
         free_trial: {
