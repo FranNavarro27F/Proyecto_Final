@@ -52,9 +52,9 @@ router.put("/lenguajes", (req, res) => {
 
 router.put("/tecnologias",async (req, res) => {
     try {
-        const {id} = req.body;
+        const {id,habilitado} = req.body;
         if (id){
-            res.status(200).json(await borrLogicTecnologias(id));
+            res.status(200).json(await borrLogicTecnologias(id,habilitado));
         }else{
             res.status(400).send("error debe enviar por body el id");
         }  
@@ -71,9 +71,10 @@ router.put("/servicios", (req, res) => {
 
 router.put("/paises",async (req, res) => {
     try {
-        const {id} = req.body;
+        const {id,habilitado} = req.body;
+        console.log(id,habilitado)
         if (id){
-            res.status(200).json(await borrLogicPaises(id));
+            res.status(200).json(await borrLogicPaises(id,habilitado));
         }else{
             res.status(400).send("error debe enviar por body el id");
         }  
