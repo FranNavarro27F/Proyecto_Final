@@ -26,3 +26,6 @@ router.post("/paises", (req, res)=>{
 })
 
 
+
+
+module.exports = router;
