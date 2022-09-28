@@ -59,6 +59,7 @@ class PaymentService {
       },
 
       back_url: "https://programax.vercel.app/work",
+      auto_return: "all",
     };
     const subscription = await axios.post(url, body, {
       headers: {
