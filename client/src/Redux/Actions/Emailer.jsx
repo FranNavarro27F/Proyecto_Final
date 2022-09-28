@@ -2,9 +2,9 @@ import axios from "axios";
 
 // const { nombreContratista, mailContrado } = req.body;
 export function emailer(payload) {
-  return async function (dispatch) {
+  return async function () {
     try {
-      let info = await axios.post(`/emailer`, payload);
+      await axios.post(`/emailer`, payload);
     } catch (e) {
       console.error(e, "error catch action emailer");
     }
