@@ -15,7 +15,7 @@ server.name = "API";
 /////app.use(express.json());
 
 
-
+// server.use(express.urlencoded({ extended: true }));
 server.use(express.static('public'));
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
