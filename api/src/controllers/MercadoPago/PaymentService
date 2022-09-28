@@ -16,7 +16,8 @@ class PaymentService {
         {
           title: "CONTRATAR DESARROLLADOR",
           description: "CONTRATAR DESARROLLADOR MEDIANTE PROGRAMAX",
-          picture_url: "http://www.myapp.com/myimage.jpg",
+          picture_url:
+            "https://cdn.discordapp.com/attachments/826954908258402374/1021209817035055247/icon-1200x1200.png",
           category_id: "category123",
           quantity: 1,
           unit_price: 3000,
@@ -49,6 +50,16 @@ class PaymentService {
 
     const body = {
       reason: "SUSCRIPCION A PROGRAMAX",
+      items: [
+        {
+          title: "SUSCRIPCION A PROGRAMAX",
+          description: "SDUSCRIBITE AL SERVICIO PREMIUN DE PROGRAMAX",
+          picture_url:
+            "https://cdn.discordapp.com/attachments/826954908258402374/1021209817035055247/icon-1200x1200.png",
+          category_id: "category123",
+          quantity: 1,
+        },
+      ],
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",

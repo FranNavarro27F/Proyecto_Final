@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const { nombreContratista, mailContrado } = req.body;
-export function pagosMp(id, email) {
+export function pagosMp() {
   return async function (dispatch) {
     console.log();
     try {
