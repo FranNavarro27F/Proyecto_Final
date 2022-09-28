@@ -168,6 +168,8 @@ module.exports = {
     postServicios,
     postTecnologias,
     borrLogicPaises,
-    borrLogicTecnologias
+    borrLogicTecnologias,
+    borrLogicLenguaje,
+    borrLogicServicios
 };
 
