@@ -11,7 +11,6 @@ const stripe = new Stripe(
 );
 
 router.use(cors({ origin: "https://programax.vercel.app" }));
-// router.use(cors({ origin: "http://localhost:3001" }));
 
 router.post("/", async (req, res) => {
   try {
