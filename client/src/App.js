@@ -26,7 +26,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/work" element={<Work />} />
         <Route path="/create" element={<DevUsersCreate />} />
-        {/* <Route path="/users" element={<Users />} /> */}
+        <Route path="/users" element={<Users />} />
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
         **<Route path="*" element={<Error404 />}></Route>**
       </Routes>

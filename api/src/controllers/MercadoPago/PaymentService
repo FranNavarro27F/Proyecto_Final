@@ -1,0 +1,69 @@
+const axios = require("axios");
+require("dotenv").config();
+const { Contratos } = require("../../db");
+
+class PaymentService {
+  async createPayment(id, email) {
+    const price = async (id) => {
+      const res = await Contratos.findByPk(id);
+      return res.dataValues.price;
+    };
+    const url = "https://api.mercadopago.com/checkout/preferences";
+    const body = {
+      payer_email: "test_user_20874669@testuser.com",
+      items: [
+        {
+          title: "CONTRATAR DESARROLLADOR",
+          description: "CONTRATAR DESARROLLADOR MEDIANTE PROGRAMAX",
+          picture_url: "http://www.myapp.com/myimage.jpg",
+          category_id: "category123",
+          quantity: 1,
+          unit_price: await price(id),
+          installments: 12,
+        },
+      ],
+      back_urls: {
+        failure: "/failure",
+        pending: "/pending",
+        success: "/https://programax.vercel.app/",
+      },
+    };
+
+    const payment = await axios.post(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+    console.log(email, id);
+    // console.log(payment.data);
+    return payment.data;
+  }
+
+  async createSubscription(email, id) {
+    console.log(email, id, " aca email");
+    const url = "https://api.mercadopago.com/preapproval";
+
+    const body = {
+      reason: "SUSCRIPCION PREMIUN",
+      auto_recurring: {
+        frequency: 1,
+        frequency_type: "months",
+        transaction_amount: 1000,
+        currency_id: "ARS",
+      },
+      back_url: "https://programax.vercel.app/work",
+      payer_email: email,
+    };
+    const subscription = await axios.post(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+
+    return subscription.data;
+  }
+}
+
+module.exports = PaymentService;

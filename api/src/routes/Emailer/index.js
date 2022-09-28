@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { main } = require("../../controllers/Emailer/index.js");
 const nodemailer = require("nodemailer");
-
 const router = Router();
 
 router.post("/", async (req, res) => {

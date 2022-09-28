@@ -67,12 +67,17 @@ function validacionesEdit(input) {
     if (input.yearsOfExperience > 99 || input.yearsOfExperience < 0)
       errors.yearsOfExperience = "El valor debe estar entre 1 y 99";
     //dailyBudget
+  }
 
+  if (input.dailyBudget) {
     if (input.dailyBudget > 999 || input.dailyBudget < 0)
       errors.dailyBudget = "El valor debe estar entre 1 y 999";
   }
+
   //countrie
-  if (input.paiseId?.length === 0) errors.paiseId = "Ingresa un pais!";
+  if (input.paiseID) {
+    if (input?.paiseId === "") errors.paiseId = "Ingresa un pais!";
+  }
   return errors;
 }
 

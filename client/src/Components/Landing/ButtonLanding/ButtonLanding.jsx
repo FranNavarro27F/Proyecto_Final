@@ -11,7 +11,6 @@ export default function ButtonLanding() {
   const navigate = useNavigate();
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  var hola = "holaaaaa";
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -33,9 +32,7 @@ export default function ButtonLanding() {
         // <Link to={`/work/details/${userByEmail?.id}`}>
         <div className={s.possitionLg}>
           <button
-            onClick={() =>
-              navigate(`/work/details/${userByEmail?.id}`, (hola = { hola }))
-            }
+            onClick={() => navigate(`/work/details/${userByEmail?.id}`)}
             className={s.buttonLg}
           >
             Perfil

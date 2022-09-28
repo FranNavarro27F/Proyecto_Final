@@ -236,3 +236,21 @@
   line-height: 23px;
   cursor: pointer;
 }
+
+.buttonsLogeado {
+  /* display: flex; */
+  display: flex;
+  flex-direction: row;
+}
+
+.buttonSub {
+  position: absolute;
+  display: flex;
+  right: 2vw;
+  flex-direction: column;
+  background-color: red;
+}
+
+.bodyButtons {
+  display: flex;
+}
