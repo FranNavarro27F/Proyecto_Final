@@ -41,7 +41,6 @@ class PaymentService {
   }
 
   async createSubscription(email, id) {
-    // console.log(email, id, "subbbbb");
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {

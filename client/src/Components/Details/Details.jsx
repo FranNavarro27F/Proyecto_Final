@@ -27,7 +27,7 @@ export default function Details() {
   let navigate = useNavigate();
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
@@ -39,12 +39,16 @@ export default function Details() {
   const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
-
+  console.log(userByEmail, "userr");
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [dispatch, id, userByEmail?.id]);
+    if (userByEmail !== undefined) {
+      id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+    } else {
+      loginWithRedirect();
+    }
+  }, [dispatch, id, loginWithRedirect, userByEmail, userByEmail?.id]);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
