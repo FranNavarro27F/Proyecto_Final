@@ -19,6 +19,7 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
+import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -27,7 +28,7 @@ export default function Details() {
   let navigate = useNavigate();
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
@@ -39,12 +40,16 @@ export default function Details() {
   const loader = useSelector((state) => state.devUser.loader);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
-
+  console.log(userByEmail, "userr");
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [dispatch, id, userByEmail?.id]);
+    if (userByEmail.name !== undefined) {
+      id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+    } else {
+      loginWithRedirect();
+    }
+  }, [dispatch, id, loginWithRedirect, userByEmail, userByEmail?.id]);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -78,6 +83,12 @@ export default function Details() {
       </div>
     );
   }
+  const email = "test_user_20874669@testuser.com"; //TEST
+  // const idd = userByEmail?.id;
+  const handlePremiun = () => {
+    dispatch(subscriptionMp(email, id));
+    dispatch(pagosMp(email, id));
+  };
 
   const detail = () => {
     return loader ? (
@@ -580,14 +591,17 @@ export default function Details() {
                   </div>
                   <div>
                     {userProfile ? (
-                      <button
-                        className={s.buttonBack}
-                        onClick={() => navigate("/create")}
-                      >
-                        {userByEmail?.postulado
-                          ? `Editar postulación`
-                          : `Postularme`}
-                      </button>
+                      <div>
+                        <button
+                          className={s.buttonBack}
+                          onClick={() => navigate("/create")}
+                        >
+                          {userByEmail?.postulado
+                            ? `Editar postulación`
+                            : `Postularme`}
+                        </button>
+                        <button onClick={handlePremiun}>SUSCRIPCION</button>
+                      </div>
                     ) : (
                       <button
                         className={s.buttonL}

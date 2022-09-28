@@ -13,8 +13,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/payment", function (req, res, next) {
-  const { id } = req.body;
-  PaymentInstance.getPaymentLink(req, res, id);
+  const { id, email } = req.body;
+  PaymentInstance.getPaymentLink(req, res, id, email);
 });
 
 router.get("/subscription", function (req, res, next) {

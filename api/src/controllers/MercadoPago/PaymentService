@@ -3,7 +3,7 @@ require("dotenv").config();
 const { Contratos } = require("../../db");
 
 class PaymentService {
-  async createPayment(id) {
+  async createPayment(id, email) {
     const price = async (id) => {
       const res = await Contratos.findByPk(id);
       return res.dataValues.price;
@@ -20,6 +20,7 @@ class PaymentService {
           category_id: "category123",
           quantity: 1,
           unit_price: await price(id),
+          installments: 12,
         },
       ],
       back_urls: {
@@ -35,13 +36,13 @@ class PaymentService {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       },
     });
-
-    console.log(payment.data);
+    console.log(email, id);
+    // console.log(payment.data);
     return payment.data;
   }
 
   async createSubscription(email, id) {
-    // console.log(email, id, "subbbbb");
+    console.log(email, id, " aca email");
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
