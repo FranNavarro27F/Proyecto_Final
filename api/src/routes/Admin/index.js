@@ -13,7 +13,7 @@ router.post("/lenguajes", async (req, res)=>{
             res.sendStatus(400).send(`Error --→ ${e}`);
         }else{
             let newLeng = await postLenguajes(name)
-            
+
             res.status(200).json(newLeng);
         }
     } catch (e) {
@@ -96,7 +96,6 @@ router.put("/lenguajes", async (req, res)=>{
 router.put("/paises",async (req, res) => {
     try {
         const {id,habilitado} = req.body;
-        console.log(id,habilitado)
         if (id){
             res.status(200).json(await borrLogicPaises(id,habilitado));
         }else{
