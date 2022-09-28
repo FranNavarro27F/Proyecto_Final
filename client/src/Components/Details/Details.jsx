@@ -21,6 +21,7 @@ import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
+import { IoMdCloseCircle } from "react-icons/io";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -29,26 +30,21 @@ export default function Details() {
   let navigate = useNavigate();
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
-
-  useEffect(() => {
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  useLayoutEffect(() => {
     dispatch(getUserId(id));
-  }, [dispatch, id]);
+    dispatch(getUserEmail(user?.email));
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+    dispatch(subscriptionMp());
+  }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
-  const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const [userProfile, setUserProfile] = useState(false);
   const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
-  useEffect(() => {
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    dispatch(subscriptionMp());
-    dispatch(pagosMp());
-  }, [dispatch, id, userByEmail?.id]);
+
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
   console.log(linkPago, "LINKKKKKKKK");
@@ -84,27 +80,32 @@ export default function Details() {
       </div>
     );
   }
-  const email = "test_user_20874669@testuser.com"; //TEST
+  // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    // dispatch(
-    //   subscriptionMp({
-    //     email: email,
-    //     id: id,
-    //   })
-    // );
     setMostrarSub(!mostrarSub);
   };
 
   const detail = () => {
-    return loader ? (
+    return loader &&
+      userDetail?.name === undefined &&
+      userByEmail?.name === undefined ? (
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
-        <div className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}>
-          <button onClick={() => setMostrarSub(!mostrarSub)}>x</button>
+        <div
+          className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
+          onClick={() => setMostrarSub(false)}
+        >
+          <button onClick={() => setMostrarSub(!mostrarSub)} className={s.Icon}>
+            <span htmlFor="">
+              {" "}
+              <IoMdCloseCircle />{" "}
+            </span>
+          </button>
           <div className={s.containerIframe}>
             <Iframe
+              // style={}
               loading="CARGANDOOOOOOOOOOOOOOO..."
               className={s.iframe}
               url={linkPago}
