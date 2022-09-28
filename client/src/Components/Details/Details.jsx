@@ -43,7 +43,7 @@ export default function Details() {
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
-    if (userByEmail !== undefined) {
+    if (userByEmail.name !== undefined) {
       id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     } else {
       loginWithRedirect();
