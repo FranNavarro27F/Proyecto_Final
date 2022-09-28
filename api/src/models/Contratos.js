@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
 
       date: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        // allowNull: false,
         validate: {
           isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
         },
@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
 
       expiration_date: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        // allowNull: false,
         validate: {
           isDate: true, // VERIFICAR COMO HACER PARA QUE LA FECHA SEA VALIDA
         },
@@ -69,6 +69,7 @@ module.exports = (sequelize) => {
 
       habilitado: {
         type: DataTypes.BOOLEAN,
+        defaultValue: true,
         // allowNull: false,
       },
       //
