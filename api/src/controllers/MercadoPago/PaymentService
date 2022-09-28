@@ -47,7 +47,7 @@ class PaymentService {
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
-      reason: "SUSCRIPCION PREMIUN",
+      reason: "SUSCRIPCION A PROGRAMAX",
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
