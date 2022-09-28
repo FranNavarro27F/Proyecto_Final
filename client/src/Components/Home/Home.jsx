@@ -14,34 +14,25 @@ import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
-import { useEffect } from "react";
-import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
-
-  // const [userLocal, setUserLocal] = useState({
-  //   family_name: `${user?.family_name}`,
-  //   given_name: `${user?.given_name}`,
-  //   email: `${user?.email}`,
-  //   picture: `${user?.picture}`,
-  // });
-
-  const { userByEmail } = useFetchUsers(user?.email);
   const userLocal = useMemo(() => {
-    return {
+    const userLocal = {
       family_name: `${user?.family_name}`,
       given_name: `${user?.given_name}`,
       email: `${user?.email}`,
       picture: `${user?.picture}`,
     };
+
+    return userLocal;
   }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
-  console.log(userLocal);
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     dispatch(getUserEmail(userLocal));
-  }, [dispatch, userLocal, userLocal.email]);
+  }, [dispatch, userLocal]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -64,7 +55,7 @@ export default function Home() {
   const handleClick = () => {
     setOpen(false);
   };
-  return isLoading && userLocal?.email === undefined ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className={s.body}>
@@ -73,7 +64,7 @@ export default function Home() {
       </div>
 
       <NavMenuHome
-        // userByEmailHome={userLocal}
+        userByEmailHome={userLocal}
         setOpen={setOpen}
         open={open}
         logout={logout}
