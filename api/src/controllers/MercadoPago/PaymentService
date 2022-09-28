@@ -27,8 +27,8 @@ class PaymentService {
         },
       ],
       back_urls: {
-        failure: "//https://programax.vercel.app/work",
-        pending: "/https://programax.vercel.app/work",
+        failure: "/failure",
+        pending: "/pending",
         success: "/https://programax.vercel.app/work",
       },
     };
@@ -49,17 +49,8 @@ class PaymentService {
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
-      reason: "SUSCRIPCION A PROGRAMAX",
-      items: [
-        {
-          title: "SUSCRIPCION A PROGRAMAX",
-          description: "SDUSCRIBITE AL SERVICIO PREMIUN DE PROGRAMAX",
-          picture_url:
-            "https://cdn.discordapp.com/attachments/826954908258402374/1021209817035055247/icon-1200x1200.png",
-          category_id: "category123",
-          quantity: 1,
-        },
-      ],
+      payer_email: "test_user_20874669@testuser.com",
+      reason: "SUSCRIPCION  MENSUAL A PROGRAMAX",
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
@@ -67,12 +58,7 @@ class PaymentService {
         currency_id: "ARS",
       },
 
-      back_urls: {
-        failure: "//https://programax.vercel.app/work",
-        pending: "/https://programax.vercel.app/work",
-        success: "/https://programax.vercel.app/work",
-      },
-      payer_email: "test_user_20874669@testuser.com",
+      back_url: "https://programax.vercel.app/work",
     };
     const subscription = await axios.post(url, body, {
       headers: {

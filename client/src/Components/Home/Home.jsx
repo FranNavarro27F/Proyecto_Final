@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 import Landing from "../Landing/Landing";
@@ -14,22 +14,34 @@ import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
+import { useEffect } from "react";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
     useAuth0();
 
-  const [userLocal, setUserLocal] = useState({
-    family_name: `${user?.family_name}`,
-    given_name: `${user?.given_name}`,
-    email: `${user?.email}`,
-    picture: `${user?.picture}`,
-  });
+  // const [userLocal, setUserLocal] = useState({
+  //   family_name: `${user?.family_name}`,
+  //   given_name: `${user?.given_name}`,
+  //   email: `${user?.email}`,
+  //   picture: `${user?.picture}`,
+  // });
 
-  useLayoutEffect(() => {
+  const { userByEmail } = useFetchUsers(user?.email);
+  const userLocal = useMemo(() => {
+    return {
+      family_name: `${user?.family_name}`,
+      given_name: `${user?.given_name}`,
+      email: `${user?.email}`,
+      picture: `${user?.picture}`,
+    };
+  }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
+  console.log(userLocal);
+  useEffect(() => {
     dispatch(getUserEmail(userLocal));
-  }, [dispatch, userLocal]);
+  }, [dispatch, userLocal, userLocal.email]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -52,7 +64,7 @@ export default function Home() {
   const handleClick = () => {
     setOpen(false);
   };
-  return isLoading ? (
+  return isLoading && userLocal?.email === undefined ? (
     <Loader />
   ) : (
     <div className={s.body}>
@@ -61,7 +73,7 @@ export default function Home() {
       </div>
 
       <NavMenuHome
-        userByEmailHome={userLocal}
+        // userByEmailHome={userLocal}
         setOpen={setOpen}
         open={open}
         logout={logout}
