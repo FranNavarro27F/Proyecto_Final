@@ -13,13 +13,13 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/payment", function (req, res, next) {
-  const { id, email } = req.body;
-  PaymentInstance.getPaymentLink(req, res, id, email);
+  // const { id, email } = req.body;
+  PaymentInstance.getPaymentLink(req, res);
 });
 
 router.get("/subscription", function (req, res, next) {
-  const { email, id } = req.body;
-  PaymentInstance.getSubscriptionLink(req, res, email, id);
+  // const { email, id } = req.body;
+  PaymentInstance.getSubscriptionLink(req, res);
 });
 
 module.exports = router;

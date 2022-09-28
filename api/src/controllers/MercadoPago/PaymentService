@@ -3,11 +3,11 @@ require("dotenv").config();
 const { Contratos } = require("../../db");
 
 class PaymentService {
-  async createPayment(id, email) {
-    const price = async (id) => {
-      const res = await Contratos.findByPk(id);
-      return res.dataValues.price;
-    };
+  async createPayment() {
+    // const price = async (id) => {
+    //   const res = await Contratos.findByPk(id);
+    //   return res.dataValues.price;
+    // };
     const url = "https://api.mercadopago.com/checkout/preferences";
     const body = {
       payer_email: "test_user_20874669@testuser.com",
@@ -18,7 +18,9 @@ class PaymentService {
           picture_url: "http://www.myapp.com/myimage.jpg",
           category_id: "category123",
           quantity: 1,
-          unit_price: await price(id),
+          unit_price: 3000,
+          // await price(id),
+
           installments: 12,
         },
       ],
@@ -35,13 +37,13 @@ class PaymentService {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       },
     });
-    console.log(email, id);
+
     // console.log(payment.data);
     return payment.data;
   }
 
-  async createSubscription(email, id) {
-    console.log(email, id, " aca email");
+  async createSubscription() {
+    // console.log(email, " aca email");
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
@@ -53,7 +55,7 @@ class PaymentService {
         currency_id: "ARS",
       },
       back_url: "https://programax.vercel.app/work",
-      payer_email: email,
+      payer_email: "test_user_20874669@testuser.com",
     };
     const subscription = await axios.post(url, body, {
       headers: {
