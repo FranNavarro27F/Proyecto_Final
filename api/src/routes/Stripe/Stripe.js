@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const Stripe = require("stripe");
-// const cors = require("cors");
+const cors = require("cors");
 const { Contratos } = require("../../db");
 const router = Router();
 
