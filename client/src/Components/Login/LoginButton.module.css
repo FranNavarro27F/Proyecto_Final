@@ -1,7 +1,7 @@
 .possitionLg {
   top: 55%;
   position: absolute;
-  margin-left: 37%;
+  margin-left: 36%;
 }
 
 .buttonLg {
@@ -27,7 +27,7 @@
 }
 .buttonLg:hover {
   transition-delay: 0.2s;
-  transition: 0.3s;
-  transform: scale(1.03);
+  transition: 0.8s;
+  transform: scale(1.1);
   cursor: pointer;
 }
