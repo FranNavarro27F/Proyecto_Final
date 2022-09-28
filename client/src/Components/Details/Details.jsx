@@ -20,6 +20,7 @@ import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
+// import Propuesta from "../Propuesta/Propuesta";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -46,12 +47,12 @@ export default function Details() {
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   useLayoutEffect(() => {
-    if (userByEmail.name !== undefined) {
-      id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    } else {
-      loginWithRedirect();
-    }
-  }, [dispatch, id, loginWithRedirect, userByEmail, userByEmail?.id]);
+    // if (userByEmail?.name !== undefined) {
+    // } else {
+    //   loginWithRedirect();
+    // }
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [userByEmail]);
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -636,6 +637,7 @@ export default function Details() {
                     >
                       Volver
                     </button>
+                    {/* <Propuesta/> */}
                   </div>
                 </div>
               </div>
