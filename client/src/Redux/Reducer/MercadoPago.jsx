@@ -13,7 +13,6 @@ export default function services(state = initialState, action) {
       };
 
     case "MP_SUBSCRIPTION":
-      console.log(action.payload);
       return {
         ...state,
         Payment: action.payload,
