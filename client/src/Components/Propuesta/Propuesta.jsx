@@ -16,15 +16,4 @@ useEffect(() => {})
 const handleChangeInput = (e) => {
     setInput({})}
 
-
-  return (
-    <div onChange={(e) => handleChangeInput(e)}>
-        <form>
-            <input type="text">Título:</input>
-            <input type="text-area">Descripción:</input>
-            <input type="number">Presupuesto: $</input>
-            <button>Enviar propuesta</button>
-        </form>
-    </div>
-  )
 }

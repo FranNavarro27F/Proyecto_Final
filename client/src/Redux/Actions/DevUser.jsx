@@ -59,9 +59,12 @@ export function getDevUsers(payload) {
   };
 }
 export function getUserId(id) {
+  console.log(id , "este es solo el id")
   return async function (dispatch) {
+    
     try {
-      const userId = (await axios.get(`/usuarios/${id}`)).data;
+      const userId = (await axios.get(`/usuarios/${id}`));
+      console.log(userId,"USER ID E ID")
       return dispatch({
         type: "GET_USER_ID",
         payload: userId,

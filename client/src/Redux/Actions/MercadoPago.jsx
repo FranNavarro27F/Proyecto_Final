@@ -3,14 +3,14 @@ import axios from "axios";
 // const { nombreContratista, mailContrado } = req.body;
 export function pagosMp(id, email) {
   return async function (dispatch) {
-    console.log();
+    //console.log();
     try {
       return dispatch({
         type: "MP_PAYMENT",
         payload: (await axios.get(`/pago/payment`)).data,
       });
     } catch (e) {
-      console.error(e, "error catch action subscription MercadoPago");
+     // console.error(e, "error catch action subscription MercadoPago");
     }
   };
 }
