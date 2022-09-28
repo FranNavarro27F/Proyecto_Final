@@ -4,6 +4,7 @@ const {
   Lenguajes,
   Servicios,
   Paises,
+  Contratos
 } = require("../../db.js");
 
 const { Op } = require("sequelize");
@@ -178,12 +179,16 @@ const getUserById = async (id) => {
           attributes: ["name"],
           through: { attributes: [] },
         },
+        {
+          model: Contratos,
+        }
       ],
     });
 
-    let userM = User.dataValues;
-    // console.log(userM);
-    let nombrePais = (await Paises.findByPk(userM.paiseId)).dataValues.name;
+    let userM = User?.dataValues;
+
+    let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
+  
     userM.paiseId = nombrePais;
     userM.name = toUperCase(userM.name);
     userM.lastName = toUperCase(userM.lastName);
@@ -197,7 +202,6 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-    // console.log(userM);
 
     return userM;
   } catch (e) {
