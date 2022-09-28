@@ -137,8 +137,7 @@ const createContract = async (data) => {
     return `Contrato suscrito correctamente.
     Entre: ${employer} (contratante) y ${developer} (contratista)
     Desde: ${date} - Hasta: ${expiration_date}
-    Por la cantidad de USD: ${price}
-    Estado: ${newContract.status}`;
+    Por la cantidad de USD: ${price}`;
     //
   } catch (e) {
     console.error(`${ERROR}/createContract --> ${e}`);
@@ -175,8 +174,7 @@ const modifyContract = async (id, data) => {
 
     return `Contrato modificado exitosamente.
     Desde: ${date} - Hasta: ${expiration_date}
-    Por la cantidad de USD: ${price}
-    Estado: ${contract.status}`;
+    Por la cantidad de USD: ${price}`;
     //
   } catch (e) {
     console.error(`${ERROR}/modifyContract --> ${e}`);
