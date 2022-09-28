@@ -1,3 +1,8 @@
+const cors = require("cors");
+const server = require("../../app");
+const cors = require("cors");
+server.use(cors());
+
 class PaymentController {
   constructor(subscriptionService) {
     this.subscriptionService = subscriptionService;
@@ -11,7 +16,7 @@ class PaymentController {
       console.log(error);
 
       return res
-        .status(500)
+        .status(400)
         .json({ error: true, msg: "Failed to create payment" });
     }
   }
