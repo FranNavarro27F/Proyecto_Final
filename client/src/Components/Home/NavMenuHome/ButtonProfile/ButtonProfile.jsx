@@ -17,9 +17,11 @@ export default function ButtonProfile({
   const navigate = useNavigate();
   const refSelect = useRef();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  });
 
-  const { userByEmail } = useFetchUsers(user?.email);
-  let boenasss = "apareci";
+  const userByEmail = useSelector((state) => state.devUser.userByEmail);
 
   return (
     <div className={s.container}>
@@ -40,12 +42,7 @@ export default function ButtonProfile({
         <div ref={refSelect} className={s.bodySelect}>
           <div id="test" className={s.select}>
             <button
-              onClick={() =>
-                navigate(
-                  `/work/details/${userByEmail?.id} `,
-                  (boenasss = { boenasss })
-                )
-              }
+              onClick={() => navigate(`/work/details/${userByEmail?.id} `)}
               className={s.buttonSelect}
               value=""
             >

@@ -7,7 +7,7 @@ export function pagosMp() {
     try {
       return dispatch({
         type: "MP_PAYMENT",
-        payload: (await axios.get(`/pago/payment`)).data,
+        payload: (await axios.post(`/pago/payment`)).data,
       });
     } catch (e) {
       console.error(e, "error catch action subscription MercadoPago");
@@ -21,7 +21,7 @@ export function subscriptionMp() {
     try {
       return dispatch({
         type: "MP_SUBSCRIPTION",
-        payload: (await axios.get(`/pago/subscription`)).data,
+        payload: (await axios.post(`/pago/subscription`)).data,
       });
     } catch (e) {
       console.error(e, "error catch action payment MercadoPago");
