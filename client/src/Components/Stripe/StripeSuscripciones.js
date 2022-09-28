@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const ProductDisplay = () => (
   <section>
-    <div className="product">
+    <div className="Plan Basico">
       <Logo />
       <div className="description">
         {/* crear las propias suscripciones */}
-        <h3>Starter plan</h3>
-        <h5>$20.00 / month</h5>
+        <h3>Plan Basico</h3>
+        <h5>$2.00 / month</h5>
       </div>
     </div>
     {/* agrego boton de pago */}
