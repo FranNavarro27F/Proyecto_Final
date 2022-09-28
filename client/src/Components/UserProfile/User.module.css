@@ -1,0 +1,21 @@
+.body {
+  /* border-radius: 100px; */
+  background-color: rgba(0, 0, 0, 0.445);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  border-radius: 10px;
+  padding: 2vh;
+  background-color: rgba(79, 80, 80, 0.623);
+  width: 100vh;
+  height: 65vh;
+  backdrop-filter: blur(1px);
+}
+.iframe {
+  /* background-color: red; */
+  width: 100vh;
+  height: 65vh;
+}

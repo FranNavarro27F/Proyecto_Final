@@ -134,7 +134,6 @@ const createContract = async (data) => {
     await el_que_contrata.addContratos(newContract.dataValues.id);
     await el_programador_contratado.addContratos(newContract.dataValues.id);
 
-
     return `Contrato suscrito correctamente.
     Entre: ${employer} (contratante) y ${developer} (contratista)
     Desde: ${date} - Hasta: ${expiration_date}
