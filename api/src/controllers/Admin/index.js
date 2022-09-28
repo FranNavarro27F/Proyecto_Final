@@ -14,12 +14,22 @@ const {
 
   //Controladores para agregado y borrado lógico de Modelos.
 
-  const postLenguajes = async (data) =>{
+  const postLenguajes = async (name) =>{
     try {
-        let {name} = data
+
+        const [row, created] = await Lenguajes.findOrCreate({
+            where: {name : name},
+        })
         
-    } catch (error) {
-        
+        if (!created) {
+                throw new Error("El Lenguaje ya existe");
+        } else {
+                return "Lenguaje agregado correctamente";
+        }
+
+
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/postLenguajes --→ ${e}`);
     }
   }
 
@@ -28,7 +38,7 @@ const {
     try {
         let {name} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
   }
@@ -38,18 +48,28 @@ const {
     try {
         let {name} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
   }
 
 
-  const postServicios = async (data) =>{
+  const postServicios = async (name) =>{
     try {
-        let {name} = data
+
+        const [row, created] = await Servicios.findOrCreate({
+            where: {name : name},
+        })
         
-    } catch (error) {
-        
+        if (!created) {
+                throw new Error("El Servicio ya existe");
+        } else {
+                return "Servicio agregado correctamente";
+        }
+
+
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/postServicios --→ ${e}`);
     }
   }
 
@@ -57,7 +77,7 @@ const borrLogicLenguaje = async (data) =>{
     try {
         let {id} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
 }
@@ -66,7 +86,7 @@ const borrLogicPaises = async (data) =>{
     try {
         let {id} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
 }
@@ -75,7 +95,7 @@ const borrLogicTecnologias = async (data) =>{
     try {
         let {id} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
 }
@@ -84,7 +104,7 @@ const borrLogicServicios = async (data) =>{
     try {
         let {id} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
 }
@@ -93,10 +113,14 @@ const borrLogicUsuario = async (data) =>{
     try {
         let {id} = data
         
-    } catch (error) {
+    } catch (e) {
         
     }
 }
 
 
-module.exports = { postLenguajes, postPaises, postServicios, postTecnologias };
+module.exports = { 
+    postLenguajes, 
+    postPaises, 
+    postServicios, 
+    postTecnologias };
