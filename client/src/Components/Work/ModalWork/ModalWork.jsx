@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./ModalWork.module.css";
 
 export default function ModalWork() {
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
 
   return (
     <div>
