@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
       },
 
       status: {
-        // type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado"),
+        // type: DataTypes.ENUM("Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"),
         type: DataTypes.STRING(20),
         validate: {
           isAlpha: true,

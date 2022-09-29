@@ -30,7 +30,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  useAuth0();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
@@ -45,12 +45,32 @@ export default function Details() {
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
+  console.log(userDetail, "ACA DETAILS USER")
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
   const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
 
+
+  //-------------------- estos son los estados de propuesta
+  const [propuesta, setPropuesta] = useState({
+    employer: "",
+    developer: "",
+    description: "",
+    date: "",
+    expiration_date: "",
+    status: "",
+    price: "",
+    aceptado: false
+    })
+
+    //------------------------------------------------
+  useEffect(() => {
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+    dispatch(subscriptionMp());
+    dispatch(pagosMp());
+  }, [dispatch, id, userByEmail?.id]);
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
 
@@ -60,12 +80,12 @@ export default function Details() {
     if (isAuthenticated) {
       if (nombreContratista && mailContrado) {
         setDisabled(true);
-        dispatch(
-          emailer({
-            nombreContratista: nombreContratista,
-            mailContrado: mailContrado,
-          })
-        );
+        // dispatch(
+        //   // emailer({
+        //   //   nombreContratista: nombreContratista,
+        //   //   mailContrado: mailContrado,
+        //   // })
+        // );
       }
       SetContratoDetail(!contratoDetail);
     } else {
@@ -90,7 +110,7 @@ export default function Details() {
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
   };
-
+  
   const detail = () => {
     return loader &&
       isLoading &&
@@ -141,7 +161,7 @@ export default function Details() {
                 <SideMenu />
                 <div className={s.backGroundDiv}>
                   <div className={s.girlCelu}>
-                    {/* el svg de aca abajo es la chica */}
+{/* el svg de aca abajo es la chica */}
                     <svg
                       className={s.svg}
                       viewBox="0 0 520 1039"
@@ -679,7 +699,24 @@ export default function Details() {
     );
   };
 
-  const contrato = () => {
+  
+  const contrato = (ropuesta, setPropuesta) => {
+   const handleSubmitPropueta =(e)=>{
+
+   }
+   const handleChangePropuesta =(e)=>{
+    setPropuesta({
+      employer: "",
+      developer: "",
+      description: "",
+      date: "",
+      expiration_date: "",
+      status: "",
+      price: "",
+      aceptado: false
+    })
+   }
+
     return (
       <div className={s.bodyPropuesta}>
         <div className={s.conteiner}>
@@ -688,7 +725,14 @@ export default function Details() {
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta!
           </h2>
-          <textarea type="textarea" rows="10" cols="70" />
+          <form onSubmit={(e)=>handleSubmitPropueta(e)}>
+            {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
+            <input type={"date"} name="date" value={""} onChange={(e)=> handleChangePropuesta(e)}>Fecha estimada de inicio:</input>
+            {/* <input type={"date"} name="expiration_date" value={propuesta.value.expiration_date} onChange={(e)=> handleChangePropuesta(e)}>Fecha estimada de fin:</input>
+            <input type="text-area" name="description" value={propuesta.value.description} onChange={(e)=> handleChangePropuesta(e)}>Descripción:</input>
+            <input type="number" name="price" value={propuesta.value.price} onChange={(e)=> handleChangePropuesta(e)}>Presupuesto total en pesos: $</input> */}
+            <button>Enviar propuesta</button>
+        </form>
           <div>
             <button
               className={s.buttonVolver}
