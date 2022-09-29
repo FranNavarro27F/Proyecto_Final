@@ -126,11 +126,18 @@ const createContract = async (data) => {
       habilitado: true,
     });
 
+    // traigo a las 2 partes del contrato para setear relacion con contrato.
+    let el_que_contrata= await Usuarios.findByPk(employer);
+    let el_programador_contratado= await Usuarios.findByPk(developer);
+
+    //seteo relacion en tabla intermedia mediante los ID de usuarios a contratos-usuarios.
+    await el_que_contrata.addContratos(newContract.dataValues.id);
+    await el_programador_contratado.addContratos(newContract.dataValues.id);
+
     return `Contrato suscrito correctamente.
     Entre: ${employer} (contratante) y ${developer} (contratista)
     Desde: ${date} - Hasta: ${expiration_date}
-    Por la cantidad de USD: ${price}
-    Estado: ${newContract.status}`;
+    Por la cantidad de USD: ${price}`;
     //
   } catch (e) {
     console.error(`${ERROR}/createContract --> ${e}`);
@@ -167,8 +174,7 @@ const modifyContract = async (id, data) => {
 
     return `Contrato modificado exitosamente.
     Desde: ${date} - Hasta: ${expiration_date}
-    Por la cantidad de USD: ${price}
-    Estado: ${contract.status}`;
+    Por la cantidad de USD: ${price}`;
     //
   } catch (e) {
     console.error(`${ERROR}/modifyContract --> ${e}`);
