@@ -110,7 +110,7 @@ export default function devUser(state = initialState, action) {
           cur.lastName.toLowerCase().includes(name.toLowerCase())
         );
 
-        let dailyBudgetFilter = filtro.filter((cur) => cur.dailyBudget === name);
+        let dailyBudgetFilter = filtro.filter((cur) => cur.dailyBudget == name);
 
         let paisesFilter = filtro.filter((cur) =>
           cur.paiseId.toLowerCase().includes(name.toLowerCase())
@@ -192,7 +192,7 @@ export default function devUser(state = initialState, action) {
       );
 
       let dailyBudgetFilter = Usuarios.filter(
-        (cur) => cur.dailyBudget === action.payload
+        (cur) => cur.dailyBudget == action.payload
       );
 
       let paisesFilter = Usuarios.filter((cur) =>
