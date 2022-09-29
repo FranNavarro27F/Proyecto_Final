@@ -64,7 +64,6 @@ module.exports = (sequelize) => {
 
       aceptado: {
         type: DataTypes.STRING,
-        allowNull: false,
         defaultValue: "Pendiente"
       },
 
