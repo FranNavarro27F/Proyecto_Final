@@ -68,22 +68,6 @@ export default function Details() {
     expiration_date: "",
     status: "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
     price: "",
-<<<<<<< HEAD
-    aceptado: false
-    })
-   
-
-const handleChangePropuesta =(e)=>{
-  setPropuesta({
-    ...propuesta,
-    [e.target.name]: e.target.value
-  })
-}
-const handlerSendPropuesta= (e)=>{
-  dispatch(setearContrato(propuesta))
-  
-  // dispatch(
-=======
     aceptado: false,
   });
 
@@ -98,7 +82,6 @@ const handlerSendPropuesta= (e)=>{
   const handlerSendPropuesta = (e) => {
     dispatch(setearContrato(propuesta));
     // dispatch(
->>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
     //   // emailer({
     //   //   nombreContratista: nombreContratista,
     //   //   mailContrado: mailContrado,
@@ -753,31 +736,6 @@ const handlerSendPropuesta= (e)=>{
           </div>
         </div>
         <div>
-<<<<<<< HEAD
-          <div className={s.body}>
-          {
-          userDetail?.contratos && userDetail?.contratos.map(cur =>{
-            return(
-              <div>
-             <Contracts 
-             date={cur.date}
-             price={cur.price}
-             description={cur.description}
-             status={cur.status}
-             aceptado={cur.aceptado}
-             expiration_date={cur.expiration_date}
-             idContrato ={cur.id}
-             handleVerDetalle = {handleVerDetalle}
-             />
-             </div>
-            
-            )
-          })
-          
-            }
-             </div>
-             
-=======
           {userDetail?.contratos &&
             userDetail?.contratos.map((cur) => {
               return (
@@ -797,7 +755,6 @@ const handlerSendPropuesta= (e)=>{
                 </div>
               );
             })}
->>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
         </div>
       </div>
     
@@ -817,11 +774,7 @@ const handlerSendPropuesta= (e)=>{
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta!
           </h2>
-<<<<<<< HEAD
-          <form >
-=======
           <form onSubmit={(e) => handleSubmitPropuseta(e)}>
->>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
             {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
             <label>Fecha de inicio: </label>
             <input type={"date"} name="date" onChange={handleChangePropuesta} />
