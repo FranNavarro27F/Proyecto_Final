@@ -283,6 +283,15 @@ export default function DevUsersCreate() {
       console.log(`hay errores`, errors);
     }
   };
+  const [disabledButton, setDisabledButton] = useState(true);
+
+  useEffect(() => {
+    if (input.name) {
+      setDisabledButton(true);
+    } else {
+      setDisabledButton(false);
+    }
+  }, [input.name, setDisabledButton]);
 
   // const handleDefaultCountrie =
   //   cache?.paiseIdLabel && cache?.paiseId
@@ -874,6 +883,7 @@ export default function DevUsersCreate() {
               className={s.buttonCreate}
               // disabled={disabledButton}
               onClick={(e) => handleCreate(e)}
+              disabled={disabledButton}
             >
               <span className={s.button_top}> EDITAR POSTULACION</span>
             </button>
