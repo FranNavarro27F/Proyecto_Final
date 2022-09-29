@@ -260,6 +260,7 @@
   line-height: 23px;
   cursor: pointer;
   margin-right: 0.9rem;
+  text-decoration: none;
 }
 
 .bodyButtons {

@@ -71,8 +71,9 @@ class PaymentService {
         currency_id: "ARS",
       },
 
-      back_url: "https://mercadopago.com",
-      auto_return: "approved",
+      back_url: "https://programax.vercel.app/purchase-completed",
+
+      auto_return: "all",
     };
     const subscription = await axios.post(url, body, {
       headers: {
@@ -96,5 +97,5 @@ class PaymentService {
 
     return consult.data;
   }
-} //
+}
 module.exports = PaymentService;

@@ -21,7 +21,6 @@ import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 import {
   consultSub,
-  getPurchaseInfo,
   pagosMp,
   subscriptionMp,
 } from "../../Redux/Actions/MercadoPago";
@@ -38,7 +37,6 @@ export default function Details() {
   let [disabled, setDisabled] = useState(false);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   useEffect(() => {
-    dispatch(getPurchaseInfo("2c9380848386abaa01838769bd6000ef"));
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
@@ -49,7 +47,7 @@ export default function Details() {
   console.log(userDetail, "ACA DETAILS USER")
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
-  const [mostrarSub, setMostrarSub] = useState(false);
+  // const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
 
@@ -137,7 +135,7 @@ const handlerSendPropuesta= (e)=>{
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    setMostrarSub(!mostrarSub);
+    // setMostrarSub(!mostrarSub);
   };
   
   const detail = () => {
@@ -148,16 +146,16 @@ const handlerSendPropuesta= (e)=>{
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
-        <div
-          className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
+        {/* <div
+          className={s.bodyIframeNone}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
             setMostrarSub(false);
           }}
         >
-          <button
+          <a
+            href={linkPago}
             onClick={() => {
-              dispatch(consultSub(Subscription?.id));
               setMostrarSub(!mostrarSub);
             }}
             className={s.Icon}
@@ -165,7 +163,8 @@ const handlerSendPropuesta= (e)=>{
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </button>
+          </a>
+
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
               <div></div>
@@ -182,7 +181,7 @@ const handlerSendPropuesta= (e)=>{
               position="relative"
             />
           </div>
-        </div>
+        </div> */}
         <div className={s.body}>
           <div className={s.sideM}>
             <div className={s.modal}>
@@ -691,12 +690,13 @@ const handlerSendPropuesta= (e)=>{
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
-                          <button
+                          <a
+                            href={linkPago}
                             className={s.buttonSub}
-                            onClick={handlePremiun}
+                            // onClick={handlePremiun}
                           >
                             SUSCRIPCION
-                          </button>
+                          </a>
                         </div>
                       ) : (
                         <button

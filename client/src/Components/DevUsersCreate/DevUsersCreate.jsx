@@ -915,9 +915,9 @@ export default function DevUsersCreate() {
                 // onClick={handleCreate}
               >
                 <span>GUARDAR</span>
-                <button className={s.buttonCreate} onClick={handleReset}>
-                  CANCELAR
-                </button>
+              </button>
+              <button className={s.buttonCreate} onClick={handleReset}>
+                CANCELAR
               </button>
             </div>
           )}
