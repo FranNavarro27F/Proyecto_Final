@@ -32,7 +32,8 @@ import {
 } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
-import { setearContrato } from "../../Redux/Actions/Contracts";
+import { getContratoId, setearContrato } from "../../Redux/Actions/Contracts";
+import Contracts from "../Contracts/Contracts";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -71,9 +72,6 @@ export default function Details() {
     aceptado: false
     })
    
- const handleSubmitPropuseta =(e)=>{
-
- }
 
 const handleChangePropuesta =(e)=>{
   setPropuesta({
@@ -83,6 +81,7 @@ const handleChangePropuesta =(e)=>{
 }
 const handlerSendPropuesta= (e)=>{
   dispatch(setearContrato(propuesta))
+  
   // dispatch(
     //   // emailer({
       //   //   nombreContratista: nombreContratista,
@@ -109,8 +108,8 @@ const handlerSendPropuesta= (e)=>{
   const paymentId = searchParams.get("details");
   const payment = searchParams;
 
-  console.log(paymentId, "PAYMENT");
-  console.log(payment, "PAYMENT");
+  // console.log(paymentId, "PAYMENT");
+  // console.log(payment, "PAYMENT");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -132,6 +131,16 @@ const handlerSendPropuesta= (e)=>{
       loginWithRedirect();
     }
   };
+
+//   const [idContrato, setIdContrato ] = useState({
+//    idC: userDetail.contrato
+// })
+
+  const handleVerDetalle = (idContrato)=>{
+    dispatch(getContratoId(idContrato))
+    navigate(`/contrato/${idContrato}`)
+    //console.log(idContrato,"+++++")
+  }
 
   const handleBack = () => {
     dispatch(detailReset());
@@ -738,30 +747,35 @@ const handlerSendPropuesta= (e)=>{
           </div>
         </div>
         <div>
+          <div className={s.body}>
           {
           userDetail?.contratos && userDetail?.contratos.map(cur =>{
             return(
-              <div className={s.cardContrato}>
-              { cur.description}
-              <br/>
-             {cur.date} 
-             <br/>
-              {cur.expiration_date}
-              <br/>
-                {cur.status}
-                <br/> 
-              {cur.price}
-              <br/>
-              {cur.aceptado}
-              <br/>
-              </div>
+              <div>
+             <Contracts 
+             date={cur.date}
+             price={cur.price}
+             description={cur.description}
+             status={cur.status}
+             aceptado={cur.aceptado}
+             expiration_date={cur.expiration_date}
+             idContrato ={cur.id}
+             handleVerDetalle = {handleVerDetalle}
+             />
+             </div>
+            
             )
           })
+          
             }
+             </div>
+             
         </div>
       </div>
+    
     );
   };
+  
 
   // propuesta, setPropuesta
   const contrato = ( ) => {
@@ -775,7 +789,7 @@ const handlerSendPropuesta= (e)=>{
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta!
           </h2>
-          <form onSubmit={(e)=>handleSubmitPropuseta(e)}>
+          <form >
             {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
             <label>Fecha de inicio: </label>
             <input type={"date"} name="date" onChange={(e)=> handleChangePropuesta(e)}/>
