@@ -110,7 +110,8 @@ const createContract = async (data) => {
       date,
       expiration_date,
       price,
-      payment_id,
+      status
+      // payment_id,
     } = data;
 
     const newContract = await Contratos.create({
@@ -119,9 +120,10 @@ const createContract = async (data) => {
       description,
       date,
       expiration_date,
-      status: setStatus(date),
+      // status: setStatus(date),
+      status,
       price,
-      payment_id,
+      // payment_id,
       aceptado: false,
       habilitado: true,
     });
