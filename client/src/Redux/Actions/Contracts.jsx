@@ -18,6 +18,5 @@ export function setearContrato(propuestaContrato){
         let propuestaCont= await axios.post(`/contratos`, propuestaContrato)
 
         console.log("****",propuestaCont,"*****")
-
     }
 }
