@@ -54,11 +54,11 @@ export default function Details() {
   let mailContrado = userDetail?.email;
 
 
+  //const idUserLog = userByEmail?.id !== undefined && userByEmail?.id;
   //-------------------- estos son los estados de propuesta
- 
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail?.id,
-    developer: userDetail?.id,
+    developer: id,
     description: "",
     date: "",
     expiration_date: "",
@@ -66,7 +66,7 @@ export default function Details() {
     price: "",
     aceptado: false
     })
-    
+   
  const handleSubmitPropuseta =(e)=>{
 
  }
@@ -79,13 +79,14 @@ const handleChangePropuesta =(e)=>{
 }
 const handlerSendPropuesta= (e)=>{
   dispatch(setearContrato(propuesta))
-       // dispatch(
-        //   // emailer({
-        //   //   nombreContratista: nombreContratista,
-        //   //   mailContrado: mailContrado,
-        //   // })
-        // );
-
+  // dispatch(
+    //   // emailer({
+      //   //   nombreContratista: nombreContratista,
+      //   //   mailContrado: mailContrado,
+      //   // })
+      // );
+      
+      alert("Tu propuesta fue enviada correctamente!")
 
 }
 
@@ -723,12 +724,35 @@ const handlerSendPropuesta= (e)=>{
             </div>
           </div>
         </div>
+        <div>
+          {
+          userDetail?.contratos && userDetail?.contratos.map(cur =>{
+            return(
+              <div className={s.cardContrato}>
+              { cur.description}
+              <br/>
+             {cur.date} 
+             <br/>
+              {cur.expiration_date}
+              <br/>
+                {cur.status}
+                <br/> 
+              {cur.price}
+              <br/>
+              {cur.aceptado}
+              <br/>
+              </div>
+            )
+          })
+            }
+        </div>
       </div>
     );
   };
 
   // propuesta, setPropuesta
   const contrato = ( ) => {
+    console.log(userDetail, "*******")
 
     return (
       <div className={s.bodyPropuesta}>
@@ -749,8 +773,6 @@ const handlerSendPropuesta= (e)=>{
             <label>Presupuesto total en pesos: $</label>
             <input type="number" name="price" onChange={(e)=> handleChangePropuesta(e)}/>
 
-            <button>Enviar propuesta</button>
-
           </form>
           <div>
             <button
@@ -763,6 +785,7 @@ const handlerSendPropuesta= (e)=>{
               className={s.buttonPago}
             //   onClick={() => navigate("/checkout")}
             onClick={(e)=> handlerSendPropuesta(e)}
+
             >
               ENVIAR PROPUESTA
             </button>

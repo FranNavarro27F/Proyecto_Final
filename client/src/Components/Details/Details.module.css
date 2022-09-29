@@ -4,10 +4,10 @@
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
     #251f3e 85.61%
-  );
-  width: 100%;
-  height: 100vh;
-  display: flex;
+    );
+    width: 100%;
+    height: 100vh;
+    display: flex;
   flex-direction: column;
 }
 .sideM {
@@ -379,3 +379,9 @@
     transform: rotate(360deg);
   }
 }
+
+  .cardContrato{
+    background-color: red;
+    width: 50%;
+    height: 50vh;
+  }
