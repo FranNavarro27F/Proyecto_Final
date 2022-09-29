@@ -34,7 +34,7 @@ const getLanguages = async () => {
     let lenguajes = await Lenguajes.findAll();
     return lenguajes;
   } catch (e) {
-    console.error(`${ERROR}/saveLanguage --> ${e}`);
+    console.error(`${ERROR}/getLanguage --> ${e}`);
   }
 };
 
