@@ -30,7 +30,7 @@ export function subscriptionMp() {
 }
 
 export function consultSub(id) {
-  console.log(id, "action");
+  // console.log(id, "action");
   return async function (dispatch) {
     try {
       return dispatch({
