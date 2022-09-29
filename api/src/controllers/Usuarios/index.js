@@ -19,7 +19,7 @@ const capitalize = (nombre) => {
 };
 
 const findUsers = async (props) => {
-  let usuarios = await Usuarios.findAll(num, {
+  let usuarios = await Usuarios.findAll({
     where: props,
     include: [
       {
