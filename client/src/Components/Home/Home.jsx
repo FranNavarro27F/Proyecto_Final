@@ -24,20 +24,16 @@ export default function Home() {
     //  loginWithRedirect,
     logout,
   } = useAuth0();
-  const userLocal = useMemo(() => {
-    const userLocal = {
-      family_name: `${user?.family_name}`,
-      given_name: `${user?.given_name}`,
-      email: `${user?.email}`,
-      picture: `${user?.picture}`,
-    };
+  // const userLocal = useMemo(() => {
+  //   const userLocal = {
+  //     family_name: `${user?.family_name}`,
+  //     given_name: `${user?.given_name}`,
+  //     email: `${user?.email}`,
+  //     picture: `${user?.picture}`,
+  //   };
 
-    return userLocal;
-  }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
-
-  useLayoutEffect(() => {
-    dispatch(getUserEmail(userLocal));
-  }, [dispatch, userLocal]);
+  //   return userLocal;
+  // }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
@@ -70,7 +66,6 @@ export default function Home() {
       </div>
 
       <NavMenuHome
-        userByEmailHome={userLocal}
         setOpen={setOpen}
         open={open}
         logout={logout}
