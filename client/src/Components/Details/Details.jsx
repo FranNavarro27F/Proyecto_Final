@@ -53,7 +53,7 @@ export default function Details() {
   console.log(userDetail, "ACA DETAILS USER")
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
-  // const [mostrarSub, setMostrarSub] = useState(false);
+  const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
 
@@ -148,7 +148,7 @@ const handlerSendPropuesta= (e)=>{
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    // setMostrarSub(!mostrarSub);
+    setMostrarSub(!mostrarSub);
   };
   
   const detail = () => {
@@ -159,15 +159,14 @@ const handlerSendPropuesta= (e)=>{
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
-        {/* <div
-          className={s.bodyIframeNone}
+        <div
+          className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
             setMostrarSub(false);
           }}
         >
-          <a
-            href={linkPago}
+          <button
             onClick={() => {
               setMostrarSub(!mostrarSub);
             }}
@@ -176,7 +175,7 @@ const handlerSendPropuesta= (e)=>{
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </a>
+          </button>
 
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
@@ -194,7 +193,7 @@ const handlerSendPropuesta= (e)=>{
               position="relative"
             />
           </div>
-        </div> */}
+        </div>
         <div className={s.body}>
           <div className={s.sideM}>
             <div className={s.modal}>
@@ -703,13 +702,13 @@ const handlerSendPropuesta= (e)=>{
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
-                          <a
-                            href={linkPago}
+                          <button
+                            // href={linkPago}
                             className={s.buttonSub}
-                            // onClick={handlePremiun}
+                            onClick={handlePremiun}
                           >
                             SUSCRIPCION
-                          </a>
+                          </button>
                         </div>
                       ) : (
                         <button
@@ -722,12 +721,7 @@ const handlerSendPropuesta= (e)=>{
                           Contactame!
                         </button>
                       )}
-                      <button
-                        className={s.buttonBack}
-                        onClick={(e) => {
-                          handleBack(e);
-                        }}
-                      >
+                      <button className={s.buttonBack} onClick={handleBack}>
                         Volver
                       </button>
                     </div>
