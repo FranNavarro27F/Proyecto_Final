@@ -1,5 +1,11 @@
 import React, { useLayoutEffect } from "react";
-import { Link, Route, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -45,12 +51,19 @@ export default function Details() {
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
-  // const [mostrarSub, setMostrarSub] = useState(false);
+  const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
+
+  const [searchParams] = useSearchParams();
+  const paymentId = searchParams.get("details");
+  const payment = searchParams;
+
+  console.log(paymentId, "PAYMENT");
+  console.log(payment, "PAYMENT");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -86,7 +99,7 @@ export default function Details() {
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    // setMostrarSub(!mostrarSub);
+    setMostrarSub(!mostrarSub);
   };
 
   const detail = () => {
@@ -97,15 +110,14 @@ export default function Details() {
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
-        {/* <div
-          className={s.bodyIframeNone}
+        <div
+          className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
             setMostrarSub(false);
           }}
         >
-          <a
-            href={linkPago}
+          <button
             onClick={() => {
               setMostrarSub(!mostrarSub);
             }}
@@ -114,7 +126,7 @@ export default function Details() {
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </a>
+          </button>
 
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
@@ -132,7 +144,7 @@ export default function Details() {
               position="relative"
             />
           </div>
-        </div> */}
+        </div>
         <div className={s.body}>
           <div className={s.sideM}>
             <div className={s.modal}>
@@ -641,13 +653,13 @@ export default function Details() {
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
-                          <a
-                            href={linkPago}
+                          <button
+                            // href={linkPago}
                             className={s.buttonSub}
-                            // onClick={handlePremiun}
+                            onClick={handlePremiun}
                           >
                             SUSCRIPCION
-                          </a>
+                          </button>
                         </div>
                       ) : (
                         <button
@@ -660,12 +672,7 @@ export default function Details() {
                           Contactame!
                         </button>
                       )}
-                      <button
-                        className={s.buttonBack}
-                        onClick={(e) => {
-                          handleBack(e);
-                        }}
-                      >
+                      <button className={s.buttonBack} onClick={handleBack}>
                         Volver
                       </button>
                     </div>
