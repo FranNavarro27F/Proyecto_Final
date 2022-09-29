@@ -15,6 +15,7 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import Contracts from "./Components/Contracts/Contracts";
 import Error404 from "./Components/error404/error404";
 import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/PurchaseCompleted.jsx";
+import DetalleContrato from "./Components/Contracts/DetalleContrato";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
         **<Route path="*" element={<Error404 />}></Route>**
+        <Route path="/contrato/:id" element={<DetalleContrato/>}></Route>
       </Routes>
     </>
   );

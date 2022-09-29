@@ -1,5 +1,6 @@
 const initialState = {
-    contrato: {}
+    contrato: {},
+    detalleContrato: {}
   
   };
   
@@ -10,6 +11,12 @@ const initialState = {
           ...state,
           contrato: action.payload,
         };
+
+        case "GET_ID_CONTRATO":
+          return{
+            ...state,
+            detalleContrato: action.payload
+          };
       
       default:
         return state;
