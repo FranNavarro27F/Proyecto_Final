@@ -10,7 +10,7 @@ export function pagosMp() {
         payload: (await axios.post(`/pago/payment`)).data,
       });
     } catch (e) {
-      console.error(e, "error catch action subscription MercadoPago");
+      console.error(e, "error catch action payment MercadoPago");
     }
   };
 }
@@ -24,7 +24,35 @@ export function subscriptionMp() {
         payload: (await axios.post(`/pago/subscription`)).data,
       });
     } catch (e) {
-      console.error(e, "error catch action payment MercadoPago");
+      console.error(e, "error catch action subscription MercadoPago");
+    }
+  };
+}
+
+export function consultSub(id) {
+  console.log(id, "action");
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "MP_SUBSCRIPTION_CONSULT",
+        payload: (await axios.get(`/pago/consultSub/${id}`)).data,
+      });
+    } catch (e) {
+      console.error(e, "error catch action subscription consult MercadoPago");
+    }
+  };
+}
+
+export function consultPay(id) {
+  // console.log(payload, "action");
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "MP_PAYMENT_CONSULT",
+        payload: (await axios.get(`/pago/consultPay`, id)).data,
+      });
+    } catch (e) {
+      console.error(e, "error catch action payment consult MercadoPago");
     }
   };
 }

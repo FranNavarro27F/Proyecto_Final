@@ -19,7 +19,11 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
-import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
+import {
+  consultSub,
+  pagosMp,
+  subscriptionMp,
+} from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
 
@@ -31,9 +35,9 @@ export default function Details() {
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  useLayoutEffect(() => {
-    dispatch(getUserId(id));
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     dispatch(subscriptionMp());
   }, [dispatch, id, user?.email, userByEmail?.id]);
@@ -72,13 +76,13 @@ export default function Details() {
     navigate("/work");
   };
 
-  if (loader && isLoading) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
+  // if (loader && isLoading) {
+  //   return (
+  //     <div>
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
@@ -87,6 +91,7 @@ export default function Details() {
 
   const detail = () => {
     return loader &&
+      isLoading &&
       userDetail?.name === undefined &&
       userByEmail?.name === undefined ? (
       <Loader />
@@ -94,12 +99,20 @@ export default function Details() {
       <div className={s.bodydelosbodys}>
         <div
           className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
-          onClick={() => setMostrarSub(false)}
+          onClick={() => {
+            dispatch(consultSub(Subscription?.id));
+            setMostrarSub(false);
+          }}
         >
-          <button onClick={() => setMostrarSub(!mostrarSub)} className={s.Icon}>
+          <button
+            onClick={() => {
+              dispatch(consultSub(Subscription?.id));
+              setMostrarSub(!mostrarSub);
+            }}
+            className={s.Icon}
+          >
             <span htmlFor="">
-              {" "}
-              <IoMdCloseCircle />{" "}
+              <IoMdCloseCircle />
             </span>
           </button>
           <div className={s.containerIframe}>
