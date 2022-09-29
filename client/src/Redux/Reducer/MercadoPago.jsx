@@ -5,9 +5,8 @@ const initialState = {
   SubscriptionConsult: [],
 };
 
-export default function mercadoPago(state = initialState, action) {
-  console.log(action.payload);
-  switch (action.type) {
+export default function services(state = initialState, action) {
+    switch (action.type) {
     case "MP_PAYMENT":
       return {
         ...state,
