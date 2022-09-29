@@ -21,6 +21,7 @@ import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
 import {
   consultSub,
+  getPurchaseInfo,
   pagosMp,
   subscriptionMp,
 } from "../../Redux/Actions/MercadoPago";
@@ -36,6 +37,7 @@ export default function Details() {
   let [disabled, setDisabled] = useState(false);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   useEffect(() => {
+    dispatch(getPurchaseInfo("2c9380848386abaa01838769bd6000ef"));
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);

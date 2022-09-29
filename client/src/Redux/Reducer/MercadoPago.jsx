@@ -29,6 +29,11 @@ export default function services(state = initialState, action) {
         ...state,
         SubscriptionConsult: action.payload,
       };
+    case "GET_PURCHASE_INFO":
+      return {
+        ...state,
+        SubscriptionConsult: action.payload,
+      };
 
     default:
       return state;

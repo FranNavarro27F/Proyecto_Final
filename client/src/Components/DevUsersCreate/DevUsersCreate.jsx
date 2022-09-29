@@ -283,15 +283,16 @@ export default function DevUsersCreate() {
       console.log(`hay errores`, errors);
     }
   };
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [edit, setEdit] = useState(false);
 
-  useEffect(() => {
-    if (input.name) {
-      setDisabledButton(true);
-    } else {
-      setDisabledButton(false);
-    }
-  }, [input.name, setDisabledButton]);
+  // useEffect(() => {
+  //   if (input.name) {
+  //     setDisabledButton(true);
+  //   } else {
+  //     setDisabledButton(false);
+  //   }
+  // }, [input.name, setDisabledButton]);
 
   // const handleDefaultCountrie =
   //   cache?.paiseIdLabel && cache?.paiseId
@@ -381,6 +382,7 @@ export default function DevUsersCreate() {
       servicios: [],
     });
     setLoader(false);
+    setEdit(false);
   };
 
   //OPCIONES DE LOS SELECTS:
@@ -434,6 +436,7 @@ export default function DevUsersCreate() {
               value={cache?.name}
               name="name"
               className={s.inputName}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.name && (
@@ -453,6 +456,7 @@ export default function DevUsersCreate() {
               value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.lastName && (
@@ -493,7 +497,7 @@ export default function DevUsersCreate() {
                   alt={cache?.name}
                   className={s.imgForm}
                 />
-                {
+                {edit && (
                   <button
                     className={s.buttonImg}
                     onClick={() => {
@@ -508,7 +512,7 @@ export default function DevUsersCreate() {
                   >
                     <AiOutlineCloseCircle />
                   </button>
-                }
+                )}
               </div>
             )}
             <div className={s.divErrors}>
@@ -528,6 +532,7 @@ export default function DevUsersCreate() {
               value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (
@@ -546,6 +551,7 @@ export default function DevUsersCreate() {
               value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.linkedIn && (
@@ -564,6 +570,7 @@ export default function DevUsersCreate() {
               value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.gitHub && (
@@ -582,6 +589,7 @@ export default function DevUsersCreate() {
               value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
+              disabled={!edit}
             />
             <div className={s.divErrors}>
               {verErrores && errors.webSite && (
@@ -601,6 +609,7 @@ export default function DevUsersCreate() {
               className={s.inputExperience}
               defaultValue={input?.yearsOfExperience}
               value={cache?.yearsOfExperience}
+              disabled={!edit}
               // step=".01"
             />
             <div className={s.divErrors}>
@@ -621,6 +630,7 @@ export default function DevUsersCreate() {
               value={cache?.dailyBudget}
               name="dailyBudget"
               // step=".01"
+              disabled={!edit}
               className={s.inputPrice}
             />
             <div className={s.divErrors}>
@@ -642,6 +652,7 @@ export default function DevUsersCreate() {
               defaultValue={input?.englishLevel}
               value={cache?.englishLevel}
               className={s.inputEnglish}
+              disabled={!edit}
             />
             <label
               className={
@@ -673,7 +684,6 @@ export default function DevUsersCreate() {
               components={animatedComponents}
               set-value={cache?.paiseId}
               className={s.select}
-              isDisabled={false}
               options={optionsCountries}
               isClearable={false}
               isSearchable={true}
@@ -681,6 +691,7 @@ export default function DevUsersCreate() {
               styles={customStyles}
               placeholder="Selecciona un pais"
               // defaultValue={handleDefaultCountrie}
+              isDisabled={!edit}
               onChange={(e) => {
                 setInput({
                   ...input,
@@ -725,7 +736,7 @@ export default function DevUsersCreate() {
               ref={refTecnologies}
               set-value={cache?.tecnologias}
               className={s.select}
-              isDisabled={false}
+              isDisabled={!edit}
               options={optionsTecnologias}
               isClearable={true}
               isSearchable={true}
@@ -776,7 +787,7 @@ export default function DevUsersCreate() {
               components={animatedComponents}
               set-value={cache?.lenguajes}
               className={s.select}
-              isDisabled={false}
+              isDisabled={!edit}
               options={optionsLanguajes}
               isClearable={true}
               isSearchable={true}
@@ -825,7 +836,7 @@ export default function DevUsersCreate() {
               components={animatedComponents}
               set-value={cache?.servicios}
               className={s.select}
-              isDisabled={false}
+              isDisabled={!edit}
               options={optionsServices}
               isClearable={true}
               isSearchable={true}
@@ -867,9 +878,15 @@ export default function DevUsersCreate() {
           </div>
         </div>
         <div className={s.buttons}>
-          <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
-            <span className={s.button_top}>RESETEAR FORMULARIO</span>
-          </button>
+          {edit ? (
+            <button className={s.buttonReset} onClick={(e) => handleReset(e)}>
+              <span className={s.button_top}>RESETEAR FORMULARIO</span>
+            </button>
+          ) : (
+            <button className={s.buttonReset} onClick={() => navigate("/")}>
+              VOLVER
+            </button>
+          )}
           {!userByEmail?.postulado ? (
             <button
               className={s.buttonCreate}
@@ -878,15 +895,31 @@ export default function DevUsersCreate() {
             >
               <span className={s.button_top}> CREAR POSTULACION</span>
             </button>
-          ) : (
+          ) : !edit ? (
             <button
               className={s.buttonCreate}
-              // disabled={disabledButton}
-              onClick={(e) => handleCreate(e)}
               disabled={disabledButton}
+              onClick={(e) => {
+                setEdit(true);
+                // setDisabledButton(true);
+              }}
             >
-              <span className={s.button_top}> EDITAR POSTULACION</span>
+              <span className={s.button_top}>EDITAR POSTULACION</span>
             </button>
+          ) : (
+            <div className={s.dvButtonsCreate}>
+              <button
+                className={s.buttonCreate}
+                disabled={disabledButton}
+                onClick={handleCreate}
+                // onClick={handleCreate}
+              >
+                <span>GUARDAR</span>
+                <button className={s.buttonCreate} onClick={handleReset}>
+                  CANCELAR
+                </button>
+              </button>
+            </div>
           )}
         </div>
       </div>

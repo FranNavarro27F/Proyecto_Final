@@ -488,3 +488,8 @@
     width: 100%;
   }
 }
+
+.dvButtonsCreate {
+  display: flex;
+  flex-direction: column;
+}
