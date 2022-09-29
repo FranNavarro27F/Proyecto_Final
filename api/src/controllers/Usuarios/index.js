@@ -19,6 +19,7 @@ const isAdmin = (isAdmin) => {
 }
 
 const getUsers = async (valor) => {
+  
   try {
     // let usuarios = await Usuarios.findAll({
     //     where: {
