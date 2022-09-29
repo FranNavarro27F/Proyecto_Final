@@ -1,5 +1,3 @@
-// import { useAuth0 } from "@auth0/auth0-react";
-// import React, { useEffect, useRef, useState } from "react";
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../../../Redux/Actions/DevUser";
@@ -7,13 +5,14 @@ import s from "./ButtonProfile.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useUser from "../../../../Hooks/useUser";
+import Loader from "../../../Loader/Loader";
 
 export default function ButtonProfile({
-  // user,
   isAuthenticated,
   logout,
   open,
   setOpen,
+  isLoader,
 }) {
   const navigate = useNavigate();
   const refSelect = useRef();
@@ -25,7 +24,9 @@ export default function ButtonProfile({
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
-  return (
+  return isLoader ? (
+    <Loader />
+  ) : (
     <div className={s.container}>
       {
         <div onClick={() => setOpen(!open)} className={s.buttonImg}>

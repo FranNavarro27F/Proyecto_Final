@@ -18,14 +18,14 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 import Contracts from "./Components/Contracts/Contracts";
 import Error404 from "./Components/error404/error404";
 import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/PurchaseCompleted.jsx";
+import Loader from "./Components/Loader/Loader";
 
 function App() {
   const {
     user,
     isAuthenticated,
     isLoading,
-    //  loginWithRedirect,
-    logout,
+    //  loginWithRedirect
   } = useAuth0();
 
   const userData = {
@@ -34,12 +34,13 @@ function App() {
     email: `${user?.email}`,
     picture: `${user?.picture}`,
   };
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
       <UserContext.Provider value={userData}>
         <Routes>
           <Route path="/checkout" element={<Stripe />}></Route>
-          {/* <PayPalScriptProvider options={{ "client-id": YOUR_CLIENT_ID }} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/work/details/:id" element={<Details />} />
           <Route path="/profile" element={<UserProfile />} />
