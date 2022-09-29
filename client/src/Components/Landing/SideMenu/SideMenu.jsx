@@ -1,8 +1,8 @@
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from "./SideMenu.module.css";
-import { GrHome } from "react-icons/gr";
+// import { GrHome } from "react-icons/gr";
 import { useSelector } from "react-redux";
 
 export default function SideMenu() {

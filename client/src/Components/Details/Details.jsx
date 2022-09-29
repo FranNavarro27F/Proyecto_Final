@@ -37,7 +37,7 @@ import Contracts from "../Contracts/Contracts";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-  useAuth0();
+    useAuth0();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
@@ -51,13 +51,12 @@ export default function Details() {
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
-  console.log(userDetail, "ACA DETAILS USER")
+  console.log(userDetail, "ACA DETAILS USER");
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
-  // const [mostrarSub, setMostrarSub] = useState(false);
+  const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
-
 
   //const idUserLog = userByEmail?.id !== undefined && userByEmail?.id;
   //-------------------- estos son los estados de propuesta
@@ -67,8 +66,9 @@ export default function Details() {
     description: "",
     date: "",
     expiration_date: "",
-    status: "Pendiente",//"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
+    status: "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
     price: "",
+<<<<<<< HEAD
     aceptado: false
     })
    
@@ -83,19 +83,32 @@ const handlerSendPropuesta= (e)=>{
   dispatch(setearContrato(propuesta))
   
   // dispatch(
+=======
+    aceptado: false,
+  });
+
+  const handleSubmitPropuseta = (e) => {};
+
+  const handleChangePropuesta = (e) => {
+    setPropuesta({
+      ...propuesta,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handlerSendPropuesta = (e) => {
+    dispatch(setearContrato(propuesta));
+    // dispatch(
+>>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
     //   // emailer({
-      //   //   nombreContratista: nombreContratista,
-      //   //   mailContrado: mailContrado,
-      //   // })
-      // );
-      
-      alert("Tu propuesta fue enviada correctamente!")
+    //   //   nombreContratista: nombreContratista,
+    //   //   mailContrado: mailContrado,
+    //   // })
+    // );
 
-}
+    alert("Tu propuesta fue enviada correctamente!");
+  };
 
-
-
-    //------------------------------------------------
+  //------------------------------------------------
   useEffect(() => {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     dispatch(subscriptionMp());
@@ -124,7 +137,6 @@ const handlerSendPropuesta= (e)=>{
         //   // })
         // );
       }
-
 
       SetContratoDetail(!contratoDetail);
     } else {
@@ -157,9 +169,9 @@ const handlerSendPropuesta= (e)=>{
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
-    // setMostrarSub(!mostrarSub);
+    setMostrarSub(!mostrarSub);
   };
-  
+
   const detail = () => {
     return loader &&
       isLoading &&
@@ -168,15 +180,14 @@ const handlerSendPropuesta= (e)=>{
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
-        {/* <div
-          className={s.bodyIframeNone}
+        <div
+          className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
             setMostrarSub(false);
           }}
         >
-          <a
-            href={linkPago}
+          <button
             onClick={() => {
               setMostrarSub(!mostrarSub);
             }}
@@ -185,7 +196,7 @@ const handlerSendPropuesta= (e)=>{
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </a>
+          </button>
 
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
@@ -203,7 +214,7 @@ const handlerSendPropuesta= (e)=>{
               position="relative"
             />
           </div>
-        </div> */}
+        </div>
         <div className={s.body}>
           <div className={s.sideM}>
             <div className={s.modal}>
@@ -211,7 +222,7 @@ const handlerSendPropuesta= (e)=>{
                 <SideMenu />
                 <div className={s.backGroundDiv}>
                   <div className={s.girlCelu}>
-{/* el svg de aca abajo es la chica */}
+                    {/* el svg de aca abajo es la chica */}
                     <svg
                       className={s.svg}
                       viewBox="0 0 520 1039"
@@ -712,13 +723,13 @@ const handlerSendPropuesta= (e)=>{
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
-                          <a
-                            href={linkPago}
+                          <button
+                            // href={linkPago}
                             className={s.buttonSub}
-                            // onClick={handlePremiun}
+                            onClick={handlePremiun}
                           >
                             SUSCRIPCION
-                          </a>
+                          </button>
                         </div>
                       ) : (
                         <button
@@ -731,12 +742,7 @@ const handlerSendPropuesta= (e)=>{
                           Contactame!
                         </button>
                       )}
-                      <button
-                        className={s.buttonBack}
-                        onClick={(e) => {
-                          handleBack(e);
-                        }}
-                      >
+                      <button className={s.buttonBack} onClick={handleBack}>
                         Volver
                       </button>
                     </div>
@@ -747,6 +753,7 @@ const handlerSendPropuesta= (e)=>{
           </div>
         </div>
         <div>
+<<<<<<< HEAD
           <div className={s.body}>
           {
           userDetail?.contratos && userDetail?.contratos.map(cur =>{
@@ -770,6 +777,27 @@ const handlerSendPropuesta= (e)=>{
             }
              </div>
              
+=======
+          {userDetail?.contratos &&
+            userDetail?.contratos.map((cur) => {
+              return (
+                <div className={s.cardContrato}>
+                  {cur.description}
+                  <br />
+                  {cur.date}
+                  <br />
+                  {cur.expiration_date}
+                  <br />
+                  {cur.status}
+                  <br />
+                  {cur.price}
+                  <br />
+                  {cur.aceptado}
+                  <br />
+                </div>
+              );
+            })}
+>>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
         </div>
       </div>
     
@@ -778,8 +806,8 @@ const handlerSendPropuesta= (e)=>{
   
 
   // propuesta, setPropuesta
-  const contrato = ( ) => {
-    console.log(userDetail, "*******")
+  const contrato = () => {
+    console.log(userDetail, "*******");
 
     return (
       <div className={s.bodyPropuesta}>
@@ -789,17 +817,32 @@ const handlerSendPropuesta= (e)=>{
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta!
           </h2>
+<<<<<<< HEAD
           <form >
+=======
+          <form onSubmit={(e) => handleSubmitPropuseta(e)}>
+>>>>>>> 9f86bfb6234b060e54383e1f0c2928d02adeb8a6
             {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
             <label>Fecha de inicio: </label>
-            <input type={"date"} name="date" onChange={(e)=> handleChangePropuesta(e)}/>
+            <input type={"date"} name="date" onChange={handleChangePropuesta} />
             <label>Fecha de finalizacion: </label>
-            <input type={"date"} name="expiration_date"  onChange={(e)=> handleChangePropuesta(e)}/>
+            <input
+              type={"date"}
+              name="expiration_date"
+              onChange={handleChangePropuesta}
+            />
             <label>Descripcion: </label>
-            <input type="text-area" name="description" onChange={(e)=> handleChangePropuesta(e)}/>
+            <input
+              type="text-area"
+              name="description"
+              onChange={handleChangePropuesta}
+            />
             <label>Presupuesto total en pesos: $</label>
-            <input type="number" name="price" onChange={(e)=> handleChangePropuesta(e)}/>
-
+            <input
+              type="number"
+              name="price"
+              onChange={handleChangePropuesta}
+            />
           </form>
           <div>
             <button
@@ -810,9 +853,8 @@ const handlerSendPropuesta= (e)=>{
             </button>
             <button
               className={s.buttonPago}
-            //   onClick={() => navigate("/checkout")}
-            onClick={(e)=> handlerSendPropuesta(e)}
-
+              //   onClick={() => navigate("/checkout")}
+              onClick={handlerSendPropuesta}
             >
               ENVIAR PROPUESTA
             </button>

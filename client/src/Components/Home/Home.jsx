@@ -17,8 +17,13 @@ import { getUserEmail } from "../../Redux/Actions/DevUser";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    //  loginWithRedirect,
+    logout,
+  } = useAuth0();
   const userLocal = useMemo(() => {
     const userLocal = {
       family_name: `${user?.family_name}`,
@@ -52,9 +57,10 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
-    setOpen(false);
-  };
+  // const handleClick = () => {
+  //   setOpen(false);
+  // };
+
   return isLoading ? (
     <Loader />
   ) : (

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -15,7 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
 import Loader from "../Loader/Loader";
-import useFetchAllData from "../../Hooks/useFetchAllData";
+// import useFetchAllData from "../../Hooks/useFetchAllData";
 
 //actions
 import {
@@ -262,7 +262,7 @@ export default function DevUsersCreate() {
         yearsOfExperience: ("yearsOfExperience", ``),
         dailyBudget: ("dailyBudget", "0"),
         englishLevel: ("englishLevel", ``),
-        paiseId: ("paiseId", []),
+        paiseId: ("paiseId", ""),
         // paiseIdLabel: ("paiseIdLabel", []),
         tecnologias: ("tecnologias", []),
         lenguajes: ("lenguajes", []),
@@ -287,12 +287,12 @@ export default function DevUsersCreate() {
   const [edit, setEdit] = useState(false);
 
   // useEffect(() => {
-  //   if (input.name) {
+  //   if (input?.paiseId === "") {
   //     setDisabledButton(true);
   //   } else {
   //     setDisabledButton(false);
   //   }
-  // }, [input.name, setDisabledButton]);
+  // }, [input.name, input?.paiseId, setDisabledButton]);
 
   // const handleDefaultCountrie =
   //   cache?.paiseIdLabel && cache?.paiseId
@@ -348,7 +348,7 @@ export default function DevUsersCreate() {
       englishLevel:
         ("englishLevel",
         `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
-      paiseId: ("paiseId", ` []`),
+      paiseId: ("paiseId", ``),
       // paiseIdLabel:
       //   ("paiseIdLabel",
       //   `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
@@ -376,13 +376,14 @@ export default function DevUsersCreate() {
       englishLevel: `${
         userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
       }`,
-      paiseId: `${userByEmail?.paiseId ? userByEmail?.paiseId : []}`,
+      paiseId: ``,
       tecnologias: [],
       lenguajes: [],
       servicios: [],
     });
     setLoader(false);
     setEdit(false);
+    setVerErrores(false);
   };
 
   //OPCIONES DE LOS SELECTS:
@@ -723,8 +724,8 @@ export default function DevUsersCreate() {
               }}
             />
             <div className={s.divErrors}>
-              {verErrores && errors.countries && (
-                <label className={s.errors}>⚠ {errors.countries}</label>
+              {verErrores && errors.paiseId && (
+                <label className={s.errors}>⚠ {errors.paiseId}</label>
               )}
             </div>
           </div>
@@ -898,7 +899,7 @@ export default function DevUsersCreate() {
           ) : !edit ? (
             <button
               className={s.buttonCreate}
-              disabled={disabledButton}
+              // disabled={disabledButton}
               onClick={(e) => {
                 setEdit(true);
                 // setDisabledButton(true);

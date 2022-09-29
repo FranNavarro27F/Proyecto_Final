@@ -10,6 +10,8 @@ export default function PurchaseCompleted() {
   const paymentId = searchParams.get("payment_id");
   const payment = searchParams;
 
+  const Subscription = useSelector((state) => state.mercadoPago.Subscription);
+  console.log(Subscription);
   console.log(paymentId, "PAYMENT");
   console.log(payment, "PAYMENT");
 
