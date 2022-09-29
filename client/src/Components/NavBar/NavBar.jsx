@@ -27,7 +27,7 @@ export default function NavBar({
   const dispatch = useDispatch();
 
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
     filterTecnologies: cacheFilter?.filterTecnologies
