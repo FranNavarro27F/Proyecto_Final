@@ -62,9 +62,6 @@ export default function Home() {
       <NavMenuHome
         setOpen={setOpen}
         open={open}
-        logout={logout}
-        user={user}
-        isAuthenticated={isAuthenticated}
         scrollToSeccion={scrollToSeccion}
         landing={landing}
         home={home}
