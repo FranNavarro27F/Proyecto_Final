@@ -45,7 +45,7 @@ class PaymentService {
   }
 
   async createConsultPay(id) {
-    const url = `https://api.mercadopago.com/v1/payments/${id}`;
+    const url = `https://api.mercadopago.com/checkout/preferences/${id}`;
 
     const consult = await axios.get(url, {
       headers: {
