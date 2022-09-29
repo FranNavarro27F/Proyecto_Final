@@ -700,7 +700,7 @@ export default function Details() {
   };
 
   
-  const contrato = (ropuesta, setPropuesta) => {
+  const contrato = (propuesta, setPropuesta) => {
    const handleSubmitPropueta =(e)=>{
 
    }
