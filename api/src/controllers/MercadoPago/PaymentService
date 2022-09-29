@@ -44,8 +44,19 @@ class PaymentService {
     return payment.data;
   }
 
+  async createConsultPay(id) {
+    const url = `https://api.mercadopago.com/v1/payments/${id}`;
+
+    const consult = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+    return consult.data;
+  }
+
   async createSubscription() {
-    // console.log(email, " aca email");//
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
@@ -59,6 +70,7 @@ class PaymentService {
       },
 
       back_url: "https://programax.vercel.app/work",
+
       auto_return: "all",
     };
     const subscription = await axios.post(url, body, {
@@ -70,6 +82,18 @@ class PaymentService {
 
     return subscription.data;
   }
-}
 
+  async createConsultSub(id) {
+    const url = `https://api.mercadopago.com/preapproval/${id}`;
+
+    const consult = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+
+    return consult.data;
+  }
+}
 module.exports = PaymentService;
