@@ -1,15 +1,13 @@
 const { Router } = require("express");
-const { Usuarios } = require("../../db.js");
+
 const {
   getUsers,
-  postUsers,
   getUserById,
   deleteUser,
   getUserByName,
-  modifUser,
+  modifyUser,
   postUserAuth,
   getByEmail,
-  Contratos
 } = require("../../controllers/Usuarios");
 
 const router = Router();
@@ -33,6 +31,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+// -----------------------------------------------
+
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,22 +42,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// router.post("/", async (req, res) => {
-//   try {
-//     let { name, lastName, email, yearsOfExperience, paiseId } = req.body;
-
-//     if (!name || !lastName || !email || !paiseId || !yearsOfExperience) {
-//       res.sendStatus(400)
-//         // .json("Falta alguno de los campos importantes. Por favor revisar");
-//     } else {
-//       let usuario = await postUsers(req.body);
-
-//       res.json(usuario);
-//     }
-//   } catch (e) {
-//     res.status(400).send(`Error --→ ${e}`);
-//   }
-// });
+// -----------------------------------------------
 
 router.put("/", async (req, res) => {
   try {
@@ -67,7 +52,7 @@ router.put("/", async (req, res) => {
       res.sendStatus(400).send(`Error --→ ${e}`);
       // .json("Falta alguno de los campos importantes. Por favor revisar");
     } else {
-      let usuario = await modifUser(req.body);
+      let usuario = await modifyUser(req.body);
 
       res.status(201).json(usuario);
     }
@@ -75,6 +60,8 @@ router.put("/", async (req, res) => {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
+
+// -----------------------------------------------
 
 router.post("/", async (req, res) => {
   try {
@@ -91,6 +78,8 @@ router.post("/", async (req, res) => {
   }
 });
 
+// -----------------------------------------------
+
 router.delete("/:id", async (req, res) => {
   try {
     let { id } = req.params;
@@ -99,5 +88,7 @@ router.delete("/:id", async (req, res) => {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
+
+// -----------------------------------------------
 
 module.exports = router;
