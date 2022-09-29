@@ -29,10 +29,13 @@ const {
 } = require("./src/controllers/Servicios/index.js");
 const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 
+// ------------------------------------
 
 conn.sync({ alter: true }).then(() => {
   const PORT = 3001;
-  
+
+  // ------------------------------------
+
   server.listen(process.env.PORT || PORT, async () => {
     const port = process.env.PORT ? process.env.PORT : PORT;
     console.log(
@@ -46,5 +49,3 @@ conn.sync({ alter: true }).then(() => {
     console.log("------------------------------");
   });
 });
-
-//levantando back-intento
