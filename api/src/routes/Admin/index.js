@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias } = require("../../controllers/Admin");
+const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias, borrLogicUsuario, getAdminLeng, getAdminTec, getAdminPaises, getAdminServ } = require("../../controllers/Admin");
 
 const router = Router();
 
@@ -115,6 +115,63 @@ router.put("/servicios", async (req, res)=>{
         res.status(400).send(`Error --→ ${e}`);
     }
 })
+
+router.put("/usuario", async (req, res)=>{
+    try {
+        
+        res.status(200).json(await borrLogicUsuario(req.body))
+
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
+
+// Get de Admin de informacion
+
+
+// router.get("/lenguajes", async (req, res)=>{
+//     try {
+        
+//         res.send(200).json(await getAdminLeng())
+
+//     } catch (e) {
+//         res.status(400).send(`Error --→ ${e}`);
+//     }
+// })
+
+
+// router.get("/tecnologias", async (req, res)=>{
+//     try {
+        
+//         res.send(200).json(await getAdminTec())
+
+//     } catch (e) {
+//         res.status(400).send(`Error --→ ${e}`);
+//     }
+// })
+
+
+// router.get("/paises", async (req, res)=>{
+//     try {
+        
+//         res.send(200).json(await getAdminPaises())
+
+//     } catch (e) {
+//         res.status(400).send(`Error --→ ${e}`);
+//     }
+// })
+
+
+// router.get("/servicios", async (req, res)=>{
+//     try {
+        
+//         res.send(200).json(await getAdminServ())
+
+//     } catch (e) {
+//         res.status(400).send(`Error --→ ${e}`);
+//     }
+// })
+
 
 
 module.exports = router;

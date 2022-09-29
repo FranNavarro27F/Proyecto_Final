@@ -19,15 +19,26 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     let { name, email } = req.query;
+    let { valor } = req.body
+
+    if(valor === "true"){
+      valor = true
+      
+      }else if(valor === "false"){
+        valor = false
+      }
+      
     let user;
     if (name) {
       user = await getUserByName(name);
     } else if (email) {
       user = await getByEmail(email);
     } else {
-      return res.json(await getUsers());
+      return res.json(await getUsers(valor));
     }
     return res.send(user);
+  
+
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }

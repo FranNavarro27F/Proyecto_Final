@@ -13,36 +13,102 @@ const ERROR = "Error @ controllers/Usuarios";
 
 // -----------------------------------------------
 
-const getUsers = async () => {
-  try {
-    let usuarios = await Usuarios.findAll({
-      //     where: {
-      //     habilitado: true,
-      //     visible: true,
-      //   },
-      include: [
-        {
-          model: Paises,
-          attributes: ["name"],
-        },
-        {
-          model: Servicios,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-        {
-          model: Lenguajes,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-        {
-          model: Tecnologias,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-      ],
-    });
+const isAdmin = (isAdmin) => {
+  if (!isAdmin) return true;
+  else return false || null || true;
+}
 
+const getUsers = async (valor) => {
+  try {
+    // let usuarios = await Usuarios.findAll({
+    //     where: {
+    //       habilitado: isAdmin(valor),
+    //       visible: isAdmin(valor),
+    //       // habilitado: true,
+    //       // visible: true,
+    //     },
+
+    //   include: [
+    //     {
+    //       model: Paises,
+    //       attributes: ["name"],
+    //     },
+    //     {
+    //       model: Servicios,
+    //       attributes: ["name"],
+    //       through: { attributes: [] },
+    //     },
+    //     {
+    //       model: Lenguajes,
+    //       attributes: ["name"],
+    //       through: { attributes: [] },
+    //     },
+    //     {
+    //       model: Tecnologias,
+    //       attributes: ["name"],
+    //       through: { attributes: [] },
+    //     },
+    //   ],
+    // });
+    let usuarios = [];
+    if(!valor){
+      console.log("Entre al valor false ptm")
+       usuarios = await Usuarios.findAll({
+        where: {
+          habilitado: true,
+          visible: true,
+         },
+         include: [
+            {
+              model: Paises,
+              attributes: ["name"],
+            },
+            {
+              model: Servicios,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+            {
+              model: Lenguajes,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+            {
+              model: Tecnologias,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+          ],
+        });
+      }
+    else if(valor === true){
+      console.log("Entre al valor true")
+        usuarios = await Usuarios.findAll({
+          include: [
+            {
+              model: Paises,
+              attributes: ["name"],
+            },
+            {
+              model: Servicios,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+            {
+              model: Lenguajes,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+            {
+              model: Tecnologias,
+              attributes: ["name"],
+              through: { attributes: [] },
+            },
+          ],
+        });
+    }
+
+    if(usuarios.length > 0){
     let arrUsers = usuarios.map((cur) => cur.dataValues);
     let arrUsersListo = arrUsers.map(async (cur) => {
       return {
@@ -85,8 +151,11 @@ const getUsers = async () => {
           : [],
       };
     });
-    console.log(Promise.all(arrUsersListo), "******");
-    return await Promise.all(arrUsersListo);
+
+    return await Promise.all(arrUsersListo);}
+    else{
+      return "Usuarios no encontrados"
+    }
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
