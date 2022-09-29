@@ -9,3 +9,15 @@ export function setearContratoGlobal(contrato){
         })
     }
 }
+
+
+export function setearContrato(propuestaContrato){
+    return async function (dispatch){
+        // console.log("***actions/contratos", propuestaContrato ,"action/contratos****")
+
+        let propuestaCont= await axios.post(`/contratos`, propuestaContrato)
+
+        console.log("****",propuestaCont,"*****")
+
+    }
+}

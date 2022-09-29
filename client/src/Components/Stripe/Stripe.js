@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
@@ -11,13 +11,13 @@ import axios from "axios";
 // import "bootswatch/dist/slate/bootstrap.min.css";
 
 import Contracts from "../Contracts/Contracts";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useAuth0 } from "@auth0/auth0-react";
 import s from "../Stripe/Stripe.module.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import { getUserEmail } from "../../Redux/Actions/DevUser";
-import Loader from "../Loader/Loader";
+import { useNavigate } from "react-router-dom";
+// import { getUserEmail } from "../../Redux/Actions/DevUser";
+// import Loader from "../Loader/Loader";
 //import Loader from '../'
 const stripePromise = loadStripe(
   "pk_test_51LkCysDY7badEkJlVHwO1YH6PAadDqJhLVBXU40OKbatMXVjhsvt62GfC5L0dFqWvyvrZhNDkvMwHgoXjagMPBao00IMNcQLid"
@@ -32,10 +32,10 @@ const CheckOutForm = ({ contrato }) => {
 
   let contratoA = useSelector((state) => state.contracts.contrato);
   console.log(contratoA, "ACACONTRATOOOOO");
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  // const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+  //   useAuth0();
 
-  const { userByEmail } = useFetchUsers(user?.email);
+  // const { userByEmail } = useFetchUsers(user?.email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ const CheckOutForm = ({ contrato }) => {
         console.log(paymentMethod, "paymentMethod id");
         const { id } = paymentMethod;
         console.log(id, paymentMethod, "Contrato y pago exitosos.");
-        const info = await axios.post(
+         await axios.post(
           "https://programax.up.railway.app/checkout" ||
             "http://localhost:3001/checkout",
           {
@@ -187,7 +187,7 @@ const CheckOutForm = ({ contrato }) => {
 };
 
 function Stripe() {
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+  const { user, isAuthenticated, loginWithRedirect } =
     useAuth0();
 
   const { userByEmail } = useFetchUsers(user?.email);

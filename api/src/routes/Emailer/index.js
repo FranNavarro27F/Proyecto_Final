@@ -5,8 +5,8 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { nombreContratista, mailContrado } = req.body;
-    res.json(await main(nombreContratista, mailContrado));
+    const { nombreContratista, mailContrado, IDContratado } = req.body;
+    res.json(await main(nombreContratista, mailContrado, IDContratado));
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }

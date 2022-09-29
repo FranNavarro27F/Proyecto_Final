@@ -3,7 +3,7 @@ import axios from "axios";
 // const { nombreContratista, mailContrado } = req.body;
 export function pagosMp() {
   return async function (dispatch) {
-    console.log();
+    
     try {
       return dispatch({
         type: "MP_PAYMENT",

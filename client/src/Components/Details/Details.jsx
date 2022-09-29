@@ -32,10 +32,11 @@ import {
 } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
+import { setearContrato } from "../../Redux/Actions/Contracts";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  useAuth0();
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
@@ -49,12 +50,58 @@ export default function Details() {
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
+  console.log(userDetail, "ACA DETAILS USER")
   const loader = useSelector((state) => state.devUser.loader);
   const [userProfile, setUserProfile] = useState(false);
   const [mostrarSub, setMostrarSub] = useState(false);
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
 
+
+  //const idUserLog = userByEmail?.id !== undefined && userByEmail?.id;
+  //-------------------- estos son los estados de propuesta
+  const [propuesta, setPropuesta] = useState({
+    employer: userByEmail?.id,
+    developer: id,
+    description: "",
+    date: "",
+    expiration_date: "",
+    status: "Pendiente",//"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
+    price: "",
+    aceptado: false
+    })
+   
+ const handleSubmitPropuseta =(e)=>{
+
+ }
+
+const handleChangePropuesta =(e)=>{
+  setPropuesta({
+    ...propuesta,
+    [e.target.name]: e.target.value
+  })
+}
+const handlerSendPropuesta= (e)=>{
+  dispatch(setearContrato(propuesta))
+  // dispatch(
+    //   // emailer({
+      //   //   nombreContratista: nombreContratista,
+      //   //   mailContrado: mailContrado,
+      //   // })
+      // );
+      
+      alert("Tu propuesta fue enviada correctamente!")
+
+}
+
+
+
+    //------------------------------------------------
+  useEffect(() => {
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+    dispatch(subscriptionMp());
+    dispatch(pagosMp());
+  }, [dispatch, id, userByEmail?.id]);
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
 
@@ -71,13 +118,15 @@ export default function Details() {
     if (isAuthenticated) {
       if (nombreContratista && mailContrado) {
         setDisabled(true);
-        dispatch(
-          emailer({
-            nombreContratista: nombreContratista,
-            mailContrado: mailContrado,
-          })
-        );
+        // dispatch(
+        //   // emailer({
+        //   //   nombreContratista: nombreContratista,
+        //   //   mailContrado: mailContrado,
+        //   // })
+        // );
       }
+
+
       SetContratoDetail(!contratoDetail);
     } else {
       loginWithRedirect();
@@ -101,7 +150,7 @@ export default function Details() {
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
   };
-
+  
   const detail = () => {
     return loader &&
       isLoading &&
@@ -152,7 +201,7 @@ export default function Details() {
                 <SideMenu />
                 <div className={s.backGroundDiv}>
                   <div className={s.girlCelu}>
-                    {/* el svg de aca abajo es la chica */}
+{/* el svg de aca abajo es la chica */}
                     <svg
                       className={s.svg}
                       viewBox="0 0 520 1039"
@@ -682,11 +731,36 @@ export default function Details() {
             </div>
           </div>
         </div>
+        <div>
+          {
+          userDetail?.contratos && userDetail?.contratos.map(cur =>{
+            return(
+              <div className={s.cardContrato}>
+              { cur.description}
+              <br/>
+             {cur.date} 
+             <br/>
+              {cur.expiration_date}
+              <br/>
+                {cur.status}
+                <br/> 
+              {cur.price}
+              <br/>
+              {cur.aceptado}
+              <br/>
+              </div>
+            )
+          })
+            }
+        </div>
       </div>
     );
   };
 
-  const contrato = () => {
+  // propuesta, setPropuesta
+  const contrato = ( ) => {
+    console.log(userDetail, "*******")
+
     return (
       <div className={s.bodyPropuesta}>
         <div className={s.conteiner}>
@@ -695,7 +769,18 @@ export default function Details() {
             Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
             propuesta!
           </h2>
-          <textarea type="textarea" rows="10" cols="70" />
+          <form onSubmit={(e)=>handleSubmitPropuseta(e)}>
+            {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
+            <label>Fecha de inicio: </label>
+            <input type={"date"} name="date" onChange={(e)=> handleChangePropuesta(e)}/>
+            <label>Fecha de finalizacion: </label>
+            <input type={"date"} name="expiration_date"  onChange={(e)=> handleChangePropuesta(e)}/>
+            <label>Descripcion: </label>
+            <input type="text-area" name="description" onChange={(e)=> handleChangePropuesta(e)}/>
+            <label>Presupuesto total en pesos: $</label>
+            <input type="number" name="price" onChange={(e)=> handleChangePropuesta(e)}/>
+
+          </form>
           <div>
             <button
               className={s.buttonVolver}
@@ -705,9 +790,11 @@ export default function Details() {
             </button>
             <button
               className={s.buttonPago}
-              onClick={() => navigate("/checkout")}
+            //   onClick={() => navigate("/checkout")}
+            onClick={(e)=> handlerSendPropuesta(e)}
+
             >
-              METODO DE PAGO
+              ENVIAR PROPUESTA
             </button>
           </div>
         </div>
