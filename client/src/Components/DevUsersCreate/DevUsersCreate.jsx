@@ -284,15 +284,12 @@ export default function DevUsersCreate() {
     }
   };
   const [disabledButton, setDisabledButton] = useState(false);
+  useEffect(() => {
+    if (!userByEmail?.postulado) {
+      setEdit(true);
+    }
+  }, [userByEmail?.postulado]);
   const [edit, setEdit] = useState(false);
-
-  // useEffect(() => {
-  //   if (input?.paiseId === "") {
-  //     setDisabledButton(true);
-  //   } else {
-  //     setDisabledButton(false);
-  //   }
-  // }, [input.name, input?.paiseId, setDisabledButton]);
 
   // const handleDefaultCountrie =
   //   cache?.paiseIdLabel && cache?.paiseId
