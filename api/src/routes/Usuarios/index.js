@@ -18,15 +18,7 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    let { name, email } = req.query;
-    let { valor } = req.body
-
-    if(valor === "true"){
-      valor = true
-      
-      }else if(valor === "false"){
-        valor = false
-      }
+    let { name, email } = req.query;  
       
     let user;
     if (name) {
