@@ -2,17 +2,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 import s from "./UserProfile.module.css";
 import React, { useState } from "react";
 import SideMenu from "../Landing/SideMenu/SideMenu";
-import Logout from "../Login/Logout";
+// import Logout from "../Login/Logout";
 import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDevUsers, getUsersBd } from "../../Redux/Actions/DevUser";
 import { getCountries } from "../../Redux/Actions/Countries";
-import { GrEdit } from "react-icons/gr";
-import { AiOutlineEdit } from "react-icons/ai";
-import { FcCheckmark } from "react-icons/fc";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import storage from "../DevUsersCreate/Img-file/firebaseConfig";
+// import { GrEdit } from "react-icons/gr";
+// import { AiOutlineEdit } from "react-icons/ai";
+// import { FcCheckmark } from "react-icons/fc";
+// import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+// import storage from "../DevUsersCreate/Img-file/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 export default function DevProfile() {
@@ -75,7 +75,7 @@ export default function DevProfile() {
       [e.target.name]: e.target.value,
     });
   };
-  const [loader, setLoader] = useState(false);
+  // const [loader, setLoader] = useState(false);
 
   if (isLoading) {
     return (

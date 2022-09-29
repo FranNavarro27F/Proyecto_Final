@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { BsChevronDoubleUp } from "react-icons/bs";
-import { FaAngleDoubleUp } from "react-icons/fa";
+// import { FaAngleDoubleUp } from "react-icons/fa";
 import s from "./ScrollTop.module.css";
 
 export default function ScrollTop() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef } from "react";
+// import { useRef } from "react";
 import s from "./NavMenuHome.module.css";
 import logo from "./Logo/logo chico.png";
 import ButtonProfile from "./ButtonProfile/ButtonProfile";
@@ -13,7 +13,11 @@ export default function NavMenuHome({
   setOpen,
   open,
 }) {
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+  const { user,
+      isAuthenticated,
+      // isLoading,
+      // loginWithRedirect,
+      logout } =
     useAuth0();
   return (
     <div className={s.container}>

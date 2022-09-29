@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import s from "./Footer.module.css";
 import PlanetaFooter1 from "./PlanetasFooter/PlanetaFooter1";
 

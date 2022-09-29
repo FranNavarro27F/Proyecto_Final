@@ -21,16 +21,32 @@ const guardarTecnologiasDB = async () => {
     console.log("✔ Tecnologias cargadas.");
     return "tecnologias guardadas correctamente en DB :) ";
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/guardarTecnologiasDB --→ ${e}`);
   }
 };
 
-const todasLasTecnologias = async () => {
+const todasLasTecnologias = async (valor) => {
   try {
-    let allTec = await Tecnologias.findAll();
+    let allTec = []
+    if(!valor){
+      
+      allTec = await Tecnologias.findAll({where:{habilitado : true}})
+
+    }else{
+   
+    allTec = await Tecnologias.findAll();
+
+  }
+
+  if(allTec.length > 0){
+
     return allTec;
+    
+  }else{
+    return "Tecnologias no encontradas"
+  }
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/todasLasTecnologias --→ ${e}`);
   }
 };
 
@@ -41,7 +57,7 @@ const eliminarTecnologia = async (id) => {
     console.log(`Technology (${id}) deleted successfully`);
     return `Technology (${id}) deleted successfully`;
   } catch (e) {
-    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/eliminarTecnologias --→ ${e}`);
   }
 };
 

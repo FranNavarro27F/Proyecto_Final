@@ -44,8 +44,6 @@ const findUsers = async (props) => {
     ],
   });
   //
-  //   return usuarios;
-  //
   return usuarios.map((u) => {
     const { dataValues: d } = u;
     //
