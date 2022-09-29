@@ -63,8 +63,9 @@ module.exports = (sequelize) => {
       },
 
       aceptado: {
-        type: DataTypes.BOOLEAN,
-        // allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Pendiente"
       },
 
       habilitado: {
