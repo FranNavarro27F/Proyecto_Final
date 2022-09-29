@@ -111,23 +111,22 @@ export default function Details() {
     ) : (
       <div className={s.bodydelosbodys}>
         <div
-          className={s.bodyIframeNone}
+          className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
-            // setMostrarSub(false);
+            setMostrarSub(false);
           }}
         >
-          <a
-            href={linkPago}
+          <button
             onClick={() => {
-              // setMostrarSub(!mostrarSub);
+              setMostrarSub(!mostrarSub);
             }}
             className={s.Icon}
           >
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </a>
+          </button>
 
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
@@ -673,12 +672,7 @@ export default function Details() {
                           Contactame!
                         </button>
                       )}
-                      <button
-                        className={s.buttonBack}
-                        onClick={(e) => {
-                          handleBack(e);
-                        }}
-                      >
+                      <button className={s.buttonBack} onClick={handleBack}>
                         Volver
                       </button>
                     </div>
