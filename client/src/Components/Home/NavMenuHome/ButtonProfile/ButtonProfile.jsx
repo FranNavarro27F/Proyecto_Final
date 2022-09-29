@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../../../Redux/Actions/DevUser";
 import s from "./ButtonProfile.module.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 // import { useFetchUsers } from "../../../../Hooks/useFetchUsers";
 
 export default function ButtonProfile({
@@ -18,7 +19,7 @@ export default function ButtonProfile({
   const navigate = useNavigate();
   const refSelect = useRef();
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
