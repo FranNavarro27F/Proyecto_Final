@@ -16,7 +16,7 @@ class PaymentController {
     }
   }
 
-  async getPaymentConsult(req, res) {
+  async getPaymentConsult(req, res, id) {
     try {
       const consult = await this.subscriptionService.createConsultPay(id);
 
