@@ -7,7 +7,13 @@ const LoginButton = () => {
 
   return (
     <div className={s.possitionLg}>
-      <button onClick={() => loginWithRedirect()} className={s.buttonLg}>
+      <button
+        onClick={() => {
+          window.localStorage.setItem("url", window.location.pathname);
+          loginWithRedirect();
+        }}
+        className={s.buttonLg}
+      >
         Ingresar
       </button>
     </div>

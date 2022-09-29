@@ -71,7 +71,7 @@ class PaymentService {
         currency_id: "ARS",
       },
 
-      back_url: "https://mercadopago.com",
+      back_url: "http://localhost:3000/purchase-completed",
       auto_return: "approved",
     };
     const subscription = await axios.post(url, body, {
