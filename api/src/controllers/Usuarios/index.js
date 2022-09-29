@@ -213,25 +213,6 @@ const getUserById = async (id) => {
         },
       ],
     });
-
-    // let userM = User?.dataValues;
-
-    // let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
-
-    // userM.paiseId = nombrePais;
-    // userM.name = capitalize(userM.name);
-    // userM.lastName = capitalize(userM.lastName);
-    // userM.servicios = userM.servicios
-    //   .map((cur) => cur.dataValues)
-    //   .map((cur) => cur.name);
-    // userM.lenguajes = userM.lenguajes
-    //   .map((cur) => cur.dataValues)
-    //   .map((cur) => cur.name);
-    // userM.tecnologias = userM.tecnologias
-    //   .map((cur) => cur.dataValues)
-    //   .map((cur) => cur.name);
-
-    // return userM;
     //
   } catch (e) {
     console.error(`${ERROR}getUserById --→ ${e}`);
@@ -266,83 +247,6 @@ const getByEmail = async (email) => {
       // habilitado: true,
       // visible: true,
     });
-
-    // let userEmail = await Usuarios.findOne({
-    //   where: {
-    //     email,
-    //     // habilitado: true,
-    //     // visible: true,
-    //   },
-    //   include: [
-    //     {
-    //       model: Paises,
-    //       attributes: ["name"],
-    //     },
-    //     {
-    //       model: Servicios,
-    //       attributes: ["name"],
-    //       through: { attributes: [] },
-    //     },
-    //     {
-    //       model: Lenguajes,
-    //       attributes: ["name"],
-    //       through: { attributes: [] },
-    //     },
-    //     {
-    //       model: Tecnologias,
-    //       attributes: ["name"],
-    //       through: { attributes: [] },
-    //     },
-    //   ],
-    // });
-
-    // const { dataValues: d } = userEmail;
-
-    // return {
-    //   id: d.id,
-    //   profilePicture:
-    //     d.profilePicture ||
-    //     "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-    //   name: capitalize(d.name) || "Anonymous",
-    //   lastName: capitalize(d.lastName) || "Anonymous",
-    //   email: d.email,
-    //   // isAdmin: d.isAdmin,
-
-    //   city: d.city,
-    //   linkedIn: d.linkedIn,
-    //   gitHub: d.gitHub,
-    //   webSite: d.webSite,
-
-    //   yearsOfExperience: d.yearsOfExperience,
-    //   dailyBudget: d.dailyBudget,
-    //   englishLevel: d.englishLevel,
-    //   bio: d.bio,
-
-    //   // postulado: d.postulado,
-    //   // registrado: d.registrado,
-    //   // habilitado: d.habilitado,
-    //   visible: d.visible,
-    //   premium: d.premium,
-    //   reputacion: d.reputacion,
-
-    //   tarjeta_numero: d.tarjeta_numero,
-    //   tarjeta_nombreCompleto: d.tarjeta_nombreCompleto,
-    //   tarjeta_vencimiento: d.tarjeta_vencimiento,
-    //   tarjeta_codigoSeguridad: d.tarjeta_codigoSeguridad,
-    //   cbu: d.cbu,
-    //   cvu: d.cvu,
-
-    //   paiseId: d.paise ? d.paise.dataValues.name : "",
-    //   servicios: d.servicios
-    //     ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
-    //     : [],
-    //   lenguajes: d.lenguajes
-    //     ? d.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
-    //     : [],
-    //   tecnologias: d.tecnologias
-    //     ? d.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
-    //     : [],
-    // };
     //
   } catch (e) {
     console.error(`${ERROR}getByEmail --→ ${e}`);
