@@ -127,7 +127,7 @@ const createContract = async (data) => {
       aceptado: false,
       habilitado: true,
     });
-
+console.log("ACA ALGO")
     // traigo a las 2 partes del contrato para setear relacion con contrato.
     let el_que_contrata= await Usuarios.findByPk(employer);
     let el_programador_contratado= await Usuarios.findByPk(developer);
@@ -182,7 +182,7 @@ const modifyContract = async (id, data) => {
     console.error(`${ERROR}/modifyContract --> ${e}`);
   }
 };
-
+//console.log("FRAN SOS UN CAPO")
 // -----------------------------------------------
 
 // PUT (CANCEL) CONTRACT

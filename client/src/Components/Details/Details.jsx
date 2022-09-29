@@ -32,7 +32,8 @@ import {
 } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
-import { setearContrato } from "../../Redux/Actions/Contracts";
+import { getContratoId, setearContrato } from "../../Redux/Actions/Contracts";
+import Contracts from "../Contracts/Contracts";
 
 export default function Details() {
   const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
@@ -103,8 +104,8 @@ export default function Details() {
   const paymentId = searchParams.get("details");
   const payment = searchParams;
 
-  console.log(paymentId, "PAYMENT");
-  console.log(payment, "PAYMENT");
+  // console.log(paymentId, "PAYMENT");
+  // console.log(payment, "PAYMENT");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -125,6 +126,16 @@ export default function Details() {
       loginWithRedirect();
     }
   };
+
+//   const [idContrato, setIdContrato ] = useState({
+//    idC: userDetail.contrato
+// })
+
+  const handleVerDetalle = (idContrato)=>{
+    dispatch(getContratoId(idContrato))
+    navigate(`/contrato/${idContrato}`)
+    //console.log(idContrato,"+++++")
+  }
 
   const handleBack = () => {
     dispatch(detailReset());
@@ -746,8 +757,10 @@ export default function Details() {
             })}
         </div>
       </div>
+    
     );
   };
+  
 
   // propuesta, setPropuesta
   const contrato = () => {
