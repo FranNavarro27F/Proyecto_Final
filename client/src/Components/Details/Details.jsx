@@ -47,7 +47,6 @@ export default function Details() {
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
-  console.log(linkPago, "LINKKKKKKKK");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
