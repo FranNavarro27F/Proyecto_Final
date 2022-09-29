@@ -15,28 +15,19 @@ const router = Router();
 // -----------------------------------------------
 
 router.get("/", async (req, res) => {
+  //
   try {
     let { name, email } = req.query;
-    let { valor } = req.body
-
-    if(valor === "true"){
-      valor = true
-      
-      }else if(valor === "false"){
-        valor = false
-      }
-      
     let user;
     if (name) {
       user = await getUserByName(name);
     } else if (email) {
       user = await getByEmail(email);
     } else {
-      return res.json(await getUsers(valor));
+      return res.json(await getUsers());
     }
     return res.send(user);
-  
-
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
@@ -45,9 +36,11 @@ router.get("/", async (req, res) => {
 // -----------------------------------------------
 
 router.get("/:id", async (req, res) => {
+  //
   try {
     const { id } = req.params;
     res.json(await getUserById(id));
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
@@ -56,6 +49,7 @@ router.get("/:id", async (req, res) => {
 // -----------------------------------------------
 
 router.put("/", async (req, res) => {
+  //
   try {
     let { email, paiseId } = req.body;
 
@@ -67,6 +61,7 @@ router.put("/", async (req, res) => {
 
       res.status(201).json(usuario);
     }
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
@@ -75,6 +70,7 @@ router.put("/", async (req, res) => {
 // -----------------------------------------------
 
 router.post("/", async (req, res) => {
+  //
   try {
     let { email, family_name, given_name, picture } = req.body;
 
@@ -84,6 +80,7 @@ router.post("/", async (req, res) => {
       let usuario = await postUserAuth(req.body);
       res.json(usuario);
     }
+    //
   } catch (e) {
     res.sendStatus(400).send(`Error --→ ${e}`);
   }
@@ -92,9 +89,11 @@ router.post("/", async (req, res) => {
 // -----------------------------------------------
 
 router.delete("/:id", async (req, res) => {
+  //
   try {
     let { id } = req.params;
     res.json(await deleteUser(id));
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
