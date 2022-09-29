@@ -1,5 +1,11 @@
 import React, { useLayoutEffect } from "react";
-import { Link, Route, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -51,6 +57,13 @@ export default function Details() {
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
+
+  const [searchParams] = useSearchParams();
+  const paymentId = searchParams.get("details");
+  const payment = searchParams;
+
+  console.log(paymentId, "PAYMENT");
+  console.log(payment, "PAYMENT");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
