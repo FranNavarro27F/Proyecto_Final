@@ -19,7 +19,12 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
-import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
+import {
+  consultSub,
+  getPurchaseInfo,
+  pagosMp,
+  subscriptionMp,
+} from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
 import { setearContrato } from "../../Redux/Actions/Contracts";
@@ -32,9 +37,10 @@ export default function Details() {
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  useLayoutEffect(() => {
-    dispatch(getUserId(id));
+  useEffect(() => {
+    dispatch(getPurchaseInfo("2c9380848386abaa01838769bd6000ef"));
     dispatch(getUserEmail(user?.email));
+    dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     dispatch(subscriptionMp());
   }, [dispatch, id, user?.email, userByEmail?.id]);
@@ -48,11 +54,11 @@ export default function Details() {
   let mailContrado = userDetail?.email;
 
 
+  //const idUserLog = userByEmail?.id !== undefined && userByEmail?.id;
   //-------------------- estos son los estados de propuesta
- 
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail?.id,
-    developer: userDetail?.id,
+    developer: id,
     description: "",
     date: "",
     expiration_date: "",
@@ -60,7 +66,7 @@ export default function Details() {
     price: "",
     aceptado: false
     })
-    
+   
  const handleSubmitPropuseta =(e)=>{
 
  }
@@ -73,13 +79,14 @@ const handleChangePropuesta =(e)=>{
 }
 const handlerSendPropuesta= (e)=>{
   dispatch(setearContrato(propuesta))
-       // dispatch(
-        //   // emailer({
-        //   //   nombreContratista: nombreContratista,
-        //   //   mailContrado: mailContrado,
-        //   // })
-        // );
-
+  // dispatch(
+    //   // emailer({
+      //   //   nombreContratista: nombreContratista,
+      //   //   mailContrado: mailContrado,
+      //   // })
+      // );
+      
+      alert("Tu propuesta fue enviada correctamente!")
 
 }
 
@@ -93,7 +100,6 @@ const handlerSendPropuesta= (e)=>{
   }, [dispatch, id, userByEmail?.id]);
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
-  console.log(linkPago, "LINKKKKKKKK");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -121,13 +127,13 @@ const handlerSendPropuesta= (e)=>{
     navigate("/work");
   };
 
-  if (loader && isLoading) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
+  // if (loader && isLoading) {
+  //   return (
+  //     <div>
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
@@ -136,6 +142,7 @@ const handlerSendPropuesta= (e)=>{
   
   const detail = () => {
     return loader &&
+      isLoading &&
       userDetail?.name === undefined &&
       userByEmail?.name === undefined ? (
       <Loader />
@@ -143,15 +150,28 @@ const handlerSendPropuesta= (e)=>{
       <div className={s.bodydelosbodys}>
         <div
           className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
-          onClick={() => setMostrarSub(false)}
+          onClick={() => {
+            dispatch(consultSub(Subscription?.id));
+            setMostrarSub(false);
+          }}
         >
-          <button onClick={() => setMostrarSub(!mostrarSub)} className={s.Icon}>
+          <button
+            onClick={() => {
+              dispatch(consultSub(Subscription?.id));
+              setMostrarSub(!mostrarSub);
+            }}
+            className={s.Icon}
+          >
             <span htmlFor="">
-              {" "}
-              <IoMdCloseCircle />{" "}
+              <IoMdCloseCircle />
             </span>
           </button>
           <div className={s.containerIframe}>
+            <div className={s.lds_ring}>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
             <Iframe
               // style={}
               loading="CARGANDOOOOOOOOOOOOOOO..."
@@ -704,12 +724,35 @@ const handlerSendPropuesta= (e)=>{
             </div>
           </div>
         </div>
+        <div>
+          {
+          userDetail?.contratos && userDetail?.contratos.map(cur =>{
+            return(
+              <div className={s.cardContrato}>
+              { cur.description}
+              <br/>
+             {cur.date} 
+             <br/>
+              {cur.expiration_date}
+              <br/>
+                {cur.status}
+                <br/> 
+              {cur.price}
+              <br/>
+              {cur.aceptado}
+              <br/>
+              </div>
+            )
+          })
+            }
+        </div>
       </div>
     );
   };
 
   // propuesta, setPropuesta
   const contrato = ( ) => {
+    console.log(userDetail, "*******")
 
     return (
       <div className={s.bodyPropuesta}>
@@ -730,8 +773,6 @@ const handlerSendPropuesta= (e)=>{
             <label>Presupuesto total en pesos: $</label>
             <input type="number" name="price" onChange={(e)=> handleChangePropuesta(e)}/>
 
-            <button>Enviar propuesta</button>
-
           </form>
           <div>
             <button
@@ -744,6 +785,7 @@ const handlerSendPropuesta= (e)=>{
               className={s.buttonPago}
             //   onClick={() => navigate("/checkout")}
             onClick={(e)=> handlerSendPropuesta(e)}
+
             >
               ENVIAR PROPUESTA
             </button>

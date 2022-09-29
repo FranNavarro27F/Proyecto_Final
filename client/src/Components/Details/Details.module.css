@@ -4,10 +4,10 @@
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
     #251f3e 85.61%
-  );
-  width: 100%;
-  height: 100vh;
-  display: flex;
+    );
+    width: 100%;
+    height: 100vh;
+    display: flex;
   flex-direction: column;
 }
 .sideM {
@@ -285,17 +285,22 @@
   padding: 1.5vh;
   background-color: rgba(79, 80, 80, 0.317);
   width: 100vh;
-  height: 65vh;
+  height: 75vh;
   display: flex;
   align-items: center;
   overflow: hidden;
+  justify-content: center;
 }
 .iframe {
   width: 100vh;
-  height: 65vh;
+  height: 75vh;
   border-radius: 20px;
+  overflow: hidden;
   /* transform: translateY(1px); */
-  /* z-index: -1; */
+  z-index: 9;
+}
+.iframe::-webkit-scrollbar {
+  display: none;
 }
 
 .bodydelosbodys {
@@ -320,7 +325,7 @@
   justify-content: center;
   text-align: center;
   margin-left: 100vh;
-  margin-bottom: 66vh;
+  margin-bottom: 75vh;
   font-weight: 800;
   overflow: hidden;
   z-index: 99;
@@ -331,3 +336,52 @@
   color: rgba(255, 255, 255, 0.856);
   font-size: 2.8vh;
 }
+
+.lds_ring {
+  margin: auto;
+  margin-bottom: 15vh;
+
+  text-align: center;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* width: 8vw;
+  height: 16vh; */
+  z-index: 1;
+}
+.lds_ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 12vh;
+  height: 12vh;
+  margin: 0.8vh;
+  border: 0.8vh solid #0f103f02;
+  border-radius: 50%;
+  animation: lds_ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e7e7ec transparent transparent transparent;
+}
+.lds_ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds_ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds_ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds_ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+  .cardContrato{
+    background-color: red;
+    width: 50%;
+    height: 50vh;
+  }

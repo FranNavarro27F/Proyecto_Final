@@ -44,30 +44,35 @@ class PaymentService {
     return payment.data;
   }
 
+  async createConsultPay(id) {
+    const url = `https://api.mercadopago.com/checkout/preferences/${id}`;
+
+    const consult = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+    return consult.data;
+  }
+
   async createSubscription() {
-    // console.log(email, " aca email");
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
-      reason: "SUSCRIPCION A PROGRAMAX",
-      items: [
-        {
-          title: "SUSCRIPCION A PROGRAMAX",
-          description: "SDUSCRIBITE AL SERVICIO PREMIUN DE PROGRAMAX",
-          picture_url:
-            "https://cdn.discordapp.com/attachments/826954908258402374/1021209817035055247/icon-1200x1200.png",
-          category_id: "category123",
-          quantity: 1,
-        },
-      ],
+      payer_email: "test_user_20874669@testuser.com",
+
+      reason: "SUSCRIPCION  MENSUAL A PROGRAMAX",
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
+
         transaction_amount: 1000,
         currency_id: "ARS",
       },
-      back_url: "https://programax.vercel.app/work",
-      payer_email: "test_user_20874669@testuser.com",
+
+      back_url: "https://mercadopago.com",
+      auto_return: "approved",
     };
     const subscription = await axios.post(url, body, {
       headers: {
@@ -78,6 +83,18 @@ class PaymentService {
 
     return subscription.data;
   }
-}
 
+  async createConsultSub(id) {
+    const url = `https://api.mercadopago.com/preapproval/${id}`;
+
+    const consult = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+
+    return consult.data;
+  }
+} //
 module.exports = PaymentService;

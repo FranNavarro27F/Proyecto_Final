@@ -4,99 +4,173 @@ const {
     Lenguajes,
     Servicios,
     Paises,
-  } = require("../../db.js");
-  
+} = require("../../db.js");
+
 //   const { Op } = require("sequelize");
-  
-  const ERROR = "Error @ controllers/Admin";
 
-  // ----------------------------------------------------
+const ERROR = "Error @ controllers/Admin";
 
-  //Controladores para agregado y borrado lógico de Modelos.
+// ----------------------------------------------------
 
-  const postLenguajes = async (data) =>{
+  const postLenguajes = async (name) =>{
     try {
-        let {name} = data
+
+        const [row, created] = await Lenguajes.findOrCreate({
+            where: {name : name},
+        })
         
-    } catch (error) {
-        
+        if (!created) {
+                throw new Error("El Lenguaje ya existe");
+        } else {
+                return "Lenguaje agregado correctamente";
+        }
+
+
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/postLenguajes --→ ${e}`);
     }
   }
 
 
-  const postTecnologias = async (data) =>{
+  const postServicios = async (name) =>{
     try {
-        let {name} = data
+
+        const [row, created] = await Servicios.findOrCreate({
+            where: {name : name},
+        })
         
-    } catch (error) {
-        
-    }
-  }
+        if (!created) {
+                throw new Error("El Servicio ya existe");
+        } else {
+                return "Servicio agregado correctamente";
+        }
 
 
-  const postPaises = async (data) =>{
-    try {
-        let {name} = data
-        
-    } catch (error) {
-        
-    }
-  }
-
-
-  const postServicios = async (data) =>{
-    try {
-        let {name} = data
-        
-    } catch (error) {
-        
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/postServicios --→ ${e}`);
     }
   }
 
 const borrLogicLenguaje = async (data) =>{
     try {
-        let {id} = data
         
-    } catch (error) {
+        let {id, habilitado} = data
         
+        await Lenguajes.update({
+            habilitado: habilitado
+        }, {where: {id: id}})
+
+        if(habilitado === false){
+            return "Lenguaje eliminado correctamente"
+        }else{
+            return "Lenguaje habilitado correctamente"
+        }  
+        
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/borrLogicLenguajes --→ ${e}`);
     }
 }
 
-const borrLogicPaises = async (data) =>{
-    try {
-        let {id} = data
-        
-    } catch (error) {
-        
-    }
-}
-
-const borrLogicTecnologias = async (data) =>{
-    try {
-        let {id} = data
-        
-    } catch (error) {
-        
-    }
-}
 
 const borrLogicServicios = async (data) =>{
     try {
-        let {id} = data
+        let {id, habilitado} = data
         
-    } catch (error) {
+        await Servicios.update({
+            habilitado: habilitado
+        }, {where: {id: id}})
+
+
+        if(habilitado === false){
+            return "Servicio eliminado correctamente"
+        }else{
+            return "Servicio habilitado correctamente"
+        }       
         
+    } catch (e) {
+        console.error(`ERROR @ controllers/Admin/borrLogicServicios --→ ${e}`);
     }
 }
 
-const borrLogicUsuario = async (data) =>{
+
+const postTecnologias = async (name) => {
     try {
-        let {id} = data
-        
-    } catch (error) {
-        
+        let tecnologia = await Tecnologias.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        return `successfull --→ ${tecnologia.data}`
+    } catch (e) {
+        console.error(`ERROR @ controllers/postTecnologias --→ ${e}`);
     }
 }
 
 
-module.exports = { postLenguajes, postPaises, postServicios, postTecnologias };
+const postPaises = async (name) => {
+    try {
+        let pais = await Paises.findOrCreate({
+            where: {
+                name,
+            },
+        });
+        return `successfull --→ ${pais.data}`
+    } catch (e) {
+        console.error(`ERROR @ controllers/postPaises --→ ${e}`);
+    }
+}
+
+
+const borrLogicPaises = async (id,habilitado) => {
+    try {
+        
+        await Paises.update(
+            { habilitado},
+            {
+                where: { id },
+            }
+        );
+        console.log(`Country (${id}) updated successfully`);
+        return `Country (${id}) updated successfully`;
+    } catch (e) {
+        console.error(`ERROR @ controllers/putPaises --→ ${e}`);
+    }
+}
+
+const borrLogicTecnologias = async (id,habilitado) => {
+    try {
+        await Tecnologias.update(
+            { habilitado},
+            {
+                where: { id },
+            }
+        );
+        console.log(`Tecnologias (${id}) updated successfully`);
+        return `Tecnologias (${id}) updated successfully`;
+    } catch (e) {
+        console.error(`ERROR @ controllers/putPaises --→ ${e}`);
+    }
+}
+
+
+const borrLogicUsuario = async (data) => {
+    try {
+        let { id } = data
+
+    } catch (error) {
+
+    }
+}
+
+
+module.exports = {
+    postLenguajes,
+    postPaises,
+    postServicios,
+    postTecnologias,
+    borrLogicPaises,
+    borrLogicTecnologias,
+    borrLogicLenguaje,
+    borrLogicServicios
+};
+
