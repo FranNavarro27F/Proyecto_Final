@@ -182,7 +182,7 @@ const modifyContract = async (id, data) => {
     console.error(`${ERROR}/modifyContract --> ${e}`);
   }
 };
-
+//console.log("FRAN SOS UN CAPO")
 // -----------------------------------------------
 
 // PUT (CANCEL) CONTRACT
