@@ -101,21 +101,23 @@ export default function Details() {
           className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
           onClick={() => {
             dispatch(consultSub(Subscription?.id));
-            setMostrarSub(false);
+            // setMostrarSub(false);
           }}
         >
-          <button
+          {/* <Link to="{linkPago}"> */}
+          <a
+            href={linkPago}
             onClick={() => {
-              dispatch(consultSub(Subscription?.id));
-              setMostrarSub(!mostrarSub);
+              // setMostrarSub(!mostrarSub);
             }}
             className={s.Icon}
           >
             <span htmlFor="">
               <IoMdCloseCircle />
             </span>
-          </button>
-          <div className={s.containerIframe}>
+          </a>
+          {/* </Link> */}
+          {/* <div className={s.containerIframe}>
             <div className={s.lds_ring}>
               <div></div>
               <div></div>
@@ -130,7 +132,7 @@ export default function Details() {
               display="block"
               position="relative"
             />
-          </div>
+          </div> */}
         </div>
         <div className={s.body}>
           <div className={s.sideM}>
