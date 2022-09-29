@@ -14,6 +14,7 @@ import UserProfile from "./Components/UserProfile/UserProfile";
 //import About from "./Components/About/About"
 import Contracts from "./Components/Contracts/Contracts";
 import Error404 from "./Components/error404/error404";
+import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/PurchaseCompleted.jsx";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/create" element={<DevUsersCreate />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/purchase" element={<Users />} />
+        <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
         **<Route path="*" element={<Error404 />}></Route>**
       </Routes>

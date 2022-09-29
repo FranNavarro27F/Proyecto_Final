@@ -1,5 +1,11 @@
 import React, { useLayoutEffect } from "react";
-import { Link, Route, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -19,7 +25,11 @@ import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
 import Pagos from "../Stripe/Stripe";
 import Landing from "../Landing/Landing";
-import { pagosMp, subscriptionMp } from "../../Redux/Actions/MercadoPago";
+import {
+  consultSub,
+  pagosMp,
+  subscriptionMp,
+} from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
 
@@ -31,9 +41,9 @@ export default function Details() {
   let { id } = useParams();
   let [disabled, setDisabled] = useState(false);
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  useLayoutEffect(() => {
-    dispatch(getUserId(id));
+  useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
     dispatch(subscriptionMp());
   }, [dispatch, id, user?.email, userByEmail?.id]);
@@ -47,7 +57,13 @@ export default function Details() {
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const linkPago = Subscription.init_point;
-  console.log(linkPago, "LINKKKKKKKK");
+
+  const [searchParams] = useSearchParams();
+  const paymentId = searchParams.get("details");
+  const payment = searchParams;
+
+  console.log(paymentId, "PAYMENT");
+  console.log(payment, "PAYMENT");
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
@@ -73,13 +89,13 @@ export default function Details() {
     navigate("/work");
   };
 
-  if (loader && isLoading) {
-    return (
-      <div>
-        <Loader />
-      </div>
-    );
-  }
+  // if (loader && isLoading) {
+  //   return (
+  //     <div>
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
@@ -88,21 +104,30 @@ export default function Details() {
 
   const detail = () => {
     return loader &&
+      isLoading &&
       userDetail?.name === undefined &&
       userByEmail?.name === undefined ? (
       <Loader />
     ) : (
       <div className={s.bodydelosbodys}>
         <div
-          className={mostrarSub ? s.bodyIframe : s.bodyIframeNone}
-          onClick={() => setMostrarSub(false)}
+          className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
+          onClick={() => {
+            dispatch(consultSub(Subscription?.id));
+            setMostrarSub(false);
+          }}
         >
-          <button onClick={() => setMostrarSub(!mostrarSub)} className={s.Icon}>
+          <button
+            onClick={() => {
+              setMostrarSub(!mostrarSub);
+            }}
+            className={s.Icon}
+          >
             <span htmlFor="">
-              {" "}
-              <IoMdCloseCircle />{" "}
+              <IoMdCloseCircle />
             </span>
           </button>
+
           <div className={s.containerIframe}>
             <div className={s.lds_ring}>
               <div></div>
@@ -629,6 +654,7 @@ export default function Details() {
                               : `Postularme`}
                           </button>
                           <button
+                            // href={linkPago}
                             className={s.buttonSub}
                             onClick={handlePremiun}
                           >
@@ -646,12 +672,7 @@ export default function Details() {
                           Contactame!
                         </button>
                       )}
-                      <button
-                        className={s.buttonBack}
-                        onClick={(e) => {
-                          handleBack(e);
-                        }}
-                      >
+                      <button className={s.buttonBack} onClick={handleBack}>
                         Volver
                       </button>
                     </div>

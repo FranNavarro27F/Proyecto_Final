@@ -287,6 +287,7 @@
   line-height: 2vw;
   cursor: pointer;
   border: 1px solid black;
+  margin-right: 1vh;
   color: rgb(0, 0, 0);
 }
 .buttonCreate:hover:enabled {
@@ -487,4 +488,14 @@
   100% {
     width: 100%;
   }
+}
+
+.dvButtonsCreate {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
 }
