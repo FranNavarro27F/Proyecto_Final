@@ -13,7 +13,7 @@ router.post("/lenguajes", async (req, res)=>{
             res.sendStatus(400).send(`Error --→ ${e}`);
         }else{
             let newLeng = await postLenguajes(name)
-            
+
             res.status(200).json(newLeng);
         }
     } catch (e) {
@@ -68,9 +68,9 @@ router.post("/paises",async (req, res) => {
 
 router.put("/tecnologias",async (req, res) => {
     try {
-        const {id} = req.body;
+        const {id,habilitado} = req.body;
         if (id){
-            res.status(200).json(await borrLogicTecnologias(id));
+            res.status(200).json(await borrLogicTecnologias(id,habilitado));
         }else{
             res.status(400).send("error debe enviar por body el id");
         }  
@@ -95,9 +95,9 @@ router.put("/lenguajes", async (req, res)=>{
 
 router.put("/paises",async (req, res) => {
     try {
-        const {id} = req.body;
+        const {id,habilitado} = req.body;
         if (id){
-            res.status(200).json(await borrLogicPaises(id));
+            res.status(200).json(await borrLogicPaises(id,habilitado));
         }else{
             res.status(400).send("error debe enviar por body el id");
         }  

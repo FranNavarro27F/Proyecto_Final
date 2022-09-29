@@ -121,10 +121,11 @@ const postPaises = async (name) => {
 }
 
 
-const borrLogicPaises = async (id) => {
+const borrLogicPaises = async (id,habilitado) => {
     try {
+        
         await Paises.update(
-            { habilitado: false },
+            { habilitado},
             {
                 where: { id },
             }
@@ -136,10 +137,10 @@ const borrLogicPaises = async (id) => {
     }
 }
 
-const borrLogicTecnologias = async (id) => {
+const borrLogicTecnologias = async (id,habilitado) => {
     try {
         await Tecnologias.update(
-            { habilitado: false },
+            { habilitado},
             {
                 where: { id },
             }
