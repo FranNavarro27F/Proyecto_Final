@@ -4,6 +4,7 @@ const {
   Lenguajes,
   Servicios,
   Paises,
+  Contratos
 } = require("../../db.js");
 
 const { Op } = require("sequelize");
