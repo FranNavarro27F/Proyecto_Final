@@ -9,9 +9,9 @@ export const useFetchUsers = (email) => {
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
 
   useEffect(() => {
-    if (!allUsers) dispatch(getUsersBd());
-    if (!userByEmail) dispatch(getUserEmail(email));
-  }, [allUsers, dispatch, email, userByEmail]);
+    dispatch(getUsersBd());
+    dispatch(getUserEmail(email));
+  }, [dispatch, email]);
 
   return { allUsers, userByEmail };
 };
