@@ -8,16 +8,16 @@ import { Provider } from "react-redux";
 import store from "./Redux/Store/store";
 import axios from "axios";
 import dotenv from "dotenv";
+
 // import "bootswatch/dist/";
 
 dotenv.config();
 
 axios.defaults.baseURL =
-"http://localhost:3001"||
-"https://programax.up.railway.app/" ||
-process.env.REACT_APP_API 
+  process.env.REACT_APP_API ||
+  "https://programax.up.railway.app/" ||
+  "http://localhost:3001";
 
-  
 ReactDOM.render(
   <BrowserRouter>
     <Auth0Provider
