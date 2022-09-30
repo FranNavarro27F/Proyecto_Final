@@ -19,7 +19,7 @@ export default function DetalleContrato() {
 
   
     return (
-    <div>
+    <div className={s.body}>
       <div className={s.titulito}>
       <h1>Detalle del contrato</h1>
       <div className={s.cardDetalle}>
