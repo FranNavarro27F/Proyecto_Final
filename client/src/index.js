@@ -11,11 +11,14 @@ import dotenv from "dotenv";
 // import "bootswatch/dist/";
 
 dotenv.config();
+let apiV= process.env.REACT_APP_API
+console.log(apiV)
+
 
 axios.defaults.baseURL =
-"http://localhost:3001"||
+process.env.REACT_APP_API ||
 "https://programax.up.railway.app/" ||
-process.env.REACT_APP_API 
+"http://localhost:3001"
 
   
 ReactDOM.render(
