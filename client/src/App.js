@@ -37,13 +37,13 @@ function App() {
   const dispatch = useDispatch();
   // const { email, family_name, given_name, picture } = await user;
 
-  // const { userByEmail } = useFetchUsers(user?.email);
-  useEffect(() => {
-    dispatch(postDevUser(user));
-  }, [dispatch, user]);
+  const { userByEmail } = useFetchUsers(user?.email);
 
   // console.log(user, "AUTH00000000000");
 
+  useEffect(() => {
+    if (!userByEmail?.registrado) dispatch(postDevUser(user));
+  }, [dispatch, user, userByEmail?.registrado]);
   const userData = {
     family_name: `${user?.family_name}`,
     given_name: `${user?.given_name}`,
