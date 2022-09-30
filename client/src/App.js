@@ -22,6 +22,8 @@ import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/Purcha
 import Loader from "./Components/Loader/Loader";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
+import { useEffect } from "react";
+import { getUserEmail } from "./Redux/Actions/DevUser";
 
 function App() {
   const {
@@ -30,6 +32,10 @@ function App() {
     isLoading,
     //  loginWithRedirect
   } = useAuth0();
+
+  useEffect(() => {
+    getUserEmail({ user });
+  }, [user]);
 
   const userData = {
     family_name: `${user?.family_name}`,

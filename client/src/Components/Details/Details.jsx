@@ -57,26 +57,45 @@ export default function Details() {
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
-  useEffect(() => {
-    if (setUserProfile) {
-      dispatch(subscriptionMp());
-    }
-  }, [dispatch]);
-
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
-  console.log(userDetail, "ACA DETAILS USER");
+  // console.log(userDetail, "ACA DETAILS USER");
 
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
-  const subscriptionId = Subscription.id;
+  const subscription_id = Subscription?.id;
+  const status = Subscription?.status;
 
   useEffect(() => {
-    dispatch(setSubscriptionId({ id, subscriptionId }));
-  }, [dispatch, id, subscriptionId]);
+    if (setUserProfile) {
+      dispatch(subscriptionMp());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("USEEFFECT", userByEmail?.id, subscription_id, status);
+    if (userByEmail?.premium !== true) {
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: subscription_id,
+          status: status,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    status,
+    subscription_id,
+    userByEmail?.id,
+    userByEmail?.premium,
+  ]);
+  // useEffect(() => {
+  //   dispatch(setSubscriptionId({ id, subscriptionId }));
+  // }, [dispatch, id, subscriptionId]);
 
   const linkPago = Subscription.init_point;
 
@@ -512,6 +531,7 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
+                    <h1>PREMIUN: {`${userByEmail?.premium}`}</h1>
                     <h2>
                       {!userProfile
                         ? userDetail?.name + " "

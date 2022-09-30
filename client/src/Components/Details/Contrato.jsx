@@ -40,8 +40,6 @@ export default function Contrato({
     alert("Tu propuesta fue enviada correctamente!");
   };
 
-  console.log(userDetail, "*******");
-
   return (
     <div className={s.bodyPropuesta}>
       <div className={s.conteiner}>
