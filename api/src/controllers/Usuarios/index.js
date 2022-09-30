@@ -46,6 +46,7 @@ const findUsers = async (props) => {
   //
   return usuarios.map((u) => {
     const { dataValues: d } = u;
+    let country = Paises.findByPk(u.paiseId).d.name;
     //
     return {
       id: d.id,
@@ -81,7 +82,7 @@ const findUsers = async (props) => {
       // cbu: d.cbu,
       // cvu: d.cvu,
 
-      paiseId: d.paise ? d.paise.dataValues.name : "",
+      paiseId: country || "",
       servicios: d.servicios
         ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
         : [],
@@ -120,6 +121,8 @@ const findUser = async (props) => {
       },
     ],
   });
+
+  let country = Paises.findByPk(u.paiseId).d.name;
   //
   return {
     id: d.id,
@@ -155,7 +158,7 @@ const findUser = async (props) => {
     cbu: d.cbu,
     cvu: d.cvu,
 
-    paiseId: d.paise ? d.paise.dataValues.name : "",
+    paiseId: country || "",
     servicios: d.servicios
       ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
       : [],
@@ -307,7 +310,19 @@ const postUserAuth = async (data) => {
 // -----------------------------------------------
 
 // SET SUBSCRIPTION ID
-const setSubscriptionId = async (data) => {};
+const setSubscriptionId = async (id, subscription_id) => {
+  //
+  try {
+    const user = await Usuarios.findByPk(id);
+    user.subscription_id = subscription_id || null;
+
+    await user.save();
+    return `Al usuario ${user.email} le fue asignada la suscripción: ${subscription_id}`;
+    //
+  } catch (e) {
+    console.error(`${ERROR}setSubscriptionId --→ ${e}`);
+  }
+};
 
 // -----------------------------------------------
 
@@ -440,5 +455,6 @@ module.exports = {
   getUserByName,
   postUserAuth,
   modifyUser,
+  setSubscriptionId,
   getByEmail,
 };
