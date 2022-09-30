@@ -171,25 +171,102 @@ const findUser = async (props) => {
 // -----------------------------------------------
 
 // GET (ALL) USERS
+// const getUsers = async () => {
+//   //
+//   try {
+//     return await findUsers({
+//       // habilitado: true,
+//       // visible: true,
+//     });
+//     //
+//   } catch (e) {
+//     console.error(`${ERROR}getUsers --→ ${e}`);
+//   }
+// };
 const getUsers = async () => {
-  //
   try {
-    return await findUsers({
-      // habilitado: true,
-      // visible: true,
+    let usuarios = await Usuarios.findAll({
+      //     where: {
+      //     habilitado: true,
+      //     visible: true,
+      //   },
+      include: [
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
     });
-    //
+
+    let arrUsers = usuarios.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
+        id: cur.id,
+        profilePicture: cur.profilePicture,
+        isAdmin: cur.isAdmin,
+        name: cur.name ? (cur.name = capitalize(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = capitalize(cur.lastName))
+          : (cur.lastName = []),
+        email: cur.email,
+        city: cur.city,
+        linkedIn: cur.linkedIn,
+        gitHub: cur.gitHub,
+        webSite: cur.webSite,
+        yearsOfExperience: cur.yearsOfExperience,
+        dailyBudget: cur.dailyBudget,
+        englishLevel: cur.englishLevel,
+        bio: cur.bio,
+        visible: cur.visible,
+        postulado: cur.postulado,
+        registrado: cur.registrado,
+        habilitado: cur.habilitado,
+        tarjeta_numero: cur.tarjeta_numero,
+        tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
+        tarjeta_vencimiento: cur.tarjeta_vencimiento,
+        tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
+        cbu: cur.cbu,
+        cvu: cur.cvu,
+        reputacion: cur.reputacion,
+        paiseId: cur.paise ? cur.paise.dataValues.name : "",
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        lenguajes: cur.lenguajes
+          ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+        tecnologias: cur.tecnologias
+          ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
+    console.log(Promise.all(arrUsersListo), "******");
+    return await Promise.all(arrUsersListo);
   } catch (e) {
-    console.error(`${ERROR}getUsers --→ ${e}`);
+    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
-
 // -----------------------------------------------
 
 // GET USER (BY ID) → DETAILS
 const getUserById = async (id) => {
   try {
-    return await Usuarios.findByPk(id, {
+    let User = await Usuarios.findByPk(id, {
       include: [
         {
           model: Servicios,
@@ -208,12 +285,31 @@ const getUserById = async (id) => {
         },
         {
           model: Contratos,
-        },
+        }
       ],
     });
-    //
+
+    let userM = User?.dataValues;
+
+    let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
+  
+    userM.paiseId = nombrePais;
+    userM.name = toUperCase(userM.name);
+    userM.lastName = toUperCase(userM.lastName);
+    userM.servicios = userM.servicios
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.lenguajes = userM.lenguajes
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.tecnologias = userM.tecnologias
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+
+
+    return userM;
   } catch (e) {
-    console.error(`${ERROR}getUserById --→ ${e}`);
+    console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
 };
 
