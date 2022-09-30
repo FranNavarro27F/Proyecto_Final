@@ -71,12 +71,12 @@ router.put("/", async (req, res) => {
 // -----------------------------------------------
 
 // Set SUBSCRIPTION ID
-router.put("/sub", async (req, res) => {
+router.put("/sub/:id", async (req, res) => {
   //
   try {
-    // const { id } = req.params;
-    // const { id, subscription_id } = req.body;
-    const updatedUser = await setSubscriptionId(req.body);
+    const { id } = req.params;
+    // const { subscription_id, status } = req.body;
+    const updatedUser = await setSubscriptionId(id, req.body);
 
     return await res.send(updatedUser);
     //
