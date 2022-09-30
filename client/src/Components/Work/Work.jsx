@@ -1,10 +1,13 @@
-import React, { useLayoutEffect, useMemo, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Card from "./Card/Card";
 import s from "./Work.module.css";
 import NavBar from "../NavBar/NavBar";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getUsersBd } from "../../Redux/Actions/DevUser";
 import CantidadDePaginas from "../Paged/Cantidad De Paginas/CantidadDePaginas";
 import Paged from "../Paged/Paged";
+
 import ModalWork from "./ModalWork/ModalWork";
 import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
@@ -19,11 +22,11 @@ export default function Work() {
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const { allUsers } = useFetchUsers();
+  const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  // useEffect(() => {
-  //   dispatch(getUsersBd());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUsersBd());
+  }, [dispatch]);
 
   const {
     optionsOrderBudget,
@@ -38,24 +41,11 @@ export default function Work() {
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
-  const usersWork = useMemo(
-    () =>
-      filtrados?.map((e) => {
-        return {
-          name: `${e.name + " " + e.lastName}`,
-          img: e.profilePicture,
-          tecnologies: e.tecnologias,
-          website: e.webSite,
-          gitHub: e.gitHub,
-          linkedIn: e.linkedIn,
-          email: e.email,
-          id: e.id,
-        };
-      }),
-    [filtrados]
-  );
+  if (isLoading) {
+    return <Loader />;
+  }
 
-  return !allUsers.length && isLoading ? (
+  return !allUsers.length ? (
     <Loader />
   ) : (
     <main className={s.body}>
@@ -79,7 +69,6 @@ export default function Work() {
             return (
               <div key={e.id}>
                 <Card
-                  usersWork={usersWork}
                   name={e.name + " " + e.lastName}
                   img={e.profilePicture}
                   tecnologies={e.tecnologias}

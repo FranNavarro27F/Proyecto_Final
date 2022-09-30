@@ -54,10 +54,13 @@ export default function Details() {
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [dispatch, id, user?.email, userByEmail?.id]);
+
+  useEffect(() => {
     if (setUserProfile) {
       dispatch(subscriptionMp());
     }
-  }, [dispatch, id, user?.email, userByEmail?.id]);
+  }, [dispatch]);
 
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
@@ -101,13 +104,6 @@ export default function Details() {
     navigate("/work");
   };
 
-  // if (loader && isLoading) {
-  //   return (
-  //     <div>
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
@@ -122,6 +118,8 @@ export default function Details() {
       contratoDetail={contratoDetail}
       SetContratoDetail={SetContratoDetail}
     />
+  ) : !userByEmail?.email && !userDetail?.email ? (
+    <Loader />
   ) : (
     <div className={s.bodydelosbodys}>
       <div
@@ -575,16 +573,16 @@ export default function Details() {
                     <box-icon name="code-alt" color="white"></box-icon>
                     <span> Lenguajes: </span>
                     <span>
-                      {userDetail?.lenguajes?.map((e) => e) &&
-                        userByEmail.lenguajes?.map((e) => e)}
+                      {userByEmail?.lenguajes?.map((e) => e) &&
+                        userDetail?.lenguajes?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon color="white" name="donate-heart"></box-icon>
                     <span> Servicios: </span>
                     <span>
-                      {userByEmail?.servicios?.map((e) => e.name) &&
-                        userDetail?.servicios?.map((e) => e.name)}
+                      {userByEmail?.servicios?.map((e) => e) &&
+                        userDetail?.servicios?.map((e) => e)}
                     </span>
                     <br />
                     <br />
@@ -601,26 +599,18 @@ export default function Details() {
                     <box-icon color="white" name="mouse"></box-icon>
                     <span> Tecnologias: </span>
                     <span>
-                      {userByEmail?.tecnologias?.map((e) => e.name) &&
-                        userDetail?.tecnologias?.map((e) => e.name)}
+                      {userByEmail?.tecnologias?.map((e) => e) &&
+                        userDetail?.tecnologias?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon name="world" color="white"></box-icon>
                     <span> Pais: </span>
-                    <span>
-                      {!userProfile
-                        ? userByEmail?.paiseId
-                        : userDetail?.paiseId}
-                    </span>
+                    <span>{userByEmail?.paiseId && userDetail?.paiseId}</span>
                     <br />
                     <br />
                     <a
-                      href={
-                        !userProfile
-                          ? userByEmail?.webSite
-                          : userDetail?.webSite
-                      }
+                      href={userByEmail?.webSite && userDetail?.webSite}
                       className={s.link}
                     >
                       <box-icon
@@ -634,16 +624,13 @@ export default function Details() {
                     <br />
                     <span>Años de Experiencia: </span>
                     <span>
-                      {!userProfile
-                        ? userByEmail?.yearsOfExperience
-                        : userDetail?.yearsOfExperience}
+                      {userByEmail?.yearsOfExperience &&
+                        userDetail?.yearsOfExperience}
                     </span>
                     <br />
                     <span>Presupuesto por día: </span>
                     <span>
-                      {!userProfile
-                        ? userByEmail?.dailyBudget
-                        : userDetail?.dailyBudget}
+                      {userByEmail?.dailyBudget && userDetail?.dailyBudget}
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
