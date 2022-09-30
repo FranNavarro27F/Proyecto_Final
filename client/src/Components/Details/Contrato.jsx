@@ -30,17 +30,17 @@ export default function Contrato({
     });
   };
   const handlerSendPropuesta = (e) => {
-      dispatch(setearContrato(propuesta));
-      // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
-      //  dispatch(
-      //     emailer({
-      //       nombreContratista: userByEmail?.name,
-      //       mailContrado: userDetail.email,
-      //       IDContratado: userDetail.id
-      //     })
-      //  );
-      alert("Tu propuesta fue enviada correctamente!");
-    }
+    dispatch(setearContrato(propuesta));
+    // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
+    //  dispatch(
+    //     emailer({
+    //       nombreContratista: userByEmail?.name,
+    //       mailContrado: userDetail.email,
+    //       IDContratado: userDetail.id
+    //     })
+    //  );
+    alert("Tu propuesta fue enviada correctamente!");
+  };
 
   return (
     <div className={s.bodyPropuesta}>

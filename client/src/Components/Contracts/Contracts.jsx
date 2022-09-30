@@ -15,8 +15,6 @@ export default function Contracts({
   aceptado,
   idContrato,
 }) {
-  // console.log(contrato);
-  //console.log(contratos, "**************")
   // let idContrato = contrato.cur.id;
   const navigate = useNavigate();
   const dispatch = useDispatch();
