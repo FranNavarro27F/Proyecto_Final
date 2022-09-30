@@ -3,6 +3,7 @@ const initialState = {
   Payment: [],
   PaymentConsult: [],
   SubscriptionConsult: [],
+  putSubscription: [],
 };
 
 export default function mercadoPago(state = initialState, action) {
@@ -27,6 +28,11 @@ export default function mercadoPago(state = initialState, action) {
       return {
         ...state,
         SubscriptionConsult: action.payload,
+      };
+    case "MP_SET_SUSCRIPTION_ID":
+      return {
+        ...state,
+        putSubscription: action.payload,
       };
 
     default:

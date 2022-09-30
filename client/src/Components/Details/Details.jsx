@@ -28,6 +28,7 @@ import Landing from "../Landing/Landing";
 import {
   consultSub,
   pagosMp,
+  setSubscriptionId,
   subscriptionMp,
 } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
@@ -53,7 +54,9 @@ export default function Details() {
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    dispatch(subscriptionMp());
+    if (setUserProfile) {
+      dispatch(subscriptionMp());
+    }
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
@@ -65,11 +68,11 @@ export default function Details() {
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
+  const subscriptionId = Subscription.id;
 
-  //const idUserLog = userByEmail?.id !== undefined && userByEmail?.id;
-  //-------------------- estos son los estados de propuesta
-
-  //------------------------------------------------
+  useEffect(() => {
+    dispatch(setSubscriptionId({ id, subscriptionId }));
+  }, [dispatch, id, subscriptionId]);
 
   const linkPago = Subscription.init_point;
 
