@@ -46,7 +46,7 @@ const findUsers = async (props) => {
   //
   return usuarios.map((u) => {
     const { dataValues: d } = u;
-    let country = Paises.findByPk(u.paiseId).d.name;
+    // let country = Paises.findByPk(u.paiseId)?.d.name;
     //
     return {
       id: d.id,
@@ -82,7 +82,7 @@ const findUsers = async (props) => {
       // cbu: d.cbu,
       // cvu: d.cvu,
 
-      paiseId: country || "",
+      paiseId: d.paiseId || "",
       servicios: d.servicios
         ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
         : [],
@@ -122,7 +122,7 @@ const findUser = async (props) => {
     ],
   });
 
-  let country = Paises.findByPk(u.paiseId).d.name;
+  //   let country = Paises.findByPk(u.paiseId).d.name;
   //
   return {
     id: d.id,
@@ -158,7 +158,7 @@ const findUser = async (props) => {
     cbu: d.cbu,
     cvu: d.cvu,
 
-    paiseId: country || "",
+    paiseId: d.paiseId || "",
     servicios: d.servicios
       ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
       : [],
