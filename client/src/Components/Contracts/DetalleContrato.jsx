@@ -70,10 +70,6 @@ export default function DetalleContrato() {
                 Contrapropuesta
                 </button>
                 </div>
-
-          <button className={s.buttonDetalle}>Rechazar</button>
-
-          <button className={s.buttonDetalle}>Contrapropuesta</button>
         </div>
       </div>
    
