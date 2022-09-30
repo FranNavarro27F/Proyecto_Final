@@ -46,6 +46,7 @@ const findUsers = async (props) => {
   //
   return usuarios.map((u) => {
     const { dataValues: d } = u;
+    // let country = Paises.findByPk(u.paiseId)?.d.name;
     //
     return {
       id: d.id,
@@ -81,7 +82,7 @@ const findUsers = async (props) => {
       // cbu: d.cbu,
       // cvu: d.cvu,
 
-      paiseId: d.paise ? d.paise.dataValues.name : "",
+      paiseId: d.paiseId || "",
       servicios: d.servicios
         ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
         : [],
@@ -120,6 +121,8 @@ const findUser = async (props) => {
       },
     ],
   });
+
+  //   let country = Paises.findByPk(u.paiseId).d.name;
   //
   return {
     id: d.id,
@@ -155,7 +158,7 @@ const findUser = async (props) => {
     cbu: d.cbu,
     cvu: d.cvu,
 
-    paiseId: d.paise ? d.paise.dataValues.name : "",
+    paiseId: d.paiseId || "",
     servicios: d.servicios
       ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
       : [],
@@ -265,8 +268,11 @@ const getUsers = async () => {
 
 // GET USER (BY ID) → DETAILS
 const getUserById = async (id) => {
+  //
   try {
+
     let User = await Usuarios.findByPk(id, {
+
       include: [
         {
           model: Servicios,
@@ -292,10 +298,11 @@ const getUserById = async (id) => {
     let userM = User?.dataValues;
 
     let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
-  
+
     userM.paiseId = nombrePais;
-    userM.name = toUperCase(userM.name);
-    userM.lastName = toUperCase(userM.lastName);
+    userM.name = capitalize(userM.name);
+    userM.lastName = capitalize(userM.lastName);
+
     userM.servicios = userM.servicios
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
@@ -308,6 +315,8 @@ const getUserById = async (id) => {
 
 
     return userM;
+   
+
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
@@ -378,6 +387,24 @@ const postUserAuth = async (data) => {
     //
   } catch (e) {
     console.error(`${ERROR}postUserAuth --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
+// SET SUBSCRIPTION ID
+const setSubscriptionId = async (data) => {
+  //
+  try {
+    const { id, subscription_id } = data;
+    const user = await Usuarios.findByPk(id);
+    user.subscription_id = subscription_id || null;
+
+    await user.save();
+    return `Al usuario ${user.email} le fue asignada la suscripción: ${subscription_id}`;
+    //
+  } catch (e) {
+    console.error(`${ERROR}setSubscriptionId --→ ${e}`);
   }
 };
 
@@ -512,5 +539,6 @@ module.exports = {
   getUserByName,
   postUserAuth,
   modifyUser,
+  setSubscriptionId,
   getByEmail,
 };

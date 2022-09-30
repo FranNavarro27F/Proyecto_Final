@@ -13,12 +13,13 @@ export default function NavMenuHome({
   setOpen,
   open,
 }) {
-  const { user,
-      isAuthenticated,
-      // isLoading,
-      // loginWithRedirect,
-      logout } =
-    useAuth0();
+  const {
+    user,
+    isAuthenticated,
+    // isLoading,
+    // loginWithRedirect,
+    logout,
+  } = useAuth0();
   return (
     <div className={s.container}>
       <ul>
