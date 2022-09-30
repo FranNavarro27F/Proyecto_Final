@@ -17,13 +17,8 @@ dotenv.config();
 
 
 axios.defaults.baseURL =
-<<<<<<< HEAD
-// "https://programax.vercel.app"||
-//   process.env.REACT_APP_API ||
-=======
+"https://programax.vercel.app"||
   process.env.REACT_APP_API ||
-"https://programax.up.railway.app/" ||
->>>>>>> fd0c07be9a00bd2ec7cd744164004beac2a1716f
   "http://localhost:3001";
 
 ReactDOM.render(
