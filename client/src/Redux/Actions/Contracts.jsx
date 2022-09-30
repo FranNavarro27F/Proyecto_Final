@@ -33,3 +33,15 @@ export function getContratoId(idContrato) {
     });
   };
 }
+
+export function aceptarContrato(id){
+  return async function(dispatch){
+    try {
+      const contratoAceptado = await axios.get(`/contratos/accept/${id}`);
+      console.log(contratoAceptado)
+      
+    } catch (error) {
+      console.error("Error en la Accion de aceptar contrato", error)
+    }
+  }
+}
