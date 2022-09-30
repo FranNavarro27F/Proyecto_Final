@@ -5,8 +5,6 @@ import { useParams } from 'react-router-dom';
 import { aceptarContrato } from '../../Redux/Actions/Contracts';
 import s from "../Contracts/DetalleContracts.module.css";
 
-
-
 export default function DetalleContrato() {
 
     const {id} = useParams()
@@ -73,8 +71,11 @@ export default function DetalleContrato() {
                 </button>
                 </div>
 
-              </div>
-              
-              </div>
-     )
+          <button className={s.buttonDetalle}>Rechazar</button>
+
+          <button className={s.buttonDetalle}>Contrapropuesta</button>
+        </div>
+      </div>
+   
+  );
 }

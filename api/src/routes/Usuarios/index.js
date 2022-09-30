@@ -18,7 +18,8 @@ const router = Router();
 router.get("/", async (req, res) => {
   //
   try {
-    let { name, email } = req.query;
+    let { name, email } = req.query;  
+      
     let user;
     if (name) {
       user = await getUserByName(name);
@@ -71,12 +72,12 @@ router.put("/", async (req, res) => {
 // -----------------------------------------------
 
 // Set SUBSCRIPTION ID
-router.put("/sub", async (req, res) => {
+router.put("/sub/:id", async (req, res) => {
   //
   try {
-    // const { id } = req.params;
-    // const { id, subscription_id } = req.body;
-    const updatedUser = await setSubscriptionId(req.body);
+    const { id } = req.params;
+    // const { subscription_id, status } = req.body;
+    const updatedUser = await setSubscriptionId(id, req.body);
 
     return await res.send(updatedUser);
     //
@@ -90,14 +91,13 @@ router.put("/sub", async (req, res) => {
 router.post("/", async (req, res) => {
   //
   try {
-    let { email, family_name, given_name, picture } = req.body;
-
-    if (!family_name || !given_name || !email) {
-      res.sendStatus(400);
-    } else {
-      let usuario = await postUserAuth(req.body);
-      res.json(usuario);
-    }
+    // let { email, family_name, given_name, picture } = req.body;
+    // if (!family_name || !given_name || !email) {
+    //   res.sendStatus(400);
+    // } else {
+    let usuario = await postUserAuth(req.body);
+    res.json(usuario);
+    // }
     //
   } catch (e) {
     res.sendStatus(400).send(`Error --→ ${e}`);

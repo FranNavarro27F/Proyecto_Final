@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
+import { emailer } from "../../Redux/Actions/Emailer";
 
 export default function Contrato({
   userByEmail,
@@ -30,17 +31,16 @@ export default function Contrato({
   };
   const handlerSendPropuesta = (e) => {
     dispatch(setearContrato(propuesta));
-    // dispatch(
-    //   // emailer({
-    //   //   nombreContratista: nombreContratista,
-    //   //   mailContrado: mailContrado,
-    //   // })
-    // );
-
+    // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
+    //  dispatch(
+    //     emailer({
+    //       nombreContratista: userByEmail?.name,
+    //       mailContrado: userDetail.email,
+    //       IDContratado: userDetail.id
+    //     })
+    //  );
     alert("Tu propuesta fue enviada correctamente!");
   };
-
-  console.log(userDetail, "*******");
 
   return (
     <div className={s.bodyPropuesta}>

@@ -12,6 +12,13 @@ const ERROR = "Error @ controllers/Admin";
 
 // ----------------------------------------------------
 
+const capitalize = (nombre) => {
+    return nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
+  };
+
+
+//-------- Posts --------
+
   const postLenguajes = async (name) =>{
     try {
 
@@ -100,7 +107,7 @@ const postTecnologias = async (name) => {
                 name,
             },
         });
-        return `successfull --→ ${tecnologia.data}`
+        return `Tecnología ${name} agregada correctamente`
     } catch (e) {
         console.error(`ERROR @ controllers/postTecnologias --→ ${e}`);
     }
@@ -114,7 +121,7 @@ const postPaises = async (name) => {
                 name,
             },
         });
-        return `successfull --→ ${pais.data}`
+        return `Pais ${name} agregado correctamente`
     } catch (e) {
         console.error(`ERROR @ controllers/postPaises --→ ${e}`);
     }
@@ -155,7 +162,7 @@ const borrLogicTecnologias = async (id,habilitado) => {
 
 const borrLogicUsuario = async (data) => {
     try {
-        let { id } = data
+        let { id, habilitado } = data
 
         await Usuarios.update({
             habilitado: habilitado
@@ -167,88 +174,86 @@ const borrLogicUsuario = async (data) => {
             return "Usuario habilitado correctamente"
         }    
 
-    } catch (error) {
+    } catch (e) {
         console.error(`ERROR @ controllers/Admin/borrLogicUsuario --→ ${e}`);
     }
 }
 
 
 
-// const getAdminUser = async () => {
-//     try {
+const getAdminUser = async () => {
+    try {
 
-//         let usuarios = await Usuarios.findAll({
-//           include: [
-//             {
-//               model: Paises,
-//               attributes: ["name"],
-//             },
-//             {
-//               model: Servicios,
-//               attributes: ["name"],
-//               through: { attributes: [] },
-//             },
-//             {
-//               model: Lenguajes,
-//               attributes: ["name"],
-//               through: { attributes: [] },
-//             },
-//             {
-//               model: Tecnologias,
-//               attributes: ["name"],
-//               through: { attributes: [] },
-//             },
-//           ],
-//         });
+        let usuarios = await Usuarios.findAll({
+          include: [
+            {
+              model: Paises,
+              attributes: ["name"],
+            },
+            // {
+            //   model: Servicios,
+            //   attributes: ["name"],
+            //   through: { attributes: [] },
+            // },
+            // {
+            //   model: Lenguajes,
+            //   attributes: ["name"],
+            //   through: { attributes: [] },
+            // },
+            // {
+            //   model: Tecnologias,
+            //   attributes: ["name"],
+            //   through: { attributes: [] },
+            // },
+          ],
+        });
     
-//         let arrUsers = usuarios.map((cur) => cur.dataValues);
-//         let arrUsersListo = arrUsers.map(async (cur) => {
-//           return {
-//             id: cur.id,
-//             profilePicture: cur.profilePicture,
-//             isAdmin: cur.isAdmin,
-//             name: cur.name ? (cur.name = toUperCase(cur.name)) : (cur.name = []),
-//             lastName: cur.lastName
-//               ? (cur.lastName = toUperCase(cur.lastName))
-//               : (cur.lastName = []),
-//             email: cur.email,
-//             city: cur.city,
-//             linkedIn: cur.linkedIn,
-//             gitHub: cur.gitHub,
-//             webSite: cur.webSite,
-//             yearsOfExperience: cur.yearsOfExperience,
-//             dailyBudget: cur.dailyBudget,
-//             englishLevel: cur.englishLevel,
-//             bio: cur.bio,
-//             visible: cur.visible,
-//             postulado: cur.postulado,
-//             registrado: cur.registrado,
-//             habilitado: cur.habilitado,
-//             tarjeta_numero: cur.tarjeta_numero,
-//             tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
-//             tarjeta_vencimiento: cur.tarjeta_vencimiento,
-//             tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
-//             cbu: cur.cbu,
-//             cvu: cur.cvu,
-//             reputacion: cur.reputacion,
-//             paiseId: cur.paise ? cur.paise.dataValues.name : "",
-//             servicios: cur.servicios
-//               ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
-//               : [],
-//             lenguajes: cur.lenguajes
-//               ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
-//               : [],
-//             tecnologias: cur.tecnologias
-//               ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
-//               : [],
-//           };
-//         });
+        let arrUsers = usuarios.map((cur) => cur.dataValues);
+        let arrUsersListo = arrUsers.map(async (cur) => {
+          return {
+            id: cur.id,
+            profilePicture: cur.profilePicture,
+            // isAdmin: cur.isAdmin,
+            name: capitalize(cur.name) || "Anonymous",
+            lastName: capitalize(cur.lastName) || "Anonymous",
+            email: cur.email,
+            // city: cur.city,
+            // linkedIn: cur.linkedIn,
+            // gitHub: cur.gitHub,
+            // webSite: cur.webSite,
+            // yearsOfExperience: cur.yearsOfExperience,
+            // dailyBudget: cur.dailyBudget,
+            // englishLevel: cur.englishLevel,
+            // bio: cur.bio,
+            visible: cur.visible,
+            postulado: cur.postulado,
+            registrado: cur.registrado,
+            habilitado: cur.habilitado,
+            // tarjeta_numero: cur.tarjeta_numero,
+            // tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
+            // tarjeta_vencimiento: cur.tarjeta_vencimiento,
+            // tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
+            // cbu: cur.cbu,
+            // cvu: cur.cvu,
+            reputacion: cur.reputacion,
+            paiseId: cur.paise ? cur.paise.dataValues.name : "",
+            // servicios: cur.servicios
+            //   ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+            //   : [],
+            // lenguajes: cur.lenguajes
+            //   ? cur.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+            //   : [],
+            // tecnologias: cur.tecnologias
+            //   ? cur.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+            //   : [],
+          };
+        });
     
-//         return await Promise.all(arrUsersListo);
-//       } catch (e) {
-//         console.error(`ERROR @ controllers/getAdminUser --→ ${e}`);
-//       }
-// }
+        return await Promise.all(arrUsersListo);
+      } catch (e) {
+        console.error(`ERROR @ controllers/getAdminUser --→ ${e}`);
+      }
+}
 
 const getAdminLeng = async () => {
     try {
@@ -308,6 +313,7 @@ module.exports = {
     getAdminLeng,
     getAdminPaises,
     getAdminServ,
-    getAdminTec
+    getAdminTec,
+    getAdminUser
 };
 

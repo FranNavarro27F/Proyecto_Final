@@ -18,16 +18,6 @@ import { getUserEmail } from "../../Redux/Actions/DevUser";
 export default function Home() {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
-  // const userLocal = useMemo(() => {
-  //   const userLocal = {
-  //     family_name: `${user?.family_name}`,
-  //     given_name: `${user?.given_name}`,
-  //     email: `${user?.email}`,
-  //     picture: `${user?.picture}`,
-  //   };
-
-  //   return userLocal;
-  // }, [user?.email, user?.family_name, user?.given_name, user?.picture]);
 
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
