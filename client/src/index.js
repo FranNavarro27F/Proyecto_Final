@@ -13,6 +13,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+console.log("*************************",process.env.REACT_APP_BACKEND_URL,"**********************")
+
+
 axios.defaults.baseURL =
   process.env.REACT_APP_API ||
   "https://programax.up.railway.app/" ||

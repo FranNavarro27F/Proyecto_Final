@@ -15,7 +15,6 @@ export function pagosMp() {
 }
 
 export function subscriptionMp() {
-  // console.log(payload, "action");
   return async function (dispatch) {
     try {
       return dispatch({
@@ -29,7 +28,6 @@ export function subscriptionMp() {
 }
 
 export function consultSub(id) {
-  // console.log(id, "action");
   return async function (dispatch) {
     try {
       return dispatch({
@@ -43,7 +41,6 @@ export function consultSub(id) {
 }
 
 export function consultPay(id) {
-  // console.log(payload, "action");
   return async function (dispatch) {
     try {
       return dispatch({
@@ -57,16 +54,16 @@ export function consultPay(id) {
 }
 
 export function setSubscriptionId(payload) {
-  const { id, subscriptionId } = payload;
+  const { user_id, subscription_id, status } = payload;
 
-  // console.log("PAYLOADDDDDDDDDDDDDDDDDDDDD", payload);
-  console.log("PAYLOADDDDDDDDDDDDDDDDDDDDD", payload.id);
-  console.log("PAYLOADDDDDDDDDDDDDDDDDDDDD", payload.subscriptionId);
   return async function (dispatch) {
     try {
+      console.log("PUTIEEEE", payload);
       return dispatch({
         type: "MP_SET_SUSCRIPTION_ID",
-        payload: (await axios.put(`/sub/${id}`, subscriptionId)).data,
+        payload: (
+          await axios.put(`/usuarios/sub/${user_id}`, subscription_id, status)
+        ).data,
       });
     } catch (e) {
       console.error(e, "error catch action SET ID MercadoPago");

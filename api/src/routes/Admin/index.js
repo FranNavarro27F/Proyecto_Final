@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias, borrLogicUsuario, getAdminLeng, getAdminTec, getAdminPaises, getAdminServ } = require("../../controllers/Admin");
+const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias, borrLogicUsuario, getAdminLeng, getAdminTec, getAdminPaises, getAdminServ, getAdminUser } = require("../../controllers/Admin");
 
 const router = Router();
 
@@ -116,7 +116,7 @@ router.put("/servicios", async (req, res)=>{
     }
 })
 
-router.put("/usuario", async (req, res)=>{
+router.put("/usuarios", async (req, res)=>{
     try {
         
         res.status(200).json(await borrLogicUsuario(req.body))
@@ -129,48 +129,58 @@ router.put("/usuario", async (req, res)=>{
 // Get de Admin de informacion
 
 
-// router.get("/lenguajes", async (req, res)=>{
-//     try {
+router.get("/lenguajes", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminLeng())
+        res.status(200).json(await getAdminLeng())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/tecnologias", async (req, res)=>{
-//     try {
+router.get("/tecnologias", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminTec())
+        res.status(200).json(await getAdminTec())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/paises", async (req, res)=>{
-//     try {
+router.get("/paises", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminPaises())
+        res.status(200).json(await getAdminPaises())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/servicios", async (req, res)=>{
-//     try {
+router.get("/servicios", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminServ())
+        res.status(200).json(await getAdminServ())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
+
+
+router.get("/usuarios", async (req, res)=>{
+    try {
+        res.status(200).json(await getAdminUser())
+        
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
 

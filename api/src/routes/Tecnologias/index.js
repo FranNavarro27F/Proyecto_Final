@@ -26,13 +26,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   //
   try {
-    let { valor } = req.body;
-    if (valor === "true") {
-      valor = true;
-    } else {
-      valor = false;
-    }
-    res.json(await todasLasTecnologias(valor));
+    res.json(await todasLasTecnologias());
     //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
