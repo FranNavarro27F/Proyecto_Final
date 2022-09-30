@@ -319,6 +319,7 @@
   cursor: pointer;
   color: rgb(0, 0, 0);
   border: 1px solid black;
+  cursor: default;
 }
 
 .buttonReset:hover {

@@ -6,6 +6,7 @@ const {
   deleteUser,
   getUserByName,
   modifyUser,
+  setSubscriptionId,
   postUserAuth,
   getByEmail,
 } = require("../../controllers/Usuarios");
@@ -52,16 +53,33 @@ router.get("/:id", async (req, res) => {
 router.put("/", async (req, res) => {
   //
   try {
-    let { email, paiseId } = req.body;
+    // let { email, paiseId } = req.body;
 
-    if (!email || !paiseId) {
-      res.sendStatus(400).send(`Error --→ ${e}`);
-      // .json("Falta alguno de los campos importantes. Por favor revisar");
-    } else {
-      let usuario = await modifyUser(req.body);
+    // if (!email || !paiseId) {
+    //   res.sendStatus(400).send(`Error --→ ${e}`);
+    // .send("Falta alguno de los campos importantes. Por favor revisar");
+    // } else {
+    let usuario = await modifyUser(req.body);
 
-      res.status(201).json(usuario);
-    }
+    res.status(201).json(usuario);
+    // }
+    //
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+// -----------------------------------------------
+
+// Set SUBSCRIPTION ID
+router.put("/sub", async (req, res) => {
+  //
+  try {
+    // const { id } = req.params;
+    // const { id, subscription_id } = req.body;
+    const updatedUser = await setSubscriptionId(req.body);
+
+    return await res.send(updatedUser);
     //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);

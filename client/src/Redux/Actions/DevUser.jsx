@@ -59,6 +59,7 @@ export function getDevUsers(payload) {
   };
 }
 export function getUserId(id) {
+  console.log(id, "IDDDDDDD");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
@@ -67,7 +68,7 @@ export function getUserId(id) {
         payload: userId,
       });
     } catch (error) {
-      console.log(error, "error TryCatch");
+      console.log(error, "error TryCatch user by id");
     }
   };
 }

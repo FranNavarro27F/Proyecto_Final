@@ -2,7 +2,7 @@ const { Lenguajes } = require("../../db");
 const { lenguajes } = require("../../json/Data.js");
 // const { Op } = require("sequelize");
 
-const ERROR = "Error @ controllers/Lenguajes";
+const ERROR = "Error @ controllers/Lenguajes/";
 
 // -----------------------------------------------
 
@@ -16,11 +16,13 @@ const saveLanguages = async () => {
       // )
     );
     console.log("✔ Lenguajes cargados.");
-    return "Lenguajes agregados correctamente";
+    return "✔ Lenguajes cargados.";
   } catch (e) {
-    console.error(`${ERROR}/saveLanguages --> ${e}`);
+    console.error(`${ERROR}saveLanguages --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 // Guardar un nuevo lenguaje en la DB
 const saveLanguage = async (language) => {
@@ -28,23 +30,29 @@ const saveLanguage = async (language) => {
   } catch (e) {}
 };
 
+// -----------------------------------------------
+
 // Ver JSON de todos los lenguajes de programación
 const getLanguages = async () => {
   try {
     let lenguajes = await Lenguajes.findAll();
     return lenguajes;
   } catch (e) {
-    console.error(`${ERROR}/getLanguage --> ${e}`);
+    console.error(`${ERROR}getLanguage --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 // Modificar un lenguaje de la DB
 const modifyLanguage = async ({ id, content }) => {
   try {
   } catch (e) {
-    console.error(`${ERROR}/modifyLanguage --> ${e}`);
+    console.error(`${ERROR}modifyLanguage --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 // Eliminar un lenguaje de la DB
 const deleteLenguajes = async (id) => {
@@ -54,9 +62,11 @@ const deleteLenguajes = async (id) => {
     console.log(`Lenguajes(${id}) deleted successfully`);
     return `Lenguajes (${id}) deleted successfully`;
   } catch (e) {
-    console.error(`${ERROR}/deleteLenguajes --> ${e}`);
+    console.error(`${ERROR}deleteLenguajes --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 module.exports = {
   saveLanguages,

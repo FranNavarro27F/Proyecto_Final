@@ -75,9 +75,9 @@ function validacionesEdit(input) {
   }
 
   //countrie
-  if (input.paiseID) {
-    if (input?.paiseId === "") errors.paiseId = "Ingresa un pais!";
-  }
+
+  if (input?.paiseId === "") errors.paiseId = "Ingresa un pais!";
+
   return errors;
 }
 

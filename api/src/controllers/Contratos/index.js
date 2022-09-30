@@ -110,7 +110,7 @@ const createContract = async (data) => {
       date,
       expiration_date,
       price,
-      status
+      status,
       // payment_id,
     } = data;
 
@@ -129,8 +129,8 @@ const createContract = async (data) => {
     });
 
     // traigo a las 2 partes del contrato para setear relacion con contrato.
-    let el_que_contrata= await Usuarios.findByPk(employer);
-    let el_programador_contratado= await Usuarios.findByPk(developer);
+    let el_que_contrata = await Usuarios.findByPk(employer);
+    let el_programador_contratado = await Usuarios.findByPk(developer);
 
     //seteo relacion en tabla intermedia mediante los ID de usuarios a contratos-usuarios.
     await el_que_contrata.addContratos(newContract.dataValues.id);

@@ -68,6 +68,8 @@ class PaymentService {
         frequency_type: "months",
         transaction_amount: 1000,
         currency_id: "ARS",
+        start_date: new Date(),
+        end_date: "2023-07-20T15:59:52.581Z",
       },
 
       back_url: "https://programax.vercel.app/purchase-completed",
