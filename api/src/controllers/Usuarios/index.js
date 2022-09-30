@@ -186,6 +186,10 @@ const findUser = async (props) => {
 //     console.error(`${ERROR}getUsers --→ ${e}`);
 //   }
 // };
+
+// -----------------------------------------------
+
+// GET (ALL) USERS
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
