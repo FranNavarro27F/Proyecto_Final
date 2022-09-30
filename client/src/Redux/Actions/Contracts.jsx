@@ -11,12 +11,7 @@ export function setearContratoGlobal(contrato) {
 
 export function setearContrato(propuestaContrato) {
   return async function (dispatch) {
-    // console.log(
-    //   "***actions/contratos--------",
-    //   propuestaContrato,
-    //   "action/contratos****"
-    // );
-
+    
     let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
 
     console.log("****", propuestaCont, "*****");
@@ -37,7 +32,7 @@ export function getContratoId(idContrato) {
 export function aceptarContrato(id){
   return async function(dispatch){
     try {
-      console.log(id, "aca id de fun front de aceptar")
+      console.log(id,"actions contratos aceptar contrato")
       const contratoAceptado = await axios.get(`/contratos/accept/${id}`);
       console.log(contratoAceptado)
       
