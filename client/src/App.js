@@ -39,8 +39,6 @@ function App() {
 
   const { userByEmail } = useFetchUsers(user?.email);
 
-  console.log(userByEmail, "USERRRRRRRRRRRRRRRRRREMAIL");
-
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
   }, [dispatch, user, userByEmail?.registrado]);
@@ -51,6 +49,7 @@ function App() {
     email: `${user?.email}`,
     picture: `${user?.picture}`,
   };
+
   return isLoading ? (
     <Loader />
   ) : (

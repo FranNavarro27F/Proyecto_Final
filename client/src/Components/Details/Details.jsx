@@ -52,6 +52,7 @@ export default function Details() {
   const [userProfile, setUserProfile] = useState(false);
 
   useEffect(() => {
+    dispatch(subscriptionMp());
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
@@ -66,33 +67,43 @@ export default function Details() {
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
+  const SubConsult = useSelector(
+    (state) => state.mercadoPago.SubscriptionConsult
+  );
   const subscription_id = Subscription?.id;
-  const status = Subscription?.status;
-
   useEffect(() => {
-    if (setUserProfile) {
-      dispatch(subscriptionMp());
-    }
-  }, [dispatch]);
+    dispatch(consultSub(subscription_id));
+  }, [dispatch, subscription_id]);
 
-  useEffect(() => {
-    console.log("USEEFFECT", userByEmail?.id, subscription_id, status);
-    if (userByEmail?.premium !== true) {
-      dispatch(
-        setSubscriptionId({
-          user_id: userByEmail?.id,
-          subscription_id: subscription_id,
-          status: status,
-        })
-      );
-    }
-  }, [
-    dispatch,
-    status,
-    subscription_id,
-    userByEmail?.id,
-    userByEmail?.premium,
-  ]);
+  const status = SubConsult?.status;
+  console.log(status, "STATUSSSSSSS");
+
+  // useEffect(() => {
+  //   // dispatch(subscriptionMp());
+  //   // if (setUserProfile) {
+  //   //   if (userByEmail?.premium !== true) {
+  //   //   }
+  //   // }
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   console.log("USEEFFECT", userByEmail?.id, subscription_id, status);
+  //   if (userByEmail?.premium !== true) {
+  //     dispatch(
+  //       setSubscriptionId({
+  //         user_id: userByEmail?.id,
+  //         subscription_id: subscription_id,
+  //         status: status,
+  //       })
+  //     );
+  //   }
+  // }, [
+  //   dispatch,
+  //   status,
+  //   subscription_id,
+  //   userByEmail?.id,
+  //   userByEmail?.premium,
+  // ]);
   // useEffect(() => {
   //   dispatch(setSubscriptionId({ id, subscriptionId }));
   // }, [dispatch, id, subscriptionId]);
@@ -126,8 +137,39 @@ export default function Details() {
 
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
+  useEffect(() => {
+    dispatch(consultSub(SubConsult?.id));
+  }, [dispatch]);
+
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
+    dispatch(consultSub(SubConsult?.id));
+
+    setTimeout(() => {
+      console.log(SubConsult?.status);
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: SubConsult?.id,
+          status: SubConsult?.status,
+        })
+      );
+    }, 2500);
+  };
+  const handleCloseSub = () => {
+    dispatch(consultSub(SubConsult?.id));
+    // dispatch(consultSub(Subscription?.id));
+    setTimeout(() => {
+      console.log(SubConsult?.status);
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: SubConsult?.id,
+          status: SubConsult?.status,
+        })
+      );
+    }, 2500);
+    setMostrarSub(false);
   };
 
   return contratoDetail ? (
@@ -144,17 +186,9 @@ export default function Details() {
     <div className={s.bodydelosbodys}>
       <div
         className={!mostrarSub ? s.bodyIframeNone : s.bodyIframe}
-        onClick={() => {
-          dispatch(consultSub(Subscription?.id));
-          setMostrarSub(false);
-        }}
+        onClick={handleCloseSub}
       >
-        <button
-          onClick={() => {
-            setMostrarSub(!mostrarSub);
-          }}
-          className={s.Icon}
-        >
+        <button onClick={handleCloseSub} className={s.Icon}>
           <span htmlFor="">
             <IoMdCloseCircle />
           </span>
@@ -531,7 +565,7 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    <h1>PREMIUN: {`${userByEmail?.premium}`}</h1>
+                    <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
                     <h2>
                       {!userProfile
                         ? userDetail?.name + " "
@@ -665,13 +699,15 @@ export default function Details() {
                             ? `Editar postulación`
                             : `Postularme`}
                         </button>
-                        <button
-                          // href={linkPago}
-                          className={s.buttonSub}
-                          onClick={handlePremiun}
-                        >
-                          SUSCRIPCION
-                        </button>
+                        {userByEmail?.premium !== true && (
+                          <button
+                            // href={linkPago}
+                            className={s.buttonSub}
+                            onClick={handlePremiun}
+                          >
+                            SUSCRIPCION
+                          </button>
+                        )}
                       </div>
                     ) : (
                       <button
