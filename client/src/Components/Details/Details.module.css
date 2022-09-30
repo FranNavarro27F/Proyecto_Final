@@ -204,7 +204,7 @@
   -moz-box-shadow: 10px 10px 18px -6px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 18px -6px rgba(0, 0, 0, 0.75);
 }
-.conteiner textarea {
+.conteiner {
   background-color: rgba(255, 255, 255, 0.404);
   border: 1px solid rgb(223, 70, 243);
   border-radius: 20px;
@@ -225,6 +225,12 @@
   cursor: pointer;
   margin-right: 0.7rem;
 }
+.buttonVolver:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
 
 .buttonPago {
   width: 11vw;
@@ -236,6 +242,12 @@
   font-weight: 400;
   font-size: 1.1vw;
   line-height: 23px;
+  cursor: pointer;
+}
+.buttonPago:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
   cursor: pointer;
 }
 
@@ -523,4 +535,32 @@
   height: 5vh;
   margin-left: 110vh;
   margin-top: 3vh;
+}
+
+.inputForm {
+  display: flex;
+}
+
+.divDataForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.divDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.divButtons {
+  margin-top: 40px;
+}
+
+.divFormGen {
+  display: flex;
+  gap: 15vh;
+}
+
+.textDescription {
+  min-height: 50vh;
+  padding: 20px;
 }

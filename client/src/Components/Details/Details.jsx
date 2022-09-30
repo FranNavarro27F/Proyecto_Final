@@ -110,7 +110,7 @@ export default function Details() {
 
   const linkPago = Subscription.init_point;
 
-  const [contratoDetail, SetContratoDetail] = useState(false);
+   const [contratoDetail, SetContratoDetail] = useState(false);
 
   const handleContact = () => {
     if (isAuthenticated) {
