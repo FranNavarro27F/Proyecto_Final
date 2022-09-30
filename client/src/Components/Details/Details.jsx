@@ -36,6 +36,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { setearContrato } from "../../Redux/Actions/Contracts";
 import Contrato from "./Contrato";
 import useUser from "../../Hooks/useUser";
+import Contracts from "../Contracts/Contracts";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -678,18 +679,15 @@ export default function Details() {
           userDetail?.contratos.map((cur) => {
             return (
               <div className={s.cardContrato}>
-                {cur.description}
-                <br />
-                {cur.date}
-                <br />
-                {cur.expiration_date}
-                <br />
-                {cur.status}
-                <br />
-                {cur.price}
-                <br />
-                {cur.aceptado}
-                <br />
+                <Contracts
+                  description={cur.description}
+                  date={cur.date}
+                  expiration_date={cur.expiration_date}
+                  status={cur.status}
+                  price={cur.price}
+                  aceptado={cur.aceptado}
+                  idContrato={cur.id}
+                />
               </div>
             );
           })}
