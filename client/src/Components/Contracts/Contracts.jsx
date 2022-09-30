@@ -51,7 +51,7 @@ export default function Contracts({
 
         <button
           onClick={() => {
-            navigate(`/contrato/:${idContrato}`);
+            navigate(`/contrato/${idContrato}`);
           }}
           className={s.buttonDetalle}
         >

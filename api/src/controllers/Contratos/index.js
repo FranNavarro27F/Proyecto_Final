@@ -189,8 +189,13 @@ const modifyContract = async (id, data) => {
 const cancelContract = async (id) => {
   try {
     //
-    const contract = await Contratos.findByPk(id);
-    contract.status = "Cancelado";
+    // const contract = await Contratos.findByPk(id);
+    // contract.status = "Cancelado";
+    await Contratos.update({ aceptado: false }, {
+      where: {
+      id: id
+      }
+      });
 
     return `Contrato cancelado exitosamente.`;
     //

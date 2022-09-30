@@ -32,12 +32,25 @@ export function getContratoId(idContrato) {
 export function aceptarContrato(id){
   return async function(dispatch){
     try {
-      console.log(id,"actions contratos aceptar contrato")
-      const contratoAceptado = await axios.get(`/contratos/accept/${id}`);
+      //console.log(id,"actions contratos aceptar contrato")
+      const contratoAceptado = await axios.put(`/contratos/accept/${id}`);
       console.log(contratoAceptado)
       
     } catch (error) {
       console.error("Error en la Accion de aceptar contrato", error)
+    }
+  }
+}
+
+export function rechazarContrato(id){
+  return async function(dispatch){
+    try {
+      console.log(id,"actions contratos rechazar contrato")
+      const conrtatoRechazado = await axios.put(`/contratos/cancel/${id}`)
+      console.log(conrtatoRechazado)
+    } catch (error) {
+      console.error("Error en la Accion de rechazar contrato", error)
+      
     }
   }
 }
