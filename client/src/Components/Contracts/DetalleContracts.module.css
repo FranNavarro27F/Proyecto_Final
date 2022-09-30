@@ -21,12 +21,7 @@
 }
 .cardDetalle{
     
-    background: linear-gradient(
-        290.74deg,
-        #5eaaaf 6.83%,
-        #2f2e6c 52.53%,
-        #251f3e 85.61%
-      );
+    background: rgba(47, 47, 138, 0.247);
     backdrop-filter: blur(2px);
     border: 2px solid rgba(0, 0, 0, 0.075);
     width: 110vh;

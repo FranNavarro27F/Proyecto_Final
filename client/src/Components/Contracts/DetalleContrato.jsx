@@ -70,8 +70,6 @@ export default function DetalleContrato() {
                 Contrapropuesta
                 </button>
                 </div>
-
-        
         </div>
       </div>
    
