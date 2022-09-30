@@ -4,10 +4,10 @@
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
     #251f3e 85.61%
-    );
-    width: 100%;
-    height: 100vh;
-    display: flex;
+  );
+  width: 100%;
+  height: 100vh;
+  display: flex;
   flex-direction: column;
 }
 .sideM {
@@ -23,6 +23,7 @@
   left: 0vh;
   top: 8%;
 }
+
 .divBox {
   box-sizing: border-box;
   position: absolute;
