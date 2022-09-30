@@ -158,6 +158,11 @@ module.exports = (sequelize) => {
         // allowNull: false,
       },
 
+      subscription_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
       tarjeta_numero: {
         type: DataTypes.INTEGER,
         allowNull: true,
