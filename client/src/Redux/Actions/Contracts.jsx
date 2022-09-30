@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 
 export function setearContratoGlobal(contrato) {
@@ -54,3 +55,14 @@ export function rechazarContrato(id){
     }
   }
 }
+ export function Contrapropuesta(payload, id){
+  return async function(dispatch){
+    try {
+      const contrapropuesta = await axios.put(`/contratos/${id}`,payload)
+      console.log(contrapropuesta)
+      
+    } catch (error) {
+      console.log("Su contrapropuesta no pudo ser enviada")
+    }
+  }
+ }

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { aceptarContrato, rechazarContrato } from '../../Redux/Actions/Contracts';
+import { aceptarContrato, Contrapropuesta, rechazarContrato } from '../../Redux/Actions/Contracts';
 import s from "../Contracts/DetalleContracts.module.css";
 
 export default function DetalleContrato() {
@@ -20,6 +20,11 @@ export default function DetalleContrato() {
     const handleRechazar = ()=>{
       dispatch(rechazarContrato(id))
     }
+//aca el handle de la contrapropuesta del contrato
+const handleContrapropuesta= ()=>{
+  dispatch(Contrapropuesta(id))
+}
+    
 
   
     return (
@@ -71,7 +76,7 @@ export default function DetalleContrato() {
                   
                 <button
               className={s.buttonDetalle}
-              //onClick ={(e)=>hand}
+              onClick ={(e)=>handleContrapropuesta}
               >
                 Contrapropuesta
                 </button>
