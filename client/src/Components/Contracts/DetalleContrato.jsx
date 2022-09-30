@@ -71,9 +71,7 @@ export default function DetalleContrato() {
                 </button>
                 </div>
 
-          <button className={s.buttonDetalle}>Rechazar</button>
-
-          <button className={s.buttonDetalle}>Contrapropuesta</button>
+        
         </div>
       </div>
    
