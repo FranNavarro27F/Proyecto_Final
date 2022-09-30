@@ -33,7 +33,7 @@ export function aceptarContrato(id){
   return async function(dispatch){
     try {
       console.log(id,"actions contratos aceptar contrato")
-      const contratoAceptado = await axios.get(`/contratos/accept/${id}`);
+      const contratoAceptado = await axios.put(`/contratos/accept/${id}`);
       console.log(contratoAceptado)
       
     } catch (error) {
