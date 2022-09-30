@@ -23,21 +23,11 @@ const guardarTecnologiasDB = async () => {
 
 // -----------------------------------------------
 
-const todasLasTecnologias = async (valor) => {
+const todasLasTecnologias = async () => {
   //
   try {
-    let allTec = [];
-    if (!valor) {
-      allTec = await Tecnologias.findAll({ where: { habilitado: true } });
-    } else {
       allTec = await Tecnologias.findAll();
-    }
-
-    if (allTec.length > 0) {
       return allTec;
-    } else {
-      return "Tecnologias no encontradas";
-    }
     //
   } catch (e) {
     console.error(`${ERROR}todasLasTecnologias --→ ${e}`);

@@ -186,6 +186,10 @@ const findUser = async (props) => {
 //     console.error(`${ERROR}getUsers --→ ${e}`);
 //   }
 // };
+
+// -----------------------------------------------
+
+// GET (ALL) USERS
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
@@ -258,7 +262,6 @@ const getUsers = async () => {
           : [],
       };
     });
-    console.log(Promise.all(arrUsersListo), "******");
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);

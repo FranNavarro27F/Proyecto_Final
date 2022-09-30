@@ -18,7 +18,8 @@ const router = Router();
 router.get("/", async (req, res) => {
   //
   try {
-    let { name, email } = req.query;
+    let { name, email } = req.query;  
+      
     let user;
     if (name) {
       user = await getUserByName(name);
