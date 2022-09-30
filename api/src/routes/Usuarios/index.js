@@ -69,6 +69,18 @@ router.put("/", async (req, res) => {
 
 // -----------------------------------------------
 
+// Set SUBSCRIPTION ID
+router.put("/sub/:id", async (req, res) => {
+  //
+  try {
+    //
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+// -----------------------------------------------
+
 router.post("/", async (req, res) => {
   //
   try {

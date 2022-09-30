@@ -188,8 +188,9 @@ const getUsers = async () => {
 
 // GET USER (BY ID) → DETAILS
 const getUserById = async (id) => {
+  //
   try {
-    return await Usuarios.findByPk(id, {
+    const User = Usuarios.findByPk(id, {
       include: [
         {
           model: Servicios,
@@ -211,6 +212,24 @@ const getUserById = async (id) => {
         },
       ],
     });
+
+    let userM = User?.dataValues;
+    let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
+
+    userM.paiseId = nombrePais;
+    userM.name = capitalize(userM.name);
+    userM.lastName = capitalize(userM.lastName);
+    userM.servicios = userM.servicios
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.lenguajes = userM.lenguajes
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.tecnologias = userM.tecnologias
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+
+    return userM;
     //
   } catch (e) {
     console.error(`${ERROR}getUserById --→ ${e}`);
@@ -284,6 +303,11 @@ const postUserAuth = async (data) => {
     console.error(`${ERROR}postUserAuth --→ ${e}`);
   }
 };
+
+// -----------------------------------------------
+
+// SET SUBSCRIPTION ID
+const setSubscriptionId = async (data) => {};
 
 // -----------------------------------------------
 
