@@ -2,11 +2,12 @@ const { Servicios } = require("../../db");
 const { servicios } = require("../../json/Data.js");
 // const { Op } = require("sequelize");
 
-const ERROR = "Error @ controllers/Servicios";
+const ERROR = "Error @ controllers/Servicios/";
 
 // -----------------------------------------------
 
 const guardarServiciosEnDB = async () => {
+  //
   try {
     servicios.forEach(
       async (cur) =>
@@ -15,22 +16,25 @@ const guardarServiciosEnDB = async () => {
         })
     );
     console.log("✔ Servicios cargados.");
-    return "Servicios guardadas correctamente en DB :) ";
+    return "✔ Servicios cargados.";
+    //
   } catch (e) {
-    console.error(`${ERROR}/guardarServiciosEnDB --> ${e}`);
+    console.error(`${ERROR}guardarServiciosEnDB --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 const todosLosServicios = async (valor) => {
   try {
-
-    
     let servi = await Servicios.findAll();
     return servi;
   } catch (e) {
-    console.error(`${ERROR}/todosLosServicios --> ${e}`);
+    console.error(`${ERROR}todosLosServicios --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 const deleteService = async (id) => {
   try {
@@ -40,9 +44,11 @@ const deleteService = async (id) => {
       console.log(`Service (${id}) deleted successfully`);
     } else console.error(`Service does not exist`);
   } catch (e) {
-    console.error(`${ERROR}/deleteService --> ${e}`);
+    console.error(`${ERROR}deleteService --> ${e}`);
   }
 };
+
+// -----------------------------------------------
 
 module.exports = {
   todosLosServicios,
