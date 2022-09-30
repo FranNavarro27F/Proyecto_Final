@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setearContratoGlobal } from "../../Redux/Actions/Contracts";
+import { setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
 
 export default function Contrato({
@@ -29,7 +29,7 @@ export default function Contrato({
     });
   };
   const handlerSendPropuesta = (e) => {
-    dispatch(setearContratoGlobal(propuesta));
+    dispatch(setearContrato(propuesta));
     // dispatch(
     //   // emailer({
     //   //   nombreContratista: nombreContratista,

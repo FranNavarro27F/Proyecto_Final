@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias, borrLogicUsuario, getAdminLeng, getAdminTec, getAdminPaises, getAdminServ } = require("../../controllers/Admin");
+const { postLenguajes, postServicios, borrLogicLenguaje, borrLogicServicios, postPaises, postTecnologias, borrLogicPaises, borrLogicTecnologias, borrLogicUsuario, getAdminLeng, getAdminTec, getAdminPaises, getAdminServ, getAdminUser } = require("../../controllers/Admin");
 
 const router = Router();
 
 // -----------------------------------------------
 
 
-router.post("/lenguaje", async (req, res)=>{
+router.post("/lenguajes", async (req, res)=>{
     try {
         let {name} = req.body
         if(!name){
@@ -21,7 +21,7 @@ router.post("/lenguaje", async (req, res)=>{
     }
 })
 
-router.post("/servicio", async (req, res)=>{
+router.post("/servicios", async (req, res)=>{
     try {
         let {name} = req.body
         if(!name){
@@ -37,7 +37,7 @@ router.post("/servicio", async (req, res)=>{
 })
 
 
-router.post("/tecnologia",async (req, res) => {
+router.post("/tecnologias",async (req, res) => {
     try {
         const { name } = req.body;
         if (name) {
@@ -50,7 +50,7 @@ router.post("/tecnologia",async (req, res) => {
     }
 })
 
-router.post("/pais",async (req, res) => {
+router.post("/paises",async (req, res) => {
     try {
         const { name } = req.body;
         if (name) {
@@ -66,7 +66,7 @@ router.post("/pais",async (req, res) => {
 //------------------ Put de borrado logico-----------------//
 
 
-router.put("/tecnologia",async (req, res) => {
+router.put("/tecnologias",async (req, res) => {
     try {
         const {id,habilitado} = req.body;
         if (id){
@@ -81,7 +81,7 @@ router.put("/tecnologia",async (req, res) => {
 
 
 
-router.put("/lenguaje", async (req, res)=>{
+router.put("/lenguajes", async (req, res)=>{
     try {
 
         res.status(200).json(await borrLogicLenguaje(req.body))
@@ -93,7 +93,7 @@ router.put("/lenguaje", async (req, res)=>{
     }
 })
 
-router.put("/pais",async (req, res) => {
+router.put("/paises",async (req, res) => {
     try {
         const {id,habilitado} = req.body;
         if (id){
@@ -108,7 +108,7 @@ router.put("/pais",async (req, res) => {
 
 
 
-router.put("/servicio", async (req, res)=>{
+router.put("/servicios", async (req, res)=>{
     try {
         res.status(200).json(await borrLogicServicios(req.body))
     } catch (e) {
@@ -116,7 +116,7 @@ router.put("/servicio", async (req, res)=>{
     }
 })
 
-router.put("/usuario", async (req, res)=>{
+router.put("/usuarios", async (req, res)=>{
     try {
         
         res.status(200).json(await borrLogicUsuario(req.body))
@@ -129,48 +129,58 @@ router.put("/usuario", async (req, res)=>{
 // Get de Admin de informacion
 
 
-// router.get("/lenguajes", async (req, res)=>{
-//     try {
+router.get("/lenguajes", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminLeng())
+        res.status(200).json(await getAdminLeng())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/tecnologias", async (req, res)=>{
-//     try {
+router.get("/tecnologias", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminTec())
+        res.status(200).json(await getAdminTec())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/paises", async (req, res)=>{
-//     try {
+router.get("/paises", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminPaises())
+        res.status(200).json(await getAdminPaises())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
-// router.get("/servicios", async (req, res)=>{
-//     try {
+router.get("/servicios", async (req, res)=>{
+    try {
         
-//         res.send(200).json(await getAdminServ())
+        res.status(200).json(await getAdminServ())
 
-//     } catch (e) {
-//         res.status(400).send(`Error --→ ${e}`);
-//     }
-// })
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
+
+
+router.get("/usuarios", async (req, res)=>{
+    try {
+        res.status(200).json(await getAdminUser())
+        
+    } catch (e) {
+        res.status(400).send(`Error --→ ${e}`);
+    }
+})
 
 
 

@@ -258,7 +258,6 @@ const getUsers = async () => {
           : [],
       };
     });
-    
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
@@ -270,9 +269,7 @@ const getUsers = async () => {
 const getUserById = async (id) => {
   //
   try {
-
     let User = await Usuarios.findByPk(id, {
-
       include: [
         {
           model: Servicios,
@@ -291,7 +288,7 @@ const getUserById = async (id) => {
         },
         {
           model: Contratos,
-        }
+        },
       ],
     });
 
@@ -313,10 +310,7 @@ const getUserById = async (id) => {
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
 
-
     return userM;
-   
-
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
@@ -356,7 +350,7 @@ const getByEmail = async (email) => {
   }
 };
 
-// -----------------------------------------------
+// -----------------------------------------------//
 
 const postUserAuth = async (data) => {
   //

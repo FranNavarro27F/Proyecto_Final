@@ -12,6 +12,13 @@ const ERROR = "Error @ controllers/Admin";
 
 // ----------------------------------------------------
 
+const capitalize = (nombre) => {
+    return nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
+  };
+
+
+//-------- Posts --------
+
   const postLenguajes = async (name) =>{
     try {
 
@@ -100,7 +107,7 @@ const postTecnologias = async (name) => {
                 name,
             },
         });
-        return `successfull --→ ${tecnologia.data}`
+        return `Tecnología ${name} agregada correctamente`
     } catch (e) {
         console.error(`ERROR @ controllers/postTecnologias --→ ${e}`);
     }
@@ -114,7 +121,7 @@ const postPaises = async (name) => {
                 name,
             },
         });
-        return `successfull --→ ${pais.data}`
+        return `Pais ${name} agregado correctamente`
     } catch (e) {
         console.error(`ERROR @ controllers/postPaises --→ ${e}`);
     }
@@ -155,7 +162,7 @@ const borrLogicTecnologias = async (id,habilitado) => {
 
 const borrLogicUsuario = async (data) => {
     try {
-        let { id } = data
+        let { id, habilitado } = data
 
         await Usuarios.update({
             habilitado: habilitado
@@ -167,7 +174,7 @@ const borrLogicUsuario = async (data) => {
             return "Usuario habilitado correctamente"
         }    
 
-    } catch (error) {
+    } catch (e) {
         console.error(`ERROR @ controllers/Admin/borrLogicUsuario --→ ${e}`);
     }
 }
@@ -207,10 +214,8 @@ const getAdminUser = async () => {
             id: cur.id,
             profilePicture: cur.profilePicture,
             // isAdmin: cur.isAdmin,
-            name: cur.name ? (cur.name = toUperCase(cur.name)) : (cur.name = []),
-            lastName: cur.lastName
-              ? (cur.lastName = toUperCase(cur.lastName))
-              : (cur.lastName = []),
+            name: capitalize(cur.name) || "Anonymous",
+            lastName: capitalize(cur.lastName) || "Anonymous",
             email: cur.email,
             // city: cur.city,
             // linkedIn: cur.linkedIn,
