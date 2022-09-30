@@ -65,8 +65,7 @@ export default function Details() {
 
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
-  console.log(userDetail, "ACA DETAILS USER");
-
+ 
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
@@ -86,14 +85,7 @@ export default function Details() {
     if (isAuthenticated) {
       if (nombreContratista && mailContrado) {
         setDisabled(true);
-        // dispatch(
-        //   // emailer({
-        //   //   nombreContratista: nombreContratista,
-        //   //   mailContrado: mailContrado,
-        //   // })
-        // );
       }
-
       SetContratoDetail(!contratoDetail);
     } else {
       loginWithRedirect();
@@ -721,6 +713,7 @@ export default function Details() {
                   price={cur.price}
                   aceptado={cur.aceptado}
                   idContrato={cur.id}
+                  userByEmail={userByEmail}
                 />
               </div>
             );
