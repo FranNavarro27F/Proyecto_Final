@@ -22,11 +22,11 @@ export default function Work() {
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const allUsers = useSelector((state) => state.devUser.allUsers);
+  const { allUsers } = useFetchUsers();
 
-  useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
   const {
     optionsOrderBudget,
@@ -41,11 +41,7 @@ export default function Work() {
   const indexOfFirstDev = indexOfLastDev - devPerPage;
   const currentDev = filtrados.slice(indexOfFirstDev, indexOfLastDev);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  return !allUsers.length ? (
+  return !allUsers.length && isLoading ? (
     <Loader />
   ) : (
     <main className={s.body}>
