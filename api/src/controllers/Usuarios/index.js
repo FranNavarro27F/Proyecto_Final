@@ -215,7 +215,7 @@ const getUsers = async () => {
         },
       ],
     });
-
+      console.log("**el find ***",getUsers,"*****")
     let arrUsers = usuarios.map((cur) => cur.dataValues);
     let arrUsersListo = arrUsers.map(async (cur) => {
       return {
