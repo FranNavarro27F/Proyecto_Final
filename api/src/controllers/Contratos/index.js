@@ -204,7 +204,7 @@ const cancelContract = async (id) => {
 // PUT (ACCEPT) CONTRACT
 const acceptContract = async (id) => {
   try {
-    //
+    console.log(id,"loremp controladores contratos puuuuuuuut id")
     const contract = await Contratos.findByPk(id);
     contract.aceptado = true;
 

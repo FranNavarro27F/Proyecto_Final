@@ -37,6 +37,7 @@ export function getContratoId(idContrato) {
 export function aceptarContrato(id){
   return async function(dispatch){
     try {
+      console.log(id, "aca id de fun front de aceptar")
       const contratoAceptado = await axios.get(`/contratos/accept/${id}`);
       console.log(contratoAceptado)
       
