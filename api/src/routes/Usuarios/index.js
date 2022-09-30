@@ -74,8 +74,9 @@ router.put("/", async (req, res) => {
 router.put("/sub/:id", async (req, res) => {
   //
   try {
-    // const { id, subscription_id } = req.body;
-    const updatedUser = await setSubscriptionId(req.body);
+    const { id } = req.params;
+    const { subscription_id } = req.body;
+    const updatedUser = await setSubscriptionId(id, subscription_id);
 
     return await res.send(updatedUser);
     //

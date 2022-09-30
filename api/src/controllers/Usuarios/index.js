@@ -310,11 +310,9 @@ const postUserAuth = async (data) => {
 // -----------------------------------------------
 
 // SET SUBSCRIPTION ID
-const setSubscriptionId = async (data) => {
+const setSubscriptionId = async (id, subscription_id) => {
   //
   try {
-    const { id, subscription_id } = data;
-
     const user = await Usuarios.findByPk(id);
     user.subscription_id = subscription_id || null;
 
