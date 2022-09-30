@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
+import { aceptarContrato } from '../../Redux/Actions/Contracts';
 import s from "../Contracts/DetalleContracts.module.css";
 
 
@@ -8,9 +10,15 @@ import s from "../Contracts/DetalleContracts.module.css";
 export default function DetalleContrato() {
 
     const {id} = useParams()
+    const dispatch = useDispatch();
     const detalleC = useSelector((state)=> state.contracts.detalleContrato)
   
-    console.log(detalleC,id, "ESTE ES EL FUCKING DETALLE DE CONTRAAAAAAAATO")
+
+    //aca el handle del aceptar contrato
+    const handleAceptar= () =>{
+      dispatch(aceptarContrato(id))
+    }
+
   
     return (
     <div>
@@ -46,6 +54,7 @@ export default function DetalleContrato() {
               <br/>
               <div className={s.buttonUbi}>
               <button
+              onClick={(e)=>handleAceptar(e)}
               className={s.buttonDetalle}
               >
                 Aceptar

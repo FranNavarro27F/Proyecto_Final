@@ -12,8 +12,8 @@ import dotenv from "dotenv";
 // import "bootswatch/dist/";
 
 dotenv.config();
-let apiV= process.env.REACT_APP_API
-console.log(apiV)
+
+console.log("*************************",process.env.REACT_APP_BACKEND_URL,"**********************")
 
 
 axios.defaults.baseURL =
