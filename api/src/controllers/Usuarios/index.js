@@ -344,11 +344,59 @@ const getUserByName = async (name) => {
 const getByEmail = async (email) => {
   //
   try {
-    return await findUser({
-      email,
-      // habilitado: true,
-      // visible: true,
+    let User = await Usuarios.findOne({
+      where: {
+        email,
+      },
+      include: [
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Contratos,
+        },
+      ],
     });
+
+    let userM = User?.dataValues;
+
+    let nombrePais = (await Paises.findByPk(userM.paiseId))?.dataValues.name;
+
+    userM.paiseId = nombrePais;
+    userM.name = capitalize(userM.name);
+    userM.lastName = capitalize(userM.lastName);
+
+    userM.servicios = userM.servicios
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.lenguajes = userM.lenguajes
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+    userM.tecnologias = userM.tecnologias
+      .map((cur) => cur.dataValues)
+      .map((cur) => cur.name);
+
+    return userM;
+
+    //   try {
+    //     return await findUser({
+    //       email,
+    //       // habilitado: true,
+    //       // visible: true,
+    //     });
+
     //
   } catch (e) {
     console.error(`${ERROR}getByEmail --→ ${e}`);
