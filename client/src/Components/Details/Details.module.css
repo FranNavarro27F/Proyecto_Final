@@ -38,7 +38,8 @@
   border: 2px solid rgba(0, 0, 0, 0.075);
 }
 .textBox {
-  width: 15vw;
+  min-width: 15vw;
+  max-width: 22vw;
   height: 1px;
   font-family: "Poppins";
   font-style: normal;
@@ -428,3 +429,45 @@
     margin-top: 3vh;
     
   }
+
+  .label {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* .spanMail {
+    margin-top: 4px
+  } */
+
+  .divData > span, .divData {
+    display: flex;
+    font-size: 20px;
+  }
+
+ .infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+ }
+
+ .titleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+ }
+
+.divLinkedin {
+  color: #ffffff;
+  text-decoration: none;
+}
+.divNumerico {
+  margin-bottom: 12px;
+}
+.nombre {
+  font-weight: 900;
+  font-size: 32px;
+}
