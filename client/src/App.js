@@ -39,11 +39,12 @@ function App() {
 
   const { userByEmail } = useFetchUsers(user?.email);
 
-  // console.log(user, "AUTH00000000000");
+  console.log(userByEmail, "USERRRRRRRRRRRRRRRRRREMAIL");
 
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
   }, [dispatch, user, userByEmail?.registrado]);
+
   const userData = {
     family_name: `${user?.family_name}`,
     given_name: `${user?.given_name}`,
