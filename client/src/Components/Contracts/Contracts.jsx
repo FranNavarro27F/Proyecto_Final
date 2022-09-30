@@ -1,55 +1,67 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getContratoId } from "../../Redux/Actions/Contracts";
 import s from "../Details/Details.module.css";
+import DetalleContrato from "./DetalleContrato";
 
+export default function Contracts({
+  description,
+  date,
+  expiration_date,
+  status,
+  price,
+  aceptado,
+  idContrato,
+}) {
+  // let idContrato = contrato.cur.id;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-export default function Contracts(contratos) {
-  //console.log(contratos, "**************")
-let idContrato = contratos.idContrato
-let handle = contratos.handleVerDetalle
+  useEffect(() => {
+    dispatch(getContratoId(idContrato));
+  }, [dispatch, idContrato]);
 
   return (
     <div>
-     
-              <div className={s.divCardContrato}>
-              <div className={s.textCardContrato}>
-              <label>Id contrato: </label>
-              {idContrato} 
-              <label>Fecha de Inicio: </label> 
-              {contratos.date} 
-              <br/>
-              <label>Fecha de Finalización: </label>
-              {contratos?.expiration_date}
-              <br/>
-              <label>Presupuesto: $ </label>
-              {contratos?.price}
-              <br/>
-              <label>Descripción: </label>
-              { contratos?.description}
-              <br/>
-              <label>Status: </label>
-              {contratos?.status}
-              <br/> 
-              <label>Estado: </label>
-              {contratos?.aceptado}
-              <br/>
-              </div>
-              
-              <button
-              onClick={(e)=>handle(idContrato)}
-              className={s.buttonDetalle}
-              >
-                Ver Detalle
-                </button>
-              </div>
-              
-        
+      <div className={s.divCardContrato}>
+        <div className={s.textCardContrato}>
+          <label>Id contrato: </label>
+          {idContrato}
+          <label>Fecha de Inicio: </label>
+          {date}
+          <br />
+          <label>Fecha de Finalización: </label>
+          {expiration_date}
+          <br />
+          <label>Presupuesto: $ </label>
+          {price}
+          <br />
+          <label>Descripción: </label>
+          {description}
+          <br />
+          <label>Status: </label>
+          {status}
+          <br />
+          <label>Estado: </label>
+          {aceptado}
+          <br />
+        </div>
+
+        <button
+          onClick={() => {
+            navigate(`/contrato/:${idContrato}`);
+          }}
+          className={s.buttonDetalle}
+        >
+          Ver Detalle
+        </button>
       </div>
-    );
-  };
-
-
-
-
+      )
+    </div>
+  );
+}
 
 // // import { useAuth0 } from '@auth0/auth0-react';
 // import React from "react";

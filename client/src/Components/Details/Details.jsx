@@ -36,6 +36,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { setearContrato } from "../../Redux/Actions/Contracts";
 import Contrato from "./Contrato";
 import useUser from "../../Hooks/useUser";
+import Contracts from "../Contracts/Contracts";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -54,25 +55,47 @@ export default function Details() {
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-    if (setUserProfile) {
-      dispatch(subscriptionMp());
-    }
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
   const loader = useSelector((state) => state.devUser.loader);
-  console.log(userDetail, "ACA DETAILS USER");
+  // console.log(userDetail, "ACA DETAILS USER");
 
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
   let mailContrado = userDetail?.email;
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
-  const subscriptionId = Subscription.id;
+  const subscription_id = Subscription?.id;
+  const status = Subscription?.status;
 
   useEffect(() => {
-    dispatch(setSubscriptionId({ id, subscriptionId }));
-  }, [dispatch, id, subscriptionId]);
+    if (setUserProfile) {
+      dispatch(subscriptionMp());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("USEEFFECT", userByEmail?.id, subscription_id, status);
+    if (userByEmail?.premium !== true) {
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: subscription_id,
+          status: status,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    status,
+    subscription_id,
+    userByEmail?.id,
+    userByEmail?.premium,
+  ]);
+  // useEffect(() => {
+  //   dispatch(setSubscriptionId({ id, subscriptionId }));
+  // }, [dispatch, id, subscriptionId]);
 
   const linkPago = Subscription.init_point;
 
@@ -101,13 +124,6 @@ export default function Details() {
     navigate("/work");
   };
 
-  // if (loader && isLoading) {
-  //   return (
-  //     <div>
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
   // const email = "test_user_20874669@testuser.com"; //TEST
   // const idd = userByEmail?.id;
   const handlePremiun = () => {
@@ -122,6 +138,8 @@ export default function Details() {
       contratoDetail={contratoDetail}
       SetContratoDetail={SetContratoDetail}
     />
+  ) : !userByEmail?.email && !userDetail?.email ? (
+    <Loader />
   ) : (
     <div className={s.bodydelosbodys}>
       <div
@@ -513,6 +531,7 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
+                    <h1>PREMIUN: {`${userByEmail?.premium}`}</h1>
                     <h2>
                       {!userProfile
                         ? userDetail?.name + " "
@@ -575,16 +594,16 @@ export default function Details() {
                     <box-icon name="code-alt" color="white"></box-icon>
                     <span> Lenguajes: </span>
                     <span>
-                      {userDetail?.lenguajes?.map((e) => e) &&
-                        userByEmail.lenguajes?.map((e) => e)}
+                      {userByEmail?.lenguajes?.map((e) => e) &&
+                        userDetail?.lenguajes?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon color="white" name="donate-heart"></box-icon>
                     <span> Servicios: </span>
                     <span>
-                      {userByEmail?.servicios?.map((e) => e.name) &&
-                        userDetail?.servicios?.map((e) => e.name)}
+                      {userByEmail?.servicios?.map((e) => e) &&
+                        userDetail?.servicios?.map((e) => e)}
                     </span>
                     <br />
                     <br />
@@ -601,26 +620,18 @@ export default function Details() {
                     <box-icon color="white" name="mouse"></box-icon>
                     <span> Tecnologias: </span>
                     <span>
-                      {userByEmail?.tecnologias?.map((e) => e.name) &&
-                        userDetail?.tecnologias?.map((e) => e.name)}
+                      {userByEmail?.tecnologias?.map((e) => e) &&
+                        userDetail?.tecnologias?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon name="world" color="white"></box-icon>
                     <span> Pais: </span>
-                    <span>
-                      {!userProfile
-                        ? userByEmail?.paiseId
-                        : userDetail?.paiseId}
-                    </span>
+                    <span>{userByEmail?.paiseId && userDetail?.paiseId}</span>
                     <br />
                     <br />
                     <a
-                      href={
-                        !userProfile
-                          ? userByEmail?.webSite
-                          : userDetail?.webSite
-                      }
+                      href={userByEmail?.webSite && userDetail?.webSite}
                       className={s.link}
                     >
                       <box-icon
@@ -634,16 +645,13 @@ export default function Details() {
                     <br />
                     <span>Años de Experiencia: </span>
                     <span>
-                      {!userProfile
-                        ? userByEmail?.yearsOfExperience
-                        : userDetail?.yearsOfExperience}
+                      {userByEmail?.yearsOfExperience &&
+                        userDetail?.yearsOfExperience}
                     </span>
                     <br />
                     <span>Presupuesto por día: </span>
                     <span>
-                      {!userProfile
-                        ? userByEmail?.dailyBudget
-                        : userDetail?.dailyBudget}
+                      {userByEmail?.dailyBudget && userDetail?.dailyBudget}
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
@@ -691,18 +699,15 @@ export default function Details() {
           userDetail?.contratos.map((cur) => {
             return (
               <div className={s.cardContrato}>
-                {cur.description}
-                <br />
-                {cur.date}
-                <br />
-                {cur.expiration_date}
-                <br />
-                {cur.status}
-                <br />
-                {cur.price}
-                <br />
-                {cur.aceptado}
-                <br />
+                <Contracts
+                  description={cur.description}
+                  date={cur.date}
+                  expiration_date={cur.expiration_date}
+                  status={cur.status}
+                  price={cur.price}
+                  aceptado={cur.aceptado}
+                  idContrato={cur.id}
+                />
               </div>
             );
           })}

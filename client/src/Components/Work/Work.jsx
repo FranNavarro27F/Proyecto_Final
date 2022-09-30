@@ -11,13 +11,19 @@ import Paged from "../Paged/Paged";
 import ModalWork from "./ModalWork/ModalWork";
 import Loader from "../Loader/Loader";
 import SideMenuWork from "./SideMenuWork/SideMenuWork";
-import { useFetchUsers } from "../../Hooks/useFetchUsers";
+// import { useFetchUsers } from "../../Hooks/useFetchUsers";
 import { useAuth0 } from "@auth0/auth0-react";
 import Selectores from "../Selectores/Selectores";
 
 export default function Work() {
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading, loginWithRedirect, logout } =
+  const { 
+    // user,
+    //  isAuthenticated,
+     isLoading,
+    //  loginWithRedirect,
+    //   logout 
+      } =
     useAuth0();
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);

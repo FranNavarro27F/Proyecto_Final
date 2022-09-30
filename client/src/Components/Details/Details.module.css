@@ -4,10 +4,10 @@
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
     #251f3e 85.61%
-    );
-    width: 100%;
-    height: 100vh;
-    display: flex;
+  );
+  width: 100%;
+  height: 100vh;
+  display: flex;
   flex-direction: column;
 }
 .sideM {
@@ -23,6 +23,7 @@
   left: 0vh;
   top: 8%;
 }
+
 .divBox {
   box-sizing: border-box;
   position: absolute;
@@ -38,7 +39,8 @@
   border: 2px solid rgba(0, 0, 0, 0.075);
 }
 .textBox {
-  width: 15vw;
+  min-width: 15vw;
+  max-width: 22vw;
   height: 1px;
   font-family: "Poppins";
   font-style: normal;
@@ -382,10 +384,16 @@
 }
 /*------ ACA EMPIEZA EL STYLE DE LA CARD DE CONTRATOS----------- */
   .cardContrato{
-    background-color: red;
+    background: linear-gradient(
+      290.74deg,
+      #5eaaaf 6.83%,
+      #2f2e6c 52.53%,
+      #251f3e 85.61%
+    );
     width: 50%;
     height: 50vh;
   }
+
   .divCardContrato {
     background: rgba(47, 47, 138, 0.247);
     backdrop-filter: blur(2px);
@@ -428,3 +436,91 @@
     margin-top: 3vh;
     
   }
+
+  .label {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* .spanMail {
+    margin-top: 4px
+  } */
+
+  .divData > span, .divData {
+    display: flex;
+    font-size: 20px;
+  }
+
+ .infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+ }
+
+ .titleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+ }
+
+.divLinkedin {
+  color: #ffffff;
+  text-decoration: none;
+}
+.divNumerico {
+  margin-bottom: 12px;
+}
+.nombre {
+  font-weight: 900;
+  font-size: 32px;
+}
+
+.cardContrato {
+  /* background-color: red; */
+  width: 50%;
+  height: 50vh;
+}
+.divCardContrato {
+  background: rgba(47, 47, 138, 0.247);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+  width: 150vh;
+  height: 20vh;
+  margin-left: 40vh;
+  margin-top: 10vh;
+  border-radius: 30px;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+}
+.textCardContrato {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2vh;
+  line-height: 143.2%;
+  color: #ffffff;
+  z-index: 1;
+  width: 15vw;
+  height: 1px;
+  margin-top: 2%;
+  margin-left: 10vh;
+}
+.buttonDetalle {
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.9vw;
+  line-height: 23px;
+  cursor: pointer;
+  width: 9vw;
+  height: 5vh;
+  margin-left: 110vh;
+  margin-top: 3vh;
+}

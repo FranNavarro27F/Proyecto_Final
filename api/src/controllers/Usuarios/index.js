@@ -262,7 +262,6 @@ const getUsers = async () => {
           : [],
       };
     });
-
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
@@ -403,7 +402,7 @@ const getByEmail = async (email) => {
   }
 };
 
-// -----------------------------------------------
+// -----------------------------------------------//
 
 const postUserAuth = async (data) => {
   //
@@ -440,12 +439,14 @@ const postUserAuth = async (data) => {
 // -----------------------------------------------
 
 // SET SUBSCRIPTION ID
-const setSubscriptionId = async (data) => {
+const setSubscriptionId = async (id, body) => {
   //
   try {
-    const { id, subscription_id } = data;
+    const { subscription_id, status } = body;
+
     const user = await Usuarios.findByPk(id);
     user.subscription_id = subscription_id || null;
+    user.premium = status === "authorized" ? true : false;
 
     await user.save();
     return `Al usuario ${user.email} le fue asignada la suscripción: ${subscription_id}`;

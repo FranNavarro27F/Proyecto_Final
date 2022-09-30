@@ -22,6 +22,10 @@ import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/Purcha
 import Loader from "./Components/Loader/Loader";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
+import { useEffect } from "react";
+import { getUserEmail, postDevUser } from "./Redux/Actions/DevUser";
+import { useDispatch, useSelector } from "react-redux";
+import { useFetchUsers } from "./Hooks/useFetchUsers";
 
 function App() {
   const {
@@ -30,7 +34,16 @@ function App() {
     isLoading,
     //  loginWithRedirect
   } = useAuth0();
+  const dispatch = useDispatch();
+  // const { email, family_name, given_name, picture } = await user;
 
+  const { userByEmail } = useFetchUsers(user?.email);
+
+  // console.log(user, "AUTH00000000000");
+
+  useEffect(() => {
+    if (!userByEmail?.registrado) dispatch(postDevUser(user));
+  }, [dispatch, user, userByEmail?.registrado]);
   const userData = {
     family_name: `${user?.family_name}`,
     given_name: `${user?.given_name}`,
