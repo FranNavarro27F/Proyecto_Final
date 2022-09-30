@@ -25,7 +25,7 @@ const guardarServiciosEnDB = async () => {
 
 // -----------------------------------------------
 
-const todosLosServicios = async (valor) => {
+const todosLosServicios = async () => {
   try {
     let servi = await Servicios.findAll();
     return servi;

@@ -258,7 +258,7 @@ const getUsers = async () => {
           : [],
       };
     });
-    console.log(Promise.all(arrUsersListo), "******");
+    
     return await Promise.all(arrUsersListo);
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);

@@ -6,7 +6,7 @@ const router = Router();
 // -----------------------------------------------
 
 
-router.post("/lenguajes", async (req, res)=>{
+router.post("/lenguaje", async (req, res)=>{
     try {
         let {name} = req.body
         if(!name){
@@ -21,7 +21,7 @@ router.post("/lenguajes", async (req, res)=>{
     }
 })
 
-router.post("/servicios", async (req, res)=>{
+router.post("/servicio", async (req, res)=>{
     try {
         let {name} = req.body
         if(!name){
@@ -37,7 +37,7 @@ router.post("/servicios", async (req, res)=>{
 })
 
 
-router.post("/tecnologias",async (req, res) => {
+router.post("/tecnologia",async (req, res) => {
     try {
         const { name } = req.body;
         if (name) {
@@ -50,7 +50,7 @@ router.post("/tecnologias",async (req, res) => {
     }
 })
 
-router.post("/paises",async (req, res) => {
+router.post("/pais",async (req, res) => {
     try {
         const { name } = req.body;
         if (name) {
@@ -66,7 +66,7 @@ router.post("/paises",async (req, res) => {
 //------------------ Put de borrado logico-----------------//
 
 
-router.put("/tecnologias",async (req, res) => {
+router.put("/tecnologia",async (req, res) => {
     try {
         const {id,habilitado} = req.body;
         if (id){
@@ -81,7 +81,7 @@ router.put("/tecnologias",async (req, res) => {
 
 
 
-router.put("/lenguajes", async (req, res)=>{
+router.put("/lenguaje", async (req, res)=>{
     try {
 
         res.status(200).json(await borrLogicLenguaje(req.body))
@@ -93,7 +93,7 @@ router.put("/lenguajes", async (req, res)=>{
     }
 })
 
-router.put("/paises",async (req, res) => {
+router.put("/pais",async (req, res) => {
     try {
         const {id,habilitado} = req.body;
         if (id){
@@ -108,7 +108,7 @@ router.put("/paises",async (req, res) => {
 
 
 
-router.put("/servicios", async (req, res)=>{
+router.put("/servicio", async (req, res)=>{
     try {
         res.status(200).json(await borrLogicServicios(req.body))
     } catch (e) {
