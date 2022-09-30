@@ -47,6 +47,7 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
+  const [userProfile, setUserProfile] = useState(false);
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -59,7 +60,6 @@ export default function Details() {
   const loader = useSelector((state) => state.devUser.loader);
   console.log(userDetail, "ACA DETAILS USER");
 
-  const [userProfile, setUserProfile] = useState(false);
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
@@ -572,18 +572,16 @@ export default function Details() {
                     <box-icon name="code-alt" color="white"></box-icon>
                     <span> Lenguajes: </span>
                     <span>
-                      {/* {!userProfile
-                        ? userDetail?.lenguajes?.map((e) => e)
-                        : userByEmail.lenguajes?.map((e) => e)} */}
+                      {userDetail?.lenguajes?.map((e) => e) &&
+                        userByEmail.lenguajes?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon color="white" name="donate-heart"></box-icon>
                     <span> Servicios: </span>
                     <span>
-                      {!userProfile
-                        ? userByEmail?.servicios?.map((e) => e)
-                        : userDetail?.servicios?.map((e) => e)}
+                      {userByEmail?.servicios?.map((e) => e.name) &&
+                        userDetail?.servicios?.map((e) => e.name)}
                     </span>
                     <br />
                     <br />
@@ -600,9 +598,8 @@ export default function Details() {
                     <box-icon color="white" name="mouse"></box-icon>
                     <span> Tecnologias: </span>
                     <span>
-                      {/* {!userProfile
-                        ? userByEmail?.tecnologias.map((e) => e)
-                        : userDetail?.tecnologias.map((e) => e)} */}
+                      {userByEmail?.tecnologias?.map((e) => e.name) &&
+                        userDetail?.tecnologias?.map((e) => e.name)}
                     </span>
                     <br />
                     <br />
