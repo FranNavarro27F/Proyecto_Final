@@ -35,11 +35,12 @@ export default function Contrato({
   const handleEditarPopusta= (e)=>{
     setPropuesta({
       ...propuesta,
-      ultimaModificacion: userByEmail,
+      ultimaModificacion: userByEmail
+    }).then(data =>{
+      dispatch( editarContrato(id, propuesta) )
+      .then(data=>{dispatch(getContratoId(id)) })
+      alert("Su propuesta fue modificada correctamente")
     })
-    dispatch( editarContrato(id, propuesta) )
-    .then(data=>{dispatch(getContratoId(id)) })
-    alert("Su propuesta fue modificada correctamente")
 
   }
   
