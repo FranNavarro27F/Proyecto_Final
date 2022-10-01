@@ -46,14 +46,11 @@ export default function Details() {
 
   const userDetail = useSelector((state) => state.devUser.details);
 
-  const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
-  // console.log(consultaSub, "subbbbbbb");
+  const consultaSub = useSelector(
+    (state) => state.mercadoPago.SubscriptionConsult
+  );
 
   const [mostrarSub, setMostrarSub] = useState(false);
-
-  let nombreContratista = userByEmail?.name;
-
-  let mailContrado = userDetail?.email;
 
   const linkPago = consultaSub?.init_point;
 
@@ -81,7 +78,7 @@ export default function Details() {
         status: consultaSub?.status,
       })
     );
-    // }, 1000);
+    // }, 2500);
     setMostrarSub(false);
   };
 

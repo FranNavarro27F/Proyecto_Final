@@ -77,6 +77,7 @@ router.put("/sub/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { subscription_id, status } = req.body;
+    console.log(req.body, "BOTY");
     const updatedUser = await setSubscriptionId(id, subscription_id, status);
 
     return await res.send(updatedUser);
