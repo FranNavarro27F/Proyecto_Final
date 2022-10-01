@@ -111,6 +111,7 @@ const createContract = async (data) => {
       expiration_date,
       price,
       status,
+      ultimaModificacion
       // payment_id,
     } = data;
 
@@ -125,6 +126,7 @@ const createContract = async (data) => {
       price,
       // payment_id,
       aceptado: false,
+      ultimaModificacion,
       habilitado: true,
     });
 
@@ -135,7 +137,7 @@ const createContract = async (data) => {
     //seteo relacion en tabla intermedia mediante los ID de usuarios a contratos-usuarios.
     await el_que_contrata.addContratos(newContract.dataValues.id);
     await el_programador_contratado.addContratos(newContract.dataValues.id);
-
+  
     return `Contrato suscrito correctamente.
     Entre: ${employer} (contratante) y ${developer} (contratista)
     Desde: ${date} - Hasta: ${expiration_date}
@@ -160,6 +162,7 @@ const modifyContract = async (id, data) => {
       payment_id,
       aceptado,
       habilitado,
+      ultimaModificacion
     } = data;
     const contract = await Contratos.findByPk(id);
 
@@ -170,6 +173,8 @@ const modifyContract = async (id, data) => {
     if (payment_id) contract.payment_id = payment_id;
     if (aceptado) contract.aceptado = aceptado;
     if (habilitado) contract.habilitado = habilitado;
+    if (ultimaModificacion) contract.ultimaModificacion = ultimaModificacion;
+
     contract.status = setStatus(date, expiration_date);
 
     await contract.save();
