@@ -11,12 +11,7 @@ export function setearContratoGlobal(contrato) {
 
 export function setearContrato(propuestaContrato) {
   return async function (dispatch) {
-    // console.log(
-    //   "***actions/contratos--------",
-    //   propuestaContrato,
-    //   "action/contratos****"
-    // );
-
+    
     let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
 
     console.log("****", propuestaCont, "*****");
@@ -32,4 +27,41 @@ export function getContratoId(idContrato) {
       payload: idC,
     });
   };
+}
+
+export function aceptarContrato(id){
+  return async function(dispatch){
+    try {
+      //console.log(id,"actions contratos aceptar contrato")
+      const contratoAceptado = await axios.put(`/contratos/accept/${id}`);
+      console.log(contratoAceptado)
+      
+    } catch (error) {
+      console.error("Error en la Accion de aceptar contrato", error)
+    }
+  }
+}
+
+export function rechazarContrato(id){
+  return async function(dispatch){
+    try {
+      console.log(id,"actions contratos rechazar contrato")
+      const conrtatoRechazado = await axios.put(`/contratos/cancel/${id}`)
+      console.log(conrtatoRechazado)
+    } catch (error) {
+      console.error("Error en la Accion de rechazar contrato", error)
+      
+    }
+  }
+}
+
+export function editarContrato(id, data) {
+  return async function(dispatch) {
+    try {
+      const propuestaEditada = await axios.put(`/contratos/${id}`, data)
+      console.log(propuestaEditada, "DUDUKI")
+    } catch (error) {
+      console.error("Error en la acción de editar propuesta")
+    }
+  }
 }

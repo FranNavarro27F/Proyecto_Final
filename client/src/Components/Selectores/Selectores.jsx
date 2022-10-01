@@ -11,28 +11,28 @@ export default function Selectores() {
     dispatch(getUsersBd());
   }, [dispatch]);
 
-  const optionsLanguajes = languajes.map((e) => {
+  const optionsLanguajes = languajes?.map((e) => {
     return {
       value: e.id,
       label: e.name,
     };
   });
 
-  const optionsCountries = countries.map((e) => {
+  const optionsCountries = countries?.map((e) => {
     return {
       value: e.name,
       label: e.name,
     };
   });
 
-  const optionsServices = services.map((e) => {
+  const optionsServices = services?.map((e) => {
     return {
       value: e.id,
       label: e.name,
     };
   });
 
-  const optionsTecnologias = tecnologies.map((e) => {
+  const optionsTecnologias = tecnologies?.map((e) => {
     return {
       value: e.id,
       label: e.name,

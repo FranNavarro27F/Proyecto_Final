@@ -17,7 +17,6 @@ export function putDevUser(payload) {
 }
 export function postDevUser(payload) {
   return async function (dispatch) {
-    console.log(payload, "Post action ");
     try {
       let json = (await axios.post(`/usuarios`, payload)).data;
       return dispatch({
