@@ -98,7 +98,7 @@ export default function Details() {
 
   const handleBack = () => {
     dispatch(detailReset());
-    navigate("/work");
+    window.history.go(-1);
   };
 
   const handlePremiun = () => {
