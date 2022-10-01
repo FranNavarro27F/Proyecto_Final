@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { consultSub, subscriptionMp } from "../Redux/Actions/MercadoPago";
@@ -7,6 +8,7 @@ import useUser from "./useUser";
 export default function useFetchSubscription(id) {
   const dispatch = useDispatch();
   const user = useUser();
+  const { isAuthenticated } = useAuth0();
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
   const { userByEmail } = useFetchUsers(user?.email);
@@ -14,8 +16,9 @@ export default function useFetchSubscription(id) {
   const status = userByEmail?.premium;
 
   useEffect(() => {
-    if (!Subscription.length) dispatch(subscriptionMp(status));
-  }, [Subscription.length, dispatch, status]);
+    if (isAuthenticated && !Subscription.length)
+      dispatch(subscriptionMp(status));
+  }, [Subscription.length, dispatch, isAuthenticated, status]);
 
   return { Subscription };
 }
