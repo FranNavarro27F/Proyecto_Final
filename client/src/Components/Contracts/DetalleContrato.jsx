@@ -68,27 +68,34 @@ export default function DetalleContrato() {
               <br/>
               <br/>
               <br/>
+
               <div className={s.buttonUbi}>
-              <button
-              onClick={(e)=>handleAceptar(e)}
-              className={s.buttonDetalle}
-              >
-                Aceptar
-                </button>
-               
+
                 <button
-                 className={s.buttonDetalle}
-                 onClick= {(e)=> handleRechazar(e)}
-              >
-                Rechazar
-                </button>
+                onClick={(e)=>handleAceptar(e)}
+                className={s.buttonDetalle}
+                disabled = { detalleC.employer === detalleC.ultimaModificacion }
+                
+                >
+                  Aceptar
+                  </button>
+                
+                  <button
+                  className={s.buttonDetalle}
+                  onClick= {(e)=> handleRechazar(e)}
+                  disabled = { detalleC.employer === detalleC.ultimaModificacion }
+                >
+                  Rechazar
+                  </button>   
                   
-                <button
-              className={s.buttonDetalle}
-              onClick ={(e)=>handleContraPropuesta(e)}
-              >
-                Contrapropuesta
-                </button>
+                    <button
+                className={s.buttonDetalle}
+                onClick ={(e)=>handleContraPropuesta(e)}
+                >
+                  Contrapropuesta
+                  </button>
+
+                
                 </div>
         </div>
 
