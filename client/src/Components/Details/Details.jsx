@@ -7,6 +7,7 @@ import {
   detailReset,
   getUserEmail,
   getUserId,
+  setUserVisible,
 } from "../../Redux/Actions/DevUser";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
@@ -85,6 +86,10 @@ export default function Details() {
   const handleCleanAndBack = () => {
     dispatch(detailReset());
     navigate("/work");
+  };
+
+  const handleVisible = (e) => {
+    dispatch(setUserVisible(e.target.checked, id));
   };
 
   return contratoDetail ? (
@@ -646,8 +651,9 @@ export default function Details() {
                       <div className={s.buttonsLogeado}>
                         <label className={s.switch}>
                           <input
-                            // onChange={(e) => setChecked(!checked)}
+                            onChange={(e) => handleVisible(e)}
                             type="checkbox"
+                            name="visible"
                           />
                           <span className={s.slider_round}></span>
                         </label>
