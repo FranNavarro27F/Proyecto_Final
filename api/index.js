@@ -20,7 +20,7 @@ const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 
 // ------------------------------------
 
-  conn.sync({ alter: true }).then(() => {
+conn.sync({ alter: true }).then(() => {
   const PORT = 3001;
 
   // ------------------------------------
@@ -29,13 +29,16 @@ const { saveLanguages } = require("./src/controllers/Lenguajes/index");
     const port = process.env.PORT ? process.env.PORT : PORT;
 
     console.log(
-      "------------------------------\nServer listening at port:",
+      `\n┌────────────────────────────┐\n` +
+        `│     ＰＲＯＧＲＡＭＡＸ     │\n` +
+        `└────────────────────────────┘\n` +
+        `Server listening at port:`,
       port
     );
     await jsonPaises();
     await guardarServiciosEnDB();
     await saveLanguages();
     await guardarTecnologiasDB();
-    console.log("------------------------------");
+    console.log(`──────────────────────────────\n`);
   });
 });

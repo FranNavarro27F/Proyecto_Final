@@ -13,7 +13,7 @@ const jsonPaises = async () => {
         where: { name },
       });
     });
-    console.log("✔ Paises cargados.");
+    console.log("✔ Paises cargados ------------");
     return "✔ Paises cargados.";
     //
   } catch (e) {
