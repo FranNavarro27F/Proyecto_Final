@@ -6,6 +6,7 @@
 }
 
 
+
 .buttonDetalle{
     background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
     border-radius: 2.1vw;
@@ -17,8 +18,9 @@
     cursor: pointer;
     width: 9vw;
     height: 5vh;
-  
+      
 }
+
 .cardDetalle{
     
     background: rgba(47, 47, 138, 0.247);
