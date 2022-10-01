@@ -119,14 +119,14 @@ export function getUserContrato(email) {
   };
 }
 
-export function setUserVisible(body, id) {
-  console.log(body, "botyy");
+export function setUserVisible(visible, id) {
+  console.log(visible, "botyy");
   console.log(id, "id");
   return async function (dispatch) {
     try {
       return dispatch({
         type: "USER_VISIBLE",
-        payload: (await axios.put(`/usuarios/visible/${id}`, body)).data,
+        payload: (await axios.put(`/usuarios/visible/${id}`, { visible })).data,
       });
     } catch (e) {
       console.error(e, "error catch action subscription MercadoPago");

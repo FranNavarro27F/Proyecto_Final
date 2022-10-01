@@ -96,6 +96,9 @@ router.put("/visible/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { visible } = req.body;
+
+    console.log("BODY VISIBLE", req.body);
+    console.log("id ", id);
     const updatedUser = await setVisible(id, visible);
 
     return await res.send(updatedUser);

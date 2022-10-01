@@ -65,7 +65,6 @@ export function setSubscriptionId(payload) {
 
   return async function (dispatch) {
     try {
-      console.log("PUTIEEEE", payload);
       return dispatch({
         type: "MP_SET_SUSCRIPTION_ID",
         payload: (

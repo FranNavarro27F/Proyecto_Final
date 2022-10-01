@@ -654,6 +654,7 @@ export default function Details() {
                             onChange={(e) => handleVisible(e)}
                             type="checkbox"
                             name="visible"
+                            defaultChecked={userByEmail?.visible}
                           />
                           <span className={s.slider_round}></span>
                         </label>
