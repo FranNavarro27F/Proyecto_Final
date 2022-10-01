@@ -15,7 +15,6 @@ export function pagosMp() {
 }
 
 export function subscriptionMp(status) {
-  console.log(status);
   return async function (dispatch) {
     if (!status) {
       try {
