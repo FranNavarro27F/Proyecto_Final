@@ -490,9 +490,9 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    {userProfile && (
+                    {/* {userProfile && (
                       <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
-                    )}
+                    )} */}
                     <h2>
                       {userDetail?.name
                         ? userDetail?.name + " "
@@ -509,7 +509,11 @@ export default function Details() {
                       {userDetail?.profilePicture &&
                       userByEmail?.profilePicture ? (
                         <img
-                          className={s.imgRender}
+                          className={
+                            userDetail?.premium && userByEmail?.premium
+                              ? s.premium
+                              : s.imgRender
+                          }
                           src={
                             userDetail?.profilePicture
                               ? userDetail?.profilePicture
