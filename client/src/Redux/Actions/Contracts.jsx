@@ -55,14 +55,14 @@ export function rechazarContrato(id){
     }
   }
 }
- export function Contrapropuesta(payload, id){
-  return async function(dispatch){
+
+export function editarContrato(id, data) {
+  return async function(dispatch) {
     try {
-      const contrapropuesta = await axios.put(`/contratos/${id}`,payload)
-      console.log(contrapropuesta)
-      
+      const propuestaEditada = await axios.put(`/contratos/${id}`, data)
+      console.log(propuestaEditada, "DUDUKI")
     } catch (error) {
-      console.log("Su contrapropuesta no pudo ser enviada")
+      console.error("Error en la acción de editar propuesta")
     }
   }
- }
+}

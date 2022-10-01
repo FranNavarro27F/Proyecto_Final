@@ -5,6 +5,8 @@ const UserContext = createContext({
   given_name: null,
   email: null,
   picture: null,
+  subscription_id: null,
+  user_id: null,
 });
 
 export default UserContext;

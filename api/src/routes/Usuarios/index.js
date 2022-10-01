@@ -18,8 +18,8 @@ const router = Router();
 router.get("/", async (req, res) => {
   //
   try {
-    let { name, email } = req.query;  
-      
+    let { name, email } = req.query;
+
     let user;
     if (name) {
       user = await getUserByName(name);
@@ -76,8 +76,10 @@ router.put("/sub/:id", async (req, res) => {
   //
   try {
     const { id } = req.params;
+    const { subscription_id, status } = req.body;
+    console.log(req.body, "BODYYYYYYYYYYYYYYYYY");
     // const { subscription_id, status } = req.body;
-    const updatedUser = await setSubscriptionId(id, req.body);
+    const updatedUser = await setSubscriptionId(id, subscription_id, status);
 
     return await res.send(updatedUser);
     //

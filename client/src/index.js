@@ -13,13 +13,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// console.log("******",process.env.REACT_APP_API, process.env.NODE_ENV, "******")
 
+// usando el back deploy ------------------------------------
+axios.defaults.baseURL = process.env.REACT_APP_API;
+//-----------------------------------------------------------
 
-
-axios.defaults.baseURL =
-// "https://programax.up.railway.app/" ||
-//   process.env.REACT_APP_API ||
-  "http://localhost:3001";
+// usando el back LOCAL -------------------------------------
+// axios.defaults.baseURL = "http://localhost:3001";
+//-----------------------------------------------------------
 
 ReactDOM.render(
   <BrowserRouter>

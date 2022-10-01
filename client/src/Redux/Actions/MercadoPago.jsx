@@ -62,7 +62,10 @@ export function setSubscriptionId(payload) {
       return dispatch({
         type: "MP_SET_SUSCRIPTION_ID",
         payload: (
-          await axios.put(`/usuarios/sub/${user_id}`, subscription_id, status)
+          await axios.put(`/usuarios/sub/${user_id}`, {
+            subscription_id,
+            status,
+          })
         ).data,
       });
     } catch (e) {

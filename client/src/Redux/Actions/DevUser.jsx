@@ -17,7 +17,6 @@ export function putDevUser(payload) {
 }
 export function postDevUser(payload) {
   return async function (dispatch) {
-    console.log(payload, "Post action ");
     try {
       let json = (await axios.post(`/usuarios`, payload)).data;
       return dispatch({
@@ -59,7 +58,6 @@ export function getDevUsers(payload) {
   };
 }
 export function getUserId(id) {
-  console.log(id, "IDDDDDDD");
   return async function (dispatch) {
     try {
       const userId = (await axios.get(`/usuarios/${id}`)).data;
@@ -74,7 +72,6 @@ export function getUserId(id) {
 }
 
 export function getUserEmail(email) {
-  console.log(email, "action user email");
   return async function (dispatch) {
     try {
       const userEmail = (await axios.get(`/usuarios?email=${email}`)).data;
@@ -88,11 +85,8 @@ export function getUserEmail(email) {
   };
 }
 export function detailReset() {
-  return function (dispatch) {
-    return dispatch({
-      type: "DETAIL_RESET",
-      // payload: [],
-    });
+  return {
+    type: "DETAIL_RESET",
   };
 }
 
