@@ -10,15 +10,15 @@ import s from "../Contracts/DetalleContracts.module.css";
 
 export default function DetalleContrato() {
 
-    const {id} = useParams()
-    const dispatch = useDispatch();
-    const detalleC = useSelector((state)=> state.contracts.detalleContrato)
-    const [mPropuesta, setmPropuesta] = useState(false)
-
-    useEffect(()=>{
-      dispatch(getContratoId(id))
-    },[dispatch, id, detalleC.aceptado])
-
+  const {id} = useParams()
+  const dispatch = useDispatch();
+  const detalleC = useSelector((state)=> state.contracts.detalleContrato)
+  const [mPropuesta, setmPropuesta] = useState(false)
+  
+  useEffect(()=>{
+    dispatch(getContratoId(id))
+  },[dispatch, id, detalleC.aceptado])
+  
     //aca el handle del aceptar contrato
     const handleAceptar= () =>{
       dispatch(aceptarContrato(id)).then(data=> dispatch(getContratoId(id)))

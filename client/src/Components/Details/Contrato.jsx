@@ -21,13 +21,14 @@ export default function Contrato({
   const detalleContrato = useSelector((state)=>state.contracts.detalleContrato)
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail,
+    ultimaModificacion: userByEmail,
     developer: id,
     description: detalleContrato.description || "",
     date: detalleContrato.date || "",
     expiration_date:detalleContrato.expiration_date || "",
     status: detalleContrato.status || "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
     price: detalleContrato.price || "",
-    aceptado:detalleContrato.aceptado || false,
+    aceptado:detalleContrato.aceptado || false
   });
 
 
