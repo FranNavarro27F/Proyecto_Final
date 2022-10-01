@@ -24,6 +24,7 @@ import Loader from "./Components/Loader/Loader";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
 import { useEffect } from "react";
+import useFetchConsultSub from "./Hooks/useFetchConsultSub";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ function App() {
   const { Subscription } = useFetchSubscription();
   const user_id = userByEmail?.id;
   const subscription_id = Subscription?.id;
+
+  const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
 
   const userData = {
     family_name: `${user?.family_name}`,
@@ -68,11 +71,12 @@ function App() {
         setSubscriptionId({
           user_id: user_id,
           subscription_id: subscription_id,
-          status: "pending",
+          status: consultaSub?.status,
         })
       );
     }
   }, [
+    consultaSub?.status,
     dispatch,
     isAuthenticated,
     subscription_id,
