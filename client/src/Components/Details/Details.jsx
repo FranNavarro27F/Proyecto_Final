@@ -1,21 +1,13 @@
 import React, { useLayoutEffect } from "react";
-import {
-  Link,
-  Route,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
-  detailIdDev,
   detailReset,
   getUserEmail,
   getUserId,
 } from "../../Redux/Actions/DevUser";
-import { getCountries } from "../../Redux/Actions/Countries";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
 import Loader from "../Loader/Loader";
@@ -23,21 +15,13 @@ import "boxicons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
-import Pagos from "../Stripe/Stripe";
-import Landing from "../Landing/Landing";
-import {
-  consultSub,
-  pagosMp,
-  setSubscriptionId,
-  subscriptionMp,
-} from "../../Redux/Actions/MercadoPago";
+import { consultSub, setSubscriptionId } from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
-import { setearContrato } from "../../Redux/Actions/Contracts";
 import Contrato from "./Contrato";
 import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
-import useFetchSubscription from "../../Hooks/useFetchSubscription";
+import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -51,23 +35,23 @@ export default function Details() {
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
   const [userProfile, setUserProfile] = useState(false);
-
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
-    dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
   useEffect(() => {
-    dispatch(consultSub(userByEmail?.subscription_id));
-  }, [dispatch, userByEmail?.subscription_id]);
+    dispatch(getUserId(id));
+    return function () {
+      dispatch(detailReset());
+    };
+  }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
-  const consultaSub = useSelector(
-    (state) => state.mercadoPago.SubscriptionConsult
-  );
-  console.log(consultaSub);
+  const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
+  // console.log(consultaSub, "subbbbbbb");
+
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
@@ -96,15 +80,8 @@ export default function Details() {
     }
   };
 
-  const handleBack = () => {
-    dispatch(detailReset());
-    navigate("/work");
-  };
-
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
-
-    console.log(consultaSub?.status);
     dispatch(
       setSubscriptionId({
         user_id: userByEmail?.id,
@@ -116,7 +93,6 @@ export default function Details() {
   const handleCloseSub = () => {
     dispatch(consultSub(consultaSub?.id));
     setTimeout(() => {
-      console.log(consultaSub?.status);
       dispatch(
         setSubscriptionId({
           user_id: userByEmail?.id,
@@ -521,12 +497,14 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
+                    {userProfile && (
+                      <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
+                    )}
                     <h2>
-                      {!userProfile
+                      {userDetail?.name
                         ? userDetail?.name + " "
                         : userByEmail?.name + " "}
-                      {!userProfile
+                      {userDetail?.lastName
                         ? userDetail?.lastName
                         : userByEmail?.lastName}
                     </h2>
@@ -535,18 +513,16 @@ export default function Details() {
                     <div className={s.imageBox}>
                       {/* <img >{userDetail?.profilePicture}</img> */}
 
-                      {userDetail?.profilePicture ||
+                      {userDetail?.profilePicture &&
                       userByEmail?.profilePicture ? (
                         <img
                           className={s.imgRender}
                           src={
-                            !userProfile
+                            userDetail?.profilePicture
                               ? userDetail?.profilePicture
                               : userByEmail?.profilePicture
                           }
-                          alt={
-                            !userProfile ? userDetail?.name : userByEmail?.name
-                          }
+                          alt={userDetail?.name && userByEmail?.name}
                         />
                       ) : (
                         <svg
@@ -561,7 +537,9 @@ export default function Details() {
                     <br />
                     <a
                       href={`mailto:${
-                        !userProfile ? userDetail?.email : userByEmail?.email
+                        userDetail?.email
+                          ? userDetail?.email
+                          : userByEmail?.email
                       }`}
                       className={s.link}
                     >
@@ -576,7 +554,9 @@ export default function Details() {
                         Email:
                       </span>
                       <span>{`${
-                        !userProfile ? userDetail?.email : userByEmail?.email
+                        userDetail?.email
+                          ? userDetail?.email
+                          : userByEmail?.email
                       }`}</span>
                     </a>
                     <br />
@@ -584,20 +564,29 @@ export default function Details() {
                     <box-icon name="code-alt" color="white"></box-icon>
                     <span> Lenguajes: </span>
                     <span>
-                      {userByEmail?.lenguajes?.map((e) => e) &&
-                        userDetail?.lenguajes?.map((e) => e)}
+                      {userDetail?.lenguajes
+                        ? userDetail?.lenguajes?.map((e) => e)
+                        : userByEmail?.lenguajes?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon color="white" name="donate-heart"></box-icon>
                     <span> Servicios: </span>
                     <span>
-                      {userByEmail?.servicios?.map((e) => e) &&
-                        userDetail?.servicios?.map((e) => e)}
+                      {userDetail?.servicios
+                        ? userDetail?.servicios?.map((e) => e)
+                        : userByEmail?.servicios?.map((e) => e)}
                     </span>
                     <br />
                     <br />
-                    <a href={userDetail.linkedIn} className={s.link}>
+                    <a
+                      href={
+                        userDetail.linkedIn
+                          ? userDetail.linkedIn
+                          : userByEmail.linkedIn
+                      }
+                      className={s.link}
+                    >
                       <box-icon
                         color="white"
                         name="linkedin"
@@ -610,18 +599,27 @@ export default function Details() {
                     <box-icon color="white" name="mouse"></box-icon>
                     <span> Tecnologias: </span>
                     <span>
-                      {userByEmail?.tecnologias?.map((e) => e) &&
-                        userDetail?.tecnologias?.map((e) => e)}
+                      {userDetail?.tecnologias
+                        ? userDetail?.tecnologias?.map((e) => e)
+                        : userByEmail?.tecnologias?.map((e) => e)}
                     </span>
                     <br />
                     <br />
                     <box-icon name="world" color="white"></box-icon>
                     <span> Pais: </span>
-                    <span>{userByEmail?.paiseId && userDetail?.paiseId}</span>
+                    <span>
+                      {userDetail?.paiseId
+                        ? userDetail?.paiseId
+                        : userByEmail?.paiseId}
+                    </span>
                     <br />
                     <br />
                     <a
-                      href={userByEmail?.webSite && userDetail?.webSite}
+                      href={
+                        userByEmail?.webSite
+                          ? userByEmail?.webSite
+                          : userDetail?.webSite
+                      }
                       className={s.link}
                     >
                       <box-icon
@@ -635,13 +633,16 @@ export default function Details() {
                     <br />
                     <span>Años de Experiencia: </span>
                     <span>
-                      {userByEmail?.yearsOfExperience &&
-                        userDetail?.yearsOfExperience}
+                      {userByEmail?.yearsOfExperience
+                        ? userByEmail?.yearsOfExperience
+                        : userDetail?.yearsOfExperience}
                     </span>
                     <br />
                     <span>Presupuesto por día: </span>
                     <span>
-                      {userByEmail?.dailyBudget && userDetail?.dailyBudget}
+                      {userByEmail?.dailyBudget
+                        ? userByEmail?.dailyBudget
+                        : userDetail?.dailyBudget}
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
@@ -676,7 +677,13 @@ export default function Details() {
                         Contactame!
                       </button>
                     )}
-                    <button className={s.buttonBack} onClick={handleBack}>
+                    <button
+                      className={s.buttonBack}
+                      onClick={() => {
+                        dispatch(detailReset());
+                        window.history.go(-1);
+                      }}
+                    >
                       Volver
                     </button>
                   </div>

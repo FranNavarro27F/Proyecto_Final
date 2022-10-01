@@ -4,7 +4,7 @@ import s from "./Work.module.css";
 import NavBar from "../NavBar/NavBar";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersBd } from "../../Redux/Actions/DevUser";
+import { detailReset, getUsersBd } from "../../Redux/Actions/DevUser";
 import CantidadDePaginas from "../Paged/Cantidad De Paginas/CantidadDePaginas";
 import Paged from "../Paged/Paged";
 
@@ -17,14 +17,13 @@ import Selectores from "../Selectores/Selectores";
 
 export default function Work() {
   const dispatch = useDispatch();
-  const { 
+  const {
     // user,
     //  isAuthenticated,
-     isLoading,
+    isLoading,
     //  loginWithRedirect,
-    //   logout 
-      } =
-    useAuth0();
+    //   logout
+  } = useAuth0();
   let filtrados = useSelector((state) => state.devUser.filteredUsers);
   let currentPage = useSelector((state) => state.devUser.page);
   let devPerPage = useSelector((state) => state.devUser.devPerPage);

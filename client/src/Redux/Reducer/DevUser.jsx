@@ -276,6 +276,7 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         details: [],
+        userByEmail: [],
       };
     case "GET_USER_SEARCHBAR":
       return {

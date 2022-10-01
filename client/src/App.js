@@ -1,6 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "./Components/Context/UserContext";
+import { postDevUser } from "./Redux/Actions/DevUser";
+import { useDispatch } from "react-redux";
+import { useFetchUsers } from "./Hooks/useFetchUsers";
+import { consultSub, setSubscriptionId } from "./Redux/Actions/MercadoPago";
+import useFetchSubscription from "./Hooks/useFetchSubscription";
 
 // import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 // import { YOUR_CLIENT_ID } from "./Components/Paypal/ClientID";
@@ -11,55 +16,34 @@ import Home from "./Components/Home/Home";
 import Users from "./Components/UserProfile/Users";
 import Work from "./Components/Work/Work";
 import DevUsersCreate from "./Components/DevUsersCreate/DevUsersCreate";
-import Profile from "./Components/Login/UserProfile/Profile";
 import Stripe from "./Components/Stripe/Stripe";
 import UserProfile from "./Components/UserProfile/UserProfile";
-//import About from "./Components/About/About"
-import Contracts from "./Components/Contracts/Contracts";
 import Error404 from "./Components/error404/error404";
 import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/PurchaseCompleted.jsx";
-
 import Loader from "./Components/Loader/Loader";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
 import { useEffect } from "react";
-import { getUserEmail, postDevUser } from "./Redux/Actions/DevUser";
-import { useDispatch, useSelector } from "react-redux";
-import { useFetchUsers } from "./Hooks/useFetchUsers";
-import {
-  consultSub,
-  setSubscriptionId,
-  subscriptionMp,
-} from "./Redux/Actions/MercadoPago";
-import useFetchSubscription from "./Hooks/useFetchSubscription";
 
 function App() {
-  const { user, isLoading } = useAuth0();
-
   const dispatch = useDispatch();
 
+  const { user, isLoading } = useAuth0();
   const { userByEmail } = useFetchUsers(user?.email);
+  const { Subscription } = useFetchSubscription();
+  const user_id = userByEmail?.id;
+  const subscription_id = Subscription?.id;
 
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
   }, [dispatch, user, userByEmail?.registrado]);
 
-  const { Subscription } = useFetchSubscription();
-
-  console.log(Subscription, "subbbbb");
-  const { SubConsult } = useFetchSubscription();
-  const subscription_id = Subscription?.id;
-  const status = SubConsult?.status;
-  const user_id = userByEmail?.id;
-
-  // const subscription_id = Subscription?.id;
-
   useEffect(() => {
     dispatch(consultSub(Subscription?.id));
-  }, [dispatch]);
+  }, [Subscription, dispatch]);
 
   useEffect(() => {
-    if (!userByEmail?.subscription_id) {
+    if (userByEmail?.subscription_id === null) {
       if (user_id === undefined && subscription_id === undefined)
         dispatch(
           setSubscriptionId({
@@ -76,6 +60,8 @@ function App() {
     given_name: `${user?.given_name}`,
     email: `${user?.email}`,
     picture: `${user?.picture}`,
+    subscription_id: `${subscription_id}`,
+    user_id: `${user_id}`,
   };
 
   return isLoading ? (
