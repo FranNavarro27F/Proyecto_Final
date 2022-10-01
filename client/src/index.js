@@ -17,8 +17,8 @@ dotenv.config();
 
 
 axios.defaults.baseURL =
-//   process.env.REACT_APP_API ||
-// "https://programax.up.railway.app/" ||
+  process.env.REACT_APP_API ||
+"https://programax.up.railway.app/" ||
   "http://localhost:3001";
 
 ReactDOM.render(
