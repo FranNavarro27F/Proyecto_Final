@@ -17,7 +17,7 @@ export default function Contrato({
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({})
   const [propuesta, setPropuesta] = useState({
-    employer: userByEmail?.id,
+    employer: userByEmail,
     developer: id,
     description: "",
     date: "",
