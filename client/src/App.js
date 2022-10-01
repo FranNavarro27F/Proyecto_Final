@@ -43,7 +43,11 @@ function App() {
   }, [Subscription, dispatch]);
 
   useEffect(() => {
-    if (userByEmail?.subscription_id === null) {
+    if (
+      userByEmail?.premium !== true &&
+      userByEmail?.premium !== undefined &&
+      userByEmail?.subscription_id === null
+    ) {
       if (user_id === undefined && subscription_id === undefined)
         dispatch(
           setSubscriptionId({
@@ -53,7 +57,13 @@ function App() {
           })
         );
     }
-  }, [dispatch, subscription_id, userByEmail?.subscription_id, user_id]);
+  }, [
+    dispatch,
+    subscription_id,
+    userByEmail?.premium,
+    userByEmail?.subscription_id,
+    user_id,
+  ]);
 
   const userData = {
     family_name: `${user?.family_name}`,
@@ -63,6 +73,8 @@ function App() {
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
   };
+
+  console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
 
   return isLoading ? (
     <Loader />

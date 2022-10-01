@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -42,9 +42,6 @@ export default function Details() {
 
   useEffect(() => {
     dispatch(getUserId(id));
-    return function () {
-      dispatch(detailReset());
-    };
   }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
@@ -64,16 +61,6 @@ export default function Details() {
 
   const handleContact = () => {
     if (isAuthenticated) {
-      if (nombreContratista && mailContrado) {
-        setDisabled(true);
-        // dispatch(
-        //   // emailer({
-        //   //   nombreContratista: nombreContratista,
-        //   //   mailContrado: mailContrado,
-        //   // })
-        // );
-      }
-
       SetContratoDetail(!contratoDetail);
     } else {
       loginWithRedirect();
@@ -82,6 +69,18 @@ export default function Details() {
 
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
+    // dispatch(
+    //   setSubscriptionId({
+    //     user_id: userByEmail?.id,
+    //     subscription_id: consultaSub?.id,
+    //     status: consultaSub?.status,
+    //   })
+    // );
+  };
+
+  const handleCloseSub = () => {
+    dispatch(consultSub(consultaSub?.id));
+    // setTimeout(() => {
     dispatch(
       setSubscriptionId({
         user_id: userByEmail?.id,
@@ -89,19 +88,13 @@ export default function Details() {
         status: consultaSub?.status,
       })
     );
-  };
-  const handleCloseSub = () => {
-    dispatch(consultSub(consultaSub?.id));
-    setTimeout(() => {
-      dispatch(
-        setSubscriptionId({
-          user_id: userByEmail?.id,
-          subscription_id: consultaSub?.id,
-          status: consultaSub?.status,
-        })
-      );
-    }, 1000);
+    // }, 1000);
     setMostrarSub(false);
+  };
+
+  const handleCleanAndBack = () => {
+    dispatch(detailReset());
+    navigate("/work");
   };
 
   return contratoDetail ? (
@@ -497,9 +490,9 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    {userProfile && (
+                    {/* {userProfile && (
                       <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
-                    )}
+                    )} */}
                     <h2>
                       {userDetail?.name
                         ? userDetail?.name + " "
@@ -516,7 +509,11 @@ export default function Details() {
                       {userDetail?.profilePicture &&
                       userByEmail?.profilePicture ? (
                         <img
-                          className={s.imgRender}
+                          className={
+                            userDetail?.premium && userByEmail?.premium
+                              ? s.premium
+                              : s.imgRender
+                          }
                           src={
                             userDetail?.profilePicture
                               ? userDetail?.profilePicture
@@ -646,6 +643,15 @@ export default function Details() {
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
+                    <button
+                      className={s.buttonBack}
+                      onClick={() => {
+                        dispatch(detailReset());
+                        navigate("/");
+                      }}
+                    >
+                      HOME
+                    </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
                         <button
@@ -667,24 +673,15 @@ export default function Details() {
                         )}
                       </div>
                     ) : (
-                      <button
-                        className={s.buttonL}
-                        onClick={(e) => {
-                          handleContact(e);
-                        }}
-                        disabled={disabled}
-                      >
+                      <button className={s.buttonL} onClick={handleContact}>
                         Contactame!
                       </button>
                     )}
                     <button
                       className={s.buttonBack}
-                      onClick={() => {
-                        dispatch(detailReset());
-                        window.history.go(-1);
-                      }}
+                      onClick={handleCleanAndBack}
                     >
-                      Volver
+                      POSTULACIONES
                     </button>
                   </div>
                 </div>

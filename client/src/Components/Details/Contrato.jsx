@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setearContrato } from "../../Redux/Actions/Contracts";
+import { editarContrato, getContratoId, setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 export default function Contrato({
+  textoSuperior,
   userByEmail,
   userDetail,
   id,
@@ -27,9 +29,16 @@ export default function Contrato({
     aceptado: false,
   });
 
+
+  const handleEditarPopusta= (e)=>{
+    dispatch( editarContrato(id, propuesta) )
+    .then(data=>{dispatch(getContratoId(id)) })
+    alert("Su propuesta fue modificada correctamente")
+
+  }
   
   const today = new Date().toLocaleDateString({year:"numeric", month:"short", day: "numeric"})
-  // 30/9/2022
+
   const setOrderDate = (today) => {
     let division = today.split("/")
     let dia = division[0]
@@ -89,11 +98,15 @@ const validate = (propuesta) => {
   return (
     <div className={s.bodyPropuesta}>
       <div className={s.conteiner}>
-        <h1>PROPUESTA</h1>
+        <h1>Contrapropuesta</h1>
+       { textoSuperior ? <h2>Modifica la propuesta de contrato</h2>  : 
         <h2>
           Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
           propuesta!
         </h2>
+        
+        }
+        <br />
         <div className={s.divForm}>
         <form className={s.inputForm}>
           {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
@@ -149,15 +162,18 @@ const validate = (propuesta) => {
           >
             VOLVER
           </button>
-          <button
-            className={s.buttonPago}
-            //   onClick={() => navigate("/checkout")}
-            onClick={handlerSendPropuesta}
-          >
-            ENVIAR PROPUESTA
-          </button>
+          {textoSuperior ? <button className={s.buttonPago} onClick={(e)=>{handleEditarPopusta(e)}}>Editar</button> :
+
+            <button className={s.buttonPago} onClick={handlerSendPropuesta}>
+              ENVIAR PROPUESTA
+            </button>
+
+
+          }
         </div>
       </div>
     </div>
   );
 }
+
+//   onClick={() => navigate("/checkout")}
