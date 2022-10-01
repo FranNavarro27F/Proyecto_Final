@@ -139,11 +139,6 @@ export default function NavBar({
       </button>
 
       <div className={s.bodySearch}>
-        {/* <label className={s.switch}>
-          <input onChange={(e)=> setChecked(!checked)} type="checkbox" />
-          <span className={s.slider_round}></span>
-        </label> */}
-
         <form>
           <span>
             <HiOutlineSearch />

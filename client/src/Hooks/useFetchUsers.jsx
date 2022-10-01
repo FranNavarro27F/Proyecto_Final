@@ -10,8 +10,8 @@ export const useFetchUsers = (email) => {
 
   useEffect(() => {
     dispatch(getUsersBd());
-    dispatch(getUserEmail(email));
-  }, [dispatch, email]);
+    if (!userByEmail.length && email) dispatch(getUserEmail(email));
+  }, [dispatch, email, userByEmail.length]);
 
   return { allUsers, userByEmail };
 };
