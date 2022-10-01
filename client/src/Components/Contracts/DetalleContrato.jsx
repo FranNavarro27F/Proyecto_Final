@@ -1,8 +1,9 @@
 
 import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
-import { aceptarContrato, rechazarContrato } from '../../Redux/Actions/Contracts';
+import { aceptarContrato, editarContrato, rechazarContrato } from '../../Redux/Actions/Contracts';
 import s from "../Contracts/DetalleContracts.module.css";
 
 export default function DetalleContrato() {
@@ -10,6 +11,7 @@ export default function DetalleContrato() {
     const {id} = useParams()
     const dispatch = useDispatch();
     const detalleC = useSelector((state)=> state.contracts.detalleContrato)
+    const [mPropuesta, setmPropuesta] = useState(false)
   
 
     //aca el handle del aceptar contrato
@@ -21,7 +23,11 @@ export default function DetalleContrato() {
       dispatch(rechazarContrato(id))
     }
 
-  
+    const handleContraPropuesta = (id, propuesta) => {
+      setmPropuesta(true)
+      dispatch(editarContrato(id, propuesta))
+    }
+
     return (
     <div className={s.body}>
       <div className={s.titulito}>
@@ -71,7 +77,7 @@ export default function DetalleContrato() {
                   
                 <button
               className={s.buttonDetalle}
-              //onClick ={(e)=>hand}
+              onClick ={(e)=>handleContraPropuesta(e)}
               >
                 Contrapropuesta
                 </button>

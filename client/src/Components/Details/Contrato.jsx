@@ -27,6 +27,7 @@ export default function Contrato({
     aceptado: false,
   });
 
+  
   const today = new Date().toLocaleDateString({year:"numeric", month:"short", day: "numeric"})
   // 30/9/2022
   const setOrderDate = (today) => {
