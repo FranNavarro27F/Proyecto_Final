@@ -94,6 +94,18 @@
   box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
   object-fit: cover;
 }
+
+.premium {
+  width: 16vw;
+  height: 30vh;
+  border-radius: 10%;
+  border: 1vh solid rgba(47, 47, 138, 0.6);
+  -webkit-box-shadow: 10px 10px 20px 0px rgba(180, 17, 17, 0.75);
+  -moz-box-shadow: 10px 10px 20px 0px rgba(163, 19, 19, 0.75);
+  box-shadow: 10px 10px 20px 0px rgba(226, 5, 255, 0.623);
+  object-fit: cover;
+}
+
 .buttonL {
   position: relative;
   left: 45vh;
@@ -394,90 +406,90 @@
     transform: rotate(360deg);
   }
 }
+
 /*------ ACA EMPIEZA EL STYLE DE LA CARD DE CONTRATOS----------- */
-  .cardContrato{
-    background: linear-gradient(
-      290.74deg,
-      #5eaaaf 6.83%,
-      #2f2e6c 52.53%,
-      #251f3e 85.61%
-    );
-    width: 50%;
-    height: 50vh;
-  }
+.cardContrato {
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  width: 50%;
+  height: 50vh;
+}
 
-  .divCardContrato {
-    background: rgba(47, 47, 138, 0.247);
-    backdrop-filter: blur(2px);
-    border: 2px solid rgba(0, 0, 0, 0.075);
-    width: 150vh;
-    height: 20vh;
-    margin-left: 40vh;
-    margin-top: 10vh;
-    border-radius: 30px;
-    overflow: hidden;
-    backdrop-filter: blur(2px);
-    border: 2px solid rgba(0, 0, 0, 0.075);
-  }
-  .textCardContrato{
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2vh;
-    line-height: 143.2%;
-    color: #ffffff;
-    z-index: 1;
-    width: 15vw;
-    height: 1px;
-    margin-top: 2%;
-    margin-left: 10vh;
-  
-  }
-  .buttonDetalle{
-    background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
-    border-radius: 2.1vw;
-    color: #ffffff;
-    font-family: "Poppins";
-    font-weight: 400;
-    font-size: 0.9vw;
-    line-height: 23px;
-    cursor: pointer;
-    width: 9vw;
-    height: 5vh;
-    margin-left: 110vh;
-    margin-top: 3vh;
-    
-  }
+.divCardContrato {
+  background: rgba(47, 47, 138, 0.247);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+  width: 150vh;
+  height: 20vh;
+  margin-left: 40vh;
+  margin-top: 10vh;
+  border-radius: 30px;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+}
+.textCardContrato {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2vh;
+  line-height: 143.2%;
+  color: #ffffff;
+  z-index: 1;
+  width: 15vw;
+  height: 1px;
+  margin-top: 2%;
+  margin-left: 10vh;
+}
+.buttonDetalle {
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.9vw;
+  line-height: 23px;
+  cursor: pointer;
+  width: 9vw;
+  height: 5vh;
+  margin-left: 110vh;
+  margin-top: 3vh;
+}
 
-  .label {
-    font-size: 21px;
-    font-weight: 600;
-    letter-spacing: 1px;
-  }
+.label {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
 
-  /* .spanMail {
+/* .spanMail {
     margin-top: 4px
   } */
 
-  .divData > span, .divData {
-    display: flex;
-    font-size: 20px;
-  }
+.divData > span,
+.divData {
+  display: flex;
+  font-size: 20px;
+}
 
- .infoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 12px;
- }
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
 
- .titleContainer {
+.titleContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 3px;
- }
+}
 
 .divLinkedin {
   color: #ffffff;

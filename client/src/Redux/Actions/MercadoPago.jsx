@@ -14,26 +14,32 @@ export function pagosMp() {
   };
 }
 
-export function subscriptionMp() {
+export function subscriptionMp(status) {
   return async function (dispatch) {
-    try {
-      return dispatch({
-        type: "MP_SUBSCRIPTION",
-        payload: (await axios.post(`/pago/subscription`)).data,
-      });
-    } catch (e) {
-      console.error(e, "error catch action subscription MercadoPago");
+    if (status) {
+      try {
+        return dispatch({
+          type: "MP_SUBSCRIPTION",
+          payload: (await axios.post(`/pago/subscription`)).data,
+        });
+      } catch (e) {
+        console.error(e, "error catch action subscription MercadoPago");
+      }
     }
   };
 }
 
 export function consultSub(id) {
+  console.log(`consulta por la suscripcion ${id}`);
   return async function (dispatch) {
     try {
-      return dispatch({
-        type: "MP_SUBSCRIPTION_CONSULT",
-        payload: (await axios.get(`/pago/consultSub/${id}`)).data,
-      });
+      if (id !== undefined) {
+        const idsub = await id;
+        return dispatch({
+          type: "MP_SUBSCRIPTION_CONSULT",
+          payload: (await axios.get(`/pago/consultSub/${idsub}`)).data,
+        });
+      }
     } catch (e) {
       console.error(e, "error catch action subscription consult MercadoPago");
     }
