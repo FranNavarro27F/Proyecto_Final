@@ -21,7 +21,7 @@ export default function Contrato({
   const detalleContrato = useSelector((state)=>state.contracts.detalleContrato)
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail,
-    ultimaModificacion: userByEmail,
+    ultimaModificacion:"",
     developer: id,
     description: detalleContrato.description || "",
     date: detalleContrato.date || "",
@@ -33,6 +33,10 @@ export default function Contrato({
 
 
   const handleEditarPopusta= (e)=>{
+    setPropuesta({
+      ...propuesta,
+      ultimaModificacion: userByEmail,
+    })
     dispatch( editarContrato(id, propuesta) )
     .then(data=>{dispatch(getContratoId(id)) })
     alert("Su propuesta fue modificada correctamente")
