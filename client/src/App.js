@@ -28,7 +28,7 @@ import { useEffect } from "react";
 function App() {
   const dispatch = useDispatch();
 
-  const { user, isLoading } = useAuth0();
+  const { user, isLoading, isAuthenticated } = useAuth0();
   const { userByEmail } = useFetchUsers(user?.email);
   const { Subscription } = useFetchSubscription();
   const user_id = userByEmail?.id;
@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
-  }, [dispatch, user, userByEmail?.registrado]);
+  }, [dispatch, isAuthenticated, user, userByEmail?.registrado]);
 
   useEffect(() => {
     dispatch(consultSub(Subscription?.id));
@@ -44,11 +44,16 @@ function App() {
 
   useEffect(() => {
     if (
+      isAuthenticated &&
       userByEmail?.premium !== true &&
       userByEmail?.premium !== undefined &&
       userByEmail?.subscription_id === null
     ) {
-      if (user_id === undefined && subscription_id === undefined)
+      if (
+        isAuthenticated &&
+        user_id === undefined &&
+        subscription_id === undefined
+      )
         dispatch(
           setSubscriptionId({
             user_id: user_id,
@@ -59,6 +64,7 @@ function App() {
     }
   }, [
     dispatch,
+    isAuthenticated,
     subscription_id,
     userByEmail?.premium,
     userByEmail?.subscription_id,
