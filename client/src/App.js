@@ -28,7 +28,7 @@ import { useEffect } from "react";
 function App() {
   const dispatch = useDispatch();
 
-  const { user, isLoading } = useAuth0();
+  const { user, isLoading, isAuthenticated } = useAuth0();
   const { userByEmail } = useFetchUsers(user?.email);
   const { Subscription } = useFetchSubscription();
   const user_id = userByEmail?.id;
@@ -36,15 +36,24 @@ function App() {
 
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
-  }, [dispatch, user, userByEmail?.registrado]);
+  }, [dispatch, isAuthenticated, user, userByEmail?.registrado]);
 
   useEffect(() => {
     dispatch(consultSub(Subscription?.id));
   }, [Subscription, dispatch]);
 
   useEffect(() => {
-    if (userByEmail?.subscription_id === null) {
-      if (user_id === undefined && subscription_id === undefined)
+    if (
+      isAuthenticated &&
+      userByEmail?.premium !== true &&
+      userByEmail?.premium !== undefined &&
+      userByEmail?.subscription_id === null
+    ) {
+      if (
+        isAuthenticated &&
+        user_id === undefined &&
+        subscription_id === undefined
+      )
         dispatch(
           setSubscriptionId({
             user_id: user_id,
@@ -53,7 +62,14 @@ function App() {
           })
         );
     }
-  }, [dispatch, subscription_id, userByEmail?.subscription_id, user_id]);
+  }, [
+    dispatch,
+    isAuthenticated,
+    subscription_id,
+    userByEmail?.premium,
+    userByEmail?.subscription_id,
+    user_id,
+  ]);
 
   const userData = {
     family_name: `${user?.family_name}`,
@@ -63,6 +79,8 @@ function App() {
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
   };
+
+  console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
 
   return isLoading ? (
     <Loader />
