@@ -54,3 +54,14 @@ export function rechazarContrato(id){
     }
   }
 }
+
+export function editarContrato(id, data) {
+  return async function(dispatch) {
+    try {
+      const propuestaEditada = await axios.put(`/contratos/${id}`, data)
+      console.log(propuestaEditada, "DUDUKI")
+    } catch (error) {
+      console.error("Error en la acción de editar propuesta")
+    }
+  }
+}

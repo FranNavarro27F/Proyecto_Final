@@ -20,7 +20,7 @@ const { saveLanguages } = require("./src/controllers/Lenguajes/index");
 
 // ------------------------------------
 
-conn.sync({ alter: true }).then(() => {
+  conn.sync({ alter: true }).then(() => {
   const PORT = 3001;
 
   // ------------------------------------
