@@ -69,13 +69,6 @@ export default function Details() {
 
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
-    // dispatch(
-    //   setSubscriptionId({
-    //     user_id: userByEmail?.id,
-    //     subscription_id: consultaSub?.id,
-    //     status: consultaSub?.status,
-    //   })
-    // );
   };
 
   const handleCloseSub = () => {
@@ -654,6 +647,13 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
+                        <label className={s.switch}>
+                          <input
+                            // onChange={(e) => setChecked(!checked)}
+                            type="checkbox"
+                          />
+                          <span className={s.slider_round}></span>
+                        </label>
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}

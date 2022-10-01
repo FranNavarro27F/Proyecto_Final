@@ -5,7 +5,7 @@ import { consultSub, subscriptionMp } from "../Redux/Actions/MercadoPago";
 import { useFetchUsers } from "./useFetchUsers";
 import useUser from "./useUser";
 
-export default function useFetchSubscription(id) {
+export default function useFetchSubscription() {
   const dispatch = useDispatch();
   const user = useUser();
   const { isAuthenticated } = useAuth0();
