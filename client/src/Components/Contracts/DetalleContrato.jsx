@@ -22,17 +22,19 @@ export default function DetalleContrato() {
     //aca el handle del aceptar contrato
     const handleAceptar= () =>{
       dispatch(aceptarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      
+      alert("La propuesta ha sido aceptada correctamente")
     }
 //aca el handle del rechazar contrato
     const handleRechazar = ()=>{
       dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
+      alert("La propuesta ha sido rechazada correctamente")
     }
 
     const handleContraPropuesta = (propuesta) => {
       setmPropuesta(true)
       dispatch(editarContrato(id, propuesta)).then(data=> dispatch(getContratoId(id)))
     }
+   
 
     return (
     <div className={s.body}>
