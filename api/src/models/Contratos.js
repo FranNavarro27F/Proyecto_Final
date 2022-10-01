@@ -66,7 +66,10 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         
       },
+      ultimaModificacion:{
+        type: DataTypes.STRING,
 
+      },
       habilitado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
