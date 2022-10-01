@@ -26,30 +26,58 @@ import { useEffect } from "react";
 import { getUserEmail, postDevUser } from "./Redux/Actions/DevUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useFetchUsers } from "./Hooks/useFetchUsers";
+import {
+  consultSub,
+  setSubscriptionId,
+  subscriptionMp,
+} from "./Redux/Actions/MercadoPago";
+import useFetchSubscription from "./Hooks/useFetchSubscription";
 
 function App() {
-  const {
-    user,
-    isAuthenticated,
-    isLoading,
-    //  loginWithRedirect
-  } = useAuth0();
+  const { user, isLoading } = useAuth0();
+
   const dispatch = useDispatch();
-  // const { email, family_name, given_name, picture } = await user;
 
   const { userByEmail } = useFetchUsers(user?.email);
-
-  // console.log(user, "AUTH00000000000");
 
   useEffect(() => {
     if (!userByEmail?.registrado) dispatch(postDevUser(user));
   }, [dispatch, user, userByEmail?.registrado]);
+
+  const { Subscription } = useFetchSubscription();
+
+  console.log(Subscription, "subbbbb");
+  const { SubConsult } = useFetchSubscription();
+  const subscription_id = Subscription?.id;
+  const status = SubConsult?.status;
+  const user_id = userByEmail?.id;
+
+  // const subscription_id = Subscription?.id;
+
+  useEffect(() => {
+    dispatch(consultSub(Subscription?.id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!userByEmail?.subscription_id) {
+      if (user_id === undefined && subscription_id === undefined)
+        dispatch(
+          setSubscriptionId({
+            user_id: user_id,
+            subscription_id: subscription_id,
+            status: "pending",
+          })
+        );
+    }
+  }, [dispatch, subscription_id, userByEmail?.subscription_id, user_id]);
+
   const userData = {
     family_name: `${user?.family_name}`,
     given_name: `${user?.given_name}`,
     email: `${user?.email}`,
     picture: `${user?.picture}`,
   };
+
   return isLoading ? (
     <Loader />
   ) : (
