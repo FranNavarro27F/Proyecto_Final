@@ -444,10 +444,7 @@ const postUserAuth = async (data) => {
 // SET SUBSCRIPTION ID
 const setSubscriptionId = async (id, subscription_id, status) => {
   //
-
   try {
-    // const { subscription_id, status } = body;
-
     const user = await Usuarios.findByPk(id);
     user.subscription_id = subscription_id || null;
     user.premium = status === "authorized" ? true : false;
@@ -457,6 +454,28 @@ const setSubscriptionId = async (id, subscription_id, status) => {
     //
   } catch (e) {
     console.error(`${ERROR}setSubscriptionId --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
+// SET VISIBLE
+const setVisible = async (id, visible) => {
+  //
+  try {
+    typeof visible === "boolean";
+    const user = await Usuarios.findByPk(id);
+    user.visible = visible;
+
+    await user.save();
+    return `El usuario ${user.email} ahora es ${
+      visible ? "visible" : "invisible"
+    }.`;
+    //
+  } catch (e) {
+    typeof visible !== "boolean"
+      ? console.error(`"visible" debe ser un boolean.`)
+      : console.error(`${ERROR}setVisible --→ ${e}`);
   }
 };
 
@@ -592,5 +611,6 @@ module.exports = {
   postUserAuth,
   modifyUser,
   setSubscriptionId,
+  setVisible,
   getByEmail,
 };
