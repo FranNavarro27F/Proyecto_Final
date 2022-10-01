@@ -27,10 +27,11 @@ import {
 //imagenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
+import useUser from "../../Hooks/useUser";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
-  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const refCountries = useRef();
@@ -39,6 +40,7 @@ export default function DevUsersCreate() {
   const refTecnologies = useRef();
   const refName = useRef();
   const reflastName = useRef();
+  const user = useUser();
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   useEffect(() => {
@@ -48,13 +50,9 @@ export default function DevUsersCreate() {
   const [errors, setErrors] = useState({});
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: userByEmail?.name
-      ? `${userByEmail?.name}`
-      : cache?.name
-      ? `${cache?.name}`
-      : "",
-    lastName: userByEmail?.lastName
-      ? `${userByEmail?.lastName}`
+    name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
+    lastName: user?.lastName
+      ? `${user?.lastName}`
       : cache?.lastName
       ? `${cache?.lastName}`
       : "",
@@ -63,7 +61,7 @@ export default function DevUsersCreate() {
       : cache?.profilePicture
       ? `${cache?.profilePicture}`
       : "",
-    email: `${userByEmail?.email}`,
+    email: `${user?.email}`,
     linkedIn: userByEmail?.linkedIn
       ? `${userByEmail?.linkedIn}`
       : cache?.linkedIn
@@ -405,6 +403,7 @@ export default function DevUsersCreate() {
     input.name === undefined &&
     userByEmail?.email === undefined &&
     input.email === undefined &&
+    cache.email === undefined &&
     input.profile.Picture === undefined
   ) {
     return (
@@ -450,7 +449,7 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.lastName}
+              defaultValue={input?.lastName && cache?.lastName}
               value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
@@ -647,8 +646,8 @@ export default function DevUsersCreate() {
               max="5"
               onChange={(e) => handleChangeEnglish(e)}
               name="englishLevel"
-              defaultValue={input?.englishLevel}
-              value={cache?.englishLevel}
+              defaultValue={cache?.englishLevel}
+              // value={cache?.englishLevel}
               className={s.inputEnglish}
               disabled={!edit}
             />
