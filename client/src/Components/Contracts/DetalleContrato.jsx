@@ -91,6 +91,7 @@ export default function DetalleContrato() {
         </div>
 
         {mPropuesta && <Contrato 
+          textoSuperior={"asdjfña"}
           userByEmail={detalleC?.employer}
           userDetail={detalleC?.developer}
           id={detalleC?.id}
