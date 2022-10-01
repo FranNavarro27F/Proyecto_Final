@@ -77,9 +77,24 @@ router.put("/sub/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { subscription_id, status } = req.body;
-    console.log(req.body, "BODYYYYYYYYYYYYYYYYY");
-    // const { subscription_id, status } = req.body;
     const updatedUser = await setSubscriptionId(id, subscription_id, status);
+
+    return await res.send(updatedUser);
+    //
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+// -----------------------------------------------
+
+// Set VISIBLE
+router.put("/visible/:id", async (req, res) => {
+  //
+  try {
+    const { id } = req.params;
+    const { visible } = req.body;
+    const updatedUser = await setSubscriptionId(id, visible);
 
     return await res.send(updatedUser);
     //

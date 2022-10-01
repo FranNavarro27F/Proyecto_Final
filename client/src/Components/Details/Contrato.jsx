@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editarContrato, getContratoId, setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
 import { emailer } from "../../Redux/Actions/Emailer";
@@ -18,15 +18,16 @@ export default function Contrato({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({})
+  const detalleContrato = useSelector((state)=>state.contracts.detalleContrato)
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail,
     developer: id,
-    description: "",
-    date: "",
-    expiration_date: "",
-    status: "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
-    price: "",
-    aceptado: false,
+    description: detalleContrato.description || "",
+    date: detalleContrato.date || "",
+    expiration_date:detalleContrato.expiration_date || "",
+    status: detalleContrato.status || "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
+    price: detalleContrato.price || "",
+    aceptado:detalleContrato.aceptado || false,
   });
 
 
@@ -98,7 +99,11 @@ const validate = (propuesta) => {
   return (
     <div className={s.bodyPropuesta}>
       <div className={s.conteiner}>
-        <h1>Contrapropuesta</h1>
+        {
+        textoSuperior ?  <h1>Contrapropuesta</h1>  : 
+          <h1>Propuesta</h1>
+          
+        }
        { textoSuperior ? <h2>Modifica la propuesta de contrato</h2>  : 
         <h2>
           Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
@@ -121,7 +126,8 @@ const validate = (propuesta) => {
           //min="2022-10-22"
           classname={s.todosInput}
           required
-          onChange={handleChangePropuesta} />
+          onChange={handleChangePropuesta} 
+          />
           <label>Fecha de finalizacion: </label>
           <input
             classname={s.todosInput}
@@ -143,6 +149,8 @@ const validate = (propuesta) => {
           <div className={s.divDescription}>
           <label>Descripcion: </label>
           <input
+          value={propuesta.description}
+          
             classname={s.textDescription}
             type="text"
             minlength="4"
