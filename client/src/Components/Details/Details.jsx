@@ -99,7 +99,7 @@ export default function Details() {
 
   return contratoDetail ? (
     <Contrato
-      userByEmail={userByEmail}
+      userByEmail={userByEmail.id}
       userDetail={userDetail}
       id={id}
       contratoDetail={contratoDetail}
