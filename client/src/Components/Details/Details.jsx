@@ -37,6 +37,7 @@ import { setearContrato } from "../../Redux/Actions/Contracts";
 import Contrato from "./Contrato";
 import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
+import useFetchSubscription from "../../Hooks/useFetchSubscription";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -52,65 +53,30 @@ export default function Details() {
   const [userProfile, setUserProfile] = useState(false);
 
   useEffect(() => {
-    dispatch(subscriptionMp());
     dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
-  const userDetail = useSelector((state) => state.devUser.details);
-  const loader = useSelector((state) => state.devUser.loader);
-  // console.log(userDetail, "ACA DETAILS USER");
+  useEffect(() => {
+    dispatch(consultSub(userByEmail?.subscription_id));
+  }, [dispatch, userByEmail?.subscription_id]);
 
+  const userDetail = useSelector((state) => state.devUser.details);
+
+  const consultaSub = useSelector(
+    (state) => state.mercadoPago.SubscriptionConsult
+  );
+  console.log(consultaSub);
   const [mostrarSub, setMostrarSub] = useState(false);
 
   let nombreContratista = userByEmail?.name;
+
   let mailContrado = userDetail?.email;
-  const Subscription = useSelector((state) => state.mercadoPago.Subscription);
-  const SubConsult = useSelector(
-    (state) => state.mercadoPago.SubscriptionConsult
-  );
-  const subscription_id = Subscription?.id;
-  useEffect(() => {
-    dispatch(consultSub(subscription_id));
-  }, [dispatch, subscription_id]);
 
-  const status = SubConsult?.status;
-  console.log(status, "STATUSSSSSSS");
+  const linkPago = consultaSub?.init_point;
 
-  // useEffect(() => {
-  //   // dispatch(subscriptionMp());
-  //   // if (setUserProfile) {
-  //   //   if (userByEmail?.premium !== true) {
-  //   //   }
-  //   // }
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   console.log("USEEFFECT", userByEmail?.id, subscription_id, status);
-  //   if (userByEmail?.premium !== true) {
-  //     dispatch(
-  //       setSubscriptionId({
-  //         user_id: userByEmail?.id,
-  //         subscription_id: subscription_id,
-  //         status: status,
-  //       })
-  //     );
-  //   }
-  // }, [
-  //   dispatch,
-  //   status,
-  //   subscription_id,
-  //   userByEmail?.id,
-  //   userByEmail?.premium,
-  // ]);
-  // useEffect(() => {
-  //   dispatch(setSubscriptionId({ id, subscriptionId }));
-  // }, [dispatch, id, subscriptionId]);
-
-  const linkPago = Subscription.init_point;
-
-   const [contratoDetail, SetContratoDetail] = useState(false);
+  const [contratoDetail, SetContratoDetail] = useState(false);
 
   const handleContact = () => {
     if (isAuthenticated) {
@@ -135,40 +101,30 @@ export default function Details() {
     navigate("/work");
   };
 
-  // const email = "test_user_20874669@testuser.com"; //TEST
-  // const idd = userByEmail?.id;
-  useEffect(() => {
-    dispatch(consultSub(SubConsult?.id));
-  }, [dispatch]);
-
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
-    dispatch(consultSub(SubConsult?.id));
 
-    setTimeout(() => {
-      console.log(SubConsult?.status);
-      dispatch(
-        setSubscriptionId({
-          user_id: userByEmail?.id,
-          subscription_id: SubConsult?.id,
-          status: SubConsult?.status,
-        })
-      );
-    }, 2500);
+    console.log(consultaSub?.status);
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: consultaSub?.status,
+      })
+    );
   };
   const handleCloseSub = () => {
-    dispatch(consultSub(SubConsult?.id));
-    // dispatch(consultSub(Subscription?.id));
+    dispatch(consultSub(consultaSub?.id));
     setTimeout(() => {
-      console.log(SubConsult?.status);
+      console.log(consultaSub?.status);
       dispatch(
         setSubscriptionId({
           user_id: userByEmail?.id,
-          subscription_id: SubConsult?.id,
-          status: SubConsult?.status,
+          subscription_id: consultaSub?.id,
+          status: consultaSub?.status,
         })
       );
-    }, 2500);
+    }, 1000);
     setMostrarSub(false);
   };
 
