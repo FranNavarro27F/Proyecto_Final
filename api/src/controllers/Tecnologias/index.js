@@ -14,7 +14,7 @@ const guardarTecnologiasDB = async () => {
           where: { name: cur },
         })
     );
-    console.log("✔ Tecnologias cargadas.");
+    console.log("✔ Tecnologias cargadas -------");
     return "✔ Tecnologias cargadas.";
   } catch (e) {
     console.error(`${ERROR}guardarTecnologiasDB --→ ${e}`);
@@ -26,8 +26,8 @@ const guardarTecnologiasDB = async () => {
 const todasLasTecnologias = async () => {
   //
   try {
-      allTec = await Tecnologias.findAll();
-      return allTec;
+    allTec = await Tecnologias.findAll();
+    return allTec;
     //
   } catch (e) {
     console.error(`${ERROR}todasLasTecnologias --→ ${e}`);

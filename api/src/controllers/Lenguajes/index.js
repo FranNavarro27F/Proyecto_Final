@@ -15,7 +15,7 @@ const saveLanguages = async () => {
       //   result.forEach((e) => (e.habilitado = true))
       // )
     );
-    console.log("✔ Lenguajes cargados.");
+    console.log("✔ Lenguajes cargados ---------");
     return "✔ Lenguajes cargados.";
   } catch (e) {
     console.error(`${ERROR}saveLanguages --> ${e}`);
