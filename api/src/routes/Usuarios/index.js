@@ -7,6 +7,7 @@ const {
   getUserByName,
   modifyUser,
   setSubscriptionId,
+  setVisible,
   postUserAuth,
   getByEmail,
 } = require("../../controllers/Usuarios");
@@ -94,7 +95,7 @@ router.put("/visible/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { visible } = req.body;
-    const updatedUser = await setSubscriptionId(id, visible);
+    const updatedUser = await setVisible(id, visible);
 
     return await res.send(updatedUser);
     //
