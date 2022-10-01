@@ -59,7 +59,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!userByEmail?.subscription_id) {
+    if (!userByEmail?.S) {
       if (user_id === undefined && subscription_id === undefined)
         dispatch(
           setSubscriptionId({
