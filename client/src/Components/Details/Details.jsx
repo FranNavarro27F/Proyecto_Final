@@ -649,15 +649,17 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
-                        <label className={s.switch}>
-                          <input
-                            onChange={(e) => handleVisible(e)}
-                            type="checkbox"
-                            name="visible"
-                            defaultChecked={userByEmail?.visible}
-                          />
-                          <span className={s.slider_round}></span>
-                        </label>
+                        {userByEmail && (
+                          <label className={s.switch}>
+                            <input
+                              onChange={(e) => handleVisible(e)}
+                              type="checkbox"
+                              name="visible"
+                              defaultChecked={userByEmail?.visible}
+                            />
+                            <span className={s.slider_round}></span>
+                          </label>
+                        )}
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
