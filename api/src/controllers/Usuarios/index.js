@@ -193,10 +193,10 @@ const findUser = async (props) => {
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
-      //     where: {
-      //     habilitado: true,
-      //     visible: true,
-      //   },
+      where: {
+        habilitado: true,
+        visible: true,
+      },
       include: [
         {
           model: Paises,
