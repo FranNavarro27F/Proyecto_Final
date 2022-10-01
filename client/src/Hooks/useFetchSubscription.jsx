@@ -10,8 +10,8 @@ export default function useFetchSubscription(id) {
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
 
   useEffect(() => {
-    if (Subscription?.id === null) dispatch(subscriptionMp());
-  }, [Subscription?.id, dispatch]);
+    if (!Subscription.length) dispatch(subscriptionMp());
+  }, [Subscription.length, dispatch]);
 
   return { Subscription };
 }
