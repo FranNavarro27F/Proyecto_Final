@@ -262,11 +262,14 @@ const getUsers = async () => {
           : [],
       };
     });
+
     return await Promise.all(arrUsersListo);
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
+
 // -----------------------------------------------
 
 // GET USER (BY ID) → DETAILS
