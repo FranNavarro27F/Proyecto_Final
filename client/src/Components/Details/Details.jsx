@@ -50,7 +50,7 @@ export default function Details() {
   const userDetail = useSelector((state) => state.devUser.details);
 
   const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
-  console.log(consultaSub, "subbbbbbb");
+  // console.log(consultaSub, "subbbbbbb");
 
   const [mostrarSub, setMostrarSub] = useState(false);
 
