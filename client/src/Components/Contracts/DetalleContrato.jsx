@@ -119,7 +119,8 @@ export default function DetalleContrato() {
                      id ={id}
                      />
                      :
-                     <div>  
+                     <div>
+                       
                       </div>
                     }
                     </div>
