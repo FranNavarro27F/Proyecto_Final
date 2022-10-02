@@ -56,7 +56,7 @@ class PaymentService {
     return consult.data;
   }
 
-  async createSubscription() {
+  async createSubscription(user_id) {
     const url = "https://api.mercadopago.com/preapproval";
 
     const body = {
@@ -72,7 +72,7 @@ class PaymentService {
         // end_date: "2023-07-20T15:59:52.581Z",
       },
 
-      back_url: "https://programax.vercel.app/purchase-completed",
+      back_url: `https://programax.vercel.app/work/details/${user_id}`,
 
       auto_return: "all",
     };

@@ -578,7 +578,16 @@
 }
 
 /*------ ACA EMPIEZA EL CHECK----------- */
-
+.divVisible {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -10vh;
+}
+.divVisible label {
+  font-size: 2vh;
+  margin-right: 1vh;
+}
 .switch {
   position: relative;
   display: inline-block;
