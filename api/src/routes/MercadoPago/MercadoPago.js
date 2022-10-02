@@ -15,13 +15,13 @@ router.get("/", function (req, res, next) {
 
 router.get("/consultPay/:id", function (req, res, next) {
   const { id } = req.params;
-  console.log(id);
+
   PaymentInstance.getPaymentConsult(req, res, id);
 });
 
 router.get("/consultSub/:id", function (req, res, next) {
   const { id } = req.params;
-  console.log(id);
+
   PaymentInstance.getSubscriptionConsult(req, res, id);
 });
 
@@ -31,8 +31,9 @@ router.post("/payment", function (req, res, next) {
 });
 
 router.post("/subscription", function (req, res, next) {
-  // const { email, id } = req.body;
-  PaymentInstance.getSubscriptionLink(req, res);
+  const { user_id } = req.body;
+
+  PaymentInstance.getSubscriptionLink(req, res, user_id);
 });
 
 module.exports = router;
