@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { editarContrato, getContratoId, setearContrato } from "../../Redux/Actions/Contracts";
+import { useDispatch } from "react-redux";
+import { setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
-import { emailer } from "../../Redux/Actions/Emailer";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { emailer } from "../../Redux/Actions/Emailer";
 
 
 export default function Contrato({
-  textoSuperior,
   userByEmail,
   userDetail,
   id,
@@ -17,32 +15,21 @@ export default function Contrato({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+ 
   const [errors, setErrors] = useState({})
-  const detalleContrato = useSelector((state)=>state.contracts.detalleContrato)
+  
   const [propuesta, setPropuesta] = useState({
     employer: userByEmail,
-    ultimaModificacion:"",
     developer: id,
-    description: detalleContrato.description || "",
-    date: detalleContrato.date || "",
-    expiration_date:detalleContrato.expiration_date || "",
-    status: detalleContrato.status || "Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
-    price: detalleContrato.price || "",
-    aceptado:detalleContrato.aceptado || false
+    description:"",
+    date:"",
+    expiration_date:"",
+    status:"Pendiente", //"Activo", "Inactivo", "Completado", "Cancelado", "Pendiente"
+    price:"",
+    aceptado:false
   });
 
 
-  const handleEditarPopusta= (e)=>{
-    setPropuesta({
-      ...propuesta,
-      ultimaModificacion: userByEmail,
-    })
-    dispatch( editarContrato(id, propuesta) )
-    .then(data=>{dispatch(getContratoId(id)) })
-    alert("Su propuesta fue modificada correctamente")
-
-  }
-  
   const today = new Date().toLocaleDateString({year:"numeric", month:"short", day: "numeric"})
 
   const setOrderDate = (today) => {
@@ -104,22 +91,15 @@ const validate = (propuesta) => {
   return (
     <div className={s.bodyPropuesta}>
       <div className={s.conteiner}>
-        {
-        textoSuperior ?  <h1>Contrapropuesta</h1>  : 
           <h1>Propuesta</h1>
-          
-        }
-       { textoSuperior ? <h2>Modifica la propuesta de contrato</h2>  : 
         <h2>
           Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
           propuesta!
         </h2>
         
-        }
         <br />
         <div className={s.divForm}>
         <form className={s.inputForm}>
-          {/* <input type="text" name="titulo" value={propuesta.value.titulo} onChange={(e)=> handleChangePropuesta(e)} >Título:</input> */}
           <div className={s.divFormGen}>
           <div className={s.divDataForm}>
           <label>Fecha de inicio: </label>
@@ -154,8 +134,6 @@ const validate = (propuesta) => {
           <div className={s.divDescription}>
           <label>Descripcion: </label>
           <input
-          value={propuesta.description}
-          
             classname={s.textDescription}
             type="text"
             minlength="4"
@@ -175,18 +153,13 @@ const validate = (propuesta) => {
           >
             VOLVER
           </button>
-          {textoSuperior ? <button className={s.buttonPago} onClick={(e)=>{handleEditarPopusta(e)}}>Editar</button> :
 
-            <button className={s.buttonPago} onClick={handlerSendPropuesta}>
-              ENVIAR PROPUESTA
-            </button>
-
-
-          }
+          <button className={s.buttonPago} onClick={handlerSendPropuesta}>
+            ENVIAR PROPUESTA
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-//   onClick={() => navigate("/checkout")}
