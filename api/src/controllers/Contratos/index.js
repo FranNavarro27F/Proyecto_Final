@@ -200,7 +200,7 @@ const modifyContract = async (id, data) => {
     if(aceptado){
       await Contratos.update({ aceptado: aceptado }, { where:{id: id} });
     }
-    if(habilitado){
+    if(habilitado || habilitado === false){
       await Contratos.update({ habilitado: habilitado }, { where:{id: id} });
     }
     if(ultimaModificacion){

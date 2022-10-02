@@ -59,11 +59,15 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
-  const contratosVisibles = (contratos, user) => {
-    let visibles = contratos.filter((cur) => {
-      if (cur.status === "Finalizado") {
-        return true;
+
+  
+  
+//---esta funcion evalua que contratos pueden o no mostrarse -----------------------
+  const contratosVisibles = (contratos, user)=>{
+    let visibles= contratos.filter(cur=> {
+      
+      if(cur.status === "Concluido"){
+        return true
       }
       if (cur.employer === user.user_id) {
         return true;
