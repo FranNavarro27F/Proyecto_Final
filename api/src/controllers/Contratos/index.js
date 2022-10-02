@@ -163,7 +163,10 @@ const modifyContract = async (id, data) => {
       payment_id,
       aceptado,
       habilitado,
-      ultimaModificacion
+      ultimaModificacion,
+      puntuacion,
+      comentario
+
     } = data;
     const contract = await Contratos.findByPk(id);
 
@@ -205,6 +208,14 @@ const modifyContract = async (id, data) => {
     }
     if(ultimaModificacion){
       await Contratos.update({ ultimaModificacion: ultimaModificacion }, { where:{id: id} });
+    }
+    if(puntuacion){
+      await Contratos.update({ puntuacion: puntuacion }, { where:{id: id} });
+      
+    }
+    if(comentario){
+      await Contratos.update({ comentario: comentario }, { where:{id: id} });
+      
     }
 
 
