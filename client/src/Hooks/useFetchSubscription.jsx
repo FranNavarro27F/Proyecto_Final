@@ -16,7 +16,6 @@ export default function useFetchSubscription() {
   const status = userByEmail?.premium;
   const user_id = userByEmail?.id;
   const subscription_id = userByEmail?.subscription_id;
-  console.log(userByEmail);
 
   useEffect(() => {
     if (isAuthenticated)
