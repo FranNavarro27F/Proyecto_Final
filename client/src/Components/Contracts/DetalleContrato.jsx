@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { aceptarContrato, rechazarContrato, getContratoId, putContrato } from '../../Redux/Actions/Contracts';
 import { getUserEmail } from '../../Redux/Actions/DevUser';
 import s from "../Contracts/DetalleContracts.module.css";
+import Reviews from './Reviews';
 
 
 export default function DetalleContrato() {
@@ -110,7 +111,7 @@ export default function DetalleContrato() {
                   </div>
                   :
                   <div>
-
+                    <Reviews/>
                     </div>
 
 }   
