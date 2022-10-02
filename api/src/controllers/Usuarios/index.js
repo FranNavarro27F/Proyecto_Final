@@ -316,6 +316,16 @@ const getUserById = async (id) => {
     userM.tecnologias = userM.tecnologias
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
+    userM.contratos= userM.contratos.filter(cur=>{
+      if(cur.habilitado === true){
+        return true;
+      }
+      if(cur.habilitado === false){
+        return false;
+      }
+      
+    }) 
+
 
     return userM;
   } catch (e) {
