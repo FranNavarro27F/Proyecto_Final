@@ -113,7 +113,7 @@ const styles = {
     padding: 10,
     margin: "25px 4",
     minHeight: 100,
-    width: 300
+    
   },
 //   button: {
 //     border: "1px solid #a9a9a9",
