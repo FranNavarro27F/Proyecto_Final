@@ -60,7 +60,7 @@ function App() {
   //   dispatch(getUserEmail(user?.email));
   // }, [dispatch, user?.email]);
 
-  console.log(user_id, "USERIDDDDDDDDDDDD");
+  //console.log(user_id, "USERIDDDDDDDDDDDD");
   useEffect(() => {
     if (
       isAuthenticated &&
@@ -85,7 +85,7 @@ function App() {
     user_id,
   ]);
 
-  console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
+  //console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
 
   return isLoading ? (
     <Loader />

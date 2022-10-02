@@ -10,6 +10,7 @@ const initialState = {
   idDev: "",
   employer: [],
   loader: true,
+  reputacion : 0
 };
 
 export default function devUser(state = initialState, action) {
