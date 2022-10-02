@@ -134,7 +134,7 @@ export default function NavBar({
         className={!filtrados.length ? s.buttonClearAlert : s.buttonClear}
         onClick={() => handleClear()}
       >
-        <span> LIMPIAR FILTROS</span>
+        <span> Limpiar filtros</span>
         <AiOutlineClear />
       </button>
 

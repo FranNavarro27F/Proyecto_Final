@@ -289,6 +289,13 @@
   text-decoration: none;
 }
 
+.buttonSub:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .bodyButtons {
   display: flex;
 }
