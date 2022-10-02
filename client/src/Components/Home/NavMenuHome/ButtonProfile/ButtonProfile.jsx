@@ -31,7 +31,11 @@ export default function ButtonProfile({
       {
         <div onClick={() => setOpen(!open)} className={s.buttonImg}>
           <img
-            src={userByEmail?.profilePicture && userByEmail?.profilePicture}
+            src={
+              userByEmail?.profilePicture
+                ? userByEmail?.profilePicture
+                : user?.picture
+            }
             alt={user?.name}
             className={s.picture}
           />

@@ -10,7 +10,7 @@ const initialState = {
   idDev: "",
   employer: [],
   loader: true,
-  reputacion : 0
+  usersPremium: [],
 };
 
 export default function devUser(state = initialState, action) {
@@ -34,6 +34,11 @@ export default function devUser(state = initialState, action) {
         filteredUsers: action.payload,
         scroll: false,
         loader: false,
+      };
+    case "GET_DEVUSERS_PREMIUM":
+      return {
+        ...state,
+        usersPremium: action.payload,
       };
 
     case "SET_CURRENT_PAGE":
