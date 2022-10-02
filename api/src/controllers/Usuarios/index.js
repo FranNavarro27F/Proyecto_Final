@@ -284,21 +284,7 @@ const getPremiumUsers = async () => {
       },
       include: [
         {
-          model: Paises,
-          attributes: ["name"],
-        },
-        {
           model: Servicios,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-        {
-          model: Lenguajes,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
-        {
-          model: Tecnologias,
           attributes: ["name"],
           through: { attributes: [] },
         },
@@ -567,7 +553,7 @@ const modifyUser = async (data) => {
       tecnologias,
       lenguajes,
       servicios,
-      paiseId
+      paiseId,
     } = data;
     await Usuarios.update(
       {
@@ -617,26 +603,17 @@ const modifyUser = async (data) => {
         },
       ],
     });
- 
+
     modUsr.setTecnologias(tecnologias);
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
   } catch (e) {
-     console.log(e);
+    console.log(e);
   }
-}
+};
 // -----------------------------------------------
 
-
-
-
-
-
-
-
-
 // DELETE USER
-
 
 const deleteUser = async (id) => {
   try {
