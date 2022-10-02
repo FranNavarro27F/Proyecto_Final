@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const {
   getUsers,
+  getPremiumUsers,
   getUserById,
   deleteUser,
   getUserByName,
@@ -30,6 +31,19 @@ router.get("/", async (req, res) => {
       return res.json(await getUsers());
     }
     return res.send(user);
+    //
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+// -----------------------------------------------
+
+router.get("/premium", async (req, res) => {
+  //
+  try {
+    const premiumUsers = await getPremiumUsers();
+    return res.json(premiumUsers);
     //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
