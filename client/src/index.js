@@ -13,7 +13,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// console.log("******",process.env.REACT_APP_API, process.env.NODE_ENV, "******")
+//console.log("******",process.env.REACT_APP_API, process.env.NODE_ENV, "******")
 
 // usando el back deploy ------------------------------------
 axios.defaults.baseURL = process.env.REACT_APP_API;

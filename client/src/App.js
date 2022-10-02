@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "./Components/Context/UserContext";
-import { postDevUser } from "./Redux/Actions/DevUser";
-import { useDispatch } from "react-redux";
+import { getUserEmail, postDevUser } from "./Redux/Actions/DevUser";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchUsers } from "./Hooks/useFetchUsers";
 import { consultSub, setSubscriptionId } from "./Redux/Actions/MercadoPago";
 import useFetchSubscription from "./Hooks/useFetchSubscription";
@@ -24,52 +24,19 @@ import Loader from "./Components/Loader/Loader";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
 import { useEffect } from "react";
+import useFetchConsultSub from "./Hooks/useFetchConsultSub";
 
 function App() {
   const dispatch = useDispatch();
 
   const { user, isLoading, isAuthenticated } = useAuth0();
+  // const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const { userByEmail } = useFetchUsers(user?.email);
   const { Subscription } = useFetchSubscription();
   const user_id = userByEmail?.id;
   const subscription_id = Subscription?.id;
 
-  useEffect(() => {
-    if (!userByEmail?.registrado) dispatch(postDevUser(user));
-  }, [dispatch, isAuthenticated, user, userByEmail?.registrado]);
-
-  useEffect(() => {
-    dispatch(consultSub(Subscription?.id));
-  }, [Subscription, dispatch]);
-
-  useEffect(() => {
-    if (
-      isAuthenticated &&
-      userByEmail?.premium !== true &&
-      userByEmail?.premium !== undefined &&
-      userByEmail?.subscription_id === null
-    ) {
-      if (
-        isAuthenticated &&
-        user_id === undefined &&
-        subscription_id === undefined
-      )
-        dispatch(
-          setSubscriptionId({
-            user_id: user_id,
-            subscription_id: subscription_id,
-            status: "pending",
-          })
-        );
-    }
-  }, [
-    dispatch,
-    isAuthenticated,
-    subscription_id,
-    userByEmail?.premium,
-    userByEmail?.subscription_id,
-    user_id,
-  ]);
+  const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
 
   const userData = {
     family_name: `${user?.family_name}`,
@@ -79,6 +46,44 @@ function App() {
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
   };
+
+  useEffect(() => {
+    if (isAuthenticated && !userByEmail?.registrado)
+      dispatch(postDevUser(user));
+  }, [dispatch, isAuthenticated, user, userByEmail?.registrado]);
+
+  useEffect(() => {
+    isAuthenticated && dispatch(consultSub(Subscription?.id));
+  }, [Subscription, dispatch, isAuthenticated]);
+
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
+
+  console.log(user_id, "USERIDDDDDDDDDDDD");
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      !userByEmail?.premium &&
+      !userByEmail?.subscription_id
+    ) {
+      dispatch(
+        setSubscriptionId({
+          user_id: user_id,
+          subscription_id: subscription_id,
+          status: consultaSub?.status,
+        })
+      );
+    }
+  }, [
+    consultaSub?.status,
+    dispatch,
+    isAuthenticated,
+    subscription_id,
+    userByEmail?.premium,
+    userByEmail?.subscription_id,
+    user_id,
+  ]);
 
   console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
 

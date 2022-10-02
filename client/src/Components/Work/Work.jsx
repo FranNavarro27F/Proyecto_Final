@@ -50,9 +50,7 @@ export default function Work() {
     return <Loader />;
   }
 
-  return !allUsers.length ? (
-    <Loader />
-  ) : (
+  return (
     <main className={s.body}>
       <NavBar
         optionsOrderBudget={optionsOrderBudget}

@@ -10,29 +10,31 @@ import s from "../Contracts/DetalleContracts.module.css";
 
 export default function DetalleContrato() {
 
-    const {id} = useParams()
-    const dispatch = useDispatch();
-    const detalleC = useSelector((state)=> state.contracts.detalleContrato)
-    const [mPropuesta, setmPropuesta] = useState(false)
-
-    useEffect(()=>{
-      dispatch(getContratoId(id))
-    },[dispatch, id, detalleC.aceptado])
-
+  const {id} = useParams()
+  const dispatch = useDispatch();
+  const detalleC = useSelector((state)=> state.contracts.detalleContrato)
+  const [mPropuesta, setmPropuesta] = useState(false)
+  
+  useEffect(()=>{
+    dispatch(getContratoId(id))
+  },[dispatch, id, detalleC.aceptado])
+  
     //aca el handle del aceptar contrato
     const handleAceptar= () =>{
       dispatch(aceptarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      
+      alert("La propuesta ha sido aceptada correctamente")
     }
 //aca el handle del rechazar contrato
     const handleRechazar = ()=>{
       dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
+      alert("La propuesta ha sido rechazada correctamente")
     }
 
     const handleContraPropuesta = (propuesta) => {
       setmPropuesta(true)
       dispatch(editarContrato(id, propuesta)).then(data=> dispatch(getContratoId(id)))
     }
+   
 
     return (
     <div className={s.body}>
@@ -66,27 +68,34 @@ export default function DetalleContrato() {
               <br/>
               <br/>
               <br/>
+
               <div className={s.buttonUbi}>
-              <button
-              onClick={(e)=>handleAceptar(e)}
-              className={s.buttonDetalle}
-              >
-                Aceptar
-                </button>
-               
+
                 <button
-                 className={s.buttonDetalle}
-                 onClick= {(e)=> handleRechazar(e)}
-              >
-                Rechazar
-                </button>
+                onClick={(e)=>handleAceptar(e)}
+                className={s.buttonDetalle}
+                disabled = { detalleC.employer === detalleC.ultimaModificacion }
+                
+                >
+                  Aceptar
+                  </button>
+                
+                  <button
+                  className={s.buttonDetalle}
+                  onClick= {(e)=> handleRechazar(e)}
+                  disabled = { detalleC.employer === detalleC.ultimaModificacion }
+                >
+                  Rechazar
+                  </button>   
                   
-                <button
-              className={s.buttonDetalle}
-              onClick ={(e)=>handleContraPropuesta(e)}
-              >
-                Contrapropuesta
-                </button>
+                    <button
+                className={s.buttonDetalle}
+                onClick ={(e)=>handleContraPropuesta(e)}
+                >
+                  Contrapropuesta
+                  </button>
+
+                
                 </div>
         </div>
 

@@ -16,7 +16,7 @@ export function pagosMp() {
 
 export function subscriptionMp(status) {
   return async function (dispatch) {
-    if (status) {
+    if (!status) {
       try {
         return dispatch({
           type: "MP_SUBSCRIPTION",
@@ -64,7 +64,6 @@ export function setSubscriptionId(payload) {
 
   return async function (dispatch) {
     try {
-      console.log("PUTIEEEE", payload);
       return dispatch({
         type: "MP_SET_SUSCRIPTION_ID",
         payload: (

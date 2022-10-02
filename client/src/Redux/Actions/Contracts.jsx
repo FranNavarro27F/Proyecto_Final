@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 
 export function setearContratoGlobal(contrato) {
@@ -11,10 +12,13 @@ export function setearContratoGlobal(contrato) {
 
 export function setearContrato(propuestaContrato) {
   return async function (dispatch) {
-    
-    let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
-
-    console.log("****", propuestaCont, "*****");
+    try {
+      let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
+      console.log("****", propuestaCont, "*****");
+      
+    } catch (e) {
+      console.log("error en el cach de setear contrato", e)
+    }
   };
 }
 

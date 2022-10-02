@@ -193,10 +193,10 @@ const findUser = async (props) => {
 const getUsers = async () => {
   try {
     let usuarios = await Usuarios.findAll({
-      //     where: {
-      //     habilitado: true,
-      //     visible: true,
-      //   },
+      where: {
+        habilitado: true,
+        visible: true,
+      },
       include: [
         {
           model: Paises,
@@ -262,11 +262,14 @@ const getUsers = async () => {
           : [],
       };
     });
+
     return await Promise.all(arrUsersListo);
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
   }
 };
+
 // -----------------------------------------------
 
 // GET USER (BY ID) → DETAILS
@@ -441,10 +444,7 @@ const postUserAuth = async (data) => {
 // SET SUBSCRIPTION ID
 const setSubscriptionId = async (id, subscription_id, status) => {
   //
-
   try {
-    // const { subscription_id, status } = body;
-
     const user = await Usuarios.findByPk(id);
     user.subscription_id = subscription_id || null;
     user.premium = status === "authorized" ? true : false;
@@ -457,6 +457,28 @@ const setSubscriptionId = async (id, subscription_id, status) => {
   }
 };
 //modificar usario
+// -----------------------------------------------
+
+// SET VISIBLE
+const setVisible = async (id, visible) => {
+  //
+  try {
+    typeof visible === "boolean";
+    const user = await Usuarios.findByPk(id);
+    user.visible = visible;
+
+    await user.save();
+    return `El usuario ${user.email} ahora es ${
+      visible ? "visible" : "invisible"
+    }.`;
+    //
+  } catch (e) {
+    typeof visible !== "boolean"
+      ? console.error(`"visible" debe ser un boolean.`)
+      : console.error(`${ERROR}setVisible --→ ${e}`);
+  }
+};
+
 // -----------------------------------------------
 
 const modifyUser = async (data) => {
@@ -576,5 +598,6 @@ module.exports = {
   postUserAuth,
   modifyUser,
   setSubscriptionId,
+  setVisible,
   getByEmail,
 };
