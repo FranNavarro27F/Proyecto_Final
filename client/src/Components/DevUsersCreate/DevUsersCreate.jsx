@@ -117,35 +117,35 @@ export default function DevUsersCreate() {
   useEffect(() => {
     setErrorsCache(errors);
   }, [errors]);
-
+  
   const handleChangeInput = (e) => {
-    if (/[a-z]+/gi.test(e.target.value)) {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-      });
-      if (userByEmail.postulado) {
-        setErrors(
-          validacionesEdit({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      } else {
-        setErrors(
-          validaciones({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      }
-      setCache({
-        ...cache,
-        [e.target.name]: e.target.value,
-      });
+    // if (/[a-z]+/gi.test(e.target.value)) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    if (userByEmail.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
     } else {
-      setVerErrores(true);
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
     }
+    setCache({
+      ...cache,
+      [e.target.name]: e.target.value,
+    });
+    // } else {
+    //   setVerErrores(true);
+    // }
   };
   const [loader, setLoader] = useState(false);
   const getFile = (file) => {

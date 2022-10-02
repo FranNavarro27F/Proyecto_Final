@@ -517,7 +517,7 @@ const setSubscriptionId = async (id, subscription_id, status) => {
     console.error(`${ERROR}setSubscriptionId --→ ${e}`);
   }
 };
-
+//modificar usario
 // -----------------------------------------------
 
 // SET VISIBLE
@@ -543,15 +543,12 @@ const setVisible = async (id, visible) => {
 // -----------------------------------------------
 
 const modifyUser = async (data) => {
-  //
   try {
     let {
+      email,
       name,
       lastName,
       profilePicture,
-      email, // No se modifica, es sólo para individualizar el usuario.
-      //   isAdmin,
-
       city,
       webSite,
       linkedIn,
@@ -560,59 +557,44 @@ const modifyUser = async (data) => {
       dailyBudget,
       englishLevel,
       bio,
-
       visible,
-      //   postulado,
-      //   registrado,
-      //   habilitado,
-      //   reputacion,
-
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
       tarjeta_codigoSeguridad,
       cbu,
       cvu,
-
       tecnologias,
       lenguajes,
       servicios,
-      paiseId,
+      paiseId
     } = data;
-
-    let userMod = await Usuarios.update(
-      { where: { email: email } },
+    await Usuarios.update(
       {
-        name: capitalize(name) || "Anonymous",
-        lastName: capitalize(lastName) || "Anonymous",
-        profilePicture:
-          profilePicture ||
-          "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-
-        city: city || null,
-        webSite: webSite || null,
-        linkedIn: linkedIn || null,
-        gitHub: gitHub || null,
-        yearsOfExperience: yearsOfExperience || 1,
-        dailyBudget: dailyBudget || 1,
-        englishLevel: englishLevel || "N/A",
-        bio: bio || null,
-
+        name,
+        lastName,
+        profilePicture,
+        city,
+        webSite,
+        linkedIn,
+        gitHub,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
         visible,
-        isAdmin: false,
-
-        tarjeta_numero: tarjeta_numero || null,
-        tarjeta_nombreCompleto: tarjeta_nombreCompleto || null,
-        tarjeta_vencimiento: tarjeta_vencimiento || null,
-        tarjeta_codigoSeguridad: tarjeta_codigoSeguridad || null,
-        cbu: cbu || null,
-        cvu: cvu || null,
-
+        tarjeta_numero,
+        tarjeta_nombreCompleto,
+        tarjeta_vencimiento,
+        tarjeta_codigoSeguridad,
+        cbu,
+        cvu,
         paiseId,
+      },
+      {
+        where: { email },
       }
-      //
     );
-
     let modUsr = await Usuarios.findOne({
       where: {
         email: email,
@@ -620,37 +602,42 @@ const modifyUser = async (data) => {
       include: [
         {
           model: Servicios,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Lenguajes,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Tecnologias,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
       ],
     });
-
+ 
     modUsr.setTecnologias(tecnologias);
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
-
-    return "Usuario modificado correctamente";
-    //
   } catch (e) {
-    //
-    console.error(`${ERROR}modifyUser --→ ${e}`);
+     console.log(e);
   }
-};
-
+}
 // -----------------------------------------------
 
+
+
+
+
+
+
+
+
 // DELETE USER
+
+
 const deleteUser = async (id) => {
   try {
     let toDelete = await Usuarios.findByPk(id);
