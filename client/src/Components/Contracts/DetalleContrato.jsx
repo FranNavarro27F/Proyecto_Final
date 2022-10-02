@@ -3,8 +3,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { aceptarContrato, rechazarContrato, getContratoId } from '../../Redux/Actions/Contracts';
+import { useNavigate, useParams } from 'react-router-dom';
+import { aceptarContrato, rechazarContrato, getContratoId, putContrato } from '../../Redux/Actions/Contracts';
 import { getUserEmail } from '../../Redux/Actions/DevUser';
 import s from "../Contracts/DetalleContracts.module.css";
 
@@ -24,7 +24,7 @@ export default function DetalleContrato() {
   const {id} = useParams()
   const dispatch = useDispatch();
   const detalleC = useSelector((state)=> state.contracts.detalleContrato)
- 
+ const navigate = useNavigate()
   
   useEffect(()=>{
     dispatch(getContratoId(id))
@@ -37,8 +37,10 @@ export default function DetalleContrato() {
     }
   //aca el handle del rechazar contrato
     const handleRechazar = ()=>{
-      dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      alert("La propuesta ha sido rechazada correctamente")
+      //dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
+      dispatch(putContrato(id, {habilitado: false  }))
+      //alert("La propuesta ha sido rechazada correctamente")
+      
     }
 
     return (
@@ -75,8 +77,11 @@ export default function DetalleContrato() {
               <br/>
 
               <div className={s.buttonUbi}>
-
+              {
+                ! detalleC.aceptado ? 
+              <div>
                 <button
+                disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
                 onClick={(e)=>handleAceptar(e)}
                 className={s.buttonDetalle}
                 >
@@ -84,11 +89,19 @@ export default function DetalleContrato() {
                 </button>
                 
                   <button
+                  disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
                   className={s.buttonDetalle}
                   onClick= {(e)=> handleRechazar(e)}
                   >
                   Rechazar
-                  </button>   
+                  </button>
+                  </div>
+                  :
+                  <div>
+
+                    </div>
+
+}   
                 </div>
         </div>
       </div>
