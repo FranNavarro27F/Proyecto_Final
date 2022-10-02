@@ -43,7 +43,7 @@ class PaymentController {
 
         return res.json(subscription);
       } else {
-        return res.status(304).json({
+        return res.status(300).json({
           error: true,
           msg: "El usuario ya tiene establecida un id de suscripcion!",
         });

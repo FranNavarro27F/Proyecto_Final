@@ -188,15 +188,19 @@ export default function Details() {
     }
   };
 
+  const [userPremium, setUserPremium] = useState(false);
+
+  useEffect(() => {
+    if (userDetail?.premium) {
+      console.log(`usuario premiun: ${userDetail?.premium}`);
+      setUserPremium(true);
+    } else {
+      setUserPremium(false);
+    }
+  }, [userDetail?.premium]);
+
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
-    // dispatch(
-    //   setSubscriptionId({
-    //     user_id: userByEmail?.id,
-    //     subscription_id: consultaSub?.id,
-    //     status: consultaSub?.status,
-    //   })
-    // );
   };
 
   const handleCloseSub = () => {
@@ -209,8 +213,11 @@ export default function Details() {
           status: consultaSub?.status,
         })
       );
-    }, 2500);
-    setMostrarSub(false);
+      setMostrarSub(false);
+    }, 1000);
+    // setTimeout(() => {
+    //   dispatch(getUserId(id));
+    // }, 1500);
   };
 
   const handleCleanAndBack = () => {
@@ -250,16 +257,18 @@ export default function Details() {
             <div></div>
             <div></div>
           </div>
-          <Iframe
-            // style={}
-            loading="CARGANDOOOOOOOOOOOOOOO..."
-            className={s.iframe}
-            url={linkPago}
-            id=""
-            display="block"
-            position="relative"
-            allowFullscreen={false}
-          />
+          {
+            <Iframe
+              // style={}
+              loading="CARGANDOOOOOOOOOOOOOOO..."
+              className={s.iframe}
+              url={linkPago}
+              id=""
+              display="block"
+              position="relative"
+              allowFullscreen={false}
+            />
+          }
         </div>
       </div>
       <div className={s.body}>
@@ -633,7 +642,7 @@ export default function Details() {
                       userByEmail?.profilePicture ? (
                         <img
                           className={
-                            userDetail?.premium && userByEmail?.premium
+                            userPremium && userByEmail?.premium
                               ? s.premium
                               : s.imgRender
                           }
