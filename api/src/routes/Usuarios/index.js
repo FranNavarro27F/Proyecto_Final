@@ -89,11 +89,14 @@ router.get("/:id", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
-   res.status(200).json(await modifyUser(req.body));
+    res.status(200).json(await modifyUser(req.body));
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
+
+// -----------------------------------------------
+
 // Set SUBSCRIPTION ID
 router.put("/sub/:id", async (req, res) => {
   //
@@ -150,7 +153,8 @@ router.delete("/:id", async (req, res) => {
   //
   try {
     let { id } = req.params;
-    res.json(await deleteUser(id));
+    await deleteUser(id);
+    res.send(`User (${id}) deleted successfully`);
     //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
