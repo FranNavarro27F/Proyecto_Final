@@ -34,6 +34,7 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
+ 
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -59,6 +60,28 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
+
+  const contratosVisibles = (contratos, user)=>{
+    let visibles= contratos.filter(cur=> {
+
+      if(cur.employer === user.user_id ){
+        return true
+      }
+      if(cur.developer === user.user_id){
+        return true
+      }else{
+        return false
+      }
+
+    })
+    return visibles;
+  }
+  let contratosS= userDetail?.contratos !== undefined &&  userDetail?.contratos
+  let contratosArenderizar=  ( contratosS && user.user_id ) && contratosVisibles( contratosS, user )
+
+  
+
+
   const handleContact = () => {
     if (isAuthenticated) {
       SetContratoDetail(!contratoDetail);
@@ -69,6 +92,13 @@ export default function Details() {
 
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
+    // dispatch(
+    //   setSubscriptionId({
+    //     user_id: userByEmail?.id,
+    //     subscription_id: consultaSub?.id,
+    //     status: consultaSub?.status,
+    //   })
+    // );
   };
 
   const handleCloseSub = () => {
@@ -647,13 +677,6 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
-                        <label className={s.switch}>
-                          <input
-                            // onChange={(e) => setChecked(!checked)}
-                            type="checkbox"
-                          />
-                          <span className={s.slider_round}></span>
-                        </label>
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
@@ -691,8 +714,32 @@ export default function Details() {
         </div>
       </div>
       <div>
-        {userDetail?.contratos &&
-          userDetail?.contratos.map((cur) => {
+                      {
+
+                    contratosArenderizar && contratosArenderizar.map(cur=> {
+                      return (
+                        <div className={s.cardContrato}>
+                          <Contracts
+                            description={cur.description}
+                            date={cur.date}
+                            expiration_date={cur.expiration_date}
+                            status={cur.status}
+                            price={cur.price}
+                            aceptado={cur.aceptado}
+                            idContrato={cur.id}
+                          />
+                        </div>
+                      );
+
+                    })
+
+                      }
+
+
+
+
+        {/* {userDetail?.contratos &&
+          userDetail?.contratos.map((cur) => { //----
             return (
               <div className={s.cardContrato}>
                 <Contracts
@@ -706,7 +753,7 @@ export default function Details() {
                 />
               </div>
             );
-          })}
+          })} */}
       </div>
     </div>
   );
