@@ -1,6 +1,6 @@
 import { async } from "@firebase/util";
 import axios from "axios";
-
+// este era para el pago de srtripe
 export function setearContratoGlobal(contrato) {
   return async function (dispatch) {
     return dispatch({
@@ -59,13 +59,13 @@ export function rechazarContrato(id){
   }
 }
 
-export function editarContrato(id, data) {
-  return async function(dispatch) {
+export function putContrato(id,data){
+  return async function (dispatch){
     try {
-      const propuestaEditada = await axios.put(`/contratos/${id}`, data)
-      console.log(propuestaEditada, "DUDUKI")
-    } catch (error) {
-      console.error("Error en la acción de editar propuesta")
+      let modificacionContrato= await axios.put(`/contratos/${id}`, data)
+      console.log("****",modificacionContrato,"**llegando de peticion al back**")
+    } catch (e) {
+      console.log("**error en action el catch de putcontrato**", e);
     }
   }
-}
+};

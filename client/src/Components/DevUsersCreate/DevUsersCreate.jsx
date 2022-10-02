@@ -28,6 +28,7 @@ import {
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
 import useUser from "../../Hooks/useUser";
+import { useFetchUsers } from "../../Hooks/useFetchUsers";
 
 export default function DevUsersCreate() {
   const animatedComponents = makeAnimated();
@@ -42,12 +43,14 @@ export default function DevUsersCreate() {
   const reflastName = useRef();
   const user = useUser();
 
-  const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  useEffect(() => {
-    if (!userByEmail) dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email, userByEmail]);
+  const { userByEmail } = useFetchUsers(user?.email);
+  // const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  // useEffect(() => {
+  //   if (!userByEmail) dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email, userByEmail]);
 
   const [errors, setErrors] = useState({});
+
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
     name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
@@ -116,6 +119,7 @@ export default function DevUsersCreate() {
   }, [errors]);
   
   const handleChangeInput = (e) => {
+    // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -139,6 +143,9 @@ export default function DevUsersCreate() {
       ...cache,
       [e.target.name]: e.target.value,
     });
+    // } else {
+    //   setVerErrores(true);
+    // }
   };
   const [loader, setLoader] = useState(false);
   const getFile = (file) => {
@@ -233,6 +240,18 @@ export default function DevUsersCreate() {
     });
   };
 
+  // const handleName = (e) => {
+  //   if (/[a-z]+/gi.test(e.target.value)) {
+  //     setError({
+  //       ...error,
+  //       error: false,
+  //       noName: false,
+  //     });
+  //     setFields({ ...fields, name: e.target.value });
+  //   } //
+  //   else setError({ ...error, error: true });
+  // };
+
   const [modal, setModal] = useState(false);
   const [verErrores, setVerErrores] = useState(false);
 
@@ -240,33 +259,7 @@ export default function DevUsersCreate() {
     e.preventDefault();
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
-      refCountries.current.clearValue();
-      refServices.current.clearValue();
-      refLanguajes.current.clearValue();
-      refTecnologies.current.clearValue();
-      setModal(true);
-      refCountries.current.setValue({
-        value: "default",
-        label: "Selecciona un país...",
-      });
-      setCache({
-        name: ("name", ``),
-        lastName: ("lastName", ``),
-        profilePicture: ("profilePicture", ``),
-        email: ("email", `${userByEmail?.email}`),
-        linkedIn: ("linkedIn", ``),
-        gitHub: ("gitHub", ``),
-        webSite: ("webSite", ``),
-        yearsOfExperience: ("yearsOfExperience", ``),
-        dailyBudget: ("dailyBudget", "0"),
-        englishLevel: ("englishLevel", ``),
-        paiseId: ("paiseId", ""),
-        // paiseIdLabel: ("paiseIdLabel", []),
-        tecnologias: ("tecnologias", []),
-        lenguajes: ("lenguajes", []),
-        servicios: ("servicios", []),
-        postulado: true,
-      });
+      handleReset();
       setTimeout(() => {
         navigate("/work");
       }, 1500);
@@ -313,10 +306,10 @@ export default function DevUsersCreate() {
   //   : false;
 
   const handleReset = () => {
-    refCountries.current.setValue({
-      value: "default",
-      label: "Selecciona un país...",
-    });
+    // refCountries.current.setValue({
+    //   value: "default",
+    //   label: "Selecciona un país...",
+    // });
     refName.current.value = "";
     reflastName.current.value = "";
     refServices.current.clearValue();
@@ -377,8 +370,10 @@ export default function DevUsersCreate() {
       servicios: [],
     });
     setLoader(false);
-    setEdit(false);
     setVerErrores(false);
+    if (userByEmail?.postulado) {
+      setEdit(false);
+    }
   };
 
   //OPCIONES DE LOS SELECTS:
@@ -413,7 +408,7 @@ export default function DevUsersCreate() {
     );
   }
 
-  return !isAuthenticated ? (
+  return !isAuthenticated && !user?.email && !input?.email ? (
     loginWithRedirect()
   ) : (
     <div className={s.divGeneral}>
@@ -529,7 +524,7 @@ export default function DevUsersCreate() {
               value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
-              disabled={!edit}
+              disabled={true}
             />
             <div className={s.divErrors}>
               {verErrores && errors.email && (
@@ -677,7 +672,7 @@ export default function DevUsersCreate() {
           <div className={s.divSelectContainer}>
             <p htmlFor="pais">Pais: </p>
             <Select
-              ref={refCountries}
+              // ref={refCountries}
               components={animatedComponents}
               set-value={cache?.paiseId}
               className={s.select}
@@ -693,7 +688,6 @@ export default function DevUsersCreate() {
                 setInput({
                   ...input,
                   paiseId: e?.value,
-                  paiseIdLabel: e?.label,
                 });
 
                 if (userByEmail?.postulado) {
@@ -715,7 +709,6 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   paiseId: e?.value,
-                  paiseIdLabel: e?.label,
                 });
               }}
             />

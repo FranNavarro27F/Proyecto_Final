@@ -1,3 +1,5 @@
+const { Usuarios } = require("../../db.js");
+
 class PaymentController {
   constructor(subscriptionService) {
     this.subscriptionService = subscriptionService;
@@ -30,11 +32,22 @@ class PaymentController {
     }
   }
 
-  async getSubscriptionLink(req, res) {
+  async getSubscriptionLink(req, res, user_id) {
     try {
-      const subscription = await this.subscriptionService.createSubscription();
+      const user = await Usuarios.findByPk(user_id);
 
-      return res.json(subscription);
+      if (!user.subscription_id) {
+        const subscription = await this.subscriptionService.createSubscription(
+          user_id
+        );
+
+        return res.json(subscription);
+      } else {
+        return res.status(400).json({
+          error: true,
+          msg: "El usuario ya tiene establecida un id de suscripcion!",
+        });
+      }
     } catch (error) {
       console.log(error);
 

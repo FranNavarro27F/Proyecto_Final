@@ -23,6 +23,7 @@ import Contrato from "./Contrato";
 import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
+import { putContrato } from "../../Redux/Actions/Contracts";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -35,6 +36,7 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
+
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -57,6 +59,131 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
+
+  
+  
+//---esta funcion evalua que contratos pueden o no mostrarse -----------------------
+  const contratosVisibles = (contratos, user)=>{
+    let visibles= contratos.filter(cur=> {
+      
+      if(cur.status === "Concluido"){
+        return true
+      }
+      if (cur.employer === user.user_id) {
+        return true;
+      }
+      if (cur.developer === user.user_id) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return visibles;
+  };
+
+  let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
+  let contratosArenderizar =
+    contratosS && user.user_id && contratosVisibles(contratosS, user);
+  //------------------------------------------------------------------------------------
+
+  //-----esta funcion nos da la fecha de hoy en formato correcto-------
+  const today = new Date().toLocaleDateString({
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  const setOrderDate = (today) => {
+    let division = today.split("/");
+    let dia = division[0];
+    let mes = division[1];
+    let año = division[2];
+    division[0] = año;
+    division[2] = dia;
+
+    if (mes.length === 1) {
+      mes = "0" + mes;
+    }
+    if (dia.length === 1) {
+      dia = "0" + dia;
+    }
+    let fechaExacta = año + "-" + mes + "-" + dia;
+    return fechaExacta;
+  };
+
+  //-----------------------------------------------------------------------
+
+  //---esta funcion compara la fecha actual contra le fecha ingresada e indica si es "-","+","=" ---
+  const compararFechas = (hoy, fechaAcomparar) => {
+    let hoyy = hoy.split("-");
+    let comp = fechaAcomparar.split("-");
+
+    let año_hoyy = hoyy[0];
+    let año_comp = comp[0];
+    if (Number(año_comp) < Number(año_hoyy)) {
+      return "-";
+    }
+    if (Number(año_comp) > Number(año_hoyy)) {
+      return "+";
+    }
+    if (Number(año_comp) === Number(año_hoyy)) {
+      let mes_hoy = hoyy[1];
+      let mes_comp = comp[1];
+      if (Number(mes_comp) < Number(mes_hoy)) {
+        return "-";
+      }
+      if (Number(mes_comp) > Number(mes_hoy)) {
+        return "+";
+      }
+      if (Number(mes_comp) === Number(mes_hoy)) {
+        let dia_hoy = hoyy[2];
+        let dia_comp = comp[2];
+        if (Number(dia_comp) < Number(dia_hoy)) {
+          return "-";
+        }
+        if (Number(dia_comp) > Number(dia_hoy)) {
+          return "+";
+        }
+        if (Number(dia_comp) === Number(dia_hoy)) {
+          return "=";
+        }
+      }
+    }
+  };
+  //------------------------------------------------------------------------------------
+
+  //-esta funcion modifica en DB la propiedad status al contrato ingresado deacuerdo a la fecha----
+  const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
+    if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
+      // si date es menor a fecha de hoy
+      //setear status en "Inactivo"
+      dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
+    }
+    if (
+      compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
+      compararFechas(unContrato.expiration_date, unContrato.date) === "-"
+    ) {
+      // si date es mayor a fecha de hoy y menor a fecha de termino
+      //setear status en "Activo"
+      dispatch(putContrato(unContrato.id, { status: "Activo" }));
+    }
+    if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
+      // si fecha de fin es menor a fecha de hoy
+      //setear status en "Concluido"
+      dispatch(putContrato(unContrato.id, { status: "Concluido" }));
+    }
+  };
+  //---------------------------------------------------------------------------------------
+
+  let fecha_de_hoy = setOrderDate(today);
+
+  const mapeaYmodificaContratos = (fecha_de_hoy) => {
+    userDetail.contratos.forEach((cur) =>
+      SeteadoraStatusContratos(fecha_de_hoy, cur)
+    );
+  };
+
+  userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
+
   const handleContact = () => {
     if (isAuthenticated) {
       SetContratoDetail(!contratoDetail);
@@ -65,22 +192,36 @@ export default function Details() {
     }
   };
 
+  const [userPremium, setUserPremium] = useState(false);
+
+  useEffect(() => {
+    if (userDetail?.premium) {
+      console.log(`usuario premiun: ${userDetail?.premium}`);
+      setUserPremium(true);
+    } else {
+      setUserPremium(false);
+    }
+  }, [userDetail?.premium]);
+
   const handlePremiun = () => {
     setMostrarSub(!mostrarSub);
   };
 
   const handleCloseSub = () => {
     dispatch(consultSub(consultaSub?.id));
+    setTimeout(() => {
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: consultaSub?.id,
+          status: consultaSub?.status,
+        })
+      );
+      setMostrarSub(false);
+    }, 1000);
     // setTimeout(() => {
-    dispatch(
-      setSubscriptionId({
-        user_id: userByEmail?.id,
-        subscription_id: consultaSub?.id,
-        status: consultaSub?.status,
-      })
-    );
-    // }, 2500);
-    setMostrarSub(false);
+    //   dispatch(getUserId(id));
+    // }, 1500);
   };
 
   const handleCleanAndBack = () => {
@@ -120,16 +261,18 @@ export default function Details() {
             <div></div>
             <div></div>
           </div>
-          <Iframe
-            // style={}
-            loading="CARGANDOOOOOOOOOOOOOOO..."
-            className={s.iframe}
-            url={linkPago}
-            id=""
-            display="block"
-            position="relative"
-            allowFullscreen={false}
-          />
+          {
+            <Iframe
+              // style={}
+              loading="CARGANDOOOOOOOOOOOOOOO..."
+              className={s.iframe}
+              url={linkPago}
+              id=""
+              display="block"
+              position="relative"
+              allowFullscreen={false}
+            />
+          }
         </div>
       </div>
       <div className={s.body}>
@@ -499,13 +642,11 @@ export default function Details() {
                     {/* [0].toUpperCase()+ userDetail.name.slice(1) + ' '//[0].toUpperCase()+ userDetail.lastName.slice(1)} */}
                     <br />
                     <div className={s.imageBox}>
-                      {/* <img >{userDetail?.profilePicture}</img> */}
-
                       {userDetail?.profilePicture &&
                       userByEmail?.profilePicture ? (
                         <img
                           className={
-                            userDetail?.premium && userByEmail?.premium
+                            userPremium && userByEmail?.premium
                               ? s.premium
                               : s.imgRender
                           }
@@ -524,6 +665,20 @@ export default function Details() {
                         >
                           <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
                         </svg>
+                      )}
+                      {userByEmail && userByEmail?.postulado && (
+                        <div className={s.divVisible}>
+                          <label htmlFor="">Hacer visible mi postulacion</label>
+                          <label className={s.switch}>
+                            <input
+                              onChange={(e) => handleVisible(e)}
+                              type="checkbox"
+                              name="visible"
+                              defaultChecked={userByEmail?.visible}
+                            />
+                            <span className={s.slider_round}></span>
+                          </label>
+                        </div>
                       )}
                     </div>
                     <br />
@@ -649,17 +804,6 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
-                        {userByEmail && (
-                          <label className={s.switch}>
-                            <input
-                              onChange={(e) => handleVisible(e)}
-                              type="checkbox"
-                              name="visible"
-                              defaultChecked={userByEmail?.visible}
-                            />
-                            <span className={s.slider_round}></span>
-                          </label>
-                        )}
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
@@ -697,8 +841,8 @@ export default function Details() {
         </div>
       </div>
       <div>
-        {userDetail?.contratos &&
-          userDetail?.contratos.map((cur) => {
+        {contratosArenderizar &&
+          contratosArenderizar.map((cur) => {
             return (
               <div className={s.cardContrato}>
                 <Contracts
@@ -713,6 +857,23 @@ export default function Details() {
               </div>
             );
           })}
+
+        {/* {userDetail?.contratos &&
+          userDetail?.contratos.map((cur) => { //----
+            return (
+              <div className={s.cardContrato}>
+                <Contracts
+                  description={cur.description}
+                  date={cur.date}
+                  expiration_date={cur.expiration_date}
+                  status={cur.status}
+                  price={cur.price}
+                  aceptado={cur.aceptado}
+                  idContrato={cur.id}
+                />
+              </div>
+            );
+          })} */}
       </div>
     </div>
   );

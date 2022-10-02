@@ -14,7 +14,7 @@ export default function useFetchConsultSub(id) {
 
   useEffect(() => {
     if (isAuthenticated && !consultaSub.length) dispatch(consultSub(id));
-  }, [consultaSub.length, dispatch, id, isAuthenticated]);
+  }, [consultaSub.length, dispatch, id, isAuthenticated, consultaSub.status]);
 
   return { consultaSub };
 }
