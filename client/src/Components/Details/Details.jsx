@@ -679,8 +679,6 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
-<<<<<<< HEAD
-=======
                         {userByEmail && (
                           <label className={s.switch}>
                             <input
@@ -692,7 +690,6 @@ export default function Details() {
                             <span className={s.slider_round}></span>
                           </label>
                         )}
->>>>>>> c66960827a32eadcb397f6f1d3913470bfbe8797
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
