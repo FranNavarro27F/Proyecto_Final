@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 
 
+
 export default function Reviews() {
 
 const colors = {
@@ -15,8 +16,11 @@ const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   const stars = Array(5).fill(0)
 
+  const dispatch = useDispatch()
+
   const handleClick = value => {
     setCurrentValue(value)
+    //dispatch(setReputacion(value))
   }
 
   const handleMouseOver = newHoverValue => {
