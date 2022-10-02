@@ -112,12 +112,13 @@ export default function DevUsersCreate() {
       [],
     postulado: true,
   });
+
   const [errorsCache, setErrorsCache] = useState(localStorage.getItem(errors));
 
   useEffect(() => {
     setErrorsCache(errors);
   }, [errors]);
-  
+
   const handleChangeInput = (e) => {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
