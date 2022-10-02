@@ -14,6 +14,8 @@
   width: 4vw;
   height: 8vh;
   image-rendering: auto;
+  z-index: 99999;
+  position: absolute;
 }
 .bodySelect {
   margin-top: 12vh;

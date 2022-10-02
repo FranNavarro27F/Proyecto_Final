@@ -5,16 +5,12 @@ import s from "./CardHome.module.css";
 import CardW1 from "./CardW/CardW1";
 import CardW2 from "./CardW/CardW2";
 import CardW3 from "./CardW/CardW3";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getUsersPremium } from "../../Redux/Actions/DevUser";
+import useFetchUsersPremium from "../../Hooks/useFetchUsersPremium";
 
 export default function CardHome({ work }) {
-  const dispatch = useDispatch();
+  const { usersPremium } = useFetchUsersPremium();
 
-  useEffect(() => {
-    dispatch(getUsersPremium());
-  });
+  // const userSlice = usersPremium.slice(0, 3);
 
   return (
     <div ref={work} className={s.divcarhome}>
@@ -30,9 +26,9 @@ export default function CardHome({ work }) {
             className={s.bodyCard}
             // style={{ transform: "translateZ(-288px) rotateY(-360deg)" }}
           >
-            <CardW1 />
-            <CardW2 />
-            <CardW3 />
+            <CardW1 userPremium={usersPremium[0]} />
+            <CardW2 userPremium={usersPremium[1]} />
+            <CardW3 userPremium={usersPremium[2]} />
           </div>
         </section>
       </div>

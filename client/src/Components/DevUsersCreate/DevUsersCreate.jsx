@@ -117,7 +117,7 @@ export default function DevUsersCreate() {
   useEffect(() => {
     setErrorsCache(errors);
   }, [errors]);
-  
+
   const handleChangeInput = (e) => {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
@@ -269,6 +269,7 @@ export default function DevUsersCreate() {
           postulado: true,
         })
       );
+      setModal(true);
       dispatch(getUsersBd());
     } else {
       console.log(`hay errores`, errors);

@@ -671,7 +671,11 @@ export default function Details() {
                               ? userDetail?.profilePicture
                               : userByEmail?.profilePicture
                           }
-                          alt={userDetail?.name && userByEmail?.name}
+                          alt={
+                            userDetail?.name
+                              ? userDetail?.name
+                              : userByEmail?.name
+                          }
                         />
                       ) : (
                         <svg
