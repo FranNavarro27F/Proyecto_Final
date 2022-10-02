@@ -267,7 +267,7 @@ const getUsers = async () => {
     return await Promise.all(arrUsersListo);
     //
   } catch (e) {
-    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+    console.error(`${ERROR}getUsers --→ ${e}`);
   }
 };
 
@@ -275,6 +275,7 @@ const getUsers = async () => {
 
 // GET PREMIUM USERS
 const getPremiumUsers = async () => {
+  //
   try {
     let usuarios = await Usuarios.findAll({
       where: {
@@ -313,7 +314,7 @@ const getPremiumUsers = async () => {
     return await Promise.all(arrUsersListo);
     //
   } catch (e) {
-    console.error(`ERROR @ controllers/getPremiumUsers --→ ${e}`);
+    console.error(`${ERROR}getPremiumUsers --→ ${e}`);
   }
 };
 
@@ -363,18 +364,17 @@ const getUserById = async (id) => {
     userM.tecnologias = userM.tecnologias
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
-    userM.contratos= userM.contratos.filter(cur=>{
-      if(cur.habilitado === true){
+    userM.contratos = userM.contratos.filter((cur) => {
+      if (cur.habilitado === true) {
         return true;
       }
-      if(cur.habilitado === false){
+      if (cur.habilitado === false) {
         return false;
       }
-      
-    }) 
-
+    });
 
     return userM;
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
@@ -448,21 +448,13 @@ const getByEmail = async (email) => {
       .map((cur) => cur.name);
 
     return userM;
-
-    //   try {
-    //     return await findUser({
-    //       email,
-    //       // habilitado: true,
-    //       // visible: true,
-    //     });
-
     //
   } catch (e) {
     console.error(`${ERROR}getByEmail --→ ${e}`);
   }
 };
 
-// -----------------------------------------------//
+// -----------------------------------------------
 
 const postUserAuth = async (data) => {
   //
@@ -513,7 +505,7 @@ const setSubscriptionId = async (id, subscription_id, status) => {
     console.error(`${ERROR}setSubscriptionId --→ ${e}`);
   }
 };
-//modificar usario
+
 // -----------------------------------------------
 
 // SET VISIBLE
@@ -539,6 +531,7 @@ const setVisible = async (id, visible) => {
 // -----------------------------------------------
 
 const modifyUser = async (data) => {
+  //
   try {
     let {
       email,
@@ -565,6 +558,7 @@ const modifyUser = async (data) => {
       servicios,
       paiseId,
     } = data;
+
     await Usuarios.update(
       {
         name,
@@ -591,6 +585,7 @@ const modifyUser = async (data) => {
         where: { email },
       }
     );
+
     let modUsr = await Usuarios.findOne({
       where: {
         email: email,
@@ -617,8 +612,9 @@ const modifyUser = async (data) => {
     modUsr.setTecnologias(tecnologias);
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
+    //
   } catch (e) {
-    console.log(e);
+    console.error(`${ERROR}modifyUser --→ ${e}`);
   }
 };
 // -----------------------------------------------
@@ -626,11 +622,12 @@ const modifyUser = async (data) => {
 // DELETE USER
 
 const deleteUser = async (id) => {
+  //
   try {
     let toDelete = await Usuarios.findByPk(id);
     await toDelete.destroy();
-    console.log(`User (${id}) deleted successfully`);
     return `User (${id}) deleted successfully`;
+    //
   } catch (e) {
     console.error(`${ERROR}deleteUser --→ ${e}`);
   }
