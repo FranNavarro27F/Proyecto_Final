@@ -10,11 +10,7 @@ const initialState = {
   idDev: "",
   employer: [],
   loader: true,
-<<<<<<< HEAD
   usersPremium: [],
-=======
-  reputacion : 0
->>>>>>> dev
 };
 
 export default function devUser(state = initialState, action) {
