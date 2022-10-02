@@ -61,7 +61,6 @@ export function consultPay(id) {
 
 export function setSubscriptionId(payload) {
   const { user_id, subscription_id, status } = payload;
-  console.log("PUT!", payload);
 
   return async function (dispatch) {
     try {
