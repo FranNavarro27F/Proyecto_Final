@@ -17,8 +17,8 @@ function validaciones(input) {
   if (/[\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener espacios!";
   //image
-  if (input.profilePicture === "")
-    errors.profilePicture = "Ingresa una url de tu imagen!";
+  // if (input.profilePicture === "")
+  //   errors.profilePicture = "Ingresa una url de tu imagen!";
   // if (/[\s]/.test(input.profilePicture))
   //   errors.profilePicture = "El url no debe contener espacios!";
   // if (!/\.(png|bmp|jpe?g)$/i.test(input.profilePicture))
@@ -30,7 +30,7 @@ function validaciones(input) {
   // if (!/^\S+@\S+\.\S+$/.test(input.email))
   //   errors.email = "El email que intentas colocar no es valido";
   //linkedin
-  if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
+  // if (input.linkedIn === "") errors.linkedIn = "Ingresa la url de tu linkedin!";
   if (/[\s]/.test(input.linkedIn))
     errors.linkedIn = "El url no debe contener espacios!";
 
@@ -43,7 +43,7 @@ function validaciones(input) {
   )
     errors.linkedIn = "Ingresa una url correcta!";
   //GitHub
-  if (input.gitHub === "") errors.gitHub = "Ingresa la url de tu gitHub!";
+  // if (input.gitHub === "") errors.gitHub = "Ingresa la url de tu gitHub!";
   if (/[\s]/.test(input.gitHub))
     errors.gitHub = "El url no debe contener espacios!";
   if (
@@ -56,7 +56,7 @@ function validaciones(input) {
     errors.gitHub = "Ingresa una url de GitHub correcta!";
 
   //Website
-  if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
+  // if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
   if (/[\s]/.test(input.webSite))
     errors.webSite = "El url no debe contener espacios!";
 
