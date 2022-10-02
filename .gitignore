@@ -107,3 +107,5 @@ dist
 package-lock.json
 
 .env.local
+
+index.js
