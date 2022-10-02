@@ -113,7 +113,15 @@ export default function DetalleContrato() {
                   </div>
                   :
                   <div>
-                    <Reviews/>
+                    {
+                     usuarioActual && usuarioActual === detalleC.employer ?
+                     <Reviews
+                     id ={id}
+                     />
+                     :
+                     <div>  
+                      </div>
+                    }
                     </div>
 
 }   
