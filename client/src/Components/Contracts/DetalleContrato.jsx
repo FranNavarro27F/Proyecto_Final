@@ -43,7 +43,7 @@ export default function DetalleContrato() {
       //dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
       dispatch(putContrato(id, {habilitado: false  })).then(data=> usuarioDetailID && dispatch(getUserId(usuarioDetailID)))
       alert("La propuesta ha sido rechazada correctamente")
-      
+      navigate(`/work`)
     }
 
     return (
