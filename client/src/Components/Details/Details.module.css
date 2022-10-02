@@ -289,6 +289,13 @@
   text-decoration: none;
 }
 
+.buttonSub:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .bodyButtons {
   display: flex;
 }
@@ -458,6 +465,13 @@
   height: 5vh;
   margin-left: 110vh;
   margin-top: 3vh;
+}
+
+.buttonDetalle:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .label {

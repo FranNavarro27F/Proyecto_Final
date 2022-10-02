@@ -42,7 +42,6 @@
   text-align: center;
   cursor: pointer;
   border: 0.1vh solid black;
-  color: rgb(0, 0, 0);
   float: right;
   color: #ffffff;
   position: absolute;
@@ -67,12 +66,18 @@
   text-align: center;
   cursor: pointer;
   border: 1px solid black;
-  color: rgb(0, 0, 0);
   float: right;
   position: absolute;
   left: 92vw;
   top: 2vh;
 }
+.buttonClear:hover {
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .buttonClear span,
 buttonClearAlert span {
   font-size: 1.4vh;
