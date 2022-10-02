@@ -66,7 +66,7 @@ export default function Details() {
   const contratosVisibles = (contratos, user)=>{
     let visibles= contratos.filter(cur=> {
       
-      if(cur.status === "Finalizado"){
+      if(cur.status === "Concluido"){
         return true
       }
       if(cur.employer === user.user_id ){
