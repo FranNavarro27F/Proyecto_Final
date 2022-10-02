@@ -456,126 +456,9 @@ const setSubscriptionId = async (id, subscription_id, status) => {
     console.error(`${ERROR}setSubscriptionId --→ ${e}`);
   }
 };
-//aqui esta coulto
+//modificar usario
 // -----------------------------------------------
 
-// const modifyUser = async (data) => {
-//   //
-//   try {
-//     let {
-//       name,
-//       lastName,
-//       profilePicture,
-//       email, // No se modifica, es sólo para individualizar el usuario.
-//       //   isAdmin,
-
-//       city,
-//       webSite,
-//       linkedIn,
-//       gitHub,
-//       yearsOfExperience,
-//       dailyBudget,
-//       englishLevel,
-//       bio,
-
-//       visible,
-//       //   postulado,
-//       //   registrado,
-//       //   habilitado,
-//       //   reputacion,
-
-//       tarjeta_numero,
-//       tarjeta_nombreCompleto,
-//       tarjeta_vencimiento,
-//       tarjeta_codigoSeguridad,
-//       cbu,
-//       cvu,
-
-//       tecnologias,
-//       lenguajes,
-//       servicios,
-//       paiseId,
-//     } = data;
-
-//     let userMod = await Usuarios.update(
-//       { where: { email: email } },
-//       {
-//         name: capitalize(name) || "Anonymous",
-//         lastName: capitalize(lastName) || "Anonymous",
-//         profilePicture:
-//           profilePicture ||
-//           "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-
-//         city: city || null,
-//         webSite: webSite || null,
-//         linkedIn: linkedIn || null,
-//         gitHub: gitHub || null,
-//         yearsOfExperience: yearsOfExperience || 1,
-//         dailyBudget: dailyBudget || 1,
-//         englishLevel: englishLevel || "N/A",
-//         bio: bio || null,
-
-//         visible,
-//         isAdmin: false,
-
-//         tarjeta_numero: tarjeta_numero || null,
-//         tarjeta_nombreCompleto: tarjeta_nombreCompleto || null,
-//         tarjeta_vencimiento: tarjeta_vencimiento || null,
-//         tarjeta_codigoSeguridad: tarjeta_codigoSeguridad || null,
-//         cbu: cbu || null,
-//         cvu: cvu || null,
-
-//         paiseId,
-//       }
-//       //
-//     );
-
-//     let modUsr = await Usuarios.findOne({
-//       where: {
-//         email: email,
-//       },
-//       include: [
-//         {
-//           model: Servicios,
-//           attributes: ["name"],
-//           through: { attributes: [] },
-//         },
-//         {
-//           model: Lenguajes,
-//           attributes: ["name"],
-//           through: { attributes: [] },
-//         },
-//         {
-//           model: Tecnologias,
-//           attributes: ["name"],
-//           through: { attributes: [] },
-//         },
-//       ],
-//     });
-
-//     modUsr.setTecnologias(tecnologias);
-//     modUsr.setLenguajes(lenguajes);
-//     modUsr.setServicios(servicios);
-
-//     return "Usuario modificado correctamente";
-//     //
-//   } catch (e) {
-//     //
-//     console.error(`${ERROR}modifyUser --→ ${e}`);
-//   }
-// };
-
-// -----------------------------------------------
-
-
-
-
-
-
-
-
-
-// DELETE USER
 const modifyUser = async (data) => {
   try {
     let {
@@ -603,7 +486,6 @@ const modifyUser = async (data) => {
       servicios,
       paiseId
     } = data;
-    console.log("funciona",email)
     await Usuarios.update(
       {
         name,
@@ -660,6 +542,18 @@ const modifyUser = async (data) => {
      console.log(e);
   }
 }
+// -----------------------------------------------
+
+
+
+
+
+
+
+
+
+// DELETE USER
+
 
 const deleteUser = async (id) => {
   try {
