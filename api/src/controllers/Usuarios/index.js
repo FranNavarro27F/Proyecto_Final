@@ -243,6 +243,7 @@ const getUsers = async () => {
         postulado: cur.postulado,
         registrado: cur.registrado,
         habilitado: cur.habilitado,
+        premium: cur.premium,
         tarjeta_numero: cur.tarjeta_numero,
         tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
         tarjeta_vencimiento: cur.tarjeta_vencimiento,
@@ -267,6 +268,66 @@ const getUsers = async () => {
     //
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
+// GET PREMIUM USERS
+const getPremiumUsers = async () => {
+  try {
+    let usuarios = await Usuarios.findAll({
+      where: {
+        habilitado: true,
+        visible: true,
+        premium: true,
+      },
+      include: [
+        {
+          model: Paises,
+          attributes: ["name"],
+        },
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Lenguajes,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+        {
+          model: Tecnologias,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    let arrUsers = usuarios.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
+        id: cur.id,
+        profilePicture: cur.profilePicture,
+        name: cur.name ? (cur.name = capitalize(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = capitalize(cur.lastName))
+          : (cur.lastName = []),
+        email: cur.email,
+        linkedIn: cur.linkedIn,
+        gitHub: cur.gitHub,
+        webSite: cur.webSite,
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
+
+    return await Promise.all(arrUsersListo);
+    //
+  } catch (e) {
+    console.error(`ERROR @ controllers/getPremiumUsers --→ ${e}`);
   }
 };
 
@@ -605,6 +666,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   getUsers,
+  getPremiumUsers,
   getUserById,
   deleteUser,
   getUserByName,
