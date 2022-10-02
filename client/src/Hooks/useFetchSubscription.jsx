@@ -14,11 +14,14 @@ export default function useFetchSubscription() {
   const { userByEmail } = useFetchUsers(user?.email);
 
   const status = userByEmail?.premium;
+  const user_id = userByEmail?.id;
+  const subscription_id = userByEmail?.subscription_id;
+  console.log(userByEmail);
 
   useEffect(() => {
-    if (isAuthenticated && !Subscription.length)
-      dispatch(subscriptionMp(status));
-  }, [Subscription.length, dispatch, isAuthenticated, status]);
+    if (isAuthenticated)
+      dispatch(subscriptionMp(status, subscription_id, user_id));
+  }, [dispatch, isAuthenticated, status, subscription_id, user_id]);
 
   return { Subscription };
 }

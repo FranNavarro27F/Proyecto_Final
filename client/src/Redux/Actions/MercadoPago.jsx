@@ -14,13 +14,13 @@ export function pagosMp() {
   };
 }
 
-export function subscriptionMp(status) {
+export function subscriptionMp(status, subscription_id, user_id) {
   return async function (dispatch) {
-    if (!status) {
+    if (!status && !subscription_id) {
       try {
         return dispatch({
           type: "MP_SUBSCRIPTION",
-          payload: (await axios.post(`/pago/subscription`)).data,
+          payload: (await axios.post(`/pago/subscription`, { user_id })).data,
         });
       } catch (e) {
         console.error(e, "error catch action subscription MercadoPago");
@@ -61,6 +61,7 @@ export function consultPay(id) {
 
 export function setSubscriptionId(payload) {
   const { user_id, subscription_id, status } = payload;
+  console.log("PUT!", payload);
 
   return async function (dispatch) {
     try {
