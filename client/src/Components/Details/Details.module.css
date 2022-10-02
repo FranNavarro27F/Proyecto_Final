@@ -281,9 +281,9 @@
   border-radius: 2.1vw;
   color: #ffffff;
   font-family: "Poppins";
-  font-weight: 400;
-  font-size: 0.9vw;
-  line-height: 23px;
+  font-weight: 600;
+  font-size: 1.3vh;
+  /* line-height: 23px; */
   cursor: pointer;
   margin-right: 0.9rem;
   text-decoration: none;

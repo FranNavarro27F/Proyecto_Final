@@ -30,7 +30,7 @@ function App() {
   const dispatch = useDispatch();
 
   const { user, isLoading, isAuthenticated } = useAuth0();
-  // const userByEmail = useSelector((state) => state.devUser.userByEmail);
+
   const { userByEmail } = useFetchUsers(user?.email);
   const { Subscription } = useFetchSubscription();
   const user_id = userByEmail?.id;
@@ -56,11 +56,6 @@ function App() {
     isAuthenticated && dispatch(consultSub(Subscription?.id));
   }, [Subscription, dispatch, isAuthenticated]);
 
-  // useEffect(() => {
-  //   dispatch(getUserEmail(user?.email));
-  // }, [dispatch, user?.email]);
-
-  //console.log(user_id, "USERIDDDDDDDDDDDD");
   useEffect(() => {
     if (
       isAuthenticated &&
@@ -84,8 +79,6 @@ function App() {
     userByEmail?.subscription_id,
     user_id,
   ]);
-
-  //console.log(`USUARIO PREMIUN: ${userByEmail?.premium}`);
 
   return isLoading ? (
     <Loader />

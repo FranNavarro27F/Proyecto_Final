@@ -270,6 +270,7 @@ export default function DevUsersCreate() {
           postulado: true,
         })
       );
+      setModal(true);
       dispatch(getUsersBd());
     } else {
       console.log(`hay errores`, errors);

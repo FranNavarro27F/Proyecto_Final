@@ -4,19 +4,25 @@
   overflow: hidden;
   /* background-color: red; */
   position: absolute;
-  left: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  left: 22vw;
   height: 65vh;
   margin-top: 15rem;
 }
 
 .circulos {
   /* bottom: -110vh; */
-  z-index: 1;
+  /* z-index: 1; */
   /* max-width: 900px; */
   /* background-color: beige; */
 }
 
 .imgCirculo {
-  width: 120vh;
+  position: relative;
+  z-index: 1;
+  width: 60vw;
   height: 85vh;
 }
