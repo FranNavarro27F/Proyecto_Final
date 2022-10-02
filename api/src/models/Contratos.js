@@ -70,6 +70,18 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
 
       },
+      puntuacion: {
+        type: DataTypes.FLOAT,
+        defaultValue: 1.0,
+        validate: {
+          min: 1.0,
+          max: 5.0,
+        },
+      },
+      comentario: {
+        type: DataTypes.STRING,
+        defaultValue: ""
+      },
       habilitado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
