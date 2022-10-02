@@ -63,7 +63,6 @@ export function putContrato(id,data){
   return async function (dispatch){
     try {
       let modificacionContrato= await axios.put(`/contratos/${id}`, data)
-      console.log("****",modificacionContrato,"**llegando de peticion al back**")
     } catch (e) {
       console.log("**error en action el catch de putcontrato**", e);
     }

@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { aceptarContrato, rechazarContrato, getContratoId, putContrato } from '../../Redux/Actions/Contracts';
-import { getUserEmail } from '../../Redux/Actions/DevUser';
+import { getUserEmail, getUserId } from '../../Redux/Actions/DevUser';
 import s from "../Contracts/DetalleContracts.module.css";
+import Reviews from './Reviews';
 
 
 export default function DetalleContrato() {
@@ -24,7 +25,8 @@ export default function DetalleContrato() {
   const {id} = useParams()
   const dispatch = useDispatch();
   const detalleC = useSelector((state)=> state.contracts.detalleContrato)
- const navigate = useNavigate()
+  const detallePerfil = useSelector((state)=> state.devUser.details)
+  const navigate = useNavigate()
   
   useEffect(()=>{
     dispatch(getContratoId(id))
@@ -36,11 +38,18 @@ export default function DetalleContrato() {
       alert("La propuesta ha sido aceptada correctamente")
     }
   //aca el handle del rechazar contrato
+    let usuarioEnDetalle= useSelector(state=> state.devUser.details);
+    let usuarioDetailID= usuarioEnDetalle?.id;
     const handleRechazar = ()=>{
       //dispatch(rechazarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      dispatch(putContrato(id, {habilitado: false  }))
-      //alert("La propuesta ha sido rechazada correctamente")
-      
+      dispatch(putContrato(id, {habilitado: false  })).then(data=> usuarioDetailID && dispatch(getUserId(usuarioDetailID)))
+      alert("La propuesta ha sido rechazada correctamente")
+      navigate(`/work`)
+    }
+    const handleBack = () => {
+      if(detallePerfil) {
+        navigate(`/work/details/${detallePerfil.id}`)
+      }
     }
 
     return (
@@ -77,6 +86,12 @@ export default function DetalleContrato() {
               <br/>
 
               <div className={s.buttonUbi}>
+                <button
+                className={s.buttonDetalle}
+                onClick={(e)=>handleBack(e)}
+                >
+                Volver
+                </button>
               {
                 ! detalleC.aceptado ? 
               <div>
@@ -98,7 +113,7 @@ export default function DetalleContrato() {
                   </div>
                   :
                   <div>
-
+                    <Reviews/>
                     </div>
 
 }   

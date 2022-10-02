@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function putDevUser(payload) {
+  console.log(payload);
   return async function (dispatch) {
     console.log("PUT action", payload);
     try {
