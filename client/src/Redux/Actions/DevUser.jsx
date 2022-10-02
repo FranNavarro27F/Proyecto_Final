@@ -118,3 +118,18 @@ export function getUserContrato(email) {
     });
   };
 }
+
+export function setUserVisible(visible, id) {
+  console.log(visible, "botyy");
+  console.log(id, "id");
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "USER_VISIBLE",
+        payload: (await axios.put(`/usuarios/visible/${id}`, { visible })).data,
+      });
+    } catch (e) {
+      console.error(e, "error catch action subscription MercadoPago");
+    }
+  };
+}

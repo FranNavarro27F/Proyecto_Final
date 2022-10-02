@@ -7,6 +7,7 @@ import {
   detailReset,
   getUserEmail,
   getUserId,
+  setUserVisible,
 } from "../../Redux/Actions/DevUser";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
 import SideMenu from "../Landing/SideMenu/SideMenu";
@@ -47,14 +48,11 @@ export default function Details() {
 
   const userDetail = useSelector((state) => state.devUser.details);
 
-  const { consultaSub } = useFetchConsultSub(userByEmail?.subscription_id);
-  // console.log(consultaSub, "subbbbbbb");
+  const consultaSub = useSelector(
+    (state) => state.mercadoPago.SubscriptionConsult
+  );
 
   const [mostrarSub, setMostrarSub] = useState(false);
-
-  let nombreContratista = userByEmail?.name;
-
-  let mailContrado = userDetail?.email;
 
   const linkPago = consultaSub?.init_point;
 
@@ -111,13 +109,17 @@ export default function Details() {
         status: consultaSub?.status,
       })
     );
-    // }, 1000);
+    // }, 2500);
     setMostrarSub(false);
   };
 
   const handleCleanAndBack = () => {
     dispatch(detailReset());
     navigate("/work");
+  };
+
+  const handleVisible = (e) => {
+    dispatch(setUserVisible(e.target.checked, id));
   };
 
   return contratoDetail ? (
@@ -677,6 +679,20 @@ export default function Details() {
                     </button>
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
+<<<<<<< HEAD
+=======
+                        {userByEmail && (
+                          <label className={s.switch}>
+                            <input
+                              onChange={(e) => handleVisible(e)}
+                              type="checkbox"
+                              name="visible"
+                              defaultChecked={userByEmail?.visible}
+                            />
+                            <span className={s.slider_round}></span>
+                          </label>
+                        )}
+>>>>>>> c66960827a32eadcb397f6f1d3913470bfbe8797
                         <button
                           className={s.buttonBack}
                           onClick={() => navigate("/create")}
