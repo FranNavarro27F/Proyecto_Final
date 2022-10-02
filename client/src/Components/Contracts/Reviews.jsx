@@ -49,7 +49,7 @@ const [ input, setInput ] = useState({
  })
   }
   const handleEnvio = (e)=>{
-    dispatch(putContrato(id,{input}))
+    dispatch(putContrato(id,input))
     alert("Su reseña fue enviada correctamente")
     navigate("/work")
   }

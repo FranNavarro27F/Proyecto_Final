@@ -211,9 +211,11 @@ const modifyContract = async (id, data) => {
     }
     if(puntuacion){
       await Contratos.update({ puntuacion: puntuacion }, { where:{id: id} });
+      
     }
     if(comentario){
       await Contratos.update({ comentario: comentario }, { where:{id: id} });
+      
     }
 
 
