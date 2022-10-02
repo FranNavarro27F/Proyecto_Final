@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 import { putContrato } from '../../Redux/Actions/Contracts';
 import { useNavigate } from 'react-router-dom';
+import s from "./Reviews.module.css"
 
 
 
@@ -56,7 +57,7 @@ const [ input, setInput ] = useState({
 
 
   return (
-    
+    <div className={ s.divReviews}>
     <div style={styles.container}>
       <h2>Puntuación</h2>
       <div style={styles.stars}>
@@ -78,7 +79,7 @@ const [ input, setInput ] = useState({
         })}
       </div>
       <textarea
-        placeholder="What's your experience?"
+        placeholder="Cómo fue tu experiencia?"
         style={styles.textarea}
         onChange={(e)=>handleTeaxArea(e)}
       />
@@ -86,39 +87,40 @@ const [ input, setInput ] = useState({
       <button
       onClick={(e)=>handleEnvio(e)}
         style={styles.button}
+        className={s.buttonDetalle}
       >
         Submit
       </button>
     </div>
-     
+    </div>
   );
 };
 
 
 const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  stars: {
-    display: "flex",
-    flexDirection: "row",
-  },
+//   container: {
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center"
+//   },
+//   stars: {
+//     display: "flex",
+//     flexDirection: "row",
+//   },
   textarea: {
     border: "1px solid #a9a9a9",
     borderRadius: 5,
     padding: 10,
-    margin: "20px 0",
+    margin: "25px 4",
     minHeight: 100,
     width: 300
   },
-  button: {
-    border: "1px solid #a9a9a9",
-    borderRadius: 5,
-    width: 300,
-    padding: 10,
-  }
+//   button: {
+//     border: "1px solid #a9a9a9",
+//     borderRadius: 5,
+//     width: 300,
+//     padding: 10,
+//   }
 
 };
  
