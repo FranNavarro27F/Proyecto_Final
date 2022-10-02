@@ -77,6 +77,7 @@ export default function DetalleContrato() {
               <div className={s.buttonUbi}>
 
                 <button
+                disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
                 onClick={(e)=>handleAceptar(e)}
                 className={s.buttonDetalle}
                 >
