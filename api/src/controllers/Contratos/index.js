@@ -167,18 +167,49 @@ const modifyContract = async (id, data) => {
     } = data;
     const contract = await Contratos.findByPk(id);
 
-    if (description) contract.description = description;
-    if (date) contract.date = date;
-    if (expiration_date) contract.expiration_date = expiration_date;
-    if (price) contract.price = price;
-    if (payment_id) contract.payment_id = payment_id;
-    if (aceptado) contract.aceptado = aceptado;
-    if (habilitado) contract.habilitado = habilitado;
-    if (ultimaModificacion) contract.ultimaModificacion = ultimaModificacion;
-    if (status) contract.status= status;
-    // contract.status = setStatus(date, expiration_date);
+    // if (description) contract.description = description;
+    // if (date) contract.date = date;
+    // if (expiration_date) contract.expiration_date = expiration_date;
+    // if (price) contract.price = price;
+    // if (payment_id) contract.payment_id = payment_id;
+    // if (aceptado) contract.aceptado = aceptado;
+    // if (habilitado) contract.habilitado = habilitado;
+    // if (ultimaModificacion) contract.ultimaModificacion = ultimaModificacion;
+    // if (status) contract.status= status;
+    // // contract.status = setStatus(date, expiration_date);
+    // await contract.save();
 
-    await contract.save();
+    if(description){
+      await Contratos.update({ description: description }, { where:{id: id} });
+    }
+    if(date){
+      await Contratos.update({ date: date }, { where:{id: id} });
+    }
+    if(expiration_date){
+      await Contratos.update({ expiration_date: expiration_date }, { where:{id: id} });
+    }
+    if(price){
+      await Contratos.update({ price: price }, { where:{id: id} });
+    }
+    if(status){
+      await Contratos.update({ status: status }, { where:{id: id} });
+    }
+    if(payment_id){
+      await Contratos.update({ payment_id: payment_id }, { where:{id: id} });
+    }
+    if(aceptado){
+      await Contratos.update({ aceptado: aceptado }, { where:{id: id} });
+    }
+    if(habilitado){
+      await Contratos.update({ habilitado: habilitado }, { where:{id: id} });
+    }
+    if(ultimaModificacion){
+      await Contratos.update({ ultimaModificacion: ultimaModificacion }, { where:{id: id} });
+    }
+
+
+
+
 
     return `Contrato modificado exitosamente.
     Desde: ${date} - Hasta: ${expiration_date}
