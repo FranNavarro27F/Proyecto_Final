@@ -57,6 +57,18 @@ export function getDevUsers(payload) {
     }
   };
 }
+export function getUsersPremium(payload) {
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "GET_DEVUSERS_PREMIUM",
+        payload: (await axios.get(`/usuarios/premium`, payload)).data,
+      });
+    } catch (error) {
+      console.log(error.message, "Error en el get DevUsers,premium actions");
+    }
+  };
+}
 export function getUserId(id) {
   return async function (dispatch) {
     try {
@@ -120,8 +132,6 @@ export function getUserContrato(email) {
 }
 
 export function setUserVisible(visible, id) {
-  console.log(visible, "botyy");
-  console.log(id, "id");
   return async function (dispatch) {
     try {
       return dispatch({

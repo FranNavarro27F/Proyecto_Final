@@ -1,13 +1,14 @@
-.divcard3{
-    position: absolute;
-    top:220vh;
-    right: 25vh;
+.divcard3 {
+  position: absolute;
+  top: 220vh;
+  right: 6vw;
+  z-index: 999;
 }
-.backcard3{
-    width: 50vh;
-height: 32vh;
-background: rgba(96, 203, 242, 0.4);
-backdrop-filter: blur(40px);
-/* Note: backdrop-filter has minimal browser support */
-border-radius: 30px;
+.backcard3 {
+  width: 25vw;
+  height: 32vh;
+  background: rgba(96, 203, 242, 0.4);
+  backdrop-filter: blur(40px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px;
 }

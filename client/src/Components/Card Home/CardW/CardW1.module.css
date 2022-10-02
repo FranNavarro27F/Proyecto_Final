@@ -1,14 +1,14 @@
-.cardw1div{
-    position: absolute;
-    top:232vh;
-    left: 80vh;
+.cardw1div {
+  position: absolute;
+  top: 232vh;
+  left: 38vw;
+  z-index: 999;
 }
-.cardw1{
-width: 48vh;
-height: 30vh;
-background: rgba(191, 249, 221, 0.4);
-backdrop-filter: blur(40px);
-/* Note: backdrop-filter has minimal browser support */
-border-radius: 30px;
-
+.cardw1 {
+  width: 24vw;
+  height: 30vh;
+  background: rgba(191, 249, 221, 0.4);
+  backdrop-filter: blur(40px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px;
 }

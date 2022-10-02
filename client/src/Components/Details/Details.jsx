@@ -59,15 +59,11 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-
-  
-  
-//---esta funcion evalua que contratos pueden o no mostrarse -----------------------
-  const contratosVisibles = (contratos, user)=>{
-    let visibles= contratos.filter(cur=> {
-      
-      if(cur.status === "Concluido"){
-        return true
+  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
+  const contratosVisibles = (contratos, user) => {
+    let visibles = contratos.filter((cur) => {
+      if (cur.status === "Concluido") {
+        return true;
       }
       if (cur.employer === user.user_id) {
         return true;
@@ -203,22 +199,42 @@ export default function Details() {
     }
   }, [userDetail?.premium]);
 
-  const handlePremiun = () => {
+  const handlePremium = () => {
     setMostrarSub(!mostrarSub);
   };
+  const handlePremiumOFF = () => {
+    // setMostrarSub(!mostrarSub);
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: "pending",
+      })
+    );
+    window.location.reload();
+  };
+  useEffect(() => {
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: consultaSub?.status,
+      })
+    );
+  }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
 
   const handleCloseSub = () => {
     dispatch(consultSub(consultaSub?.id));
-    setTimeout(() => {
-      dispatch(
-        setSubscriptionId({
-          user_id: userByEmail?.id,
-          subscription_id: consultaSub?.id,
-          status: consultaSub?.status,
-        })
-      );
-      setMostrarSub(false);
-    }, 1000);
+    // setTimeout(() => {
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: consultaSub?.status,
+      })
+    );
+    setMostrarSub(false);
+    // }, 1000);
     // setTimeout(() => {
     //   dispatch(getUserId(id));
     // }, 1500);
@@ -812,13 +828,21 @@ export default function Details() {
                             ? `Editar postulación`
                             : `Postularme`}
                         </button>
-                        {userByEmail?.premium !== true && (
+                        {userByEmail?.premium !== true ? (
                           <button
                             // href={linkPago}
                             className={s.buttonSub}
-                            onClick={handlePremiun}
+                            onClick={handlePremium}
                           >
                             SUSCRIPCION
+                          </button>
+                        ) : (
+                          <button
+                            // href={linkPago}
+                            className={s.buttonSub}
+                            onClick={handlePremiumOFF}
+                          >
+                            CANCELAR SUSCRIPCION
                           </button>
                         )}
                       </div>

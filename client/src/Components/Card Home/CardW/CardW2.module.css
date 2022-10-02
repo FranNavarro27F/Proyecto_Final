@@ -1,15 +1,15 @@
-.cardDiv2{
-    position: absolute;
-    top:220vh;
-    left: 25vh;
-
+.cardDiv2 {
+  position: absolute;
+  top: 220vh;
+  left: 6vw;
+  z-index: 999;
 }
 
-.cardw2{
-    width: 50vh;
-    height: 32vh;
-    background: rgba(96, 203, 242, 0.4);
-    backdrop-filter: blur(40px);
-    /* Note: backdrop-filter has minimal browser support */
-    border-radius: 30px;
+.cardw2 {
+  width: 25vw;
+  height: 32vh;
+  background: rgba(96, 203, 242, 0.4);
+  backdrop-filter: blur(40px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px;
 }
