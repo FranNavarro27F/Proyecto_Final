@@ -159,6 +159,7 @@ const modifyContract = async (id, data) => {
       date,
       expiration_date,
       price,
+      status,
       payment_id,
       aceptado,
       habilitado,
@@ -174,8 +175,8 @@ const modifyContract = async (id, data) => {
     if (aceptado) contract.aceptado = aceptado;
     if (habilitado) contract.habilitado = habilitado;
     if (ultimaModificacion) contract.ultimaModificacion = ultimaModificacion;
-
-    contract.status = setStatus(date, expiration_date);
+    if (status) contract.status= status;
+    // contract.status = setStatus(date, expiration_date);
 
     await contract.save();
 
