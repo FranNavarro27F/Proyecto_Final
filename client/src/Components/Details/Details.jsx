@@ -793,7 +793,7 @@ export default function Details() {
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
-                    <button
+                    {/* <button
                       className={s.buttonBack}
                       onClick={() => {
                         dispatch(detailReset());
@@ -801,7 +801,7 @@ export default function Details() {
                       }}
                     >
                       HOME
-                    </button>
+                    </button> */}
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
                         <button
@@ -818,7 +818,7 @@ export default function Details() {
                             className={s.buttonSub}
                             onClick={handlePremiun}
                           >
-                            SUSCRIPCION
+                            Suscripción
                           </button>
                         )}
                       </div>
@@ -831,7 +831,7 @@ export default function Details() {
                       className={s.buttonBack}
                       onClick={handleCleanAndBack}
                     >
-                      POSTULACIONES
+                      Volver
                     </button>
                   </div>
                 </div>
