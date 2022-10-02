@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const {
   getUsers,
+  getPremiumUsers,
   getUserById,
   deleteUser,
   getUserByName,
@@ -38,6 +39,19 @@ router.get("/", async (req, res) => {
 
 // -----------------------------------------------
 
+router.get("/premium", async (req, res) => {
+  //
+  try {
+    const premiumUsers = await getPremiumUsers();
+    return res.json(premiumUsers);
+    //
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+// -----------------------------------------------
+
 router.get("/:id", async (req, res) => {
   //
   try {
@@ -51,27 +65,35 @@ router.get("/:id", async (req, res) => {
 
 // -----------------------------------------------
 
+// router.put("/", async (req, res) => {
+//   //
+//   try {
+//     // let { email, paiseId } = req.body;
+
+//     // if (!email || !paiseId) {
+//     //   res.sendStatus(400).send(`Error --→ ${e}`);
+//     // .send("Falta alguno de los campos importantes. Por favor revisar");
+//     // } else {
+
+//     let usuario = await modifyUser(req.body);
+//    console.log(usuario);
+//     res.status(201).json(usuario);
+//     // }
+//     //
+//   } catch (e) {
+//     res.status(400).send(`Error --→ ${e}`);
+//   }
+// });
+
+// -----------------------------------------------
+
 router.put("/", async (req, res) => {
-  //
   try {
-    // let { email, paiseId } = req.body;
-
-    // if (!email || !paiseId) {
-    //   res.sendStatus(400).send(`Error --→ ${e}`);
-    // .send("Falta alguno de los campos importantes. Por favor revisar");
-    // } else {
-    let usuario = await modifyUser(req.body);
-
-    res.status(201).json(usuario);
-    // }
-    //
+   res.status(200).json(await modifyUser(req.body));
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
-
-// -----------------------------------------------
-
 // Set SUBSCRIPTION ID
 router.put("/sub/:id", async (req, res) => {
   //
