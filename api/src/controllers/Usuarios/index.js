@@ -243,6 +243,7 @@ const getUsers = async () => {
         postulado: cur.postulado,
         registrado: cur.registrado,
         habilitado: cur.habilitado,
+        premium: cur.premium,
         tarjeta_numero: cur.tarjeta_numero,
         tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
         tarjeta_vencimiento: cur.tarjeta_vencimiento,
@@ -267,6 +268,52 @@ const getUsers = async () => {
     //
   } catch (e) {
     console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
+// GET PREMIUM USERS
+const getPremiumUsers = async () => {
+  try {
+    let usuarios = await Usuarios.findAll({
+      where: {
+        habilitado: true,
+        visible: true,
+        premium: true,
+      },
+      include: [
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    let arrUsers = usuarios.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
+        id: cur.id,
+        profilePicture: cur.profilePicture,
+        name: cur.name ? (cur.name = capitalize(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = capitalize(cur.lastName))
+          : (cur.lastName = []),
+        email: cur.email,
+        linkedIn: cur.linkedIn,
+        gitHub: cur.gitHub,
+        webSite: cur.webSite,
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
+
+    return await Promise.all(arrUsersListo);
+    //
+  } catch (e) {
+    console.error(`ERROR @ controllers/getPremiumUsers --→ ${e}`);
   }
 };
 
@@ -466,7 +513,7 @@ const setSubscriptionId = async (id, subscription_id, status) => {
     console.error(`${ERROR}setSubscriptionId --→ ${e}`);
   }
 };
-
+//modificar usario
 // -----------------------------------------------
 
 // SET VISIBLE
@@ -492,15 +539,12 @@ const setVisible = async (id, visible) => {
 // -----------------------------------------------
 
 const modifyUser = async (data) => {
-  //
   try {
     let {
+      email,
       name,
       lastName,
       profilePicture,
-      email, // No se modifica, es sólo para individualizar el usuario.
-      //   isAdmin,
-
       city,
       webSite,
       linkedIn,
@@ -509,59 +553,44 @@ const modifyUser = async (data) => {
       dailyBudget,
       englishLevel,
       bio,
-
       visible,
-      //   postulado,
-      //   registrado,
-      //   habilitado,
-      //   reputacion,
-
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
       tarjeta_codigoSeguridad,
       cbu,
       cvu,
-
       tecnologias,
       lenguajes,
       servicios,
       paiseId,
     } = data;
-
-    let userMod = await Usuarios.update(
-      { where: { email: email } },
+    await Usuarios.update(
       {
-        name: capitalize(name) || "Anonymous",
-        lastName: capitalize(lastName) || "Anonymous",
-        profilePicture:
-          profilePicture ||
-          "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-
-        city: city || null,
-        webSite: webSite || null,
-        linkedIn: linkedIn || null,
-        gitHub: gitHub || null,
-        yearsOfExperience: yearsOfExperience || 1,
-        dailyBudget: dailyBudget || 1,
-        englishLevel: englishLevel || "N/A",
-        bio: bio || null,
-
+        name,
+        lastName,
+        profilePicture,
+        city,
+        webSite,
+        linkedIn,
+        gitHub,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
         visible,
-        isAdmin: false,
-
-        tarjeta_numero: tarjeta_numero || null,
-        tarjeta_nombreCompleto: tarjeta_nombreCompleto || null,
-        tarjeta_vencimiento: tarjeta_vencimiento || null,
-        tarjeta_codigoSeguridad: tarjeta_codigoSeguridad || null,
-        cbu: cbu || null,
-        cvu: cvu || null,
-
+        tarjeta_numero,
+        tarjeta_nombreCompleto,
+        tarjeta_vencimiento,
+        tarjeta_codigoSeguridad,
+        cbu,
+        cvu,
         paiseId,
+      },
+      {
+        where: { email },
       }
-      //
     );
-
     let modUsr = await Usuarios.findOne({
       where: {
         email: email,
@@ -569,17 +598,17 @@ const modifyUser = async (data) => {
       include: [
         {
           model: Servicios,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Lenguajes,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Tecnologias,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
       ],
@@ -588,18 +617,14 @@ const modifyUser = async (data) => {
     modUsr.setTecnologias(tecnologias);
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
-
-    return "Usuario modificado correctamente";
-    //
   } catch (e) {
-    //
-    console.error(`${ERROR}modifyUser --→ ${e}`);
+    console.log(e);
   }
 };
-
 // -----------------------------------------------
 
 // DELETE USER
+
 const deleteUser = async (id) => {
   try {
     let toDelete = await Usuarios.findByPk(id);
@@ -615,6 +640,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   getUsers,
+  getPremiumUsers,
   getUserById,
   deleteUser,
   getUserByName,
