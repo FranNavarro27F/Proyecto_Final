@@ -24,7 +24,8 @@ export default function DetalleContrato() {
   const {id} = useParams()
   const dispatch = useDispatch();
   const detalleC = useSelector((state)=> state.contracts.detalleContrato)
- const navigate = useNavigate()
+  const detallePerfil = useSelector((state)=> state.devUser.details)
+  const navigate = useNavigate()
   
   useEffect(()=>{
     dispatch(getContratoId(id))
@@ -41,6 +42,11 @@ export default function DetalleContrato() {
       dispatch(putContrato(id, {habilitado: false  }))
       //alert("La propuesta ha sido rechazada correctamente")
       
+    }
+    const handleBack = () => {
+      if(detallePerfil) {
+        navigate(`/work/details/${detallePerfil.id}`)
+      }
     }
 
     return (
@@ -77,6 +83,12 @@ export default function DetalleContrato() {
               <br/>
 
               <div className={s.buttonUbi}>
+                <button
+                className={s.buttonDetalle}
+                onClick={(e)=>handleBack(e)}
+                >
+                Volver
+                </button>
               {
                 ! detalleC.aceptado ? 
               <div>
