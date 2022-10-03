@@ -26,7 +26,7 @@ export default function Contracts({
   }, [dispatch, idContrato]);
 
   return (
-    <div>
+    <div className={s.back}>
       <div className={s.divCardContrato}>
         <div className={s.textCardContrato}>
           {/* <label>Id contrato: </label>
