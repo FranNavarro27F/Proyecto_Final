@@ -42,6 +42,8 @@ export default function Contrato({
   
       if(mes.length === 1) {
       mes =  "0" + mes
+    } if(dia.length=== 1) {
+      dia = "0" + dia
     }
     let fechaExacta = año + "-" + mes + "-" + dia
   return fechaExacta
