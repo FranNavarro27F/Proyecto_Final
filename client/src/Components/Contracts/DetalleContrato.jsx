@@ -162,14 +162,17 @@ export default function DetalleContrato() {
                   Rechazar
                 </button>
               )}
-              {detalleC.aceptado &&
-                detalleC.pagado &&
+              {
+              // detalleC.aceptado &&
+                 detalleC.pagado &&
                 usuarioActual === detalleC.employer &&
-                detalleC?.comentario === "" && (
+                 detalleC?.comentario === "" && (
+                  
                   <div>
                     <Reviews id={id} />
                   </div>
-                )}
+                 )
+                }
               {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
