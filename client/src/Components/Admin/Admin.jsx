@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getLenAd, getPaisesAd, getServAd, getTecnAdmin, getUsersAdmin} from "../../Redux/Actions/Admin";
+// import SideBarAd from "./SideBar/SideBarAd";
+import "./Admin.css"
+import{
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from "react-router-dom"
 import UserList from "./Pages/UserList";
 import CountryList from "./Pages/CountryList";
 import LengList from "./Pages/LengList";
 import ServList from "./Pages/ServList";
 import TecnList from "./Pages/TecnList";
+import "./SideBar/SideBar.css";
+import "../Work/SideMenuWork/SideMenuWork";
 import SideMenuWork from "../Work/SideMenuWork/SideMenuWork";
 import { TiGroupOutline} from "react-icons/ti";
-import s from "../Admin/Pages/DashboardAdmin.module.css";
+
 
 export default function Admin(){
 
@@ -43,36 +52,36 @@ export default function Admin(){
         <div>
             
             <h1>Bienvenido a Panel de Admin</h1>
-            <div className={s.container}>
-            <div className={s.sidebar}>
-            <div className={s.sidebarWrapper}>
-            <div className={s.sidebarMenu}>
+            <div className="container">
+            <div className="sidebar">
+            <div className="sidebarWrapper">
+            <div className="sidebarMenu">
             <SideMenuWork />
-            <h3 className={s.title}>Dashboard</h3>
-            <ul className={s.sidebarList}>
-                <li className={s.siderbarListItem}
+            <h3 className="title">Dashboard</h3>
+            <ul className="sidebarList">
+                <li className="siderbarListItem"
                 onClick={openUsuarios}
                 >
                   <TiGroupOutline/>
                      Usuarios
                 </li>
                 <li
-                 className={s.siderbarListItem}
+                 className="siderbarListItem"
                  onClick={openLenguajes}
                  >
                    🗺 Lenguajes
                 </li>
-                <li className={s.siderbarListItem}
+                <li className="siderbarListItem"
                 onClick={openTecnologias}
                 >
                     Tecnologias
                 </li>
-                <li className={s.siderbarListItem}
+                <li className="siderbarListItem"
                 onClick={openServicios}
                 >
                     Servicios
                 </li>
-                <li className={s.siderbarListItem}
+                <li className="siderbarListItem"
                 onClick={openPaises}
                 >
                     Paises
