@@ -718,7 +718,6 @@ export default function Details() {
                       <span className={s.mail}>
                         <box-icon
                           border="circle"
-                          animation="tada"
                           color="white"
                           type="logo"
                           name="gmail"
@@ -777,7 +776,9 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon name="world" color="white"></box-icon>
+                    <box-icon name="world" 
+                    color="white"
+                    ></box-icon>
                     <span> Pais: </span>
                     <span>
                       {userDetail?.paiseId
@@ -796,13 +797,13 @@ export default function Details() {
                     >
                       <box-icon
                         name="planet"
-                        animation="flashing"
                         color="white"
                       ></box-icon>
                       <span> Sitio Web </span>
                     </a>
-
+                    <br /> 
                     <br />
+                    <box-icon name='diamond' color="white"></box-icon>
                     <span>Años de Experiencia: </span>
                     <span>
                       {userByEmail?.yearsOfExperience
@@ -810,13 +811,23 @@ export default function Details() {
                         : userDetail?.yearsOfExperience}
                     </span>
                     <br />
+                    <br />
+                    <box-icon 
+                    name='dollar-circle' 
+                    color="white"
+                    ></box-icon>
                     <span>Presupuesto por día: </span>
-                    <span>
+                      <span>
                       {userDetail?.dailyBudget
                         ? userDetail?.dailyBudget
                         : userByEmail?.dailyBudget}
                     </span>
                     <br />
+                    <br />
+                    <box-icon 
+                    name='star'
+                    color="white"
+                    ></box-icon>
                     <span>Reputacion: </span>
                     <span>
                       {userDetail
