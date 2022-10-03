@@ -24,6 +24,7 @@ import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
+import { contratosVisibles } from "./ContratosVisibles";
 // import { Swal } from "sweetalert2";
 
 export default function Details() {
@@ -60,24 +61,7 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
-  const contratosVisibles = (contratos, user) => {
-    let visibles = contratos.filter((cur) => {
-      if (cur.status === "Concluido") {
-        return true;
-      }
-      if (cur.employer === user.user_id) {
-        return true;
-      }
-      if (cur.developer === user.user_id) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    return visibles;
-  };
-
+ 
   let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
   let contratosArenderizar =
     contratosS && user.user_id && contratosVisibles(contratosS, user);
