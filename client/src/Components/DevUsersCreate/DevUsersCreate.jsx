@@ -112,6 +112,7 @@ export default function DevUsersCreate() {
       [],
     postulado: true,
   });
+
   const [errorsCache, setErrorsCache] = useState(localStorage.getItem(errors));
 
   useEffect(() => {
