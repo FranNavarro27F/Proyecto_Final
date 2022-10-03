@@ -27,7 +27,12 @@ import { putContrato } from "../../Redux/Actions/Contracts";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import ScrollTop from "../Home/ScrollTop";
 import ScrollTopDetail from "./ScrollTopDetail";
-import { contratosVisibles } from "./ContratosVisibles";
+//---- import de funciones logicas para : setear propiedad STATUS en contratos--
+import { contratosVisibles } from "./LogicFunctions/ContratosVisibles";
+import { theDay } from "./LogicFunctions/Today";
+import { compararFechas } from "./LogicFunctions/CompararFechas";
+//------------------------------------------------------------------------------
+
 // import { Swal } from "sweetalert2";
 
 export default function Details() {
@@ -64,108 +69,51 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-  //--- aca determinamos que contratos se muestran y cuales no-------------------------
+  //-esta funcion modifica en DB la propiedad status al contrato ingresado ----
+  //deacuerdo a la fecha
+    const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
+
+      if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
+          // si date es menor a fecha de hoy
+          //setear status en "Inactivo"
+        dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
+      }
+      if (
+        compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
+        compararFechas(unContrato.expiration_date, unContrato.date) === "-"
+      ) {
+          // si date es mayor a fecha de hoy y menor a fecha de termino
+          //setear status en "Activo"
+        dispatch(putContrato(unContrato.id, { status: "Activo" }));
+      }
+      if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
+          // si fecha de fin es menor a fecha de hoy
+          //setear status en "Concluido"
+        dispatch(putContrato(unContrato.id, { status: "Concluido" }));
+      }
+    };
+  //---------------------------------------------------------------------------
+   
+  //--- aca determinamos que contratos se muestran y cuales no--------------------
+  // se usa la funcion contratosVisibles -("./LogicFunctions/ContratosVisibles")--
   let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
   let contratosArenderizar =
     contratosS && user.user_id && contratosVisibles(contratosS, user);
-  //------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
 
-  //-----esta funcion nos da la fecha de hoy en formato correcto-------
-  const today = new Date().toLocaleDateString({
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-  const setOrderDate = (today) => {
-    let division = today.split("/");
-    let dia = division[0];
-    let mes = division[1];
-    let año = division[2];
-    division[0] = año;
-    division[2] = dia;
-
-    if (mes.length === 1) {
-      mes = "0" + mes;
-    }
-    if (dia.length === 1) {
-      dia = "0" + dia;
-    }
-    let fechaExacta = año + "-" + mes + "-" + dia;
-    return fechaExacta;
-  };
-  //-----------------------------------------------------------------------
-
-  //---esta funcion compara la fecha actual contra le fecha ingresada e indica si es "-","+","=" ---
-  const compararFechas = (hoy, fechaAcomparar) => {
-    let hoyy = hoy.split("-");
-    let comp = fechaAcomparar.split("-");
-
-    let año_hoyy = hoyy[0];
-    let año_comp = comp[0];
-    if (Number(año_comp) < Number(año_hoyy)) {
-      return "-";
-    }
-    if (Number(año_comp) > Number(año_hoyy)) {
-      return "+";
-    }
-    if (Number(año_comp) === Number(año_hoyy)) {
-      let mes_hoy = hoyy[1];
-      let mes_comp = comp[1];
-      if (Number(mes_comp) < Number(mes_hoy)) {
-        return "-";
-      }
-      if (Number(mes_comp) > Number(mes_hoy)) {
-        return "+";
-      }
-      if (Number(mes_comp) === Number(mes_hoy)) {
-        let dia_hoy = hoyy[2];
-        let dia_comp = comp[2];
-        if (Number(dia_comp) < Number(dia_hoy)) {
-          return "-";
-        }
-        if (Number(dia_comp) > Number(dia_hoy)) {
-          return "+";
-        }
-        if (Number(dia_comp) === Number(dia_hoy)) {
-          return "=";
-        }
-      }
-    }
-  };
-  //------------------------------------------------------------------------------------
-
-  //-esta funcion modifica en DB la propiedad status al contrato ingresado deacuerdo a la fecha----
-  const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
-    if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
-      // si date es menor a fecha de hoy
-      //setear status en "Inactivo"
-      dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
-    }
-    if (
-      compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
-      compararFechas(unContrato.expiration_date, unContrato.date) === "-"
-    ) {
-      // si date es mayor a fecha de hoy y menor a fecha de termino
-      //setear status en "Activo"
-      dispatch(putContrato(unContrato.id, { status: "Activo" }));
-    }
-    if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
-      // si fecha de fin es menor a fecha de hoy
-      //setear status en "Concluido"
-      dispatch(putContrato(unContrato.id, { status: "Concluido" }));
-    }
-  };
-  //---------------------------------------------------------------------------------------
-
-  let fecha_de_hoy = setOrderDate(today);
-
+  //----- esta es la definicion de funcion que mapea y modifica contrtos--------
+  let fecha_de_hoy = theDay();
   const mapeaYmodificaContratos = (fecha_de_hoy) => {
     userDetail.contratos.forEach((cur) =>
       SeteadoraStatusContratos(fecha_de_hoy, cur)
     );
   };
+  //-----------------------------------------------------------------------------
 
+  //---- aca seteamos en cada contrato que trae el usuario, la propiedad STATUS--
+  // en los valores que corresponda segun las fechas de inicio  VS fecha de hoy--
   userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
+  //-----------------------------------------------------------------------------
 
   const handleContact = () => {
     if (isAuthenticated) {
