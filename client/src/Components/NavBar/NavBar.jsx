@@ -13,16 +13,19 @@ import makeAnimated from "react-select/animated";
 //actions
 import { filtersOrders } from "../../Redux/Actions/FiltersOrders";
 import { HiOutlineSearch } from "react-icons/hi";
+import Selectores from "../Selectores/Selectores";
 
-export default function NavBar({
-  optionsOrderBudget,
-  optionsOrderExp,
-  optionsTecnologias,
-  optionsLanguajes,
-  optionsCountries,
-  optionsServices,
-}) {
+export default function NavBar() {
   const animatedComponents = makeAnimated();
+
+  const {
+    optionsOrderBudget,
+    optionsOrderExp,
+    optionsTecnologias,
+    optionsLanguajes,
+    optionsCountries,
+    optionsServices,
+  } = Selectores();
 
   const dispatch = useDispatch();
 

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,10 @@ import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
+import { BsChevronDoubleDown } from "react-icons/bs";
+import ScrollTop from "../Home/ScrollTop";
+import ScrollTopDetail from "./ScrollTopDetail";
+// import { Swal } from "sweetalert2";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -58,6 +62,14 @@ export default function Details() {
   const linkPago = consultaSub?.init_point;
 
   const [contratoDetail, SetContratoDetail] = useState(false);
+
+  const scrollTo = (section) => {
+    section.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const refContracts = useRef();
 
   //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
   const contratosVisibles = (contratos, user) => {
@@ -225,19 +237,16 @@ export default function Details() {
 
   const handleCloseSub = () => {
     dispatch(consultSub(consultaSub?.id));
-    // setTimeout(() => {
-    dispatch(
-      setSubscriptionId({
-        user_id: userByEmail?.id,
-        subscription_id: consultaSub?.id,
-        status: consultaSub?.status,
-      })
-    );
-    setMostrarSub(false);
-    // }, 1000);
-    // setTimeout(() => {
-    //   dispatch(getUserId(id));
-    // }, 1500);
+    setTimeout(() => {
+      dispatch(
+        setSubscriptionId({
+          user_id: userByEmail?.id,
+          subscription_id: consultaSub?.id,
+          status: consultaSub?.status,
+        })
+      );
+      setMostrarSub(false);
+    }, 1000);
   };
 
   const handleCleanAndBack = () => {
@@ -644,9 +653,6 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    {/* {userProfile && (
-                      <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
-                    )} */}
                     <h2>
                       {userDetail?.name
                         ? userDetail?.name + " "
@@ -655,7 +661,6 @@ export default function Details() {
                         ? userDetail?.lastName
                         : userByEmail?.lastName}
                     </h2>
-                    {/* [0].toUpperCase()+ userDetail.name.slice(1) + ' '//[0].toUpperCase()+ userDetail.lastName.slice(1)} */}
                     <br />
                     <div className={s.imageBox}>
                       {userDetail?.profilePicture &&
@@ -686,7 +691,7 @@ export default function Details() {
                           <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
                         </svg>
                       )}
-                      {userByEmail && userByEmail?.postulado && (
+                      {userProfile && userByEmail?.postulado && (
                         <div className={s.divVisible}>
                           <label htmlFor="">Hacer visible mi postulacion</label>
                           <label className={s.switch}>
@@ -713,7 +718,6 @@ export default function Details() {
                       <span className={s.mail}>
                         <box-icon
                           border="circle"
-                          animation="tada"
                           color="white"
                           type="logo"
                           name="gmail"
@@ -772,7 +776,9 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon name="world" color="white"></box-icon>
+                    <box-icon name="world" 
+                    color="white"
+                    ></box-icon>
                     <span> Pais: </span>
                     <span>
                       {userDetail?.paiseId
@@ -783,7 +789,7 @@ export default function Details() {
                     <br />
                     <a
                       href={
-                        userByEmail?.webSite
+                        userDetail?.webSite
                           ? userByEmail?.webSite
                           : userDetail?.webSite
                       }
@@ -791,25 +797,42 @@ export default function Details() {
                     >
                       <box-icon
                         name="planet"
-                        animation="flashing"
                         color="white"
                       ></box-icon>
                       <span> Sitio Web </span>
                     </a>
-
+                    <br /> 
                     <br />
+                    <box-icon name='diamond' color="white"></box-icon>
                     <span>Años de Experiencia: </span>
                     <span>
                       {userByEmail?.yearsOfExperience
-                        ? userByEmail?.yearsOfExperience
+                        ? userDetail?.yearsOfExperience
                         : userDetail?.yearsOfExperience}
                     </span>
                     <br />
+                    <br />
+                    <box-icon 
+                    name='dollar-circle' 
+                    color="white"
+                    ></box-icon>
                     <span>Presupuesto por día: </span>
+                      <span>
+                      {userDetail?.dailyBudget
+                        ? userDetail?.dailyBudget
+                        : userByEmail?.dailyBudget}
+                    </span>
+                    <br />
+                    <br />
+                    <box-icon 
+                    name='star'
+                    color="white"
+                    ></box-icon>
+                    <span>Reputacion: </span>
                     <span>
-                      {userByEmail?.dailyBudget
-                        ? userByEmail?.dailyBudget
-                        : userDetail?.dailyBudget}
+                      {userDetail
+                        ? "⭐".repeat(Math.floor(userDetail?.reputacion))
+                        : "⭐".repeat(Math.floor(userByEmail?.reputacion))}
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
@@ -864,33 +887,22 @@ export default function Details() {
                   </div>
                 </div>
               </div>
+              <div className={s.divScrollContracts}>
+                {" "}
+                <button
+                  className={s.scrollContracts}
+                  onClick={() => scrollTo(refContracts)}
+                >
+                  <BsChevronDoubleDown />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <div ref={refContracts}>
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
-            return (
-               (
-                <div className={s.cardContrato}>
-                  <Contracts
-                    description={cur.description}
-                    date={cur.date}
-                    expiration_date={cur.expiration_date}
-                    status={cur.status}
-                    price={cur.price}
-                    aceptado={cur.aceptado}
-                    idContrato={cur.id}
-                    pagado={cur.pagado}
-                  />
-                </div>
-              )
-            );
-          })}
-
-        {/* {userDetail?.contratos &&
-          userDetail?.contratos.map((cur) => { //----
             return (
               <div className={s.cardContrato}>
                 <Contracts
@@ -901,10 +913,14 @@ export default function Details() {
                   price={cur.price}
                   aceptado={cur.aceptado}
                   idContrato={cur.id}
+                  pagado={cur.pagado}
                 />
               </div>
             );
-          })} */}
+          })}
+        <div className={s.buttonTop}>
+          <ScrollTopDetail className={s.buttonTop} />
+        </div>
       </div>
     </div>
   );

@@ -15,9 +15,8 @@ export function setearContrato(propuestaContrato) {
     try {
       let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
       console.log("****", propuestaCont, "*****");
-      
     } catch (e) {
-      console.log("error en el cach de setear contrato", e)
+      console.log("error en el cach de setear contrato", e);
     }
   };
 }
@@ -33,41 +32,43 @@ export function getContratoId(idContrato) {
   };
 }
 
-export function aceptarContrato(id){
-  return async function(dispatch){
+export function aceptarContrato(id) {
+  return async function (dispatch) {
     try {
       //console.log(id,"actions contratos aceptar contrato")
       const contratoAceptado = await axios.put(`/contratos/accept/${id}`);
-      console.log(contratoAceptado)
-      
+      console.log(contratoAceptado);
     } catch (error) {
-      console.error("Error en la Accion de aceptar contrato", error)
+      console.error("Error en la Accion de aceptar contrato", error);
     }
-  }
+  };
 }
 
-export function rechazarContrato(id){
-  return async function(dispatch){
+export function rechazarContrato(id) {
+  return async function (dispatch) {
     try {
-      console.log(id,"actions contratos rechazar contrato")
-      const conrtatoRechazado = await axios.put(`/contratos/cancel/${id}`)
-      console.log(conrtatoRechazado)
+      console.log(id, "actions contratos rechazar contrato");
+      const conrtatoRechazado = await axios.put(`/contratos/cancel/${id}`);
+      console.log(conrtatoRechazado);
     } catch (error) {
-      console.error("Error en la Accion de rechazar contrato", error)
-      
+      console.error("Error en la Accion de rechazar contrato", error);
     }
-  }
+  };
 }
 
-export function putContrato(id,data){
-  console.log("put contrato",id, data,"contrato")
-  return async function (dispatch){
+export function putContrato(id, data) {
+ 
+  return async function (dispatch) {
     try {
-      let modificacionContrato= await axios.put(`/contratos/${id}`, data)
+      let modificacionContrato = await axios.put(`/contratos/${id}`, data);
     } catch (e) {
       console.log("**error en action el catch de putcontrato**", e);
     }
-  }
-};
+  };
+}
 
-
+export function resetContract() {
+  return {
+    type: "RESET_CONTRACT",
+  };
+}

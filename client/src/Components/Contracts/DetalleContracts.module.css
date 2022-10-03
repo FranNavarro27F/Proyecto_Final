@@ -1,7 +1,18 @@
+/* .bodyyy{
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+  
+} */
+
 .titulito {
   color: #ffffff;
-  margin-top: 3vh;
-  margin-left: 3vh;
+  margin-top: 8vh;
+  margin-left: 7vh;
+ 
 }
 
 .buttonDetalle {
@@ -80,4 +91,12 @@
   display: flex;
   margin-left: 50vh;
   cursor: pointer;
+}
+
+/* ----------------------------------- SVG CHICO---------------------------- */
+.chicoContrato{
+  width: 65vh;
+  height: 80vh;
+  margin-top:-55vh;
+  margin-left: 70vh;
 }

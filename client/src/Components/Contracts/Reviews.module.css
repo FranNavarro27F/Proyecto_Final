@@ -19,6 +19,14 @@
 	
       
 }
+.textarea {
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 4vh -10vh;
+    min-height: 17vh;
+    min-width: 47vh;
+ } 
 .buttonDetalle:hover {
     transition-delay: 0.2s;
     transition: 0.8s;

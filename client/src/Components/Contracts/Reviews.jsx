@@ -78,9 +78,10 @@ const [ input, setInput ] = useState({
           )
         })}
       </div>
-      <textarea
+      <textarea 
+      className={s.textarea}
         placeholder="Cómo fue tu experiencia?"
-        style={styles.textarea}
+        // style={styles.textarea}
         onChange={(e)=>handleTeaxArea(e)}
       />
 
@@ -107,14 +108,14 @@ const styles = {
 //     display: "flex",
 //     flexDirection: "row",
 //   },
-  textarea: {
-    border: "1px solid #a9a9a9",
-    borderRadius: 5,
-    padding: 10,
-    margin: "25px 4",
-    minHeight: 100,
+  // textarea: {
+  //   border: "1px solid #a9a9a9",
+  //   borderRadius: 5,
+  //   padding: 10,
+  //   margin: "40px 4",
+  //   minHeight: 100,
     
-  },
+  // },
 //   button: {
 //     border: "1px solid #a9a9a9",
 //     borderRadius: 5,
