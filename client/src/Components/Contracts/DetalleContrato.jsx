@@ -77,7 +77,6 @@ export default function DetalleContrato() {
   useEffect(() => {
     if (searchParams.get("status") === "approved") {
       dispatch(putContrato(id, { pagado: true }));
-      setEstadoContato(true);
     }
   }, [dispatch, id, searchParams]);
 
@@ -108,7 +107,7 @@ export default function DetalleContrato() {
             {detalleC?.status}
             <br />
             <label>Estado: </label>
-            {!estadoContrato
+            {!detalleC?.pagado
               ? detalleC?.aceptado === false
                 ? "No aceptado"
                 : `Aceptado en espera de pago ⚠`
@@ -126,10 +125,16 @@ export default function DetalleContrato() {
           </button>
           {
             <div>
-              {detalleC?.pagado &&
+              {usuarioActual &&
+                usuarioActual !== detalleC.employer &&
+                !detalleC?.pagado &&
                 (!pagar ? (
                   <button
-                    // disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
+                    disabled={
+                      usuarioActual
+                        ? usuarioActual === detalleC.employer
+                        : false
+                    }
                     onClick={(e) => handleAceptar(e)}
                     className={s.buttonDetalle}
                   >
@@ -141,17 +146,18 @@ export default function DetalleContrato() {
                   </a>
                 ))}
 
-              <button
-                disabled={
-                  usuarioActual ? usuarioActual === detalleC.employer : false
-                }
-                className={s.buttonDetalle}
-                onClick={(e) => handleRechazar(e)}
-              >
-                Rechazar
-              </button>
-              {pagar &&
-                detalleC.aceptado &&
+              {!detalleC?.pagado && (
+                <button
+                  disabled={
+                    usuarioActual ? usuarioActual === detalleC.employer : false
+                  }
+                  className={s.buttonDetalle}
+                  onClick={(e) => handleRechazar(e)}
+                >
+                  Rechazar
+                </button>
+              )}
+              {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
                   <div>

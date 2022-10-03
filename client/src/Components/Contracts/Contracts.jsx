@@ -14,6 +14,7 @@ export default function Contracts({
   price,
   aceptado,
   idContrato,
+  pagado,
 }) {
   // let idContrato = contrato.cur.id;
   const navigate = useNavigate();
@@ -45,10 +46,14 @@ export default function Contracts({
           {status}
           <br />
           <label>Estado: </label>
+          {!pagado
+            ? aceptado === false
+              ? "No aceptado"
+              : `Aceptado en espera de pago ⚠`
+            : "Aceptado y pagado ✅ "}
           {aceptado}
           <br />
         </div>
-
         <button
           onClick={() => {
             navigate(`/contrato/${idContrato}`);
