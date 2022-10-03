@@ -1,13 +1,14 @@
 import React from "react";
 // import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getContratoId } from "../../Redux/Actions/Contracts";
 import s from "../Details/Details.module.css";
 // import DetalleContrato from "./DetalleContrato";
 
 export default function Contracts({
+  idEmployer,
   description,
   date,
   expiration_date,
@@ -17,6 +18,23 @@ export default function Contracts({
   idContrato,
   pagado,
 }) {
+
+
+
+  //--- funcion para encontrar el nombre del employer de este contrato----
+  const usuarios=useSelector(state=> state.devUser.allUsers);
+
+  const findNameEmployer= (id)=>{
+
+    if(usuarios?.length){
+      let employerObj= usuarios.find(cur=> cur.id === id);
+      let name= employerObj?.name;
+      return name;
+    }
+
+  }
+  //----------------------------------------------------------------------
+
   // let idContrato = contrato.cur.id;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,31 +47,38 @@ export default function Contracts({
     <div className={s.back}>
       <div className={s.divCardContrato}>
         <div className={s.textCardContrato}>
-          {/* <label>Id contrato: </label>
-          {idContrato} */}
-          <label>Fecha de Inicio: </label>
-          {date}
-          <br />
-          <label>Fecha de Finalización: </label>
-          {expiration_date}
-          <br />
-          <label>Presupuesto: $ </label>
-          {price}
-          <br />
-          <label>Descripción: </label>
-          {description}
-          <br />
-          <label>Status: </label>
-          {status}
-          <br />
           <label>Estado: </label>
           {!pagado
             ? aceptado === false
-              ? "No aceptado"
-              : `Aceptado en espera de pago ⚠`
+            ? "No aceptado"
+            : `Aceptado en espera de pago ⚠`
             : "Aceptado y pagado ✅ "}
           {aceptado}
           <br />
+          
+          <label>Fecha de Inicio: </label>
+          {date}
+          <br />
+         
+          <label>Presupuesto: $ </label>
+          {price}
+          <br />
+          
+          <label>Propuesto por:  </label>
+          {findNameEmployer(idEmployer)}
+          <br />
+         
+            {/* <label>Id contrato: </label>
+            {idContrato} */}
+          {/* <label>Fecha de Finalización: </label>
+          {expiration_date} */}
+         
+          {/* <label>Status: </label>
+          {status}
+          <br /> */}
+          {/* <label>Descripción: </label>
+          {description}
+          <br /> */} 
         </div>
         <button
           onClick={() => {

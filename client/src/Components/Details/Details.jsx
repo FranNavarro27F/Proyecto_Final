@@ -42,21 +42,27 @@ export default function Details() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
+  const user = useUser();
+  
+
+ 
 
   let [disabled, setDisabled] = useState(false);
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  const user = useUser();
 
   const [userProfile, setUserProfile] = useState(false);
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [dispatch, id, user?.email, userByEmail?.id]);
+
+
 
   useEffect(() => {
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [id, userByEmail?.id]);
+  
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
     dispatch(getUserId(id));
-  }, [dispatch]);
+  }, [dispatch, id, user?.email]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
@@ -75,21 +81,21 @@ export default function Details() {
     const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
 
       if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
-          // si date es menor a fecha de hoy
-          //setear status en "Inactivo"
+                // si date es menor a fecha de hoy
+                //setear status en "Inactivo"
         dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
       }
       if (
         compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
         compararFechas(unContrato.expiration_date, unContrato.date) === "-"
       ) {
-          // si date es mayor a fecha de hoy y menor a fecha de termino
-          //setear status en "Activo"
+                // si date es mayor a fecha de hoy y menor a fecha de termino
+                //setear status en "Activo"
         dispatch(putContrato(unContrato.id, { status: "Activo" }));
       }
       if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
-          // si fecha de fin es menor a fecha de hoy
-          //setear status en "Concluido"
+                // si fecha de fin es menor a fecha de hoy
+                //setear status en "Concluido"
         dispatch(putContrato(unContrato.id, { status: "Concluido" }));
       }
     };
@@ -174,7 +180,7 @@ export default function Details() {
   };
 
   const handleCleanAndBack = () => {
-    dispatch(detailReset());
+    // dispatch(detailReset());
     navigate("/work");
   };
 
@@ -487,8 +493,9 @@ export default function Details() {
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
-              <div className={s.cardContrato}>
+              <div >
                 <Contracts
+                  idEmployer={cur.employer}
                   description={cur.description}
                   date={cur.date}
                   expiration_date={cur.expiration_date}
