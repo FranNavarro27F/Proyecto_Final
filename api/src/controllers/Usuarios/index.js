@@ -576,6 +576,7 @@ const modifyUser = async (data) => {
       lenguajes,
       servicios,
       paiseId,
+      postulado
     } = data;
 
     await Usuarios.update(
@@ -599,6 +600,7 @@ const modifyUser = async (data) => {
         cbu,
         cvu,
         paiseId,
+        postulado
       },
       {
         where: { email },
