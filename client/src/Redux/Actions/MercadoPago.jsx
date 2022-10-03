@@ -1,12 +1,13 @@
 import axios from "axios";
 
 // const { nombreContratista, mailContrado } = req.body;
-export function pagosMp() {
+export function pagosMp(price, id) {
   return async function (dispatch) {
     try {
+      console.log(price,id)
       return dispatch({
         type: "MP_PAYMENT",
-        payload: (await axios.post(`/pago/payment`)).data,
+        payload: (await axios.post(`/pago/payment/${id}`, price)).data,
       });
     } catch (e) {
       console.error(e, "error catch action payment MercadoPago");

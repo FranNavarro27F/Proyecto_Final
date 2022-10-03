@@ -27,6 +27,7 @@ router.get("/consultSub/:id", function (req, res, next) {
 router.post("/payment/:id", function (req, res, next) {
   const { price } = req.body;
   const { id } = req.params;
+  console.log("********",price, id,"***********")
   console.log(price);
   PaymentInstance.getPaymentLink(req, res, price, id);
 });
