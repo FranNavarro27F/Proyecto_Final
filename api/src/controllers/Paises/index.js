@@ -36,6 +36,23 @@ const getPaises = async () => {
 
 // -----------------------------------------------
 
+// GET COUNTRY BY NAME, RETURN ID
+const getCountryByName = async (name) => {
+  //
+  try {
+    const country = await Paises.findOne({
+      where: { name },
+    });
+
+    return country.id;
+    //
+  } catch (e) {
+    console.error(`${ERROR}getPaises --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
 const postPaises = async (name) => {
   //
   try {
@@ -102,6 +119,7 @@ const traerPaisPorId = async (id) => {
 
 module.exports = {
   getPaises,
+  getCountryByName,
   postPaises,
   deletePaises,
   putPaises,
