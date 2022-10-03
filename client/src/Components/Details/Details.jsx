@@ -542,15 +542,17 @@ export default function Details() {
                   </div>
                 </div>
               </div>
-              <div className={s.divScrollContracts}>
-                {" "}
-                <button
-                  className={s.scrollContracts}
-                  onClick={() => scrollTo(refContracts)}
-                >
-                  <BsChevronDoubleDown />
-                </button>
-              </div>
+              {contratosArenderizar && (
+                <div className={s.divScrollContracts}>
+                  {" "}
+                  <button
+                    className={s.scrollContracts}
+                    onClick={() => scrollTo(refContracts)}
+                  >
+                    <BsChevronDoubleDown />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
