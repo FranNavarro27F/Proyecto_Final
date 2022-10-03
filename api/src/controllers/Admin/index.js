@@ -227,7 +227,24 @@ const borrLogicUsuario = async (data) => {
 
 // -----------------------------------------------
 
-const toggleAdmin = async () => {};
+const toggleAdmin = async (id, admin) => {
+  //
+  try {
+    typeof admin === "boolean";
+    const user = await Usuarios.findByPk(id);
+    user.isAdmin = admin;
+
+    await user.save();
+    return `El usuario ${
+      (user.email, admin ? "ahora es" : "ya no es")
+    } administrador.`;
+    //
+  } catch (e) {
+    typeof visible !== "boolean"
+      ? console.error(`"admin" debe ser un boolean.`)
+      : console.error(`${ERROR}toggleAdmin --→ ${e}`);
+  }
+};
 
 // -----------------------------------------------
 
