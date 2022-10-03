@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getLenAd, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
+import s from "./DashboardAdmin.module.css";
 
 export default function LengList() {
     const dispatch = useDispatch()

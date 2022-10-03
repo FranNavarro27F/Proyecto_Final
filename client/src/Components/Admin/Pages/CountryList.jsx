@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getPaisesAd, putPaisesAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
+import s from "./DashboardAdmin.module.css";
 
 export default function CountryList() {
 
