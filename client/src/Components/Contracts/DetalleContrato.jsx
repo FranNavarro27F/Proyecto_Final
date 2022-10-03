@@ -160,7 +160,7 @@ export default function DetalleContrato() {
                   Rechazar
                 </button>
               )}
-              {detalleC.aceptado && (
+              {detalleC.aceptado && detalleC.pagado && (
                 <div>
                   <Reviews id={id} />
                 </div>
