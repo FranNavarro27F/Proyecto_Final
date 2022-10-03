@@ -29,7 +29,7 @@ class PaymentService {
       back_urls: {
         failure: "/failure",
         pending: "/pending",
-        success: "/https://programax.vercel.app/work",
+        success: "https://programax.vercel.app/",
       },
     };
 
