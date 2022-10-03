@@ -370,6 +370,7 @@ const getUserById = async (id) => {
         return false;
       }
     });
+
     //-----esta funcion se encarga de calcular el promedio de puntuacion de un usuario--
     const promedio = (arrContratos) => {
       let contratos_con_puntuacion = arrContratos.length
@@ -379,6 +380,7 @@ const getUserById = async (id) => {
             }
           })
         : [];
+
       if (contratos_con_puntuacion.length) {
         let cantidad_de_puntuaciones = contratos_con_puntuacion.length;
         let array_de_puntuaciones = contratos_con_puntuacion.map(
@@ -387,13 +389,15 @@ const getUserById = async (id) => {
         let suma_de_puntuaciones = array_de_puntuaciones.reduce(
           (acc, cur) => acc + cur
         );
+
         return suma_de_puntuaciones / cantidad_de_puntuaciones;
         //si quieren numero redondo-->
         //return Math.round(suma_de_puntuaciones / cantidad_de_puntuaciones)
       } else {
         return 1.0;
       }
-    }; //----------------------------------------------------------
+    };
+
     userM.reputacion = promedio(userM.contratos);
 
     return userM;
@@ -416,7 +420,8 @@ const getUserByName = async (name) => {
     });
     //
   } catch (e) {
-    console.error(`${ERROR}getUserByName --→ ${e}`);
+    console.error(`${ERROR}getUserByName --→ ${e}
+Causa probable del error: El usuario no se encuentra visible y/o habilitado.`);
   }
 };
 
@@ -479,6 +484,7 @@ const getByEmail = async (email) => {
 
 // -----------------------------------------------
 
+// POST USER WITH AUTH0 CREDENTIALS
 const postUserAuth = async (data) => {
   //
   try {
@@ -569,6 +575,7 @@ const modifyUser = async (email, data) => {
       dailyBudget,
       englishLevel,
       bio,
+      postulado,
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
@@ -604,6 +611,7 @@ const modifyUser = async (email, data) => {
         dailyBudget: dailyBudget ?? u.dailyBudget,
         englishLevel: englishLevel ?? u.englishLevel,
         bio: bio ?? u.bio,
+        postulado: postulado ?? u.postulado,
         tarjeta_numero: tarjeta_numero ?? u.tarjeta_numero,
         tarjeta_nombreCompleto:
           tarjeta_nombreCompleto?.toUpperCase() ?? u.tarjeta_nombreCompleto,
