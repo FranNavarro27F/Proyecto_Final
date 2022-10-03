@@ -23,6 +23,10 @@ const capitalize = (str) => {
 
 // -----------------------------------------------
 
+// ┌────────────────────────────┐
+// │         RUTAS POST         │
+// └────────────────────────────┘
+
 // POST (NEW) LANGUAGE
 const postLenguajes = async (name) => {
   //
@@ -101,6 +105,11 @@ const postPaises = async (name) => {
 
 // -----------------------------------------------
 
+// ┌────────────────────────────┐
+// │         RUTAS PUT          │
+// └────────────────────────────┘
+
+// DISABLE LANGUAGE
 const borrLogicLenguaje = async (data) => {
   //
   try {
@@ -126,6 +135,7 @@ const borrLogicLenguaje = async (data) => {
 
 // -----------------------------------------------
 
+// DISABLE SERVICE
 const borrLogicServicios = async (data) => {
   //
   try {
@@ -151,6 +161,7 @@ const borrLogicServicios = async (data) => {
 
 // -----------------------------------------------
 
+// DISABLE COUNTRY
 const borrLogicPaises = async (id, habilitado) => {
   //
   try {
@@ -170,6 +181,7 @@ const borrLogicPaises = async (id, habilitado) => {
 
 // -----------------------------------------------
 
+// DISABLE TECHNOLOGY
 const borrLogicTecnologias = async (id, habilitado) => {
   //
   try {
@@ -189,6 +201,7 @@ const borrLogicTecnologias = async (id, habilitado) => {
 
 // -----------------------------------------------
 
+// DISABLE USER
 const borrLogicUsuario = async (data) => {
   //
   try {
@@ -214,6 +227,15 @@ const borrLogicUsuario = async (data) => {
 
 // -----------------------------------------------
 
+const toggleAdmin = async () => {};
+
+// -----------------------------------------------
+
+// ┌────────────────────────────┐
+// │         RUTAS GET          │
+// └────────────────────────────┘
+
+// GET ALL USERS
 const getAdminUser = async () => {
   //
   try {
@@ -291,6 +313,7 @@ const getAdminUser = async () => {
 
 // -----------------------------------------------
 
+// GET ALL LANGUAGES
 const getAdminLeng = async () => {
   //
   try {
@@ -305,6 +328,7 @@ const getAdminLeng = async () => {
 
 // -----------------------------------------------
 
+// GET ALL SERVICES
 const getAdminServ = async () => {
   //
   try {
@@ -319,6 +343,7 @@ const getAdminServ = async () => {
 
 // -----------------------------------------------
 
+// GET ALL TECHNOLOGIES
 const getAdminTec = async () => {
   //
   try {
@@ -333,6 +358,7 @@ const getAdminTec = async () => {
 
 // -----------------------------------------------
 
+// GET ALL COUNTRIES
 const getAdminPaises = async () => {
   //
   try {
@@ -357,6 +383,7 @@ module.exports = {
   borrLogicLenguaje,
   borrLogicServicios,
   borrLogicUsuario,
+  toggleAdmin,
   getAdminLeng,
   getAdminPaises,
   getAdminServ,
