@@ -22,11 +22,17 @@ export default function useFetchAllData() {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
 
   useEffect(() => {
-    if (!countries) dispatch(getUsersBd());
-    if (!languajes) dispatch(getUsersBd());
-    if (!services) dispatch(getUsersBd());
-    if (!tecnologies) dispatch(getUsersBd());
-  }, [countries, dispatch, languajes, services, tecnologies]);
+    if (!countries.length) dispatch(getUsersBd());
+    if (!languajes.length) dispatch(getUsersBd());
+    if (!services.length) dispatch(getUsersBd());
+    if (!tecnologies.length) dispatch(getUsersBd());
+  }, [
+    dispatch,
+    countries.length,
+    languajes.length,
+    services.length,
+    tecnologies.length,
+  ]);
 
   return { countries, languajes, services, tecnologies };
 }

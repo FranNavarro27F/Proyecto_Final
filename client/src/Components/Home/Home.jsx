@@ -14,6 +14,7 @@ import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ export default function Home() {
   // const handleClick = () => {
   //   setOpen(false);
   // };
+
+  let [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams, "PARAMSSSSSSS");
+  console.log(searchParams.get("status"), "GET STATUS");
 
   return isLoading ? (
     <Loader />

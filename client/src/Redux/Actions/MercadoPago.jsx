@@ -30,7 +30,6 @@ export function subscriptionMp(status, subscription_id, user_id) {
 }
 
 export function consultSub(id) {
-  console.log(`consulta por la suscripcion ${id}`);
   return async function (dispatch) {
     try {
       if (id !== undefined) {
