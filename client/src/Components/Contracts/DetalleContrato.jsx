@@ -128,7 +128,7 @@ export default function DetalleContrato() {
               {usuarioActual &&
                 usuarioActual !== detalleC.employer &&
                 !detalleC?.pagado &&
-                (!pagar ? (
+                (!detalleC?.aceptado ? (
                   <button
                     disabled={
                       usuarioActual
