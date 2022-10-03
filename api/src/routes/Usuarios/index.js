@@ -73,7 +73,7 @@ router.put("/", async (req, res) => {
   try {
     const { email } = req.query;
     await modifyUser(email, req.body);
-    res.status(200).send(`Usuario ${email} modificado con éxito.`);
+    res.send(`Usuario ${email} modificado con éxito.`);
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }

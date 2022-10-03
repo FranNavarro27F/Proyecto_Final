@@ -553,7 +553,7 @@ const setVisible = async (id, visible) => {
 
 // -----------------------------------------------
 
-const modifyUser = async (query, data) => {
+const modifyUser = async (email, data) => {
   //
   try {
     const {
@@ -561,7 +561,6 @@ const modifyUser = async (query, data) => {
       isAdmin,
       name,
       lastName,
-      email,
       city,
       linkedIn,
       gitHub,
@@ -586,14 +585,10 @@ const modifyUser = async (query, data) => {
 
     // --------------------------------------------
 
-    // SI EL FORMULARIO DEL FRONT TOMA VALORES PREVIOS:
+    // SI EL FORMULARIO DEL FRONT NO TOMA VALORES PREVIOS:
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
-    const u = await getByEmail(query);
-    // console.log("datos anteriores", u);
-    const c = await traerPaisPorId(u.paiseId);
-    console.log("CONTROLLER/USUARIOS - PAIS ID", paiseId);
-    console.log("CONTROLLER/USUARIOS - C", c);
+    const u = await getByEmail(email);
 
     await Usuarios.update(
       {
@@ -623,44 +618,37 @@ const modifyUser = async (query, data) => {
         // paiseId: paiseId ?? c.id,
       },
       {
-        where: { email: query },
+        where: { email },
       }
     );
 
     // --------------------------------------------
 
-    // SI EL FORMULARIO DEL FRONT NO TOMA VALORES PREVIOS:
+    // SI EL FORMULARIO DEL FRONT TOMA VALORES PREVIOS:
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-
-    // const u = await getByEmail(email);
-    // // console.log("datos anteriores", u);
-    // const c = await traerPaisPorId(u.paiseId);
-    // console.log("CONTROLLER/USUARIOS - PAIS ID", paiseId);
-    // console.log("CONTROLLER/USUARIOS - C", c);
 
     // await Usuarios.update(
     //   {
-    //     profilePicture: data.profilePicture ?? u.profilePicture,
-    //     isAdmin: data.isAdmin ?? u.isAdmin,
-    //     name: data.name,
-    //     lastName: data.lastName,
-    //     city: data.city ?? u.city,
-    //     linkedIn: data.linkedIn ?? u.linkedIn,
-    //     gitHub: data.gitHub ?? u.gitHub,
-    //     webSite: data.webSite ?? u.webSite,
-    //     yearsOfExperience: data.yearsOfExperience ?? u.yearsOfExperience,
-    //     dailyBudget: data.dailyBudget ?? u.dailyBudget,
-    //     englishLevel: data.englishLevel ?? u.englishLevel,
-    //     bio: data.bio ?? u.bio,
-    //     tarjeta_numero: data.tarjeta_numero ?? u.tarjeta_numero,
+    //     profilePicture: profilePicture ?? null,
+    //     isAdmin: isAdmin ?? null,
+    //     name: name,
+    //     lastName: lastName,
+    //     city: city ?? null,
+    //     linkedIn: linkedIn ?? null,
+    //     gitHub: gitHub ?? null,
+    //     webSite: webSite ?? null,
+    //     yearsOfExperience: yearsOfExperience ?? null,
+    //     dailyBudget: dailyBudget ?? null,
+    //     englishLevel: englishLevel ?? null,
+    //     bio: bio ?? null,
+    //     tarjeta_numero: tarjeta_numero ?? null,
     //     tarjeta_nombreCompleto:
-    //       data.tarjeta_nombreCompleto?.toUpperCase() ??
-    //       u.tarjeta_nombreCompleto,
-    //     tarjeta_vencimiento: data.tarjeta_vencimiento ?? u.tarjeta_vencimiento,
+    //       tarjeta_nombreCompleto?.toUpperCase() ?? null,
+    //     tarjeta_vencimiento: tarjeta_vencimiento ?? null,
     //     tarjeta_codigoSeguridad:
-    //       data.tarjeta_codigoSeguridad ?? u.tarjeta_codigoSeguridad,
-    //     cbu: data.cbu ?? u.cbu,
-    //     cvu: data.cvu ?? u.cvu,
+    //       tarjeta_codigoSeguridad ?? null,
+    //     cbu: cbu ?? null,
+    //     cvu: cvu ?? null,
     //     // visible,
     //     // postulado,
     //     paiseId,
@@ -696,9 +684,9 @@ const modifyUser = async (query, data) => {
       ],
     });
 
-    if (servicios.length) modUsr.setServicios(servicios);
-    if (lenguajes.length) modUsr.setLenguajes(lenguajes);
-    if (tecnologias.length) modUsr.setTecnologias(tecnologias);
+    if (servicios) modUsr.setServicios(servicios);
+    if (lenguajes) modUsr.setLenguajes(lenguajes);
+    if (tecnologias) modUsr.setTecnologias(tecnologias);
 
     return modUsr;
     //
