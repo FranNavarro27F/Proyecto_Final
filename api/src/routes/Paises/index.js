@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const {
   getPaises,
+  getCountryByName,
   postPaises,
   deletePaises,
   putPaises,
@@ -15,7 +16,13 @@ const router = Router();
 router.get("/", async (req, res) => {
   //
   try {
-    res.status(200).json(await getPaises());
+    const { name } = req.query;
+    let result;
+
+    if (name) result = await getCountryByName(name);
+    else result = await getPaises();
+
+    res.json(result);
     //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);

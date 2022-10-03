@@ -7,6 +7,8 @@ const {
   Contratos,
 } = require("../../db.js");
 
+const { getCountryByName } = require("../Paises");
+
 const { Op } = require("sequelize");
 
 const ERROR = "Error @ controllers/Usuarios/";
