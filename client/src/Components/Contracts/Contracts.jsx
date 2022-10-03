@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getContratoId } from "../../Redux/Actions/Contracts";
 import s from "../Details/Details.module.css";
-import DetalleContrato from "./DetalleContrato";
+// import DetalleContrato from "./DetalleContrato";
 
 export default function Contracts({
   description,
