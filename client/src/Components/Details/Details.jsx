@@ -27,6 +27,7 @@ import { putContrato } from "../../Redux/Actions/Contracts";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import ScrollTop from "../Home/ScrollTop";
 import ScrollTopDetail from "./ScrollTopDetail";
+
 // import { Swal } from "sweetalert2";
 
 export default function Details() {
@@ -776,9 +777,7 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon name="world" 
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="world" color="white"></box-icon>
                     <span> Pais: </span>
                     <span>
                       {userDetail?.paiseId
@@ -795,15 +794,12 @@ export default function Details() {
                       }
                       className={s.link}
                     >
-                      <box-icon
-                        name="planet"
-                        color="white"
-                      ></box-icon>
+                      <box-icon name="planet" color="white"></box-icon>
                       <span> Sitio Web </span>
                     </a>
-                    <br /> 
                     <br />
-                    <box-icon name='diamond' color="white"></box-icon>
+                    <br />
+                    <box-icon name="diamond" color="white"></box-icon>
                     <span>Años de Experiencia: </span>
                     <span>
                       {userByEmail?.yearsOfExperience
@@ -812,22 +808,16 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon 
-                    name='dollar-circle' 
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="dollar-circle" color="white"></box-icon>
                     <span>Presupuesto por día: </span>
-                      <span>
+                    <span>
                       {userDetail?.dailyBudget
                         ? userDetail?.dailyBudget
                         : userByEmail?.dailyBudget}
                     </span>
                     <br />
                     <br />
-                    <box-icon 
-                    name='star'
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="star" color="white"></box-icon>
                     <span>Reputacion: </span>
                     <span>
                       {userDetail

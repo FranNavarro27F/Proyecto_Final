@@ -19,6 +19,7 @@ import Loader from "../Loader/Loader";
 
 //actions
 import {
+  getUserEmail,
   // getUserEmail,
   getUsersBd,
   putDevUser,
@@ -45,9 +46,9 @@ export default function DevUsersCreate() {
 
   const { userByEmail } = useFetchUsers(user?.email);
   // const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  // useEffect(() => {
-  //   if (!userByEmail) dispatch(getUserEmail(user?.email));
-  // }, [dispatch, user?.email, userByEmail]);
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email]);
 
   const [errors, setErrors] = useState({});
 
@@ -260,16 +261,52 @@ export default function DevUsersCreate() {
     e.preventDefault();
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
-      handleReset();
       setTimeout(() => {
         navigate("/work");
       }, 1500);
       dispatch(
-        putDevUser({
-          ...input,
-          postulado: true,
-        })
+        putDevUser(
+          {
+            ...input,
+            postulado: true,
+          },
+          user?.email
+        )
       );
+      setCache({
+        name: ("name", `${userByEmail?.name}`),
+        lastName: ("lastName", `${userByEmail?.lastName}`),
+        profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
+        email: ("email", `${userByEmail?.email}`),
+        linkedIn:
+          ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : ""}`),
+        gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : ""}`),
+        webSite:
+          ("webSite", `${userByEmail?.webSite ? userByEmail?.webSite : ""}`),
+        yearsOfExperience:
+          ("yearsOfExperience",
+          `${
+            userByEmail?.yearsOfExperience
+              ? userByEmail?.yearsOfExperience
+              : "0"
+          }`),
+        dailyBudget:
+          ("dailyBudget",
+          `${userByEmail?.dailyBudget ? userByEmail?.dailyBudget : "0"}`),
+        englishLevel:
+          ("englishLevel",
+          `${
+            userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
+          }`),
+        paiseId: ("paiseId", ``),
+        // paiseIdLabel:
+        //   ("paiseIdLabel",
+        //   `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
+        tecnologias: ("tecnologias", []),
+        lenguajes: ("lenguajes", []),
+        servicios: ("servicios", []),
+        postulado: true,
+      });
       setModal(true);
       dispatch(getUsersBd());
     } else {
