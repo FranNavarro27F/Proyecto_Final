@@ -69,6 +69,8 @@ export default function DetalleContrato() {
     if (detallePerfil) {
       navigate(`/work/details/${detallePerfil.id}`);
     }
+    console.log("aaaaa");
+    dispatch(resetContract());
   };
 
   let [searchParams, setSearchParams] = useSearchParams();
