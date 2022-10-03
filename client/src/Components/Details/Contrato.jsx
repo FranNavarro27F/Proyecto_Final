@@ -121,6 +121,7 @@ export default function Contrato({
             <div className={s.divFormGen}>
               <div className={s.divDataForm}>
                 <label>Fecha de inicio: </label>
+                <br />
                 <input
                   type={"date"}
                   name="date"
@@ -131,6 +132,7 @@ export default function Contrato({
                   required
                   onChange={handleChangePropuesta}
                 />
+                <br />
                 <label>Fecha de finalizacion: </label>
                 <input
                   classname={s.todosInput}
@@ -139,6 +141,7 @@ export default function Contrato({
                   onChange={handleChangePropuesta}
                   max="2023-09-30"
                 />
+                <br />
                 <label>Presupuesto total en pesos: $</label>
                 <input
                   classname={s.todosInput}
@@ -150,17 +153,15 @@ export default function Contrato({
                   onChange={handleChangePropuesta}
                 />
               </div>
-              <div className={s.divDescription}>
-                <label>Descripcion: </label>
-                <input
-                  classname={s.textDescription}
-                  type="text"
-                  minlength="4"
-                  maxlength="100"
-                  name="description"
+              <div>
+                <span>Descripcion: </span>
+                <div className={s.divDescription}>
+                <textarea
+                  className={s.textArea}
                   placeholder="Ingrese una descripción"
                   onChange={handleChangePropuesta}
                 />
+                </div>
               </div>
             </div>
           </form>
@@ -169,16 +170,16 @@ export default function Contrato({
           <button
             className={s.buttonVolver}
             onClick={() => {
-              console.log("aaaaa");
+              //console.log("aaaaa");
               dispatch(resetContract());
               SetContratoDetail(!contratoDetail);
             }}
           >
-            VOLVER
+            Volver
           </button>
 
           <button className={s.buttonPago} onClick={handlerSendPropuesta}>
-            ENVIAR PROPUESTA
+            Enviar Propuesta
           </button>
         </div>
       </div>
