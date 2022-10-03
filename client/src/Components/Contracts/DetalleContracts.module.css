@@ -17,7 +17,7 @@
   height: 5vh;
   margin-right: 15px;
 }
-.buttonDetalle :disabled {
+.buttonDetalle:disabled {
   background: linear-gradient(101.81deg, #7f7e80 25.84%, #3645a0 98.95%);
   border-radius: 2.1vw;
   color: #ffffff;
