@@ -24,6 +24,9 @@ import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
+import { BsChevronDoubleDown } from "react-icons/bs";
+import ScrollTop from "../Home/ScrollTop";
+import ScrollTopDetail from "./ScrollTopDetail";
 import { contratosVisibles } from "./ContratosVisibles";
 // import { Swal } from "sweetalert2";
 
@@ -61,7 +64,7 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
- 
+  //--- aca determinamos que contratos se muestran y cuales no-------------------------
   let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
   let contratosArenderizar =
     contratosS && user.user_id && contratosVisibles(contratosS, user);
@@ -90,7 +93,6 @@ export default function Details() {
     let fechaExacta = año + "-" + mes + "-" + dia;
     return fechaExacta;
   };
-
   //-----------------------------------------------------------------------
 
   //---esta funcion compara la fecha actual contra le fecha ingresada e indica si es "-","+","=" ---
