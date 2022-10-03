@@ -76,14 +76,13 @@ export default function DetalleContrato() {
   let [searchParams, setSearchParams] = useSearchParams();
   console.log(searchParams.get("status"), "STATUS PAGO");
 
-  const [estadoContrato, setEstadoContato] = useState(false);
+
   useEffect(() => {
     if (searchParams.get("status") === "approved") {
       dispatch(putContrato(id, { pagado: true }));
     }
   }, [dispatch, id, searchParams]);
-
-  console.log(estadoContrato);
+console.log(detalleC?.pagado,"detallec.pagado")
 
   return (
     <div className={s.bodyyy}>
