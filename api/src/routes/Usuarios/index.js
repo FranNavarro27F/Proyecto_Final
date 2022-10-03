@@ -72,7 +72,8 @@ router.get("/:id", async (req, res) => {
 router.put("/", async (req, res) => {
   try {
     const { email } = req.query;
-    res.status(200).json(await modifyUser(email, req.body));
+    await modifyUser(email, req.body);
+    res.status(200).send(`Usuario ${email} modificado con éxito.`);
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }

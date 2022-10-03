@@ -551,62 +551,69 @@ const setVisible = async (id, visible) => {
 
 // -----------------------------------------------
 
-const modifyUser = async (query, data) => {
+const modifyUser = async (email, data) => {
   //
   try {
-    let {
-      profilePicture,
-      isAdmin,
-      name,
-      lastName,
-      email,
-      city,
-      linkedIn,
-      gitHub,
-      webSite,
-      yearsOfExperience,
-      dailyBudget,
-      englishLevel,
-      bio,
-      tarjeta_numero,
-      tarjeta_nombreCompleto,
-      tarjeta_vencimiento,
-      tarjeta_codigoSeguridad,
-      cbu,
-      cvu,
-      paiseId,
+    const {
+      //   id,
+      //   profilePicture,
+      //   isAdmin,
+      //   name,
+      //   lastName,
+      //   email,
+      //   city,
+      //   linkedIn,
+      //   gitHub,
+      //   webSite,
+      //   yearsOfExperience,
+      //   dailyBudget,
+      //   englishLevel,
+      //   bio,
+      //   tarjeta_numero,
+      //   tarjeta_nombreCompleto,
+      //   tarjeta_vencimiento,
+      //   tarjeta_codigoSeguridad,
+      //   cbu,
+      //   cvu,
+      //   //   visible,
+      //   //   postulado,
+      //   paiseId,
       servicios,
       lenguajes,
       tecnologias,
     } = data;
 
+    const u = await getByEmail(email);
+
     await Usuarios.update(
       {
-        profilePicture,
-        isAdmin,
-        name, //
-        lastName, //
-        email, //
-        city,
-        linkedIn,
-        gitHub,
-        webSite,
-        yearsOfExperience,
-        dailyBudget,
-        englishLevel,
-        bio,
-        tarjeta_numero,
-        tarjeta_nombreCompleto,
-        tarjeta_vencimiento,
-        tarjeta_codigoSeguridad,
-        cbu,
-        cvu,
+        profilePicture: data.profilePicture ?? u.profilePicture,
+        isAdmin: data.isAdmin ?? u.isAdmin,
+        name: data.name,
+        lastName: data.lastName,
+        city: data.city ?? u.city,
+        linkedIn: data.linkedIn ?? u.linkedIn,
+        gitHub: data.gitHub ?? u.gitHub,
+        webSite: data.webSite ?? u.webSite,
+        yearsOfExperience: data.yearsOfExperience ?? u.yearsOfExperience,
+        dailyBudget: data.dailyBudget ?? u.dailyBudget,
+        englishLevel: data.englishLevel ?? u.englishLevel,
+        bio: data.bio ?? u.bio,
+        tarjeta_numero: data.tarjeta_numero ?? u.tarjeta_numero,
+        tarjeta_nombreCompleto:
+          data.tarjeta_nombreCompleto?.toUpperCase() ??
+          u.tarjeta_nombreCompleto,
+        tarjeta_vencimiento: data.tarjeta_vencimiento ?? u.tarjeta_vencimiento,
+        tarjeta_codigoSeguridad:
+          data.tarjeta_codigoSeguridad ?? u.tarjeta_codigoSeguridad,
+        cbu: data.cbu ?? u.cbu,
+        cvu: data.cvu ?? u.cvu,
         // visible,
         // postulado,
-        paiseId,
+        paiseId: data.paiseId ?? u.paiseId,
       },
       {
-        where: { email: query },
+        where: { email },
       }
     );
 
@@ -633,9 +640,11 @@ const modifyUser = async (query, data) => {
       ],
     });
 
-    modUsr.setTecnologias(tecnologias);
-    modUsr.setLenguajes(lenguajes);
-    modUsr.setServicios(servicios);
+    if (servicios.length) modUsr.setServicios(servicios);
+    if (lenguajes.length) modUsr.setLenguajes(lenguajes);
+    if (tecnologias.length) modUsr.setTecnologias(tecnologias);
+
+    return modUsr;
     //
   } catch (e) {
     console.error(`${ERROR}modifyUser --→ ${e}`);

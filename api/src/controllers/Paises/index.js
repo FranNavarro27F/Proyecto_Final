@@ -36,6 +36,20 @@ const getPaises = async () => {
 
 // -----------------------------------------------
 
+// GET COUNTRY BY NAME
+const getPaisesByName = async (name) => {
+  //
+  try {
+    datosPais = await Paises.findAll();
+    return datosPais;
+    //
+  } catch (e) {
+    console.error(`${ERROR}getPaises --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
 const postPaises = async (name) => {
   //
   try {
