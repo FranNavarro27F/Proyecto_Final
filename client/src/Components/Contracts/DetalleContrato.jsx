@@ -143,11 +143,13 @@ export default function DetalleContrato() {
                   </button>
                 )}
 
-              {usuarioActual === detalleC.employer && detalleC?.aceptado && (
-                <a href={initPoint} className={s.buttonDetalle}>
-                  pagar!
-                </a>
-              )}
+              {usuarioActual === detalleC.employer &&
+                detalleC?.aceptado &&
+                !detalleC?.pagado && (
+                  <a href={initPoint} className={s.buttonDetalle}>
+                    pagar!
+                  </a>
+                )}
 
               {!detalleC?.pagado && (
                 <button
