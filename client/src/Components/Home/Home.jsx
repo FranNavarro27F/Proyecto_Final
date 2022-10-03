@@ -44,6 +44,8 @@ export default function Home() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   console.log(searchParams, "PARAMSSSSSSS");
+  console.log(searchParams.get("status"), "GET STATUS");
+  console.log(searchParams.getAll(), "GET ALL");
 
   return isLoading ? (
     <Loader />
