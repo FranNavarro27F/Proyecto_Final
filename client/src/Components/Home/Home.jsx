@@ -38,14 +38,6 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
 
-  // const handleClick = () => {
-  //   setOpen(false);
-  // };
-
-  let [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams, "PARAMSSSSSSS");
-  console.log(searchParams.get("status"), "GET STATUS");
-
   return isLoading ? (
     <Loader />
   ) : (
