@@ -11,6 +11,9 @@ import{
 } from "react-router-dom"
 import UserList from "./Pages/UserList";
 import CountryList from "./Pages/CountryList";
+import LengList from "./Pages/LengList";
+import ServList from "./Pages/ServList";
+import TecnList from "./Pages/TecnList";
 
 
 export default function Admin(){
@@ -37,8 +40,11 @@ export default function Admin(){
             <h1>Bienvenido a Panel de Admin</h1>
             <div className="container">
             <SideBarAd/>
-            <UserList/>
-            <CountryList/>
+            {/* <UserList/> */}
+            {/* <CountryList/> */}
+            {/* <LengList/> */}
+            {/* <ServList/> */}
+            {/* <TecnList/> */}
             </div>
     </div>)
 

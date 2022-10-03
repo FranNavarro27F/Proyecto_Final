@@ -2,31 +2,31 @@ import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {cambioTabla, getPaisesAd, putPaisesAdmin} from "../../../Redux/Actions/Admin";
+import {cambioTabla, getLenAd, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
 
 
 
 
-export default function CountryList() {
+export default function LengList() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    let paisesAdmin = useSelector((state) => state.admin.paisAdmin)
+    let lenguajesAdmin = useSelector((state) => state.admin.lengAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
 
     var current = []
 
     // let aux = true
-    current = paisesAdmin.filter((curr)=> curr.habilitado === auxOrder)
+    current = lenguajesAdmin.filter((curr)=> curr.habilitado === auxOrder)
     
     let [newP, setNewP] = useState({
         name: ""
     })
 
     useEffect(()=>{
-        dispatch(getPaisesAd())
+        dispatch(getLenAd())
     },[])
 
 
@@ -41,11 +41,11 @@ export default function CountryList() {
         //     id: id,
         //     habilitado: habilitado
         // })
-        dispatch(putPaisesAdmin({
+        dispatch(putLenguajesAdmin({
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del Pais seleccionado Cambiado correctamente")
+        alert("Estado del Lenguaje seleccionado Cambiado correctamente")
         // dispatch(getPaisesAd())
         window.location.reload()
 
@@ -65,7 +65,7 @@ export default function CountryList() {
   return (
     <div className={s.container}>
         <div>
-            <h1>Soy Paises</h1>
+            <h1>Soy Lenguajes</h1>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
             
