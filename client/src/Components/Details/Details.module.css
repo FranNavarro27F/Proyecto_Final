@@ -23,16 +23,16 @@
   width: 100%;
   height: auto;
   left: 0vh;
-  top: 8%;
+  top: 7%;
 }
 
 .divBox {
   box-sizing: border-box;
   position: absolute;
   width: 130vh;
-  height: 90vh;
+  height: 87vh;
   left: 25vw;
-  top: 10vh;
+  top: 6vh;
   background: rgba(47, 47, 138, 0.247);
   border-radius: 30px;
   overflow: hidden;
@@ -48,7 +48,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 1.8vh;
-  line-height: 143.2%;
+  line-height: 130%;
   color: #ffffff;
   z-index: 1;
   position: absolute;
@@ -110,8 +110,8 @@
 
 .buttonL {
   position: relative;
-  left: 45vh;
-  top: 80vh;
+  left: 42vh;
+  top: 78vh;
   box-sizing: border-box;
   /* padding: 1.5vh; */
   width: 11vw;
@@ -148,8 +148,8 @@
 }
 .buttonBack {
   position: relative;
-  left: 45vh;
-  top: 80vh;
+  left: 42vh;
+  top: 78vh;
   box-sizing: border-box;
   /* padding: 1.5vh; */
   width: 11vw;

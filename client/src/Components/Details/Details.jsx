@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,15 +25,9 @@ import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
 import { BsChevronDoubleDown } from "react-icons/bs";
-import ScrollTop from "../Home/ScrollTop";
 import ScrollTopDetail from "./ScrollTopDetail";
-//---- import de funciones logicas para : setear propiedad STATUS en contratos--
-import { contratosVisibles } from "./LogicFunctions/ContratosVisibles";
-import { theDay } from "./LogicFunctions/Today";
-import { compararFechas } from "./LogicFunctions/CompararFechas";
-//------------------------------------------------------------------------------
-import SvgChica from "./SvgChica";
 
+import SvgChica from "./SvgChica";
 // import { Swal } from "sweetalert2";
 
 export default function Details() {
@@ -42,27 +36,21 @@ export default function Details() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
-  const user = useUser();
-  
-
- 
 
   let [disabled, setDisabled] = useState(false);
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const user = useUser();
 
   const [userProfile, setUserProfile] = useState(false);
-
-
-
-  useEffect(() => {
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [id, userByEmail?.id]);
-  
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [dispatch, id, user?.email, userByEmail?.id]);
+
+  useEffect(() => {
     dispatch(getUserId(id));
-  }, [dispatch, id, user?.email]);
+  }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
@@ -76,51 +64,134 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-  //-esta funcion modifica en DB la propiedad status al contrato ingresado ----
-  //deacuerdo a la fecha
-    const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
+  const scrollTo = (section) => {
+    section.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
-      if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
-                // si date es menor a fecha de hoy
-                //setear status en "Inactivo"
-        dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
+  const refContracts = useRef(null);
+
+  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
+  const contratosVisibles = (contratos, user) => {
+    let visibles = contratos.filter((cur) => {
+      if (cur.status === "Concluido") {
+        return true;
       }
-      if (
-        compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
-        compararFechas(unContrato.expiration_date, unContrato.date) === "-"
-      ) {
-                // si date es mayor a fecha de hoy y menor a fecha de termino
-                //setear status en "Activo"
-        dispatch(putContrato(unContrato.id, { status: "Activo" }));
+      if (cur.employer === user.user_id) {
+        return true;
       }
-      if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
-                // si fecha de fin es menor a fecha de hoy
-                //setear status en "Concluido"
-        dispatch(putContrato(unContrato.id, { status: "Concluido" }));
+      if (cur.developer === user.user_id) {
+        return true;
+      } else {
+        return false;
       }
-    };
-  //---------------------------------------------------------------------------
-   
-  //--- aca determinamos que contratos se muestran y cuales no--------------------
-  // se usa la funcion contratosVisibles -("./LogicFunctions/ContratosVisibles")--
+    });
+    return visibles;
+  };
+
   let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
   let contratosArenderizar =
     contratosS && user.user_id && contratosVisibles(contratosS, user);
-  //------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------
 
-  //----- esta es la definicion de funcion que mapea y modifica contrtos--------
-  let fecha_de_hoy = theDay();
+  //-----esta funcion nos da la fecha de hoy en formato correcto-------
+  const today = new Date().toLocaleDateString({
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  const setOrderDate = (today) => {
+    let division = today.split("/");
+    let dia = division[0];
+    let mes = division[1];
+    let año = division[2];
+    division[0] = año;
+    division[2] = dia;
+
+    if (mes.length === 1) {
+      mes = "0" + mes;
+    }
+    if (dia.length === 1) {
+      dia = "0" + dia;
+    }
+    let fechaExacta = año + "-" + mes + "-" + dia;
+    return fechaExacta;
+  };
+
+  //-----------------------------------------------------------------------
+
+  //---esta funcion compara la fecha actual contra le fecha ingresada e indica si es "-","+","=" ---
+  const compararFechas = (hoy, fechaAcomparar) => {
+    let hoyy = hoy.split("-");
+    let comp = fechaAcomparar.split("-");
+
+    let año_hoyy = hoyy[0];
+    let año_comp = comp[0];
+    if (Number(año_comp) < Number(año_hoyy)) {
+      return "-";
+    }
+    if (Number(año_comp) > Number(año_hoyy)) {
+      return "+";
+    }
+    if (Number(año_comp) === Number(año_hoyy)) {
+      let mes_hoy = hoyy[1];
+      let mes_comp = comp[1];
+      if (Number(mes_comp) < Number(mes_hoy)) {
+        return "-";
+      }
+      if (Number(mes_comp) > Number(mes_hoy)) {
+        return "+";
+      }
+      if (Number(mes_comp) === Number(mes_hoy)) {
+        let dia_hoy = hoyy[2];
+        let dia_comp = comp[2];
+        if (Number(dia_comp) < Number(dia_hoy)) {
+          return "-";
+        }
+        if (Number(dia_comp) > Number(dia_hoy)) {
+          return "+";
+        }
+        if (Number(dia_comp) === Number(dia_hoy)) {
+          return "=";
+        }
+      }
+    }
+  };
+  //------------------------------------------------------------------------------------
+
+  //-esta funcion modifica en DB la propiedad status al contrato ingresado deacuerdo a la fecha----
+  const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
+    if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
+      // si date es menor a fecha de hoy
+      //setear status en "Inactivo"
+      dispatch(putContrato(unContrato.id, { status: "Inactivo" }));
+    }
+    if (
+      compararFechas(fecha_de_hoy, unContrato.date) === "+" &&
+      compararFechas(unContrato.expiration_date, unContrato.date) === "-"
+    ) {
+      // si date es mayor a fecha de hoy y menor a fecha de termino
+      //setear status en "Activo"
+      dispatch(putContrato(unContrato.id, { status: "Activo" }));
+    }
+    if (compararFechas(fecha_de_hoy, unContrato.expiration_date) === "-") {
+      // si fecha de fin es menor a fecha de hoy
+      //setear status en "Concluido"
+      dispatch(putContrato(unContrato.id, { status: "Concluido" }));
+    }
+  };
+  //---------------------------------------------------------------------------------------
+
+  let fecha_de_hoy = setOrderDate(today);
+
   const mapeaYmodificaContratos = (fecha_de_hoy) => {
     userDetail.contratos.forEach((cur) =>
       SeteadoraStatusContratos(fecha_de_hoy, cur)
     );
   };
-  //-----------------------------------------------------------------------------
 
-  //---- aca seteamos en cada contrato que trae el usuario, la propiedad STATUS--
-  // en los valores que corresponda segun las fechas de inicio  VS fecha de hoy--
   userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
-  //-----------------------------------------------------------------------------
 
   const handleContact = () => {
     if (isAuthenticated) {
@@ -180,7 +251,7 @@ export default function Details() {
   };
 
   const handleCleanAndBack = () => {
-    // dispatch(detailReset());
+    dispatch(detailReset());
     navigate("/work");
   };
 
@@ -236,8 +307,8 @@ export default function Details() {
             <div className={s.container}>
               <SideMenu />
               <div className={s.backGroundDiv}>
-                <div >
-                  <SvgChica/>
+                <div>
+                  <SvgChica />
                 </div>
                 <div>
                   <img
@@ -248,9 +319,6 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    {/* {userProfile && (
-                      <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
-                    )} */}
                     <h2>
                       {userDetail?.name
                         ? userDetail?.name + " "
@@ -374,9 +442,7 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon name="world" 
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="world" color="white"></box-icon>
                     <span> Pais: </span>
                     <span>
                       {userDetail?.paiseId
@@ -393,15 +459,12 @@ export default function Details() {
                       }
                       className={s.link}
                     >
-                      <box-icon
-                        name="planet"
-                        color="white"
-                      ></box-icon>
+                      <box-icon name="planet" color="white"></box-icon>
                       <span> Sitio Web </span>
                     </a>
-                    <br /> 
                     <br />
-                    <box-icon name='diamond' color="white"></box-icon>
+                    <br />
+                    <box-icon name="diamond" color="white"></box-icon>
                     <span>Años de Experiencia: </span>
                     <span>
                       {userByEmail?.yearsOfExperience
@@ -410,22 +473,16 @@ export default function Details() {
                     </span>
                     <br />
                     <br />
-                    <box-icon 
-                    name='dollar-circle' 
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="dollar-circle" color="white"></box-icon>
                     <span>Presupuesto por día: </span>
-                      <span>
+                    <span>
                       {userDetail?.dailyBudget
                         ? userDetail?.dailyBudget
                         : userByEmail?.dailyBudget}
                     </span>
                     <br />
                     <br />
-                    <box-icon 
-                    name='star'
-                    color="white"
-                    ></box-icon>
+                    <box-icon name="star" color="white"></box-icon>
                     <span>Reputacion: </span>
                     <span>
                       {userDetail
@@ -485,17 +542,27 @@ export default function Details() {
                   </div>
                 </div>
               </div>
+              {
+                <div className={s.divScrollContracts}>
+                  {" "}
+                  <button
+                    className={s.scrollContracts}
+                    onClick={() => scrollTo(refContracts)}
+                  >
+                    <BsChevronDoubleDown />
+                  </button>
+                </div>
+              }
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <div ref={refContracts}>
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
-              <div >
+              <div className={s.cardContrato}>
                 <Contracts
-                  idEmployer={cur.employer}
                   description={cur.description}
                   date={cur.date}
                   expiration_date={cur.expiration_date}
@@ -508,23 +575,9 @@ export default function Details() {
               </div>
             );
           })}
-
-        {/* {userDetail?.contratos &&
-          userDetail?.contratos.map((cur) => { //----
-            return (
-              <div className={s.cardContrato}>
-                <Contracts
-                  description={cur.description}
-                  date={cur.date}
-                  expiration_date={cur.expiration_date}
-                  status={cur.status}
-                  price={cur.price}
-                  aceptado={cur.aceptado}
-                  idContrato={cur.id}
-                />
-              </div>
-            );
-          })} */}
+        <div className={s.buttonTop}>
+          <ScrollTopDetail className={s.buttonTop} />
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { resetContract, setearContrato } from "../../Redux/Actions/Contracts";
 import s from "./Details.module.css";
 import { useNavigate } from "react-router-dom";
 import { emailer } from "../../Redux/Actions/Emailer";
+import Swal from "sweetalert2";
 
 export default function Contrato({
   userByEmail,
@@ -81,6 +82,10 @@ export default function Contrato({
     );
   };
 
+  const sweetAlert = () => {
+    return Swal.fire("Good job!", "You clicked the button!", "success");
+  };
+
   const handlerSendPropuesta = (e) => {
     if (
       !propuesta.date ||
@@ -88,7 +93,8 @@ export default function Contrato({
       !propuesta.description ||
       !propuesta.price
     )
-      alert("Los campos no pueden estar vacíos.");
+      sweetAlert();
+    // alert("Los campos no pueden estar vacíos.");
     else if (errors.description) alert(errors.description);
     else if (errors.price) alert(errors.price);
     else {
@@ -101,7 +107,6 @@ export default function Contrato({
       //       IDContratado: userDetail.id
       //     })
       //  );
-      alert("Tu propuesta fue enviada correctamente!");
       navigate("/work");
     }
   };
@@ -156,11 +161,11 @@ export default function Contrato({
               <div>
                 <span>Descripcion: </span>
                 <div className={s.divDescription}>
-                <textarea
-                  className={s.textArea}
-                  placeholder="Ingrese una descripción"
-                  onChange={handleChangePropuesta}
-                />
+                  <textarea
+                    className={s.textArea}
+                    placeholder="Ingrese una descripción"
+                    onChange={handleChangePropuesta}
+                  />
                 </div>
               </div>
             </div>
