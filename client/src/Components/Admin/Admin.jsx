@@ -2,8 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getLenAd, getPaisesAd, getServAd, getTecnAdmin, getUsersAdmin} from "../../Redux/Actions/Admin";
-import SideBarAd from "./Extras/SideBarAd";
-
+import SideBarAd from "./SideBar/SideBarAd";
+import "./Admin.css"
+import{
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from "react-router-dom"
+import UserList from "./Pages/UserList";
+import CountryList from "./Pages/CountryList";
 
 
 export default function Admin(){
@@ -28,11 +35,12 @@ export default function Admin(){
     return (
         <div>
             <h1>Bienvenido a Panel de Admin</h1>
+            <div className="container">
             <SideBarAd/>
-            <div>
-
+            <UserList/>
+            <CountryList/>
             </div>
-        </div>
-    )
+    </div>)
+
 
 }
