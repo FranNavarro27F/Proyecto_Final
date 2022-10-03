@@ -1,0 +1,67 @@
+.container{
+    flex: 4;
+    background-color: rgb(255, 255, 255);
+    margin-top: 8px; 
+    
+}
+
+.divlist{
+    /* background-color: blueviolet; */
+    /* display: flex;
+    align-content: space-between; */
+    border: 2px;
+    border-style: solid;
+    border-radius: 1rem;
+    border-color: rgb(0, 0, 0);
+
+
+}
+
+.divIndiv{
+    /* color: rgb(186, 226, 226); */
+    display: flex;
+    justify-content: space-between; 
+    border: 1px solid black;
+    /* border-radius: 1rem; */
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+   
+}
+
+.divNombre{
+    /* background-color: rgb(0, 255, 255); */
+    position: relative;
+    height: 3rem;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.divHabilitador{
+    /* background-color: rgba(255, 0, 0, 0.533); */
+    position: relative;
+    height: 3rem;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonHab{
+    /* background-color: blueviolet; */
+    position: relative;
+    height: 3rem;
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonHab button{
+    width: 4rem;
+    border: 2px solid black;
+}
