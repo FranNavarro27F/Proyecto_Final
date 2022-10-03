@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { aceptarContrato, rechazarContrato, getContratoId, putContrato } from '../../Redux/Actions/Contracts';
 import { getUserEmail, getUserId } from '../../Redux/Actions/DevUser';
+import { pagosMp } from '../../Redux/Actions/MercadoPago';
 import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from './Reviews';
 
@@ -35,7 +36,8 @@ export default function DetalleContrato() {
   //aca el handle del aceptar contrato
     const handleAceptar= () =>{
       dispatch(aceptarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      alert("La propuesta ha sido aceptada correctamente")
+      detalleC?.price && dispatch(pagosMp({price: Number(detalleC.price) }))
+      // alert("La propuesta ha sido aceptada correctamente")
     }
   //aca el handle del rechazar contrato
     let usuarioEnDetalle= useSelector(state=> state.devUser.details);
