@@ -593,13 +593,7 @@
   padding: 20px;
 }
 
-.textarea {
-     border: 1px solid #a9a9a9;
-   border-radius: 5;
-     padding: 10;
-   margin: "40px 4";
-   /* minHeight: 100 */
-} 
+
 /*------ ACA EMPIEZA EL CHECK----------- */
 .divVisible {
   display: flex;
