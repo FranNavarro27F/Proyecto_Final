@@ -54,12 +54,18 @@ module.exports = (sequelize) => {
 
       price: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: false
       },
 
-      payment_id: {
+      link_de_pago: {
         type: DataTypes.STRING,
         // allowNull: false,
+      },
+
+      pagado:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+
       },
 
       aceptado: {
