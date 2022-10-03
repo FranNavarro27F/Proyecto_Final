@@ -416,7 +416,7 @@
 
 /*------ ACA EMPIEZA EL STYLE DE LA CARD DE CONTRATOS----------- */
 /* .cardContrato { */
-  /* background: linear-gradient(
+/* background: linear-gradient(
     290.74deg,
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
@@ -593,7 +593,6 @@
   padding: 20px;
 }
 
-
 /*------ ACA EMPIEZA EL CHECK----------- */
 .divVisible {
   display: flex;
@@ -665,4 +664,46 @@ input:checked + .slider_round:before {
 
 .slider_round:before {
   border-radius: 50%;
+}
+
+.scrollContracts {
+  background: none;
+  border: none;
+  width: 5vh;
+  color: wheat;
+  /* position: absolute; */
+  font-size: 4vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divScrollContracts {
+  /* left: 6vw; */
+  margin-top: 94vh;
+  animation: MoveUpDown 0.8s linear infinite;
+  position: relative;
+  left: 0;
+  margin-bottom: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+
+@keyframes MoveUpDown {
+  0%,
+  100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 1vh;
+  }
+}
+.buttonTop {
+  position: fixed;
+  bottom: 6vh;
+  right: 3vw;
+  z-index: 9999;
 }
