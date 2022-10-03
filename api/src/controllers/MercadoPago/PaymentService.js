@@ -3,7 +3,9 @@ require("dotenv").config();
 const { Contratos } = require("../../db");
 
 class PaymentService {
-  async createPayment() {
+  async createPayment(price) {
+    console.log(price, "price final");
+    // console.log(price, "PRRICEEEEEEEEEEEEE");
     // const price = async (id) => {
     //   const res = await Contratos.findByPk(id);
     //   return res.dataValues.price;
@@ -20,7 +22,7 @@ class PaymentService {
             "https://cdn.discordapp.com/attachments/826954908258402374/1021209817035055247/icon-1200x1200.png",
           category_id: "category123",
           quantity: 1,
-          unit_price: 3000,
+          unit_price: await price,
           // await price(id),
 
           installments: 12,
