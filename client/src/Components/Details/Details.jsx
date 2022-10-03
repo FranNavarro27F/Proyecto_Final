@@ -547,7 +547,7 @@ export default function Details() {
                   {" "}
                   <button
                     className={s.scrollContracts}
-                    onClick={() => scrollTo(refContracts)}
+                    onClick={() => ScrollTopDetail(refContracts)}
                   >
                     <BsChevronDoubleDown />
                   </button>

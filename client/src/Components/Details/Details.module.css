@@ -5,10 +5,12 @@
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
+
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+
 }
 .sideM {
   z-index: 4;
@@ -487,37 +489,6 @@
   font-size: 32px;
 }
 
-
-
-.divCardContrato {
-  background: rgba(47, 47, 138, 0.247);
-  backdrop-filter: blur(2px);
-  border: 2px solid rgba(0, 0, 0, 0.075);
-  width: 67vw;
-  height: 23vh;
-  margin-left: 30vh;
-  margin-top: 10vh;
-  border-radius: 30px;
-  overflow: hidden;
-  backdrop-filter: blur(2px);
-  border: 2px solid rgba(0, 0, 0, 0.075);
-  display: flex;
-  flex-direction: column;
-}
-.textCardContrato {
-  max-height: 20vh;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 2vh;
-  line-height: 143.2%;
-  color: #ffffff;
-  z-index: 1;
-  width: 15vw;
-  height: 1px;
-  margin-top: 2%;
-  margin-left: 10vh;
-}
 .buttonDetalle {
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
   border-radius: 2.1vw;
@@ -685,3 +656,45 @@ input:checked + .slider_round:before {
   right: 3vw;
   z-index: 9999;
 }
+
+/* ------carta de contrato en detalle de usuario---------- */
+
+.back{
+  /* background-color: #813c8f; */
+
+}
+
+.divCardContrato {
+  background: rgba(47, 47, 138, 0.247);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+  width: 67vw;
+  height: 20vh;
+  margin-left: 30vh;
+  margin-top: 10vh;
+  border-radius: 30px;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+  display: flex;
+  flex-direction: column;
+
+}
+
+.textCardContrato {
+  max-height: 20vh;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2vh;
+  line-height: 143.2%;
+  color: #ffffff;
+  z-index: 1;
+  width: 30vw;
+  height: 1px;
+  margin-top: 2%;
+  margin-left: 10vh;
+
+}
+
+/* -------------------------------------------------------- */
