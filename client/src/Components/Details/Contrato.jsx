@@ -5,6 +5,7 @@ import s from "./Details.module.css";
 import { useNavigate } from "react-router-dom";
 import { emailer } from "../../Redux/Actions/Emailer";
 
+
 export default function Contrato({
   userByEmail,
   userDetail,
@@ -101,8 +102,10 @@ export default function Contrato({
       //       IDContratado: userDetail.id
       //     })
       //  );
+      
       alert("Tu propuesta fue enviada correctamente!");
       navigate("/work");
+      
     }
   };
 
