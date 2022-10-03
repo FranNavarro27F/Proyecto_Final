@@ -872,7 +872,7 @@ export default function Details() {
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
-              userByEmail?.id === cur.developer && (
+               (
                 <div className={s.cardContrato}>
                   <Contracts
                     description={cur.description}
