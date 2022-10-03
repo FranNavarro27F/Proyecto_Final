@@ -3,7 +3,7 @@ import s from "./Home.module.css";
 import Girl1 from "./Assets/girl/girl1";
 import Landing from "../Landing/Landing";
 import diamante from "./Assets/Diamante/diamante.png";
-import Circulos from "./Assets/Circulos/Circulos";
+import Circulos from "../Card Home/CardW/Circulos/Circulos";
 import Circulo from "./Assets/Circulo/Circulo.jsx";
 import Footer from "../Footer/Footer";
 import CardHome from "../Card Home/CardHome";
@@ -14,6 +14,7 @@ import Loader from "../Loader/Loader";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { getUserEmail } from "../../Redux/Actions/DevUser";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ export default function Home() {
   // const handleClick = () => {
   //   setOpen(false);
   // };
+
+  let [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams, "PARAMSSSSSSS");
+  console.log(searchParams.get("status"), "GET STATUS");
 
   return isLoading ? (
     <Loader />
@@ -68,7 +73,7 @@ export default function Home() {
           <div className={s.luz}></div>
 
           <Circulo className={s.circulo} />
-          <Circulos className={s.circulos} />
+          {/* <Circulos className={s.circulos} /> */}
           <Girl1 />
 
           <img className={s.diamante} src={diamante} alt="diamante" />

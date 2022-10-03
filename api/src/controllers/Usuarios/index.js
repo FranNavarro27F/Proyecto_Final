@@ -243,6 +243,7 @@ const getUsers = async () => {
         postulado: cur.postulado,
         registrado: cur.registrado,
         habilitado: cur.habilitado,
+        premium: cur.premium,
         tarjeta_numero: cur.tarjeta_numero,
         tarjeta_nombreCompleto: cur.tarjeta_nombreCompleto,
         tarjeta_vencimiento: cur.tarjeta_vencimiento,
@@ -266,7 +267,54 @@ const getUsers = async () => {
     return await Promise.all(arrUsersListo);
     //
   } catch (e) {
-    console.error(`ERROR @ controllers/getUsers --→ ${e}`);
+    console.error(`${ERROR}getUsers --→ ${e}`);
+  }
+};
+
+// -----------------------------------------------
+
+// GET PREMIUM USERS
+const getPremiumUsers = async () => {
+  //
+  try {
+    let usuarios = await Usuarios.findAll({
+      where: {
+        habilitado: true,
+        visible: true,
+        premium: true,
+      },
+      include: [
+        {
+          model: Servicios,
+          attributes: ["name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    let arrUsers = usuarios.map((cur) => cur.dataValues);
+    let arrUsersListo = arrUsers.map(async (cur) => {
+      return {
+        id: cur.id,
+        profilePicture: cur.profilePicture,
+        name: cur.name ? (cur.name = capitalize(cur.name)) : (cur.name = []),
+        lastName: cur.lastName
+          ? (cur.lastName = capitalize(cur.lastName))
+          : (cur.lastName = []),
+        email: cur.email,
+        linkedIn: cur.linkedIn,
+        gitHub: cur.gitHub,
+        webSite: cur.webSite,
+        servicios: cur.servicios
+          ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+          : [],
+      };
+    });
+
+    return await Promise.all(arrUsersListo);
+    //
+  } catch (e) {
+    console.error(`${ERROR}getPremiumUsers --→ ${e}`);
   }
 };
 
@@ -316,8 +364,36 @@ const getUserById = async (id) => {
     userM.tecnologias = userM.tecnologias
       .map((cur) => cur.dataValues)
       .map((cur) => cur.name);
+    userM.contratos = userM.contratos.filter((cur) => {
+      if (cur.habilitado === true) {
+        return true;
+      }
+      if (cur.habilitado === false) {
+        return false;
+      }
+    });
+      //-----esta funcion se encarga de calcular el promedio de puntuacion de un usuario--
+    const promedio= (arrContratos)=>{
+      let contratos_con_puntuacion= arrContratos.length ? ( arrContratos.filter(cur=> {
+        if(cur.comentario && cur.comentario.length){
+          return true;
+        }
+      } ) ) : [];
+   		if(contratos_con_puntuacion.length){
+        let cantidad_de_puntuaciones= contratos_con_puntuacion.length;
+        let array_de_puntuaciones= contratos_con_puntuacion.map(cur=> cur.puntuacion);
+        let suma_de_puntuaciones= array_de_puntuaciones.reduce((acc,cur)=> acc + cur );
+        return suma_de_puntuaciones / cantidad_de_puntuaciones;
+        //si quieren numero redondo-->
+        //return Math.round(suma_de_puntuaciones / cantidad_de_puntuaciones)
+      }else{
+        return 1.0
+      }
+    }; //----------------------------------------------------------
+    userM.reputacion= promedio(userM.contratos);
 
     return userM;
+    //
   } catch (e) {
     console.error(`ERROR @ controllers/getUserById --→ ${e}`);
   }
@@ -391,21 +467,13 @@ const getByEmail = async (email) => {
       .map((cur) => cur.name);
 
     return userM;
-
-    //   try {
-    //     return await findUser({
-    //       email,
-    //       // habilitado: true,
-    //       // visible: true,
-    //     });
-
     //
   } catch (e) {
     console.error(`${ERROR}getByEmail --→ ${e}`);
   }
 };
 
-// -----------------------------------------------//
+// -----------------------------------------------
 
 const postUserAuth = async (data) => {
   //
@@ -485,12 +553,10 @@ const modifyUser = async (data) => {
   //
   try {
     let {
+      email,
       name,
       lastName,
       profilePicture,
-      email, // No se modifica, es sólo para individualizar el usuario.
-      //   isAdmin,
-
       city,
       webSite,
       linkedIn,
@@ -499,57 +565,46 @@ const modifyUser = async (data) => {
       dailyBudget,
       englishLevel,
       bio,
-
       visible,
-      //   postulado,
-      //   registrado,
-      //   habilitado,
-      //   reputacion,
-
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
       tarjeta_codigoSeguridad,
       cbu,
       cvu,
-
       tecnologias,
       lenguajes,
       servicios,
       paiseId,
+      postulado
     } = data;
 
-    let userMod = await Usuarios.update(
-      { where: { email: email } },
+    await Usuarios.update(
       {
-        name: capitalize(name) || "Anonymous",
-        lastName: capitalize(lastName) || "Anonymous",
-        profilePicture:
-          profilePicture ||
-          "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-
-        city: city || null,
-        webSite: webSite || null,
-        linkedIn: linkedIn || null,
-        gitHub: gitHub || null,
-        yearsOfExperience: yearsOfExperience || 1,
-        dailyBudget: dailyBudget || 1,
-        englishLevel: englishLevel || "N/A",
-        bio: bio || null,
-
+        name,
+        lastName,
+        profilePicture,
+        city,
+        webSite,
+        linkedIn,
+        gitHub,
+        yearsOfExperience,
+        dailyBudget,
+        englishLevel,
+        bio,
         visible,
-        isAdmin: false,
-
-        tarjeta_numero: tarjeta_numero || null,
-        tarjeta_nombreCompleto: tarjeta_nombreCompleto || null,
-        tarjeta_vencimiento: tarjeta_vencimiento || null,
-        tarjeta_codigoSeguridad: tarjeta_codigoSeguridad || null,
-        cbu: cbu || null,
-        cvu: cvu || null,
-
+        tarjeta_numero,
+        tarjeta_nombreCompleto,
+        tarjeta_vencimiento,
+        tarjeta_codigoSeguridad,
+        cbu,
+        cvu,
         paiseId,
+        postulado
+      },
+      {
+        where: { email },
       }
-      //
     );
 
     let modUsr = await Usuarios.findOne({
@@ -559,17 +614,17 @@ const modifyUser = async (data) => {
       include: [
         {
           model: Servicios,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Lenguajes,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
         {
           model: Tecnologias,
-          attributes: ["name"],
+          attributes: ["id"],
           through: { attributes: [] },
         },
       ],
@@ -578,24 +633,22 @@ const modifyUser = async (data) => {
     modUsr.setTecnologias(tecnologias);
     modUsr.setLenguajes(lenguajes);
     modUsr.setServicios(servicios);
-
-    return "Usuario modificado correctamente";
     //
   } catch (e) {
-    //
     console.error(`${ERROR}modifyUser --→ ${e}`);
   }
 };
-
 // -----------------------------------------------
 
 // DELETE USER
+
 const deleteUser = async (id) => {
+  //
   try {
     let toDelete = await Usuarios.findByPk(id);
     await toDelete.destroy();
-    console.log(`User (${id}) deleted successfully`);
     return `User (${id}) deleted successfully`;
+    //
   } catch (e) {
     console.error(`${ERROR}deleteUser --→ ${e}`);
   }
@@ -605,6 +658,7 @@ const deleteUser = async (id) => {
 
 module.exports = {
   getUsers,
+  getPremiumUsers,
   getUserById,
   deleteUser,
   getUserByName,

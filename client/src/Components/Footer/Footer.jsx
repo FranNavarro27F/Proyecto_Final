@@ -25,8 +25,7 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
           </ul>
         </div>
         <svg
-          width="1700"
-          height="400"
+          className={s.svgFooter}
           viewBox="0 0 1440 400"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

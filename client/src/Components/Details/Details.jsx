@@ -59,15 +59,11 @@ export default function Details() {
 
   const [contratoDetail, SetContratoDetail] = useState(false);
 
-
-  
-  
-//---esta funcion evalua que contratos pueden o no mostrarse -----------------------
-  const contratosVisibles = (contratos, user)=>{
-    let visibles= contratos.filter(cur=> {
-      
-      if(cur.status === "Concluido"){
-        return true
+  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
+  const contratosVisibles = (contratos, user) => {
+    let visibles = contratos.filter((cur) => {
+      if (cur.status === "Concluido") {
+        return true;
       }
       if (cur.employer === user.user_id) {
         return true;
@@ -192,29 +188,56 @@ export default function Details() {
     }
   };
 
-  const handlePremiun = () => {
+  const [userPremium, setUserPremium] = useState(false);
+
+  useEffect(() => {
+    if (userDetail?.premium) {
+      console.log(`usuario premiun: ${userDetail?.premium}`);
+      setUserPremium(true);
+    } else {
+      setUserPremium(false);
+    }
+  }, [userDetail?.premium]);
+
+  const handlePremium = () => {
     setMostrarSub(!mostrarSub);
-    // dispatch(
-    //   setSubscriptionId({
-    //     user_id: userByEmail?.id,
-    //     subscription_id: consultaSub?.id,
-    //     status: consultaSub?.status,
-    //   })
-    // );
   };
+  const handlePremiumOFF = () => {
+    // setMostrarSub(!mostrarSub);
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: "pending",
+      })
+    );
+    window.location.reload();
+  };
+  useEffect(() => {
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: consultaSub?.status,
+      })
+    );
+  }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
 
   const handleCloseSub = () => {
     dispatch(consultSub(consultaSub?.id));
-    setTimeout(() => {
-      dispatch(
-        setSubscriptionId({
-          user_id: userByEmail?.id,
-          subscription_id: consultaSub?.id,
-          status: consultaSub?.status,
-        })
-      );
-    }, 2500);
+    // setTimeout(() => {
+    dispatch(
+      setSubscriptionId({
+        user_id: userByEmail?.id,
+        subscription_id: consultaSub?.id,
+        status: consultaSub?.status,
+      })
+    );
     setMostrarSub(false);
+    // }, 1000);
+    // setTimeout(() => {
+    //   dispatch(getUserId(id));
+    // }, 1500);
   };
 
   const handleCleanAndBack = () => {
@@ -254,16 +277,18 @@ export default function Details() {
             <div></div>
             <div></div>
           </div>
-          <Iframe
-            // style={}
-            loading="CARGANDOOOOOOOOOOOOOOO..."
-            className={s.iframe}
-            url={linkPago}
-            id=""
-            display="block"
-            position="relative"
-            allowFullscreen={false}
-          />
+          {
+            <Iframe
+              // style={}
+              loading="CARGANDOOOOOOOOOOOOOOO..."
+              className={s.iframe}
+              url={linkPago}
+              id=""
+              display="block"
+              position="relative"
+              allowFullscreen={false}
+            />
+          }
         </div>
       </div>
       <div className={s.body}>
@@ -637,7 +662,7 @@ export default function Details() {
                       userByEmail?.profilePicture ? (
                         <img
                           className={
-                            userDetail?.premium && userByEmail?.premium
+                            userPremium && userByEmail?.premium
                               ? s.premium
                               : s.imgRender
                           }
@@ -646,7 +671,11 @@ export default function Details() {
                               ? userDetail?.profilePicture
                               : userByEmail?.profilePicture
                           }
-                          alt={userDetail?.name && userByEmail?.name}
+                          alt={
+                            userDetail?.name
+                              ? userDetail?.name
+                              : userByEmail?.name
+                          }
                         />
                       ) : (
                         <svg
@@ -784,7 +813,7 @@ export default function Details() {
                     </span>
                   </div>
                   <div className={s.bodyButtons}>
-                    <button
+                    {/* <button
                       className={s.buttonBack}
                       onClick={() => {
                         dispatch(detailReset());
@@ -792,7 +821,7 @@ export default function Details() {
                       }}
                     >
                       HOME
-                    </button>
+                    </button> */}
                     {userProfile ? (
                       <div className={s.buttonsLogeado}>
                         <button
@@ -803,13 +832,21 @@ export default function Details() {
                             ? `Editar postulación`
                             : `Postularme`}
                         </button>
-                        {userByEmail?.premium !== true && (
+                        {userByEmail?.premium !== true ? (
                           <button
                             // href={linkPago}
                             className={s.buttonSub}
-                            onClick={handlePremiun}
+                            onClick={handlePremium}
                           >
-                            SUSCRIPCION
+                            Suscripción
+                          </button>
+                        ) : (
+                          <button
+                            // href={linkPago}
+                            className={s.buttonSub}
+                            onClick={handlePremiumOFF}
+                          >
+                            CANCELAR SUSCRIPCION
                           </button>
                         )}
                       </div>
@@ -822,7 +859,7 @@ export default function Details() {
                       className={s.buttonBack}
                       onClick={handleCleanAndBack}
                     >
-                      POSTULACIONES
+                      Volver
                     </button>
                   </div>
                 </div>

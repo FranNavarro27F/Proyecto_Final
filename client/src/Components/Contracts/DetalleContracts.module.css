@@ -18,8 +18,16 @@
     cursor: pointer;
     width: 9vw;
     height: 5vh;
+    margin-right: 15px;
       
 }
+.buttonDetalle:hover {
+    transition-delay: 0.2s;
+    transition: 0.8s;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 
 .cardDetalle{
     
