@@ -10,6 +10,7 @@ import {
   rechazarContrato,
   getContratoId,
   putContrato,
+  resetContract,
 } from "../../Redux/Actions/Contracts";
 import { getUserEmail, getUserId } from "../../Redux/Actions/DevUser";
 import { pagosMp } from "../../Redux/Actions/MercadoPago";
@@ -163,16 +164,15 @@ export default function DetalleContrato() {
                 </button>
               )}
               {
-              // detalleC.aceptado &&
-                 detalleC.pagado &&
-                usuarioActual === detalleC.employer &&
-                 detalleC?.comentario === "" && (
-                  
-                  <div>
-                    <Reviews id={id} />
-                  </div>
-                 )
-                }
+                // detalleC.aceptado &&
+                detalleC.pagado &&
+                  usuarioActual === detalleC.employer &&
+                  detalleC?.comentario === "" && (
+                    <div>
+                      <Reviews id={id} />
+                    </div>
+                  )
+              }
               {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
