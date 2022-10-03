@@ -60,6 +60,7 @@ export function rechazarContrato(id){
 }
 
 export function putContrato(id,data){
+  console.log("put contrato",id, data,"contrato")
   return async function (dispatch){
     try {
       let modificacionContrato= await axios.put(`/contratos/${id}`, data)

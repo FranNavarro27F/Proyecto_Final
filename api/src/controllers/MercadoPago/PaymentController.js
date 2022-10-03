@@ -4,10 +4,10 @@ class PaymentController {
   constructor(subscriptionService) {
     this.subscriptionService = subscriptionService;
   }
-  async getPaymentLink(req, res) {
+  async getPaymentLink(req, res, price, id) {
     try {
       //
-      const payment = await this.subscriptionService.createPayment();
+      const payment = await this.subscriptionService.createPayment(price, id);
       return res.json(payment);
     } catch (error) {
       console.log(error);
@@ -70,5 +70,6 @@ class PaymentController {
     }
   }
 }
+//
 
 module.exports = PaymentController;
