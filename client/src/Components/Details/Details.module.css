@@ -5,7 +5,7 @@
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -21,16 +21,16 @@
   width: 100%;
   height: auto;
   left: 0vh;
-  top: 8%;
+  top: 7%;
 }
 
 .divBox {
   box-sizing: border-box;
   position: absolute;
   width: 130vh;
-  height: 85vh;
+  height: 87vh;
   left: 25vw;
-  top: 10vh;
+  top: 6vh;
   background: rgba(47, 47, 138, 0.247);
   border-radius: 30px;
   overflow: hidden;
@@ -46,7 +46,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 1.8vh;
-  line-height: 143.2%;
+  line-height: 130%;
   color: #ffffff;
   z-index: 1;
   position: absolute;
@@ -108,8 +108,8 @@
 
 .buttonL {
   position: relative;
-  left: 45vh;
-  top: 70vh;
+  left: 42vh;
+  top: 78vh;
   box-sizing: border-box;
   /* padding: 1.5vh; */
   width: 11vw;
@@ -123,6 +123,7 @@
   line-height: 23px;
   cursor: pointer;
   margin-right: 0.9rem;
+  border:  white;
 }
 .buttonL:disabled {
   box-sizing: border-box;
@@ -145,8 +146,8 @@
 }
 .buttonBack {
   position: relative;
-  left: 45vh;
-  top: 70vh;
+  left: 42vh;
+  top: 78vh;
   box-sizing: border-box;
   /* padding: 1.5vh; */
   width: 11vw;
@@ -160,6 +161,7 @@
   line-height: 23px;
   cursor: pointer;
   margin-right: 0.7rem;
+  border:  white;
 }
 
 .buttonBack:hover,
@@ -168,6 +170,7 @@
   transition: 0.8s;
   transform: scale(1.1);
   cursor: pointer;
+  border:  white;
 }
 
 .divButton {
@@ -223,6 +226,7 @@
 }
 
 .buttonVolver {
+  border:  white;
   position: relative;
   box-sizing: border-box;
   width: 11vw;
@@ -236,6 +240,7 @@
   line-height: 23px;
   cursor: pointer;
   margin-right: 0.7rem;
+  border:  white;
 }
 .buttonVolver:hover {
   transition-delay: 0.2s;
@@ -245,6 +250,7 @@
 }
 
 .buttonPago {
+  border:  white;
   width: 11vw;
   height: 6vh;
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
@@ -537,9 +543,12 @@
   align-items: stretch;
 }
 .divDescription {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 4vh -10vh;
+    min-height: 17vh;
+    min-width: 47vh;
 }
 .divButtons {
   margin-top: 40px;
@@ -550,9 +559,16 @@
   gap: 15vh;
 }
 
-.textDescription {
-  min-height: 50vh;
-  padding: 20px;
+
+
+.textArea {
+  /* background-color:  #a9a9a9; */
+  border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 17vh;
+    min-width: 47vh;
+ 
 }
 
 /*------ ACA EMPIEZA EL CHECK----------- */
