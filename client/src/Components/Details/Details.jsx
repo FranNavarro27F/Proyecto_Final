@@ -872,17 +872,20 @@ export default function Details() {
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
-              <div className={s.cardContrato}>
-                <Contracts
-                  description={cur.description}
-                  date={cur.date}
-                  expiration_date={cur.expiration_date}
-                  status={cur.status}
-                  price={cur.price}
-                  aceptado={cur.aceptado}
-                  idContrato={cur.id}
-                />
-              </div>
+              userByEmail?.id === cur.developer && (
+                <div className={s.cardContrato}>
+                  <Contracts
+                    description={cur.description}
+                    date={cur.date}
+                    expiration_date={cur.expiration_date}
+                    status={cur.status}
+                    price={cur.price}
+                    aceptado={cur.aceptado}
+                    idContrato={cur.id}
+                    pagado={cur.pagado}
+                  />
+                </div>
+              )
             );
           })}
 
