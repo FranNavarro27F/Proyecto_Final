@@ -10,6 +10,7 @@ import {
   rechazarContrato,
   getContratoId,
   putContrato,
+  resetContract,
 } from "../../Redux/Actions/Contracts";
 import { getUserEmail, getUserId } from "../../Redux/Actions/DevUser";
 import { pagosMp } from "../../Redux/Actions/MercadoPago";
@@ -126,9 +127,10 @@ export default function DetalleContrato() {
           {
             <div>
               {usuarioActual &&
-                usuarioActual !== detalleC.employer &&
+                // usuarioActual !== detalleC.employer &&
                 !detalleC?.pagado &&
-                (!pagar ? (
+                !detalleC?.aceptado &&
+                usuarioActual !== detalleC.employer && (
                   <button
                     disabled={
                       usuarioActual
@@ -140,11 +142,15 @@ export default function DetalleContrato() {
                   >
                     Aceptar
                   </button>
-                ) : (
+                )}
+
+              {usuarioActual === detalleC.employer &&
+                detalleC?.aceptado &&
+                !detalleC?.pagado && (
                   <a href={initPoint} className={s.buttonDetalle}>
                     pagar!
                   </a>
-                ))}
+                )}
 
               {!detalleC?.pagado && (
                 <button
@@ -157,13 +163,23 @@ export default function DetalleContrato() {
                   Rechazar
                 </button>
               )}
-              {detalleC.aceptado &&
+              {
+                // detalleC.aceptado &&
+                detalleC.pagado &&
+                  usuarioActual === detalleC.employer &&
+                  detalleC?.comentario === "" && (
+                    <div>
+                      <Reviews id={id} />
+                    </div>
+                  )
+              }
+              {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
                   <div>
                     <Reviews id={id} />
                   </div>
-                )}
+                )} */}
             </div>
           }
         </div>

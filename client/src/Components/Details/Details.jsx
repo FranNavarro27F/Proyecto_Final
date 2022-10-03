@@ -45,7 +45,7 @@ export default function Details() {
 
   useEffect(() => {
     dispatch(getUserId(id));
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
@@ -872,20 +872,18 @@ export default function Details() {
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
-               (
-                <div className={s.cardContrato}>
-                  <Contracts
-                    description={cur.description}
-                    date={cur.date}
-                    expiration_date={cur.expiration_date}
-                    status={cur.status}
-                    price={cur.price}
-                    aceptado={cur.aceptado}
-                    idContrato={cur.id}
-                    pagado={cur.pagado}
-                  />
-                </div>
-              )
+              <div className={s.cardContrato}>
+                <Contracts
+                  description={cur.description}
+                  date={cur.date}
+                  expiration_date={cur.expiration_date}
+                  status={cur.status}
+                  price={cur.price}
+                  aceptado={cur.aceptado}
+                  idContrato={cur.id}
+                  pagado={cur.pagado}
+                />
+              </div>
             );
           })}
 

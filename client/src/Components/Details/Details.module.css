@@ -415,7 +415,7 @@
 }
 
 /*------ ACA EMPIEZA EL STYLE DE LA CARD DE CONTRATOS----------- */
-.cardContrato {
+/* .cardContrato { */
   /* background: linear-gradient(
     290.74deg,
     #5eaaaf 6.83%,
@@ -424,7 +424,7 @@
   );
   width: 50%;
   height: 50vh; */
-}
+/* } */
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
@@ -592,6 +592,7 @@
   min-height: 50vh;
   padding: 20px;
 }
+
 
 /*------ ACA EMPIEZA EL CHECK----------- */
 .divVisible {
