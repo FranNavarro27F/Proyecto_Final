@@ -3,8 +3,7 @@ require("dotenv").config();
 const { Contratos } = require("../../db");
 
 class PaymentService {
-  async createPayment(price) {
-    console.log(price, "price final");
+  async createPayment(price, id) {
     // console.log(price, "PRRICEEEEEEEEEEEEE");
     // const price = async (id) => {
     //   const res = await Contratos.findByPk(id);
@@ -29,9 +28,9 @@ class PaymentService {
         },
       ],
       back_urls: {
-        failure: "/failure",
-        pending: "/pending",
-        success: "https://programax.vercel.app/",
+        failure: `programax.vercel.app/contrato/${id}`,
+        pending: `programax.vercel.app/contrato/${id}`,
+        success: `programax.vercel.app/contrato/${id}`,
       },
     };
 

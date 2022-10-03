@@ -24,10 +24,11 @@ router.get("/consultSub/:id", function (req, res, next) {
   PaymentInstance.getSubscriptionConsult(req, res, id);
 });
 
-router.post("/payment", function (req, res, next) {
+router.post("/payment/:id", function (req, res, next) {
   const { price } = req.body;
+  const { id } = req.params;
   console.log(price);
-  PaymentInstance.getPaymentLink(req, res, price);
+  PaymentInstance.getPaymentLink(req, res, price, id);
 });
 
 router.post("/subscription", function (req, res, next) {
