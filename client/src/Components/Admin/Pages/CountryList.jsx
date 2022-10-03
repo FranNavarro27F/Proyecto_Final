@@ -1,18 +1,13 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {cambioTabla, getPaisesAd, putPaisesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
-
-
-
 
 export default function CountryList() {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
-
+  
     let paisesAdmin = useSelector((state) => state.admin.paisAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
 
@@ -65,7 +60,7 @@ export default function CountryList() {
   return (
     <div className={s.container}>
         <div>
-            <h1>Soy Paises</h1>
+            <h1>Paises</h1>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
             
@@ -97,7 +92,7 @@ export default function CountryList() {
             </div>
             <br/>
             <div>
-                <h3>¿Desea agregar un nuevo Pais?</h3>
+                <h3>¿Desea agregar un nuevo pais?</h3>
                 <br/>
                 <input
                 type="text"
