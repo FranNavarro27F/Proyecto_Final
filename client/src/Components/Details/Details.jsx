@@ -25,8 +25,8 @@ import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
 import { BsChevronDoubleDown } from "react-icons/bs";
-import ScrollTop from "../Home/ScrollTop";
 import ScrollTopDetail from "./ScrollTopDetail";
+
 import SvgChica from "./SvgChica";
 // import { Swal } from "sweetalert2";
 
@@ -70,7 +70,7 @@ export default function Details() {
     });
   };
 
-  const refContracts = useRef();
+  const refContracts = useRef(null);
 
   //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
   const contratosVisibles = (contratos, user) => {
@@ -542,17 +542,17 @@ export default function Details() {
                   </div>
                 </div>
               </div>
-              {contratosArenderizar && (
+              {
                 <div className={s.divScrollContracts}>
                   {" "}
                   <button
                     className={s.scrollContracts}
-                    onClick={() => ScrollTopDetail(refContracts)}
+                    onClick={() => scrollTo(refContracts)}
                   >
                     <BsChevronDoubleDown />
                   </button>
                 </div>
-              )}
+              }
             </div>
           </div>
         </div>
