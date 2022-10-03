@@ -158,12 +158,18 @@ export default function DetalleContrato() {
                 </button>
               )}
               {detalleC.aceptado &&
+                 (
+                  <div>
+                    <Reviews id={id} />
+                  </div>
+                )}
+              {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
                   <div>
                     <Reviews id={id} />
                   </div>
-                )}
+                )} */}
             </div>
           }
         </div>
