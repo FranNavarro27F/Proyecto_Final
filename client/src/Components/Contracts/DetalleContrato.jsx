@@ -126,9 +126,10 @@ export default function DetalleContrato() {
           {
             <div>
               {usuarioActual &&
-                usuarioActual !== detalleC.employer &&
+                // usuarioActual !== detalleC.employer &&
                 !detalleC?.pagado &&
-                (!pagar ? (
+                !detalleC?.aceptado &&
+                usuarioActual !== detalleC.employer && (
                   <button
                     disabled={
                       usuarioActual
@@ -140,11 +141,13 @@ export default function DetalleContrato() {
                   >
                     Aceptar
                   </button>
-                ) : (
-                  <a href={initPoint} className={s.buttonDetalle}>
-                    pagar!
-                  </a>
-                ))}
+                )}
+
+              {usuarioActual === detalleC.employer && detalleC?.aceptado && (
+                <a href={initPoint} className={s.buttonDetalle}>
+                  pagar!
+                </a>
+              )}
 
               {!detalleC?.pagado && (
                 <button
@@ -157,13 +160,18 @@ export default function DetalleContrato() {
                   Rechazar
                 </button>
               )}
-              {detalleC.aceptado &&
+              {detalleC.aceptado && (
+                <div>
+                  <Reviews id={id} />
+                </div>
+              )}
+              {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
                   <div>
                     <Reviews id={id} />
                   </div>
-                )}
+                )} */}
             </div>
           }
         </div>

@@ -29,8 +29,8 @@ export default function Contracts({
     <div>
       <div className={s.divCardContrato}>
         <div className={s.textCardContrato}>
-          <label>Id contrato: </label>
-          {idContrato}
+          {/* <label>Id contrato: </label>
+          {idContrato} */}
           <label>Fecha de Inicio: </label>
           {date}
           <br />
