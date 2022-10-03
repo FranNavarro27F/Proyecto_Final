@@ -1,17 +1,21 @@
 
 import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
+import useUser from '../../Hooks/useUser';
 import { aceptarContrato, rechazarContrato, getContratoId, putContrato } from '../../Redux/Actions/Contracts';
 import { getUserEmail, getUserId } from '../../Redux/Actions/DevUser';
+import { pagosMp } from '../../Redux/Actions/MercadoPago';
 import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from './Reviews';
 
 
-export default function DetalleContrato() {
-  const { user } = useAuth0();
+export default  function DetalleContrato() {
+  const user =useUser()
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     if(user?.email){
@@ -23,19 +27,30 @@ export default function DetalleContrato() {
   
 
   const {id} = useParams()
-  const dispatch = useDispatch();
   const detalleC = useSelector((state)=> state.contracts.detalleContrato)
   const detallePerfil = useSelector((state)=> state.devUser.details)
+  const paymentContract = useSelector((state)=> state.mercadoPago.Payment)
+  const initPoint= paymentContract?.init_point;
+  const link_de_pago= detalleC?.payment_id;
+  let [pagar, setPagar]=useState(false);
+  
+  console.log("payment", link_de_pago)
+  // console.log("payment", paymentContract )
   const navigate = useNavigate()
   
   useEffect(()=>{
+    detalleC?.price && dispatch(pagosMp({price: Number(detalleC.price) }, id))
     dispatch(getContratoId(id))
   },[dispatch, id, detalleC.aceptado])
   
   //aca el handle del aceptar contrato
     const handleAceptar= () =>{
       dispatch(aceptarContrato(id)).then(data=> dispatch(getContratoId(id)))
-      alert("La propuesta ha sido aceptada correctamente")
+      // detalleC?.price && dispatch(pagosMp({price: Number(detalleC.price) }, id))
+      // alert("La propuesta ha sido aceptada correctamente")
+      dispatch(putContrato(id, {payment_id: initPoint }))
+      setPagar(true)
+      
     }
   //aca el handle del rechazar contrato
     let usuarioEnDetalle= useSelector(state=> state.devUser.details);
@@ -84,7 +99,7 @@ export default function DetalleContrato() {
               <br/>
               <br/>
               <br/>
-
+              
               <div className={s.buttonUbi}>
                 <button
                 className={s.buttonDetalle}
@@ -93,15 +108,21 @@ export default function DetalleContrato() {
                 Volver
                 </button>
               {
-                ! detalleC.aceptado ? 
+                 
               <div>
-                <button
-                disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
-                onClick={(e)=>handleAceptar(e)}
-                className={s.buttonDetalle}
-                >
-                Aceptar
-                </button>
+                {
+                  !pagar ?
+                  <button 
+                  // disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
+                  onClick={(e)=>handleAceptar(e)}
+                  className={s.buttonDetalle}
+                  >
+                  Aceptar
+                  </button>
+                        :
+                 <a href={initPoint} className={s.buttonDetalle}> pagar!</a>
+
+                }
                 
                   <button
                   disabled = { usuarioActual ? usuarioActual === detalleC.employer : false }
@@ -110,25 +131,20 @@ export default function DetalleContrato() {
                   >
                   Rechazar
                   </button>
-                  </div>
-                  :
-                  <div>
                     {
-                     usuarioActual && usuarioActual === detalleC.employer ?
-                     <Reviews
-                     id ={id}
-                     />
-                     :
-                     <div>
-                       
-                      </div>
-                    }
+                     pagar && detalleC.aceptado && usuarioActual && usuarioActual === detalleC.employer &&
+                    <div>
+                      <Reviews id ={id} />
                     </div>
+                       
+                      }
+                   
 
+              </div>
 }   
                 </div>
         </div>
-      </div>
-   
+        </div>
+        
   );
 }
