@@ -20,9 +20,15 @@ const {
 
 const router = Router();
 
-// ------------------- POST --------------------------//
+// -----------------------------------------------
 
+// ┌────────────────────────────┐
+// │         RUTAS POST         │
+// └────────────────────────────┘
+
+// POST (NEW) LANGUAGE
 router.post("/lenguajes", async (req, res) => {
+  //
   try {
     let { name } = req.body;
     if (!name) {
@@ -32,12 +38,17 @@ router.post("/lenguajes", async (req, res) => {
 
       res.status(200).json(newLeng);
     }
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// POST (NEW) SERVICE
 router.post("/servicios", async (req, res) => {
+  //
   try {
     let { name } = req.body;
     if (!name) {
@@ -47,12 +58,17 @@ router.post("/servicios", async (req, res) => {
 
       res.status(200).json(newServ);
     }
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// POST (NEW) TECHNOLOGY
 router.post("/tecnologias", async (req, res) => {
+  //
   try {
     const { name } = req.body;
     if (name) {
@@ -60,12 +76,17 @@ router.post("/tecnologias", async (req, res) => {
     } else {
       res.status(400).send("error debe agregar un nombre");
     }
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// POST (NEW) COUNTRY
 router.post("/paises", async (req, res) => {
+  //
   try {
     const { name } = req.body;
     if (name) {
@@ -73,14 +94,21 @@ router.post("/paises", async (req, res) => {
     } else {
       res.status(400).send("error debe agregar un nombre");
     }
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
 
-//-------------- PUT - Borrado Lógico -----------------//
+// -----------------------------------------------
 
+// ┌────────────────────────────┐
+// │         RUTAS PUT          │
+// └────────────────────────────┘
+
+// DISABLE LANGUAGE
 router.put("/tecnologias", async (req, res) => {
+  //
   try {
     const { id, habilitado } = req.body;
     if (id) {
@@ -88,20 +116,30 @@ router.put("/tecnologias", async (req, res) => {
     } else {
       res.status(400).send("error debe enviar por body el id");
     }
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// DISABLE SERVICE
 router.put("/lenguajes", async (req, res) => {
+  //
   try {
     res.status(200).json(await borrLogicLenguaje(req.body));
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// DISABLE COUNTRY
 router.put("/paises", async (req, res) => {
+  //
   try {
     const { id, habilitado } = req.body;
     if (id) {
@@ -109,26 +147,39 @@ router.put("/paises", async (req, res) => {
     } else {
       res.status(400).send("error debe enviar por body el id");
     }
+    //
   } catch (e) {
     res.status(404).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// DISABLE TECHNOLOGY
 router.put("/servicios", async (req, res) => {
+  //
   try {
     res.status(200).json(await borrLogicServicios(req.body));
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// DISABLE USER
 router.put("/usuarios", async (req, res) => {
+  //
   try {
     res.status(200).json(await borrLogicUsuario(req.body));
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
+
+// -----------------------------------------------
 
 // TOGGLE ADMIN
 router.put("/admin/:id", async (req, res) => {
@@ -145,43 +196,70 @@ router.put("/admin/:id", async (req, res) => {
   }
 });
 
-//------------------ GET info as Admin -----------------//
+// -----------------------------------------------
 
+// ┌────────────────────────────┐
+// │         RUTAS GET          │
+// └────────────────────────────┘
+
+// GET ALL LANGUAGES
 router.get("/lenguajes", async (req, res) => {
+  //
   try {
     res.status(200).json(await getAdminLeng());
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// GET ALL TECHNOLOGIES
 router.get("/tecnologias", async (req, res) => {
+  //
   try {
     res.status(200).json(await getAdminTec());
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// GET ALL COUNTRIES
 router.get("/paises", async (req, res) => {
+  //
   try {
     res.status(200).json(await getAdminPaises());
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// GET ALL SERVICES
 router.get("/servicios", async (req, res) => {
+  //
   try {
     res.status(200).json(await getAdminServ());
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
 });
 
+// -----------------------------------------------
+
+// GET ALL USERS
 router.get("/usuarios", async (req, res) => {
+  //
   try {
     res.status(200).json(await getAdminUser());
+    //
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
