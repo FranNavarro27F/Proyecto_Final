@@ -372,25 +372,31 @@ const getUserById = async (id) => {
         return false;
       }
     });
-      //-----esta funcion se encarga de calcular el promedio de puntuacion de un usuario--
-    const promedio= (arrContratos)=>{
-      let contratos_con_puntuacion= arrContratos.length ? ( arrContratos.filter(cur=> {
-        if(cur.comentario && cur.comentario.length){
-          return true;
-        }
-      } ) ) : [];
-   		if(contratos_con_puntuacion.length){
-        let cantidad_de_puntuaciones= contratos_con_puntuacion.length;
-        let array_de_puntuaciones= contratos_con_puntuacion.map(cur=> cur.puntuacion);
-        let suma_de_puntuaciones= array_de_puntuaciones.reduce((acc,cur)=> acc + cur );
+    //-----esta funcion se encarga de calcular el promedio de puntuacion de un usuario--
+    const promedio = (arrContratos) => {
+      let contratos_con_puntuacion = arrContratos.length
+        ? arrContratos.filter((cur) => {
+            if (cur.comentario && cur.comentario.length) {
+              return true;
+            }
+          })
+        : [];
+      if (contratos_con_puntuacion.length) {
+        let cantidad_de_puntuaciones = contratos_con_puntuacion.length;
+        let array_de_puntuaciones = contratos_con_puntuacion.map(
+          (cur) => cur.puntuacion
+        );
+        let suma_de_puntuaciones = array_de_puntuaciones.reduce(
+          (acc, cur) => acc + cur
+        );
         return suma_de_puntuaciones / cantidad_de_puntuaciones;
         //si quieren numero redondo-->
         //return Math.round(suma_de_puntuaciones / cantidad_de_puntuaciones)
-      }else{
-        return 1.0
+      } else {
+        return 1.0;
       }
     }; //----------------------------------------------------------
-    userM.reputacion= promedio(userM.contratos);
+    userM.reputacion = promedio(userM.contratos);
 
     return userM;
     //
@@ -549,7 +555,7 @@ const setVisible = async (id, visible) => {
 
 // -----------------------------------------------
 
-const modifyUser = async (data) => {
+const modifyUser = async (query, data) => {
   //
   try {
     let {
@@ -557,6 +563,7 @@ const modifyUser = async (data) => {
       name,
       lastName,
       profilePicture,
+      isAdmin,
       city,
       webSite,
       linkedIn,
@@ -576,7 +583,7 @@ const modifyUser = async (data) => {
       lenguajes,
       servicios,
       paiseId,
-      postulado
+      postulado,
     } = data;
 
     await Usuarios.update(
@@ -584,6 +591,7 @@ const modifyUser = async (data) => {
         name,
         lastName,
         profilePicture,
+        isAdmin,
         city,
         webSite,
         linkedIn,
@@ -600,16 +608,16 @@ const modifyUser = async (data) => {
         cbu,
         cvu,
         paiseId,
-        postulado
+        postulado,
       },
       {
-        where: { email },
+        where: { query },
       }
     );
 
     let modUsr = await Usuarios.findOne({
       where: {
-        email: email,
+        email,
       },
       include: [
         {

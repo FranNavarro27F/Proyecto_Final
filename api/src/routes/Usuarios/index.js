@@ -17,6 +17,7 @@ const router = Router();
 
 // -----------------------------------------------
 
+// GET ALL USERS
 router.get("/", async (req, res) => {
   //
   try {
@@ -39,6 +40,7 @@ router.get("/", async (req, res) => {
 
 // -----------------------------------------------
 
+// GET ALL PREMIUM USERS
 router.get("/premium", async (req, res) => {
   //
   try {
@@ -52,6 +54,7 @@ router.get("/premium", async (req, res) => {
 
 // -----------------------------------------------
 
+// GET USER BY ID
 router.get("/:id", async (req, res) => {
   //
   try {
@@ -65,31 +68,11 @@ router.get("/:id", async (req, res) => {
 
 // -----------------------------------------------
 
-// router.put("/", async (req, res) => {
-//   //
-//   try {
-//     // let { email, paiseId } = req.body;
-
-//     // if (!email || !paiseId) {
-//     //   res.sendStatus(400).send(`Error --→ ${e}`);
-//     // .send("Falta alguno de los campos importantes. Por favor revisar");
-//     // } else {
-
-//     let usuario = await modifyUser(req.body);
-//    console.log(usuario);
-//     res.status(201).json(usuario);
-//     // }
-//     //
-//   } catch (e) {
-//     res.status(400).send(`Error --→ ${e}`);
-//   }
-// });
-
-// -----------------------------------------------
-
+// MODIFY USER
 router.put("/", async (req, res) => {
   try {
-    res.status(200).json(await modifyUser(req.body));
+    const { email } = req.query;
+    res.status(200).json(await modifyUser(email, req.body));
   } catch (e) {
     res.status(400).send(`Error --→ ${e}`);
   }
@@ -131,6 +114,7 @@ router.put("/visible/:id", async (req, res) => {
 
 // -----------------------------------------------
 
+// CREATE USER FROM AUTH0 LOGIN
 router.post("/", async (req, res) => {
   //
   try {
@@ -149,6 +133,7 @@ router.post("/", async (req, res) => {
 
 // -----------------------------------------------
 
+// DELETE USER
 router.delete("/:id", async (req, res) => {
   //
   try {
