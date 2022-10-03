@@ -415,16 +415,16 @@
 }
 
 /*------ ACA EMPIEZA EL STYLE DE LA CARD DE CONTRATOS----------- */
-.cardContrato {
-  background: linear-gradient(
+/* .cardContrato { */
+  /* background: linear-gradient(
     290.74deg,
     #5eaaaf 6.83%,
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
   width: 50%;
-  height: 50vh;
-}
+  height: 50vh; */
+/* } */
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
@@ -526,14 +526,16 @@
   background: rgba(47, 47, 138, 0.247);
   backdrop-filter: blur(2px);
   border: 2px solid rgba(0, 0, 0, 0.075);
-  width: 150vh;
-  height: 20vh;
+  width: 75vw;
+  height: 50vh;
   margin-left: 40vh;
   margin-top: 10vh;
   border-radius: 30px;
   overflow: hidden;
   backdrop-filter: blur(2px);
   border: 2px solid rgba(0, 0, 0, 0.075);
+  display: flex;
+  flex-direction: column;
 }
 .textCardContrato {
   font-family: "Poppins";
@@ -590,6 +592,7 @@
   min-height: 50vh;
   padding: 20px;
 }
+
 
 /*------ ACA EMPIEZA EL CHECK----------- */
 .divVisible {

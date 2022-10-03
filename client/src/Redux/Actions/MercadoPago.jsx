@@ -1,12 +1,12 @@
 import axios from "axios";
 
 // const { nombreContratista, mailContrado } = req.body;
-export function pagosMp() {
+export function pagosMp(price, id) {
   return async function (dispatch) {
     try {
       return dispatch({
         type: "MP_PAYMENT",
-        payload: (await axios.post(`/pago/payment`)).data,
+        payload: (await axios.post(`/pago/payment/${id}`, price)).data,
       });
     } catch (e) {
       console.error(e, "error catch action payment MercadoPago");
@@ -16,7 +16,7 @@ export function pagosMp() {
 
 export function subscriptionMp(status, subscription_id, user_id) {
   return async function (dispatch) {
-    if (!status && !subscription_id) {
+    if (!status && subscription_id !== undefined) {
       try {
         return dispatch({
           type: "MP_SUBSCRIPTION",
@@ -32,12 +32,15 @@ export function subscriptionMp(status, subscription_id, user_id) {
 export function consultSub(id) {
   return async function (dispatch) {
     try {
-      if (id !== undefined) {
-        const idsub = await id;
+      if (id !== undefined || id !== null) {
+        const response = (await axios.get(`/pago/consultSub/${id}`)).data;
+        console.log(response);
         return dispatch({
           type: "MP_SUBSCRIPTION_CONSULT",
-          payload: (await axios.get(`/pago/consultSub/${idsub}`)).data,
+          payload: response,
         });
+      } else {
+        console.log("el id esta undefined");
       }
     } catch (e) {
       console.error(e, "error catch action subscription consult MercadoPago");

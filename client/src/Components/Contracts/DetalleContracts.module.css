@@ -1,66 +1,83 @@
-.titulito{
-    color: #ffffff;
-    margin-top: 3vh;
-    margin-left: 3vh;
-    
+.titulito {
+  color: #ffffff;
+  margin-top: 3vh;
+  margin-left: 3vh;
 }
 
-
-
-.buttonDetalle{
-    background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
-    border-radius: 2.1vw;
-    color: #ffffff;
-    font-family: "Poppins";
-    font-weight: 400;
-    font-size: 0.9vw;
-    line-height: 23px;
-    cursor: pointer;
-    width: 9vw;
-    height: 5vh;
-    margin-right: 15px;
-      
+.buttonDetalle {
+  background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.9vw;
+  /* line-height: 23px; */
+  cursor: pointer;
+  width: 9vw;
+  height: 5vh;
+  margin-right: 15px;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
 }
+.buttonDetalle:disabled {
+  background: linear-gradient(101.81deg, #7f7e80 25.84%, #a7a7a8 98.95%);
+  border-radius: 2.1vw;
+  color: #ffffff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 0.9vw;
+  line-height: 23px;
+  cursor: pointer;
+  width: 9vw;
+  height: 5vh;
+  margin-right: 15px;
+}
+
 .buttonDetalle:hover {
-    transition-delay: 0.2s;
-    transition: 0.8s;
-    transform: scale(1.1);
-    cursor: pointer;
+  transition-delay: 0.2s;
+  transition: 0.8s;
+  transform: scale(1.1);
+  cursor: pointer;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
 }
 
-
-.cardDetalle{
-    
-    background: rgba(47, 47, 138, 0.247);
-    backdrop-filter: blur(2px);
-    border: 2px solid rgba(0, 0, 0, 0.075);
-    width: 110vh;
-    height: 50vh;
-    margin-left: 10vh;
-    margin-top: 10vh;
-    border-radius: 30px;
-    overflow: hidden;
-    backdrop-filter: blur(2px);
-    border: 2px solid rgba(0, 0, 0, 0.075);
-    
+.cardDetalle {
+  background: rgba(47, 47, 138, 0.247);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
+  width: 110vh;
+  height: 50vh;
+  margin-left: 10vh;
+  margin-top: 10vh;
+  border-radius: 30px;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(0, 0, 0, 0.075);
 }
 .textBox {
-    width: 30vw;
-    height: 2px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 2.3vh;
-    line-height: 143.2%;
-    color: #ffffff;
-    z-index: 3;
-    position: absolute;
-    left: 6%;
-    margin-top: 5%;
-  }
-  .buttonUbi{
-    margin-left: 10vh;
-    display: flex;
-    margin-left: 50vh;
-    cursor: pointer;
-  }
+  width: 30vw;
+  height: 2px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2.3vh;
+  line-height: 143.2%;
+  color: #ffffff;
+  z-index: 3;
+  position: absolute;
+  left: 6%;
+  margin-top: 5%;
+}
+.buttonUbi {
+  margin-left: 10vh;
+  display: flex;
+  margin-left: 50vh;
+  cursor: pointer;
+}

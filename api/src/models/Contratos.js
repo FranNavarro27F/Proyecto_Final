@@ -57,18 +57,21 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
-      payment_id: {
+      link_de_pago: {
         type: DataTypes.STRING,
         // allowNull: false,
       },
 
+      pagado: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+
       aceptado: {
         type: DataTypes.BOOLEAN,
-        
       },
-      ultimaModificacion:{
+      ultimaModificacion: {
         type: DataTypes.STRING,
-
       },
       puntuacion: {
         type: DataTypes.FLOAT,
@@ -80,7 +83,7 @@ module.exports = (sequelize) => {
       },
       comentario: {
         type: DataTypes.STRING,
-        defaultValue: ""
+        defaultValue: "",
       },
       habilitado: {
         type: DataTypes.BOOLEAN,

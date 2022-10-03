@@ -66,6 +66,8 @@ const getContracts = async () => {
         payment: c.payment_id,
         aceptado: c.aceptado,
         habilitado: c.habilitado,
+        pagado: c.pagado,
+        link_de_pago: c.link_de_pago,
       };
     });
 
@@ -111,7 +113,7 @@ const createContract = async (data) => {
       expiration_date,
       price,
       status,
-      ultimaModificacion
+      ultimaModificacion,
       // payment_id,
     } = data;
 
@@ -137,7 +139,7 @@ const createContract = async (data) => {
     //seteo relacion en tabla intermedia mediante los ID de usuarios a contratos-usuarios.
     await el_que_contrata.addContratos(newContract.dataValues.id);
     await el_programador_contratado.addContratos(newContract.dataValues.id);
-  
+
     return `Contrato suscrito correctamente.
     Entre: ${employer} (contratante) y ${developer} (contratista)
     Desde: ${date} - Hasta: ${expiration_date}
@@ -152,6 +154,7 @@ const createContract = async (data) => {
 
 // PUT (EXISTING) CONTRACT
 const modifyContract = async (id, data) => {
+  console.log("+++++++++++++++++++", id, data, "*************");
   try {
     //
     const {
@@ -160,13 +163,13 @@ const modifyContract = async (id, data) => {
       expiration_date,
       price,
       status,
-      payment_id,
+      link_de_pago,
       aceptado,
       habilitado,
       ultimaModificacion,
       puntuacion,
-      comentario
-
+      comentario,
+      pagado,
     } = data;
     const contract = await Contratos.findByPk(id);
 
@@ -182,45 +185,54 @@ const modifyContract = async (id, data) => {
     // // contract.status = setStatus(date, expiration_date);
     // await contract.save();
 
-    if(description){
-      await Contratos.update({ description: description }, { where:{id: id} });
+    if (description) {
+      await Contratos.update(
+        { description: description },
+        { where: { id: id } }
+      );
     }
-    if(date){
-      await Contratos.update({ date: date }, { where:{id: id} });
+    if (date) {
+      await Contratos.update({ date: date }, { where: { id: id } });
     }
-    if(expiration_date){
-      await Contratos.update({ expiration_date: expiration_date }, { where:{id: id} });
+    if (expiration_date) {
+      await Contratos.update(
+        { expiration_date: expiration_date },
+        { where: { id: id } }
+      );
     }
-    if(price){
-      await Contratos.update({ price: price }, { where:{id: id} });
+    if (price) {
+      await Contratos.update({ price: price }, { where: { id: id } });
     }
-    if(status){
-      await Contratos.update({ status: status }, { where:{id: id} });
+    if (status) {
+      await Contratos.update({ status: status }, { where: { id: id } });
     }
-    if(payment_id){
-      await Contratos.update({ payment_id: payment_id }, { where:{id: id} });
+    if (link_de_pago) {
+      await Contratos.update(
+        { link_de_pago: link_de_pago },
+        { where: { id: id } }
+      );
     }
-    if(aceptado){
-      await Contratos.update({ aceptado: aceptado }, { where:{id: id} });
+    if (aceptado) {
+      await Contratos.update({ aceptado: aceptado }, { where: { id: id } });
     }
-    if(habilitado || habilitado === false){
-      await Contratos.update({ habilitado: habilitado }, { where:{id: id} });
+    if (habilitado || habilitado === false) {
+      await Contratos.update({ habilitado: habilitado }, { where: { id: id } });
     }
-    if(ultimaModificacion){
-      await Contratos.update({ ultimaModificacion: ultimaModificacion }, { where:{id: id} });
+    if (ultimaModificacion) {
+      await Contratos.update(
+        { ultimaModificacion: ultimaModificacion },
+        { where: { id: id } }
+      );
     }
-    if(puntuacion){
-      await Contratos.update({ puntuacion: puntuacion }, { where:{id: id} });
-      
+    if (puntuacion) {
+      await Contratos.update({ puntuacion: puntuacion }, { where: { id: id } });
     }
-    if(comentario){
-      await Contratos.update({ comentario: comentario }, { where:{id: id} });
-      
+    if (comentario) {
+      await Contratos.update({ comentario: comentario }, { where: { id: id } });
     }
-
-
-
-
+    if (pagado) {
+      await Contratos.update({ pagado: pagado }, { where: { id: id } });
+    }
 
     return `Contrato modificado exitosamente.
     Desde: ${date} - Hasta: ${expiration_date}
@@ -239,11 +251,14 @@ const cancelContract = async (id) => {
     //
     // const contract = await Contratos.findByPk(id);
     // contract.status = "Cancelado";
-    await Contratos.update({ aceptado: false }, {
-      where: {
-      id: id
+    await Contratos.update(
+      { aceptado: false },
+      {
+        where: {
+          id: id,
+        },
       }
-      });
+    );
 
     return `Contrato cancelado exitosamente.`;
     //
@@ -260,11 +275,14 @@ const acceptContract = async (id) => {
     //
     // const contract = await Contratos.findByPk(id);
     // contract.aceptado = true;
-    await Contratos.update({ aceptado: true }, {
-      where: {
-      id: id
+    await Contratos.update(
+      { aceptado: true },
+      {
+        where: {
+          id: id,
+        },
       }
-      });
+    );
 
     return `Propuesta aceptada exitosamente.`;
     //

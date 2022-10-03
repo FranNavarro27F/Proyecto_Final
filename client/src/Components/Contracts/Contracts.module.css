@@ -6,6 +6,9 @@
 
   align-items: center;
 }
+.textCardContrato {
+  height: 100vh;
+}
 
 .form {
   margin-top: 4vh;

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getContratoId } from "../../Redux/Actions/Contracts";
 import s from "../Details/Details.module.css";
-import DetalleContrato from "./DetalleContrato";
+// import DetalleContrato from "./DetalleContrato";
 
 export default function Contracts({
   description,
@@ -14,6 +15,7 @@ export default function Contracts({
   price,
   aceptado,
   idContrato,
+  pagado,
 }) {
   // let idContrato = contrato.cur.id;
   const navigate = useNavigate();
@@ -27,8 +29,8 @@ export default function Contracts({
     <div>
       <div className={s.divCardContrato}>
         <div className={s.textCardContrato}>
-          <label>Id contrato: </label>
-          {idContrato}
+          {/* <label>Id contrato: </label>
+          {idContrato} */}
           <label>Fecha de Inicio: </label>
           {date}
           <br />
@@ -45,10 +47,14 @@ export default function Contracts({
           {status}
           <br />
           <label>Estado: </label>
+          {!pagado
+            ? aceptado === false
+              ? "No aceptado"
+              : `Aceptado en espera de pago ⚠`
+            : "Aceptado y pagado ✅ "}
           {aceptado}
           <br />
         </div>
-
         <button
           onClick={() => {
             navigate(`/contrato/${idContrato}`);
