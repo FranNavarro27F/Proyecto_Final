@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import s from "../Details/Details.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,9 @@ import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
+import { BsChevronDoubleDown } from "react-icons/bs";
+import ScrollTop from "../Home/ScrollTop";
+import ScrollTopDetail from "./ScrollTopDetail";
 // import { Swal } from "sweetalert2";
 
 export default function Details() {
@@ -46,7 +49,7 @@ export default function Details() {
 
   useEffect(() => {
     dispatch(getUserId(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
@@ -59,6 +62,14 @@ export default function Details() {
   const linkPago = consultaSub?.init_point;
 
   const [contratoDetail, SetContratoDetail] = useState(false);
+
+  const scrollTo = (section) => {
+    section.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const refContracts = useRef();
 
   //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
   const contratosVisibles = (contratos, user) => {
@@ -642,9 +653,6 @@ export default function Details() {
                 </div>
                 <div className={s.divBox}>
                   <div className={s.textBox}>
-                    {/* {userProfile && (
-                      <h1>PREMIUM: {`${userByEmail?.premium}`}</h1>
-                    )} */}
                     <h2>
                       {userDetail?.name
                         ? userDetail?.name + " "
@@ -868,11 +876,20 @@ export default function Details() {
                   </div>
                 </div>
               </div>
+              <div className={s.divScrollContracts}>
+                {" "}
+                <button
+                  className={s.scrollContracts}
+                  onClick={() => scrollTo(refContracts)}
+                >
+                  <BsChevronDoubleDown />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div>
+      <div ref={refContracts}>
         {contratosArenderizar &&
           contratosArenderizar.map((cur) => {
             return (
@@ -890,23 +907,9 @@ export default function Details() {
               </div>
             );
           })}
-
-        {/* {userDetail?.contratos &&
-          userDetail?.contratos.map((cur) => { //----
-            return (
-              <div className={s.cardContrato}>
-                <Contracts
-                  description={cur.description}
-                  date={cur.date}
-                  expiration_date={cur.expiration_date}
-                  status={cur.status}
-                  price={cur.price}
-                  aceptado={cur.aceptado}
-                  idContrato={cur.id}
-                />
-              </div>
-            );
-          })} */}
+        <div className={s.buttonTop}>
+          <ScrollTopDetail className={s.buttonTop} />
+        </div>
       </div>
     </div>
   );
