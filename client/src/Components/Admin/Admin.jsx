@@ -17,6 +17,7 @@ import TecnList from "./Pages/TecnList";
 import "./SideBar/SideBar.css";
 import "../Work/SideMenuWork/SideMenuWork";
 import SideMenuWork from "../Work/SideMenuWork/SideMenuWork";
+import { TiGroupOutline} from "react-icons/ti";
 
 
 export default function Admin(){
@@ -61,13 +62,14 @@ export default function Admin(){
                 <li className="siderbarListItem"
                 onClick={openUsuarios}
                 >
-                    Usuarios
+                  <TiGroupOutline/>
+                     Usuarios
                 </li>
                 <li
                  className="siderbarListItem"
                  onClick={openLenguajes}
                  >
-                    Lenguajes
+                   🗺 Lenguajes
                 </li>
                 <li className="siderbarListItem"
                 onClick={openTecnologias}
