@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
 
       isAdmin: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
       },
 
       name: {
@@ -96,7 +96,7 @@ module.exports = (sequelize) => {
 
       yearsOfExperience: {
         type: DataTypes.INTEGER,
-        allowNull: true, //antes estaba en false (explicar Auth0)
+        allowNull: true,
         validate: {
           len: [1, 2], // no permitir mas de dos dígitos
           min: 1, // valor mínimo: 1
@@ -133,29 +133,31 @@ module.exports = (sequelize) => {
 
       visible: {
         type: DataTypes.BOOLEAN,
-        // allowNull: false,
+        defaultValue: false,
+        allowNull: true,
       },
 
       postulado: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: true,
       },
 
       registrado: {
         type: DataTypes.BOOLEAN,
-        // allowNull: false,
+        allowNull: true,
       },
 
       habilitado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-        // allowNull: false,
+        allowNull: true,
       },
 
       premium: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        // allowNull: false,
+        allowNull: true,
       },
 
       subscription_id: {
@@ -164,7 +166,7 @@ module.exports = (sequelize) => {
       },
 
       tarjeta_numero: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
         validate: {
           isCreditCard: true,
@@ -197,7 +199,7 @@ module.exports = (sequelize) => {
       },
 
       cbu: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
         validate: {
           is: /\d{22}/g,
@@ -205,7 +207,7 @@ module.exports = (sequelize) => {
       },
 
       cvu: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true,
         validate: {
           is: /\d{22}/g,
@@ -214,6 +216,7 @@ module.exports = (sequelize) => {
 
       reputacion: {
         type: DataTypes.FLOAT,
+        allowNull: true,
         defaultValue: 1.0,
         validate: {
           min: 1.0,
@@ -228,10 +231,3 @@ module.exports = (sequelize) => {
     }
   );
 };
-
-/* RELACIONES
-
-    notificaciones
-    calificaciones
-
-*/

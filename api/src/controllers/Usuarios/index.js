@@ -14,87 +14,99 @@ const ERROR = "Error @ controllers/Usuarios/";
 // -----------------------------------------------
 
 // **** UTILS ****
-const capitalize = (nombre) => {
-  return nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
+
+// const capitalize = (nombre) => {
+//   return nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
+// };
+
+// Capitalize retorna un string con cada palabra capitalizada
+// Ej: jUaN pErEz --> Juan Perez
+const capitalize = (str) => {
+  return str
+    .trim()
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
 };
 
-const findUsers = async (props) => {
-  let usuarios = await Usuarios.findAll({
-    where: props,
-    include: [
-      {
-        model: Paises,
-        attributes: ["name"],
-      },
-      {
-        model: Servicios,
-        attributes: ["name"],
-        through: { attributes: [] },
-      },
-      {
-        model: Lenguajes,
-        attributes: ["name"],
-        through: { attributes: [] },
-      },
-      {
-        model: Tecnologias,
-        attributes: ["name"],
-        through: { attributes: [] },
-      },
-    ],
-  });
-  //
-  return usuarios.map((u) => {
-    const { dataValues: d } = u;
-    // let country = Paises.findByPk(u.paiseId)?.d.name;
-    //
-    return {
-      id: d.id,
-      profilePicture:
-        d.profilePicture ||
-        "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
-      name: capitalize(d.name) || "Anonymous",
-      lastName: capitalize(d.lastName) || "Anonymous",
-      email: d.email,
-      // isAdmin: d.isAdmin,
+// const findUsers = async (props) => {
+//   let usuarios = await Usuarios.findAll({
+//     where: props,
+//     include: [
+//       {
+//         model: Paises,
+//         attributes: ["name"],
+//       },
+//       {
+//         model: Servicios,
+//         attributes: ["name"],
+//         through: { attributes: [] },
+//       },
+//       {
+//         model: Lenguajes,
+//         attributes: ["name"],
+//         through: { attributes: [] },
+//       },
+//       {
+//         model: Tecnologias,
+//         attributes: ["name"],
+//         through: { attributes: [] },
+//       },
+//     ],
+//   });
+//   //
+//   return usuarios.map((u) => {
+//     const { dataValues: d } = u;
+//     // let country = Paises.findByPk(u.paiseId)?.d.name;
+//     //
+//     return {
+//       id: d.id,
+//       profilePicture:
+//         d.profilePicture ||
+//         "https://cdn.discordapp.com/attachments/826954908258402374/1025122570074341518/anonymous.png",
+//       name: capitalize(d.name) || "Anonymous",
+//       lastName: capitalize(d.lastName) || "Anonymous",
+//       email: d.email,
+//       // isAdmin: d.isAdmin,
 
-      // city: d.city,
-      linkedIn: d.linkedIn,
-      gitHub: d.gitHub,
-      webSite: d.webSite,
+//       // city: d.city,
+//       linkedIn: d.linkedIn,
+//       gitHub: d.gitHub,
+//       webSite: d.webSite,
 
-      yearsOfExperience: d.yearsOfExperience,
-      dailyBudget: d.dailyBudget,
-      englishLevel: d.englishLevel,
-      bio: d.bio,
+//       yearsOfExperience: d.yearsOfExperience,
+//       dailyBudget: d.dailyBudget,
+//       englishLevel: d.englishLevel,
+//       bio: d.bio,
 
-      // postulado: d.postulado,
-      // registrado: d.registrado,
-      visible: d.visible,
-      habilitado: d.habilitado,
-      premium: d.premium,
-      reputacion: d.reputacion,
+//       // postulado: d.postulado,
+//       // registrado: d.registrado,
+//       visible: d.visible,
+//       habilitado: d.habilitado,
+//       premium: d.premium,
+//       reputacion: d.reputacion,
 
-      // tarjeta_numero: d.tarjeta_numero,
-      // tarjeta_nombreCompleto: d.tarjeta_nombreCompleto,
-      // tarjeta_vencimiento: d.tarjeta_vencimiento,
-      // tarjeta_codigoSeguridad: d.tarjeta_codigoSeguridad,
-      // cbu: d.cbu,
-      // cvu: d.cvu,
+//       // tarjeta_numero: d.tarjeta_numero,
+//       // tarjeta_nombreCompleto: d.tarjeta_nombreCompleto,
+//       // tarjeta_vencimiento: d.tarjeta_vencimiento,
+//       // tarjeta_codigoSeguridad: d.tarjeta_codigoSeguridad,
+//       // cbu: d.cbu,
+//       // cvu: d.cvu,
 
-      paiseId: d.paiseId || "",
-      servicios: d.servicios
-        ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
-        : [],
-      lenguajes: d.lenguajes
-        ? d.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
-        : [],
-      tecnologias: d.tecnologias
-        ? d.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
-        : [],
-    };
-  });
-};
+//       paiseId: d.paiseId || "",
+//       servicios: d.servicios
+//         ? d.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
+//         : [],
+//       lenguajes: d.lenguajes
+//         ? d.lenguajes.map((cur) => cur.dataValues).map((cur) => cur.name)
+//         : [],
+//       tecnologias: d.tecnologias
+//         ? d.tecnologias.map((cur) => cur.dataValues).map((cur) => cur.name)
+//         : [],
+//     };
+//   });
+// };
 
 const findUser = async (props) => {
   const d = await Usuarios.findOne({
@@ -170,22 +182,6 @@ const findUser = async (props) => {
       : [],
   };
 };
-
-// -----------------------------------------------
-
-// GET (ALL) USERS
-// const getUsers = async () => {
-//   //
-//   try {
-//     return await findUsers({
-//       // habilitado: true,
-//       // visible: true,
-//     });
-//     //
-//   } catch (e) {
-//     console.error(`${ERROR}getUsers --→ ${e}`);
-//   }
-// };
 
 // -----------------------------------------------
 
@@ -412,8 +408,8 @@ const getUserByName = async (name) => {
   //
   try {
     return await findUser({
-      // habilitado: true,
-      // visible: true,
+      habilitado: true,
+      visible: true,
       name: { [Op.iLike]: `%${name}%` },
     });
     //
@@ -559,59 +555,58 @@ const modifyUser = async (query, data) => {
   //
   try {
     let {
-      email,
-      name,
-      lastName,
       profilePicture,
       isAdmin,
+      name,
+      lastName,
+      email,
       city,
-      webSite,
       linkedIn,
       gitHub,
+      webSite,
       yearsOfExperience,
       dailyBudget,
       englishLevel,
       bio,
-      visible,
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
       tarjeta_codigoSeguridad,
       cbu,
       cvu,
-      tecnologias,
-      lenguajes,
-      servicios,
       paiseId,
-      postulado,
+      servicios,
+      lenguajes,
+      tecnologias,
     } = data;
 
     await Usuarios.update(
       {
-        name,
-        lastName,
         profilePicture,
         isAdmin,
+        name, //
+        lastName, //
+        email, //
         city,
-        webSite,
         linkedIn,
         gitHub,
+        webSite,
         yearsOfExperience,
         dailyBudget,
         englishLevel,
         bio,
-        visible,
         tarjeta_numero,
         tarjeta_nombreCompleto,
         tarjeta_vencimiento,
         tarjeta_codigoSeguridad,
         cbu,
         cvu,
+        // visible,
+        // postulado,
         paiseId,
-        postulado,
       },
       {
-        where: { query },
+        where: { email: query },
       }
     );
 
