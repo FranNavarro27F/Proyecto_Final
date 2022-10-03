@@ -160,11 +160,13 @@ export default function DetalleContrato() {
                   Rechazar
                 </button>
               )}
-              {detalleC.aceptado && detalleC.pagado && (
-                <div>
-                  <Reviews id={id} />
-                </div>
-              )}
+              {detalleC.aceptado &&
+                detalleC.pagado &&
+                usuarioActual === detalleC.employer && (
+                  <div>
+                    <Reviews id={id} />
+                  </div>
+                )}
               {/* {detalleC.aceptado &&
                 usuarioActual &&
                 usuarioActual === detalleC.employer && (
