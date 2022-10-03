@@ -164,7 +164,8 @@ export default function DetalleContrato() {
               )}
               {detalleC.aceptado &&
                 detalleC.pagado &&
-                usuarioActual === detalleC.employer && (
+                usuarioActual === detalleC.employer &&
+                !detalleC?.comentario && (
                   <div>
                     <Reviews id={id} />
                   </div>
