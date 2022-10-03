@@ -137,7 +137,6 @@ export default function DetalleContrato() {
                   </button>
                 ) : (
                   <a href={initPoint} className={s.buttonDetalle}>
-                    {" "}
                     pagar!
                   </a>
                 ))}
