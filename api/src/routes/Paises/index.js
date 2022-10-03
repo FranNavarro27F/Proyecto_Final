@@ -13,6 +13,7 @@ const router = Router();
 
 // -----------------------------------------------
 
+// GET COUNTRIES (ALL / BY NAME)
 router.get("/", async (req, res) => {
   //
   try {
@@ -31,6 +32,7 @@ router.get("/", async (req, res) => {
 
 // -----------------------------------------------
 
+// GET COUNTRY BY ID
 router.get("/:id", async (req, res) => {
   //
   try {
@@ -44,6 +46,7 @@ router.get("/:id", async (req, res) => {
 
 // -----------------------------------------------
 
+// POST NEW COUNTRY
 router.post("/", async (req, res) => {
   //
   try {
@@ -61,6 +64,7 @@ router.post("/", async (req, res) => {
 
 // -----------------------------------------------
 
+// DELETE COUNTRY
 router.delete("/:id", async (req, res) => {
   //
   try {
@@ -80,6 +84,7 @@ router.delete("/:id", async (req, res) => {
 
 // -----------------------------------------------
 
+// MODIFY (EXISTING) COUNTRY
 router.put("/", async (req, res) => {
   //
   try {

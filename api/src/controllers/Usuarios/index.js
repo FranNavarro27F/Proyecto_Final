@@ -7,7 +7,7 @@ const {
   Contratos,
 } = require("../../db.js");
 
-const { getCountryByName } = require("../Paises");
+const { traerPaisPorId } = require("../Paises");
 
 const { Op } = require("sequelize");
 
@@ -553,71 +553,125 @@ const setVisible = async (id, visible) => {
 
 // -----------------------------------------------
 
-const modifyUser = async (email, data) => {
+const modifyUser = async (query, data) => {
   //
   try {
     const {
-      //   id,
-      //   profilePicture,
-      //   isAdmin,
-      //   name,
-      //   lastName,
-      //   email,
-      //   city,
-      //   linkedIn,
-      //   gitHub,
-      //   webSite,
-      //   yearsOfExperience,
-      //   dailyBudget,
-      //   englishLevel,
-      //   bio,
-      //   tarjeta_numero,
-      //   tarjeta_nombreCompleto,
-      //   tarjeta_vencimiento,
-      //   tarjeta_codigoSeguridad,
-      //   cbu,
-      //   cvu,
-      //   //   visible,
-      //   //   postulado,
-      //   paiseId,
+      profilePicture,
+      isAdmin,
+      name,
+      lastName,
+      email,
+      city,
+      linkedIn,
+      gitHub,
+      webSite,
+      yearsOfExperience,
+      dailyBudget,
+      englishLevel,
+      bio,
+      tarjeta_numero,
+      tarjeta_nombreCompleto,
+      tarjeta_vencimiento,
+      tarjeta_codigoSeguridad,
+      cbu,
+      cvu,
+      //   visible,
+      //   postulado,
+      paiseId,
       servicios,
       lenguajes,
       tecnologias,
     } = data;
 
-    const u = await getByEmail(email);
+    // --------------------------------------------
+
+    // SI EL FORMULARIO DEL FRONT TOMA VALORES PREVIOS:
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+    const u = await getByEmail(query);
+    // console.log("datos anteriores", u);
+    const c = await traerPaisPorId(u.paiseId);
+    console.log("CONTROLLER/USUARIOS - PAIS ID", paiseId);
+    console.log("CONTROLLER/USUARIOS - C", c);
 
     await Usuarios.update(
       {
-        profilePicture: data.profilePicture ?? u.profilePicture,
-        isAdmin: data.isAdmin ?? u.isAdmin,
-        name: data.name,
-        lastName: data.lastName,
-        city: data.city ?? u.city,
-        linkedIn: data.linkedIn ?? u.linkedIn,
-        gitHub: data.gitHub ?? u.gitHub,
-        webSite: data.webSite ?? u.webSite,
-        yearsOfExperience: data.yearsOfExperience ?? u.yearsOfExperience,
-        dailyBudget: data.dailyBudget ?? u.dailyBudget,
-        englishLevel: data.englishLevel ?? u.englishLevel,
-        bio: data.bio ?? u.bio,
-        tarjeta_numero: data.tarjeta_numero ?? u.tarjeta_numero,
+        profilePicture: profilePicture ?? u.profilePicture,
+        isAdmin: isAdmin ?? u.isAdmin,
+        name: name,
+        lastName: lastName,
+        city: city ?? u.city,
+        linkedIn: linkedIn ?? u.linkedIn,
+        gitHub: gitHub ?? u.gitHub,
+        webSite: webSite ?? u.webSite,
+        yearsOfExperience: yearsOfExperience ?? u.yearsOfExperience,
+        dailyBudget: dailyBudget ?? u.dailyBudget,
+        englishLevel: englishLevel ?? u.englishLevel,
+        bio: bio ?? u.bio,
+        tarjeta_numero: tarjeta_numero ?? u.tarjeta_numero,
         tarjeta_nombreCompleto:
-          data.tarjeta_nombreCompleto?.toUpperCase() ??
-          u.tarjeta_nombreCompleto,
-        tarjeta_vencimiento: data.tarjeta_vencimiento ?? u.tarjeta_vencimiento,
+          tarjeta_nombreCompleto?.toUpperCase() ?? u.tarjeta_nombreCompleto,
+        tarjeta_vencimiento: tarjeta_vencimiento ?? u.tarjeta_vencimiento,
         tarjeta_codigoSeguridad:
-          data.tarjeta_codigoSeguridad ?? u.tarjeta_codigoSeguridad,
-        cbu: data.cbu ?? u.cbu,
-        cvu: data.cvu ?? u.cvu,
+          tarjeta_codigoSeguridad ?? u.tarjeta_codigoSeguridad,
+        cbu: cbu ?? u.cbu,
+        cvu: cvu ?? u.cvu,
         // visible,
         // postulado,
-        paiseId: data.paiseId ?? u.paiseId,
+        paiseId,
+        // paiseId: paiseId ?? c.id,
       },
       {
-        where: { email },
+        where: { email: query },
       }
     );
+
+    // --------------------------------------------
+
+    // SI EL FORMULARIO DEL FRONT NO TOMA VALORES PREVIOS:
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+    // const u = await getByEmail(email);
+    // // console.log("datos anteriores", u);
+    // const c = await traerPaisPorId(u.paiseId);
+    // console.log("CONTROLLER/USUARIOS - PAIS ID", paiseId);
+    // console.log("CONTROLLER/USUARIOS - C", c);
+
+    // await Usuarios.update(
+    //   {
+    //     profilePicture: data.profilePicture ?? u.profilePicture,
+    //     isAdmin: data.isAdmin ?? u.isAdmin,
+    //     name: data.name,
+    //     lastName: data.lastName,
+    //     city: data.city ?? u.city,
+    //     linkedIn: data.linkedIn ?? u.linkedIn,
+    //     gitHub: data.gitHub ?? u.gitHub,
+    //     webSite: data.webSite ?? u.webSite,
+    //     yearsOfExperience: data.yearsOfExperience ?? u.yearsOfExperience,
+    //     dailyBudget: data.dailyBudget ?? u.dailyBudget,
+    //     englishLevel: data.englishLevel ?? u.englishLevel,
+    //     bio: data.bio ?? u.bio,
+    //     tarjeta_numero: data.tarjeta_numero ?? u.tarjeta_numero,
+    //     tarjeta_nombreCompleto:
+    //       data.tarjeta_nombreCompleto?.toUpperCase() ??
+    //       u.tarjeta_nombreCompleto,
+    //     tarjeta_vencimiento: data.tarjeta_vencimiento ?? u.tarjeta_vencimiento,
+    //     tarjeta_codigoSeguridad:
+    //       data.tarjeta_codigoSeguridad ?? u.tarjeta_codigoSeguridad,
+    //     cbu: data.cbu ?? u.cbu,
+    //     cvu: data.cvu ?? u.cvu,
+    //     // visible,
+    //     // postulado,
+    //     paiseId,
+    //     // paiseId: paiseId ?? c.id,
+    //   },
+    //   {
+    //     where: { email },
+    //   }
+    // );
+
+    // // --------------------------------------------
 
     let modUsr = await Usuarios.findOne({
       where: {
