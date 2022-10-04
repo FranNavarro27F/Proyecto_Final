@@ -8,15 +8,15 @@ import s from "../Details/Details.module.css";
 // import DetalleContrato from "./DetalleContrato";
 
 export default function Contracts({
-  idEmployer,
-  description,
   date,
-  expiration_date,
-  status,
   price,
-  aceptado,
-  idContrato,
   pagado,
+  aceptado,
+  idEmployer,
+  idContrato,
+  status,
+  description,
+  expiration_date
 }) {
 
 
