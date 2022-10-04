@@ -587,7 +587,7 @@ export default function Details() {
           </button>
 
           <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Propuestas aceptadas y pagadas
+            Propuestas abonadas
           </button>
         </div>
 
