@@ -659,10 +659,10 @@ input:checked + .slider_round:before {
 
 /* ------carta de contrato en detalle de usuario---------- */
 
-.back{
+/* .back{ */
   /* background-color: #813c8f; */
 
-}
+/* } */
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
