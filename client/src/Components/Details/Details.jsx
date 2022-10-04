@@ -577,7 +577,7 @@ export default function Details() {
           </div>
         </div>
         {/* botones o pestañas para ordenar contratos */}
-        <div className={s.buttonContratitos}>
+        <div ref={refContracts} className={s.buttonContratitos}>
           <button className={s.button1} onClick={() => handler_defaultt()}>
             Por defecto
           </button>
@@ -593,9 +593,9 @@ export default function Details() {
 
         {/* ----------------------------------------- */}
 
-        <div ref={refContracts}>
+        <div>
           {contratosArenderizar &&
-            contratosArenderizar.map((cur) => {
+            ContratosOrder.map((cur) => {
               return (
                 <div className={s.cardContrato}>
                   <Contracts
