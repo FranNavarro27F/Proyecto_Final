@@ -34,6 +34,8 @@ export default function Admin(){
     
     const dispatch = useDispatch()
 
+    const [active, setActive] = useState(false)
+
     // let lenAdmin = useSelector((state) => state.admin.lengAdmin)
     // let paisesAdmin = useSelector((state) => state.admin.paisAdmin)
     // let tecAdmin = useSelector((state)=> state.admin.tecnAdmin)
