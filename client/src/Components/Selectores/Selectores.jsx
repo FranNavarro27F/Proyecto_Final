@@ -7,9 +7,9 @@ export default function Selectores() {
   const dispatch = useDispatch();
 
   const { countries, languajes, services, tecnologies } = useFetchAllData();
-  useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
   const optionsLanguajes = languajes?.map((e) => {
     return {

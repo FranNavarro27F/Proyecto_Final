@@ -119,7 +119,6 @@ export default function Contrato({
       //       IDContratado: userDetail.id
       //     })
       //  );
-
       navigate("/work");
     }
   };

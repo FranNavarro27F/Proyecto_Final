@@ -687,9 +687,10 @@ input:checked + .slider_round:before {
 
 /* ------carta de contrato en detalle de usuario---------- */
 
-.back {
+/* .back{ */
   /* background-color: #813c8f; */
-}
+
+/* } */
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
@@ -723,3 +724,77 @@ input:checked + .slider_round:before {
 }
 
 /* -------------------------------------------------------- */
+
+
+/* ---------- este es el estilo de las navigation tabs----------- */
+.buttonContratitos{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80vw;
+  margin-left: 9vw;
+  margin-top: 6vh;
+  
+ 
+  }
+
+  .button1{
+    border-radius: 2vh;
+    border-bottom-right-radius: 0vh;
+    border-top-left-radius: 0vh;
+    cursor: pointer;
+    width: 20vw;
+    height: 8vh;
+    border: none;
+    font-size: 2.5vh;
+    /* border-bottom: none;
+    border-left: none; */
+    background: linear-gradient(
+      290.74deg,
+      #5eaaaf 6.83%,
+      #2f2e6c 52.53%,
+      #251f3e 85.61%
+    );
+  }
+
+  
+  .button2{
+    border-radius: 2vh;
+    border-bottom-right-radius: 0vh;
+    border-top-left-radius: 0vh;
+    cursor: pointer;
+    width: 20vw;
+    height: 8vh;
+    /* border-bottom: none;
+    border-left: none; */
+    font-size: 2.3vh;
+    border: none;
+    background: linear-gradient(
+      290.74deg,
+      #5eaaaf 6.83%,
+      #2f2e6c 52.53%,
+      #251f3e 85.61%
+    );
+  }
+
+  
+  .button3{
+    border-radius: 2vh;
+    border-bottom-right-radius: 0vh;
+    border-top-left-radius: 0vh;
+    cursor: pointer;
+    width: 25vw;
+    height: 8vh;
+    /* border-bottom: none;
+    border-left: none; */
+    font-size: 2.5vh;
+    border: none;
+    background: linear-gradient(
+      290.74deg,
+      #5eaaaf 6.83%,
+      #2f2e6c 52.53%,
+      #251f3e 85.61%
+    );
+    
+  }
+

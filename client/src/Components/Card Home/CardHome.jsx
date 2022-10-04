@@ -19,18 +19,18 @@ export default function CardHome({ work }) {
         <Circulos />
       </div>
       <h1 className={s.titlew}>Destacados de la semana</h1>
-      <div>
-        <section>
+      <div className={s.CArd}>
+        
           <div
             id="carousel"
             className={s.bodyCard}
-            // style={{ transform: "translateZ(-288px) rotateY(-360deg)" }}
+            //  style={{ transform: "translateZ(-288px) rotateY(-360deg)" }}
           >
             <CardW1 userPremium={usersPremium[0]} />
             <CardW2 userPremium={usersPremium[1]} />
             <CardW3 userPremium={usersPremium[2]} />
           </div>
-        </section>
+        
       </div>
     </div>
   );

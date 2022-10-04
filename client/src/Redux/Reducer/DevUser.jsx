@@ -11,6 +11,8 @@ const initialState = {
   employer: [],
   loader: true,
   usersPremium: [],
+  employer_contrato: {},
+  developer_contrato: {},
 };
 
 export default function devUser(state = initialState, action) {
@@ -65,6 +67,8 @@ export default function devUser(state = initialState, action) {
       } = action.payload;
 
       let filtro = [...state.allUsers];
+      filtro = filtro.filter((e) => e !== "");
+
       if (filterTecnologies?.length !== 0)
         filtro = [...state.allUsers]?.filter((ele) =>
           ele.tecnologias?.includes(filterTecnologies.toString())
@@ -109,22 +113,24 @@ export default function devUser(state = initialState, action) {
       //-----------------searchBar----------------------
       if (name) {
         let nameFilter = filtro.filter((cur) =>
-          cur.name.toLowerCase().includes(name.toLowerCase())
+          cur.name?.toLowerCase().includes(name?.toLowerCase())
         );
 
         let lastNameFilter = filtro.filter((cur) =>
-          cur.lastName.toLowerCase().includes(name.toLowerCase())
+          cur.lastName?.toLowerCase().includes(name?.toLowerCase())
         );
 
-        let dailyBudgetFilter = filtro.filter((cur) => cur.dailyBudget == name);
+        let dailyBudgetFilter = filtro.filter(
+          (cur) => cur.dailyBudget === name
+        );
 
         let paisesFilter = filtro.filter((cur) =>
-          cur.paiseId.toLowerCase().includes(name.toLowerCase())
+          cur.paiseId?.toLowerCase().includes(name?.toLowerCase())
         );
 
         let lenguajesFilter6 = filtro.filter((cur) => {
-          let hayL = cur.lenguajes.filter((curr) =>
-            curr.toLowerCase().includes(name.toLowerCase())
+          let hayL = cur.lenguajes?.filter((curr) =>
+            curr.toLowerCase().includes(name?.toLowerCase())
           );
           if (hayL.length !== 0) {
             return true;
@@ -133,8 +139,8 @@ export default function devUser(state = initialState, action) {
           }
         });
         let serviciosFilter = filtro.filter((cur) => {
-          let hayS = cur.servicios.filter((cur) =>
-            cur.toLowerCase().includes(name.toLowerCase())
+          let hayS = cur.servicios?.filter((cur) =>
+            cur.toLowerCase().includes(name?.toLowerCase())
           );
           if (hayS.length !== 0) {
             return true;
@@ -143,8 +149,8 @@ export default function devUser(state = initialState, action) {
           }
         });
         let tecnologiasFilter = filtro.filter((cur) => {
-          let hayT = cur.tecnologias.filter((cur) =>
-            cur.toLowerCase().includes(name.toLowerCase())
+          let hayT = cur.tecnologias?.filter((cur) =>
+            cur.toLowerCase().includes(name?.toLowerCase())
           );
           if (hayT.length !== 0) {
             return true;
@@ -152,6 +158,7 @@ export default function devUser(state = initialState, action) {
             return false;
           }
         });
+
         let resultadosConcatenados = [
           ...nameFilter,
           ...lastNameFilter,
@@ -190,23 +197,23 @@ export default function devUser(state = initialState, action) {
       console.log(action.payload);
 
       let nameFilter = Usuarios.filter((cur) =>
-        cur.name.toLowerCase().includes(action.payload.toLowerCase())
+        cur.name?.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       let lastNameFilter = Usuarios.filter((cur) =>
-        cur.lastName.toLowerCase().includes(action.payload.toLowerCase())
+        cur.lastName?.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       let dailyBudgetFilter = Usuarios.filter(
-        (cur) => cur.dailyBudget == action.payload
+        (cur) => cur.dailyBudget === action.payload
       );
 
       let paisesFilter = Usuarios.filter((cur) =>
-        cur.paiseId.toLowerCase().includes(action.payload.toLowerCase())
+        cur.paiseId?.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       let lenguajesFilter6 = Usuarios.filter((cur) => {
-        let hayL = cur.lenguajes.filter((curr) =>
+        let hayL = cur.lenguajes?.filter((curr) =>
           curr.toLowerCase().includes(action.payload.toLowerCase())
         );
         if (hayL.length !== 0) {
@@ -216,7 +223,7 @@ export default function devUser(state = initialState, action) {
         }
       });
       let serviciosFilter = Usuarios.filter((cur) => {
-        let hayS = cur.servicios.filter((cur) =>
+        let hayS = cur.servicios?.filter((cur) =>
           cur.toLowerCase().includes(action.payload.toLowerCase())
         );
         if (hayS.length !== 0) {
@@ -226,7 +233,7 @@ export default function devUser(state = initialState, action) {
         }
       });
       let tecnologiasFilter = Usuarios.filter((cur) => {
-        let hayT = cur.tecnologias.filter((cur) =>
+        let hayT = cur.tecnologias?.filter((cur) =>
           cur.toLowerCase().includes(action.payload.toLowerCase())
         );
         if (hayT.length !== 0) {
@@ -301,7 +308,18 @@ export default function devUser(state = initialState, action) {
         ...state,
         employer: action.payload,
       };
+    
+    case "TRAER_USUARIO_ID":
+      return {
+        ...state,
+        employer_contrato: action.payload,
+      };
 
+    case "TRAER_DEVELOPER_ID":
+      return {
+        ...state,
+        developer_contrato: action.payload,
+      }
     default:
       return state;
   }

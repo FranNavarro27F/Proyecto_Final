@@ -17,6 +17,7 @@ import { pagosMp } from "../../Redux/Actions/MercadoPago";
 import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from "./Reviews";
 import Swal from "sweetalert2";
+import { emailerPagado, traerDeveloperID, traerUsuarioID } from "../../Redux/Actions/Emailer";
 
 export default function DetalleContrato() {
   const user = useUser();
@@ -37,6 +38,19 @@ export default function DetalleContrato() {
   const initPoint = paymentContract?.init_point;
   const link_de_pago = detalleC?.payment_id;
   let [pagar, setPagar] = useState(false);
+
+
+  useEffect(() => {
+    dispatch(traerUsuarioID(detalleC?.employer))
+    dispatch(traerDeveloperID(detalleC?.developer))
+  })
+  // employer_contrato: {},
+  // developer_contrato: {},
+  const objDeveloper = useSelector((state) => state.devUser.developer);
+  const mailDeveloper = objDeveloper?.email;
+  const objEmployer = useSelector((state) => state.devUser.employer);
+  const mailEmployer = objEmployer?.email;
+
 
   console.log("payment", link_de_pago);
   // console.log("payment", paymentContract )
@@ -92,10 +106,15 @@ export default function DetalleContrato() {
   // const nombreDeveloper =
 
   const handlePagar = () => {
+    dispatch(emailerPagado({
+      mailContrado: mailDeveloper, 
+      mailContratista: mailEmployer, 
+      IDContrato: detalleC?.id}))
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea realizar el pago del contrato por ${detalleC?.price} pesos ?`,
       icon: "warning",
+      cancelButtonText: `Volver`,
       showCancelButton: true,
       confirmButtonColor: "#4faf00",
       cancelButtonColor: "#9b2b2b",

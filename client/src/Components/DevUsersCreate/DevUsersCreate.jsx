@@ -96,26 +96,34 @@ export default function DevUsersCreate() {
       : cache?.englishLevel
       ? `${cache?.englishLevel}`
       : "Básico",
-    paiseId: userByEmail?.paiseId
-      ? `${userByEmail?.paiseId}`
-      : cache?.paiseId
-      ? `${cache?.paiseId}`
-      : "",
-    tecnologias: userByEmail?.tecnologias
-      ? `${userByEmail?.tecnologias}`
-      : cache?.tecnologias
-      ? `${cache?.tecnologias}`
-      : [],
-    lenguajes: userByEmail?.lenguajes
-      ? `${userByEmail?.lenguajes}`
-      : cache?.lenguajes
-      ? `${cache?.lenguajes}`
-      : [],
-    servicios: userByEmail?.servicios
-      ? `${userByEmail?.servicios}`
-      : cache?.servicios
-      ? `${cache?.servicios}`
-      : [],
+    paiseId:
+      // userByEmail?.paiseId
+      // ? `${userByEmail?.paiseId}`
+      // : cache?.paiseId
+      // ? `${cache?.paiseId}`
+      //   :
+      [],
+    tecnologias:
+      // userByEmail?.tecnologias
+      // ? `${userByEmail?.tecnologias}`
+      // : cache?.tecnologias
+      // ? `${cache?.tecnologias}`
+      //   :
+      [],
+    lenguajes:
+      // userByEmail?.lenguajes
+      // ? `${userByEmail?.lenguajes}`
+      // : cache?.lenguajes
+      // ? `${cache?.lenguajes}`
+      //   :
+      [],
+    servicios:
+      // userByEmail?.servicios
+      // ? `${userByEmail?.servicios}`
+      // : cache?.servicios
+      // ? `${cache?.servicios}`
+      //     :
+      [],
     postulado: true,
   });
 
@@ -129,7 +137,7 @@ export default function DevUsersCreate() {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
     if (userByEmail.postulado) {
       setErrors(
@@ -148,7 +156,7 @@ export default function DevUsersCreate() {
     }
     setCache({
       ...cache,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
     // } else {
     //   setVerErrores(true);
@@ -303,21 +311,14 @@ export default function DevUsersCreate() {
           `${
             userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
           }`),
-        paiseId: ("paiseId", userByEmail?.paiseId ? userByEmail?.paiseId : ""),
-
-        tecnologias:
-          ("tecnologias",
-          `${userByEmail?.tecnologias ? userByEmail?.tecnologias : []}`),
-        lenguajes:
-          ("lenguajes",
-          `${userByEmail?.lenguajes ? userByEmail?.lenguajes : []}`),
-        servicios:
-          ("servicios",
-          `${userByEmail?.servicios ? userByEmail?.servicios : []}`),
+        paiseId: ("paiseId", []),
+        tecnologias: ("tecnologias", []),
+        lenguajes: ("lenguajes", []),
+        servicios: ("servicios", []),
         postulado: true,
       });
       setModal(true);
-      dispatch(getUsersBd());
+      // dispatch(getUsersBd());
     } else {
       console.log(`hay errores`, errors);
     }
@@ -416,17 +417,10 @@ export default function DevUsersCreate() {
       englishLevel: `${
         userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
       }`,
-      paiseId: ("paiseId", userByEmail?.paiseId ? userByEmail?.paiseId : ""),
-
-      tecnologias:
-        ("tecnologias",
-        `${userByEmail?.tecnologias ? userByEmail?.tecnologias : []}`),
-      lenguajes:
-        ("lenguajes",
-        `${userByEmail?.lenguajes ? userByEmail?.lenguajes : []}`),
-      servicios:
-        ("servicios",
-        `${userByEmail?.servicios ? userByEmail?.servicios : []}`),
+      paiseId: ("paiseId", []),
+      tecnologias: ("tecnologias", []),
+      lenguajes: ("lenguajes", []),
+      servicios: ("servicios", []),
     });
     setLoader(false);
     setVerErrores(false);
@@ -801,7 +795,7 @@ export default function DevUsersCreate() {
                 setInput({
                   ...input,
                   tecnologias: e.map((ele) => ele.value),
-                  tecnologiasLabel: e.map((ele) => ele.value),
+                  // tecnologiasLabel: e.map((ele) => ele.value),
                 });
                 if (userByEmail?.postulado) {
                   setErrors(
@@ -822,7 +816,7 @@ export default function DevUsersCreate() {
                 setCache({
                   ...cache,
                   tecnologias: e.map((ele) => ele.value),
-                  tecnologiasLabel: e.map((ele) => ele.label),
+                  // tecnologiasLabel: e.map((ele) => ele.label),
                 });
               }}
             />

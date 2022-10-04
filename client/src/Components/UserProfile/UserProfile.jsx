@@ -25,9 +25,9 @@ export default function DevProfile() {
     dispatch(getCountries());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsersBd());
+  // }, [dispatch]);
 
   const allUsers = useSelector((state) => state.devUser.allUsers);
   const country = useSelector((state) => state.countries.allCountries);
