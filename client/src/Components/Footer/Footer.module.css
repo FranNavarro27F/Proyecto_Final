@@ -3,6 +3,7 @@
   position: absolute;
   background: #1c1c65;
   width: 100%;
+  
 }
 .container {
   display: flex;
@@ -11,10 +12,11 @@
   padding: 0px;
   gap: 50px;
   position: absolute;
-  width: 60vw;
+  width: 50vw;
   height: 10vh;
-  left: 35vw;
-  top: 34px;
+  left: 28vw;
+  top: 7vh;
+  
 }
 
 .link {
@@ -24,7 +26,7 @@
   /* width: 85px; */
   height: 4vh;
   font-family: "Poppins";
-  font-size: 1.3vw;
+  font-size: 1.5vw;
   /* identical to box height */
   color: #ffffff;
   flex: none;
@@ -33,16 +35,14 @@
   cursor: pointer;
   width: 51px;
   height: 24px;
-
   font-style: normal;
   font-weight: 400;
-
-  line-height: 143.2%;
+  line-height: 150%;
   /* or 24px */
 
   color: #ffffff;
 }
 .svgFooter {
-  width: 124vw;
-  height: 63vh;
+  width: 100vw;
+  height: 35vh;
 }

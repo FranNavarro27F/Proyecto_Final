@@ -1,13 +1,20 @@
 .divcarhome {
   padding-top: 20vh;
-  height: 120vh;
+  height: 100vh;
   text-align: center;
   z-index: 1;
   display: flex;
   justify-content: center;
+  margin-top: -10vh;
+ 
 }
 .bodyCard {
   z-index: 99;
+  margin-top: 20vh;
+
+}
+.CArd{
+  margin-top: 45vh;
 }
 .titlew {
   /* position: absolute;

@@ -579,15 +579,15 @@ export default function Details() {
         {/* botones o pestañas para ordenar contratos */}
         <div ref={refContracts} className={s.buttonContratitos}>
           <button className={s.button1} onClick={() => handler_defaultt()}>
-            Por defecto
+            Todas las propuestas
           </button>
 
           <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
-            Aceptado en espera de pago
+            Propuestas aceptadas
           </button>
 
           <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Aceptado y pagado
+            Propuestas abonadas
           </button>
         </div>
 
