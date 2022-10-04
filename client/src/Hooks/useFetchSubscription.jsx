@@ -18,7 +18,7 @@ export default function useFetchSubscription() {
   const subscription_id = userByEmail?.subscription_id;
 
   useEffect(() => {
-    if (isAuthenticated)
+    if (isAuthenticated && !subscription_id && !status)
       dispatch(subscriptionMp(status, subscription_id, user_id));
   }, [dispatch, isAuthenticated, status, subscription_id, user_id]);
 

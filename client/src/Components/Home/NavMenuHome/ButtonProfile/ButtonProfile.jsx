@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../../../Redux/Actions/DevUser";
 import s from "./ButtonProfile.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useUser from "../../../../Hooks/useUser";
 import Loader from "../../../Loader/Loader";
@@ -44,13 +44,9 @@ export default function ButtonProfile({
       {open && (
         <div ref={refSelect} className={s.bodySelect}>
           <div id="test" className={s.select}>
-            <button
-              onClick={() => navigate(`/work/details/${userByEmail?.id} `)}
-              className={s.buttonSelect}
-              value=""
-            >
-              PERFIL
-            </button>
+            <Link to={`/work/details/${userByEmail?.id}`}>
+              <button className={s.buttonSelect}>PERFIL</button>
+            </Link>
             <button
               onClick={() => logout({ returnTo: window.location.origin })}
               className={s.buttonSelect}
