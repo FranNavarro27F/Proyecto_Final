@@ -20,7 +20,7 @@ const {
 
 const router = Router();
 
-// -----------------------------------------------
+// ---------------------------------------------
 
 // ┌────────────────────────────┐
 // │         RUTAS POST         │
@@ -29,6 +29,7 @@ const router = Router();
 // POST (NEW) LANGUAGE
 router.post("/lenguajes", async (req, res) => {
   //
+  // console.log(req.body)
   try {
     let { name } = req.body;
     if (!name) {
