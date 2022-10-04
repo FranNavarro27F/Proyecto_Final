@@ -2,7 +2,8 @@
  //---esta funcion evalua que contratos pueden o no mostrarse -----------------------
  const contratosVisibles = (contratos, user) => {
     let visibles = contratos.filter((cur) => {
-      if (cur.status === "Concluido") {
+
+      if(cur.aceptado && cur.pagado){ // verificar por si rompe
         return true;
       }
       if (cur.employer === user.user_id) {
