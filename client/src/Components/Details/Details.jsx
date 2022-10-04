@@ -32,7 +32,7 @@ import { BsChevronDoubleDown } from "react-icons/bs";
 import ScrollTopDetail from "./ScrollTopDetail";
 import SvgChica from "./SvgChica";
 import Swal from "sweetalert2";
-import {BubbleSort} from "./LogicFunctions/BubbleSort";
+
 ///-----------------------funciones logicas Status contratos-----------------
 import { contratosVisibles } from "./LogicFunctions/ContratosVisibles";
 import { theDay } from "./LogicFunctions/Today";
@@ -48,17 +48,13 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
-  console.log("++++++usuario que navega la app",user,"++++++usuario que navega la app")
 
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
+    dispatch(getUserId(id));
     dispatch(getUserEmail(user?.email));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [dispatch, id, user?.email, userByEmail?.id]);
-
-  useEffect(() => {
-    dispatch(getUserId(id));
-  }, [dispatch, id]);
 
   const userDetail = useSelector((state) => state.devUser.details);
 
@@ -77,50 +73,17 @@ export default function Details() {
       behavior: "smooth",
     });
   };
+
   const refContracts = useRef(null);
 
-///////-----aca hacemos los filtros && ordenamientos de contratos y vemos que se muestra---------
-//--- aca determinamos que solo se vean los contratos en los que estes implicado y los finalizados--
-let contratosS = (userDetail?.contratos !== undefined) && userDetail.contratos;
-let contratosArenderizar = contratosS && user.user_id ? contratosVisibles(contratosS, user) : [];
-//--------------------------------------------------------------------------------------------------
+  //---esta funcion determina que contratos se muestran y cuales no del array de contratos-
+  let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
+  let contratosArenderizar =
+    contratosS && user.user_id && contratosVisibles(contratosS, user);
+  //------------------------------------------------------------------------------------
 
-//--- aca filtramos contrtos-----------------------------------------------------------------
-let ac_epera_de_pago= contratosArenderizar?.filter(cur =>  cur.aceptado && !cur.pagado);
-let ac_y_pagado= contratosArenderizar?.filter(cur => cur.aceptado && cur.pagado);
-let defaultt= contratosArenderizar;
-//-------------------------------------------------------------------------------------------
-
-//---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
-let order_ac_epera_de_pago= BubbleSort(ac_epera_de_pago);
-let order_ac_y_pagado=  BubbleSort(ac_y_pagado);
-let order_defaultt=  BubbleSort(defaultt)
-//-------------------------------------------------------------------------------------------
-
-//este estado tiene los contraros que muestran-------------
-let [ContratosOrder, setContratosOrder] = useState(order_defaultt);
-
-if(order_defaultt.length && !ContratosOrder.length){
-  setContratosOrder(order_defaultt);
-}
-//---------------------------------------------------------
-
-//--- estos handlers determinan que se guarda en el estado local que renderiza---------------
-    const handler_ac_EsperaPago= ()=>{
-      setContratosOrder(order_ac_epera_de_pago);
-    }
-    const handler_ac_Ypagado= ()=>{
-      setContratosOrder(order_ac_y_pagado);
-    }
-    const handler_defaultt= ()=>{
-      setContratosOrder(order_defaultt);
-    }
-//--------------------------------------------------------------------------------------------
-///////-----------------------------------------------------------------------------------------
-
-
-//-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
-// deacuerdo a la fecha
+  //-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
+  // deacuerdo a la fecha
   const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
     if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
       // si date es menor a fecha de hoy
@@ -141,9 +104,9 @@ if(order_defaultt.length && !ContratosOrder.length){
       dispatch(putContrato(unContrato.id, { status: "Concluido" }));
     }
   };
-//------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------
 
-//--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
+  //--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
   let fecha_de_hoy = theDay();
   const mapeaYmodificaContratos = (fecha_de_hoy) => {
     userDetail.contratos.forEach((cur) =>
@@ -151,7 +114,7 @@ if(order_defaultt.length && !ContratosOrder.length){
     );
   };
   userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
-//-------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------
 
   const handleContact = () => {
     if (isAuthenticated) {
@@ -577,15 +540,9 @@ if(order_defaultt.length && !ContratosOrder.length){
             </div>
           </div>
         </div>
-        {/* botones o pestañas para ordenar contratos */}
-          <button onClick={()=> handler_ac_EsperaPago() }>Aceptado en espera de pago ⚠</button>
-          <button onClick={()=> handler_ac_Ypagado() }>Aceptado y pagado ✅</button> 
-          <button onClick={()=> handler_defaultt() }>Por defecto</button>
-        {/* ----------------------------------------- */}
-
         <div ref={refContracts}>
-          {contratosArenderizar.length &&
-            ContratosOrder.map((cur) => {
+          {contratosArenderizar &&
+            contratosArenderizar.map((cur) => {
               return (
                 <div className={s.cardContrato}>
                   <Contracts
