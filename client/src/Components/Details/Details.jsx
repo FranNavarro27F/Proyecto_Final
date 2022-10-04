@@ -148,6 +148,7 @@ export default function Details() {
       confirmButtonColor: "#4faf00",
       cancelButtonColor: "#9b2b2b",
       confirmButtonText: "Cancelar Suscripcion",
+      cancelButtonText: "Volver",
       background: "#bebebebe",
       color: "white",
       backdropFilter: "blur(1px)",
