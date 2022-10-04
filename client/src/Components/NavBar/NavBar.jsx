@@ -153,7 +153,7 @@ export default function NavBar() {
           <input
             value={cacheFilter?.name}
             className={s.searchBar}
-            type={"text"}
+            type={"search"}
             placeholder={"Buscar..."}
             onChange={(e) => {
               // if(!checked){

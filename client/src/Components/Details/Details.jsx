@@ -237,7 +237,7 @@ export default function Details() {
   };
 
   const handleCleanAndBack = () => {
-    detailReset();
+    dispatch(detailReset());
     navigate("/work");
   };
 

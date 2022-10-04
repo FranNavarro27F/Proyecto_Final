@@ -65,6 +65,8 @@ export default function devUser(state = initialState, action) {
       } = action.payload;
 
       let filtro = [...state.allUsers];
+      filtro = filtro.filter((e) => e !== "");
+
       if (filterTecnologies?.length !== 0)
         filtro = [...state.allUsers]?.filter((ele) =>
           ele.tecnologias?.includes(filterTecnologies.toString())
@@ -154,6 +156,7 @@ export default function devUser(state = initialState, action) {
             return false;
           }
         });
+
         let resultadosConcatenados = [
           ...nameFilter,
           ...lastNameFilter,
