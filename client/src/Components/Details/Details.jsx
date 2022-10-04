@@ -579,9 +579,29 @@ if(order_defaultt.length && !ContratosOrder.length){
           </div>
         </div>
         {/* botones o pestañas para ordenar contratos */}
-          <button onClick={()=> handler_ac_EsperaPago() }>Aceptado en espera de pago ⚠</button>
-          <button onClick={()=> handler_ac_Ypagado() }>Aceptado y pagado ✅</button> 
-          <button onClick={()=> handler_defaultt() }>Por defecto</button>
+        <div  className= {s.buttonContratitos}>
+
+        <button 
+        className={s.button1}
+        onClick={()=> handler_defaultt() }
+        >Por defecto
+        </button>
+
+        <button 
+        className={s.button2}
+        onClick={()=> handler_ac_EsperaPago() }>
+          Aceptado en espera de pago</button>
+        
+        <button 
+        className={s.button3}
+        onClick={()=> handler_ac_Ypagado() }
+        >Aceptado y pagado
+        </button> 
+   
+
+        </div>
+
+          
         {/* ----------------------------------------- */}
 
         <div ref={refContracts}>
