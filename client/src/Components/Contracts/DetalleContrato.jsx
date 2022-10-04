@@ -96,6 +96,7 @@ export default function DetalleContrato() {
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea realizar el pago del contrato por ${detalleC?.price} pesos ?`,
       icon: "warning",
+      cancelButtonText: `Volver`,
       showCancelButton: true,
       confirmButtonColor: "#4faf00",
       cancelButtonColor: "#9b2b2b",
