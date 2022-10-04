@@ -40,7 +40,6 @@ class PaymentService {
       },
     });
 
-    // console.log(payment.data);
     return payment.data;
   }
 
@@ -62,7 +61,7 @@ class PaymentService {
     const body = {
       payer_email: "test_user_20874669@testuser.com",
 
-      reason: "SUSCRIPCION  MENSUAL A PROGRAMAX",
+      reason: "PROGRAMAX Premium",
       auto_recurring: {
         frequency: 1,
         frequency_type: "months",
@@ -98,7 +97,6 @@ class PaymentService {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
       },
     });
-    console.log(url, body, subscriptionEdit, "llegueeeeeeeeee");
 
     return subscriptionEdit.data;
   }

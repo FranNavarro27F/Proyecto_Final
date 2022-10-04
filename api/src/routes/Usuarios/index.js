@@ -72,6 +72,11 @@ router.get("/:id", async (req, res) => {
 router.put("/", async (req, res) => {
   //
   try {
+    console.log(
+      "\n---------------BODY-------------\n",
+      req.body,
+      "\n---------------BODY-------------\n"
+    );
     const { email } = req.query;
     await modifyUser(email, req.body);
 

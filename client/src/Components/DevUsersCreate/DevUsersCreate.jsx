@@ -25,7 +25,7 @@ import {
   putDevUser,
 } from "../../Redux/Actions/DevUser";
 
-//imagenes
+//imágenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
 import useUser from "../../Hooks/useUser";
@@ -750,7 +750,7 @@ export default function DevUsersCreate() {
               onChange={(e) => {
                 setInput({
                   ...input,
-                  paiseId: e?.label,
+                  paiseId: e?.value,
                 });
 
                 if (userByEmail?.postulado) {
@@ -771,7 +771,7 @@ export default function DevUsersCreate() {
 
                 setCache({
                   ...cache,
-                  paiseId: e?.label,
+                  paiseId: e?.value,
                 });
               }}
             />
