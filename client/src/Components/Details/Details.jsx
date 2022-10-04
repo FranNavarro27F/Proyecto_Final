@@ -114,7 +114,7 @@ export default function Details() {
   const handler_defaultt = () => {
     setContratosOrder(order_defaultt);
   };
-  //
+  //------------------------------------------------------------------------------------
 
   const refContracts = useRef(null);
 
@@ -143,13 +143,13 @@ export default function Details() {
   //------------------------------------------------------------------------------------
 
   //--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
-  let fecha_de_hoy = theDay();
-  const mapeaYmodificaContratos = (fecha_de_hoy) => {
-    userDetail.contratos.forEach((cur) =>
-      SeteadoraStatusContratos(fecha_de_hoy, cur)
-    );
-  };
-  userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
+  // let fecha_de_hoy = theDay();
+  // const mapeaYmodificaContratos = (fecha_de_hoy) => {
+  //   userDetail.contratos.forEach((cur) =>
+  //     SeteadoraStatusContratos(fecha_de_hoy, cur)
+  //   );
+  // };
+  // userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
   //-------------------------------------------------------------------------------------
 
   const handleContact = () => {
