@@ -7,7 +7,7 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
   return (
     <div>
       <div className={s.Footer}>
-        <PlanetaFooter1 />
+        {/* <PlanetaFooter1 /> */}
         <div className={s.container}>
           <ul>
             <li onClick={() => scrollToSeccion(landing)} className={s.link}>
@@ -30,14 +30,14 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect width="1440" height="400" fill="#1C1C65" />
+          <rect  fill="#1C1C65" />
           {/* home */}
 
           {/* linea blanca con terms of service */}
           <rect
             x="53"
             y="300"
-            width="1334"
+            width="1370"
             height="2"
             fill="white"
             fillOpacity="0.15"
