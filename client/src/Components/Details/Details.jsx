@@ -46,8 +46,6 @@ export default function Details() {
   let navigate = useNavigate();
   let { id } = useParams();
 
-  let [disabled, setDisabled] = useState(false);
-
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
 
