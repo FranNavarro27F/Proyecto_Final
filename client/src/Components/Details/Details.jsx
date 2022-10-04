@@ -41,43 +41,37 @@ import { compararFechas } from "./LogicFunctions/CompararFechas";
 
 export default function Details() {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const user = useUser();
 
+  const refContracts = useRef(null);
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let { id } = useParams();
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
-  const user = useUser();
 
+  const [mostrarSub, setMostrarSub] = useState(false);
+  const [contratoDetail, SetContratoDetail] = useState(false);
   const [userProfile, setUserProfile] = useState(false);
+
   useEffect(() => {
+    dispatch(getUserId(id));
     dispatch(getUserEmail(user?.email));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
   }, [dispatch, id, user?.email, userByEmail?.id]);
 
-  useEffect(() => {
-    dispatch(getUserId(id));
-  }, [dispatch, id]);
-
   const userDetail = useSelector((state) => state.devUser.details);
-
   const consultaSub = useSelector(
     (state) => state.mercadoPago.SubscriptionConsult
   );
 
-  const [mostrarSub, setMostrarSub] = useState(false);
-
   const linkPago = consultaSub?.init_point;
-
-  const [contratoDetail, SetContratoDetail] = useState(false);
 
   const scrollTo = (section) => {
     section.current.scrollIntoView({
       behavior: "smooth",
     });
   };
-
-  const refContracts = useRef(null);
 
   //---esta funcion determina que contratos se muestran y cuales no del array de contratos-
   let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
