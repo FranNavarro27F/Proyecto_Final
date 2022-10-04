@@ -17,7 +17,6 @@ import { pagosMp } from "../../Redux/Actions/MercadoPago";
 import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from "./Reviews";
 import Swal from "sweetalert2";
-import swal from "sweetalert";
 
 export default function DetalleContrato() {
   const user = useUser();
@@ -179,13 +178,6 @@ export default function DetalleContrato() {
                     Pagar
                   </button>
                 )}
-              {/* {usuarioActual === detalleC.employer &&
-                detalleC?.aceptado &&
-                !detalleC?.pagado && (
-                  <a href={initPoint} className={s.buttonDetalle}>
-                    pagar!
-                  </a>
-                )} */}
 
               {!detalleC?.pagado && (
                 <button
