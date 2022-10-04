@@ -32,7 +32,7 @@ import { BsChevronDoubleDown } from "react-icons/bs";
 import ScrollTopDetail from "./ScrollTopDetail";
 import SvgChica from "./SvgChica";
 import Swal from "sweetalert2";
-
+import {BubbleSort} from "./LogicFunctions/BubbleSort";
 ///-----------------------funciones logicas Status contratos-----------------
 import { contratosVisibles } from "./LogicFunctions/ContratosVisibles";
 import { theDay } from "./LogicFunctions/Today";
@@ -50,6 +50,7 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
+  console.log("++++++usuario que navega la app",user,"++++++usuario que navega la app")
 
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
@@ -78,17 +79,49 @@ export default function Details() {
       behavior: "smooth",
     });
   };
-
   const refContracts = useRef(null);
 
-  //---esta funcion determina que contratos se muestran y cuales no del array de contratos-
-  let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
-  let contratosArenderizar =
-    contratosS && user.user_id && contratosVisibles(contratosS, user);
-  //------------------------------------------------------------------------------------
+///////-----aca hacemos los filtros && ordenamientos de contratos y vemos que se muestra---------
+//--- aca determinamos que solo se vean los contratos en los que estes implicado y los finalizados--
+let contratosS = (userDetail?.contratos !== undefined) && userDetail.contratos;
+let contratosArenderizar = contratosS && user.user_id ? contratosVisibles(contratosS, user) : [];
+//--------------------------------------------------------------------------------------------------
 
-  //-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
-  // deacuerdo a la fecha
+//--- aca filtramos contrtos-----------------------------------------------------------------
+let ac_epera_de_pago= contratosArenderizar?.filter(cur =>  cur.aceptado && !cur.pagado);
+let ac_y_pagado= contratosArenderizar?.filter(cur => cur.aceptado && cur.pagado);
+let defaultt= contratosArenderizar;
+//-------------------------------------------------------------------------------------------
+
+//---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
+let order_ac_epera_de_pago= BubbleSort(ac_epera_de_pago);
+let order_ac_y_pagado=  BubbleSort(ac_y_pagado);
+let order_defaultt=  BubbleSort(defaultt)
+//-------------------------------------------------------------------------------------------
+
+//este estado tiene los contraros que muestran-------------
+let [ContratosOrder, setContratosOrder] = useState(defaultt);
+if(order_defaultt.length && !ContratosOrder.length){
+  setContratosOrder(order_defaultt);
+}
+//---------------------------------------------------------
+
+//--- estos handlers determinan que se guarda en el estado local que renderiza---------------
+    const handler_ac_EsperaPago= ()=>{
+      setContratosOrder(order_ac_epera_de_pago);
+    }
+    const handler_ac_Ypagado= ()=>{
+      setContratosOrder(order_ac_y_pagado);
+    }
+    const handler_defaultt= ()=>{
+      setContratosOrder(order_defaultt);
+    }
+//--------------------------------------------------------------------------------------------
+///////-----------------------------------------------------------------------------------------
+
+
+//-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
+// deacuerdo a la fecha
   const SeteadoraStatusContratos = (fecha_de_hoy, unContrato) => {
     if (compararFechas(fecha_de_hoy, unContrato.date) === "-") {
       // si date es menor a fecha de hoy
@@ -109,9 +142,9 @@ export default function Details() {
       dispatch(putContrato(unContrato.id, { status: "Concluido" }));
     }
   };
-  //------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------
 
-  //--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
+//--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
   let fecha_de_hoy = theDay();
   const mapeaYmodificaContratos = (fecha_de_hoy) => {
     userDetail.contratos.forEach((cur) =>
@@ -119,7 +152,7 @@ export default function Details() {
     );
   };
   userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
-  //-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
 
   const handleContact = () => {
     if (isAuthenticated) {
@@ -158,22 +191,21 @@ export default function Details() {
       backdropFilter: "blur(1px)",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(editSuscriptionMp(consultaSub?.id, { status: "paused" }));
-        setTimeout(() => {
-          dispatch(consultSub(consultaSub?.id));
-        }, 1000);
-        setTimeout(() => {
-          dispatch(
-            setSubscriptionId({
-              user_id: userByEmail?.id,
-              subscription_id: consultaSub?.id,
-              status: consultaSub?.status,
-            })
-          );
-        }, 2000);
+        // dispatch(editSuscriptionMp(consultaSub?.id, { status: "paused" }));
+        dispatch(
+          setSubscriptionId({
+            user_id: userByEmail?.id,
+            subscription_id: null,
+            status: "cancel",
+          })
+        );
+        // setTimeout(() => {
+        //   dispatch(consultSub(consultaSub?.id));
+        // }, 1000);
+
         setTimeout(() => {
           dispatch(getUserEmail(user?.email));
-        }, 2500);
+        }, 800);
         Swal.fire({
           // position: "top-end",
           icon: "success",
@@ -209,10 +241,31 @@ export default function Details() {
 
       setMostrarSub(false);
       // window.location.reload();
-    }, 1000);
+    }, 1500);
     setTimeout(() => {
-      dispatch(getUserEmail(user?.email));
-    }, 2000);
+      let timerInterval;
+      Swal.fire({
+        title: "Procesando pago",
+        // html: "I will close in <b></b> milliseconds.",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          // const b = Swal.getHtmlContainer().querySelector("b");
+          // timerInterval = setInterval(() => {
+          //   b.textContent = Swal.getTimerLeft();
+          // }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          dispatch(getUserEmail(user?.email));
+        }
+      });
+    }, 1500);
   };
 
   const handleCleanAndBack = () => {
@@ -524,9 +577,15 @@ export default function Details() {
             </div>
           </div>
         </div>
+        {/* botones o pestañas para ordenar contratos */}
+          <button onClick={()=> handler_ac_EsperaPago() }>Aceptado en espera de pago ⚠</button>
+          <button onClick={()=> handler_ac_Ypagado() }>Aceptado y pagado ✅</button> 
+          <button onClick={()=> handler_defaultt() }>Por defecto</button>
+        {/* ----------------------------------------- */}
+
         <div ref={refContracts}>
-          {contratosArenderizar &&
-            contratosArenderizar.map((cur) => {
+          {contratosArenderizar.length &&
+            ContratosOrder.map((cur) => {
               return (
                 <div className={s.cardContrato}>
                   <Contracts
