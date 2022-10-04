@@ -564,7 +564,7 @@ const modifyUser = async (email, data) => {
   try {
     const {
       profilePicture,
-      isAdmin,
+      //   isAdmin,
       name,
       lastName,
       city,
@@ -600,7 +600,7 @@ const modifyUser = async (email, data) => {
     await Usuarios.update(
       {
         profilePicture: profilePicture ?? u.profilePicture,
-        isAdmin: isAdmin ?? u.isAdmin,
+        // isAdmin: isAdmin ?? u.isAdmin,
         name: name,
         lastName: lastName,
         city: city ?? u.city,

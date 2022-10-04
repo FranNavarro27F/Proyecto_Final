@@ -8,15 +8,15 @@ import s from "../Details/Details.module.css";
 // import DetalleContrato from "./DetalleContrato";
 
 export default function Contracts({
-  idEmployer,
-  description,
   date,
-  expiration_date,
-  status,
   price,
-  aceptado,
-  idContrato,
   pagado,
+  aceptado,
+  idEmployer,
+  idContrato,
+  status,
+  description,
+  expiration_date
 }) {
 
 
@@ -25,13 +25,11 @@ export default function Contracts({
   const usuarios=useSelector(state=> state.devUser.allUsers);
 
   const findNameEmployer= (id)=>{
-
     if(usuarios?.length){
       let employerObj= usuarios.find(cur=> cur.id === id);
       let name= employerObj?.name;
       return name;
     }
-
   }
   //----------------------------------------------------------------------
 
