@@ -13,7 +13,7 @@ body {
   );
 
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 }
@@ -73,7 +73,7 @@ body {
   width: 40vh;
   height: auto;
   overflow: hidden;
-  bottom: 16vh;
+  bottom: 18vh;
 }
 .diamantitos {
   z-index: 3;
