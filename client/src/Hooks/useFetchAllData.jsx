@@ -8,13 +8,12 @@ import { getTecnologies } from "../Redux/Actions/Tecnologies";
 
 export default function useFetchAllData() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersBd());
-    dispatch(getCountries());
-    dispatch(getTecnologies());
-    dispatch(getServices());
-    dispatch(getLanguajes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCountries());
+  //   dispatch(getTecnologies());
+  //   dispatch(getServices());
+  //   dispatch(getLanguajes());
+  // }, [dispatch]);
 
   const countries = useSelector((state) => state.countries.allCountries);
   const languajes = useSelector((state) => state.languajes.allLanguajes);
@@ -22,10 +21,10 @@ export default function useFetchAllData() {
   const tecnologies = useSelector((state) => state.tecnologies.allTecnologies);
 
   useEffect(() => {
-    if (!countries.length) dispatch(getUsersBd());
-    if (!languajes.length) dispatch(getUsersBd());
-    if (!services.length) dispatch(getUsersBd());
-    if (!tecnologies.length) dispatch(getUsersBd());
+    if (!countries.length) dispatch(getCountries());
+    if (!languajes.length) dispatch(getLanguajes());
+    if (!services.length) dispatch(getServices());
+    if (!tecnologies.length) dispatch(getTecnologies());
   }, [
     dispatch,
     countries.length,

@@ -46,8 +46,6 @@ export default function Details() {
   let navigate = useNavigate();
   let { id } = useParams();
 
-  let [disabled, setDisabled] = useState(false);
-
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
   console.log("++++++usuario que navega la app",user,"++++++usuario que navega la app")
@@ -177,6 +175,7 @@ if(order_defaultt.length && !ContratosOrder.length){
   const handlePremium = () => {
     setMostrarSub(!mostrarSub);
   };
+
   const handlePremiumOFF = () => {
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
@@ -270,7 +269,7 @@ if(order_defaultt.length && !ContratosOrder.length){
   };
 
   const handleCleanAndBack = () => {
-    // dispatch(detailReset());
+    dispatch(detailReset());
     navigate("/work");
   };
 

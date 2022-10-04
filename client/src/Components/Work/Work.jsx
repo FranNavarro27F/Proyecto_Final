@@ -18,13 +18,14 @@ import Selectores from "../Selectores/Selectores";
 export default function Work() {
   const dispatch = useDispatch();
   const { isLoading } = useAuth0();
-  let filtrados = useSelector((state) => state.devUser.filteredUsers);
-  let currentPage = useSelector((state) => state.devUser.page);
-  let devPerPage = useSelector((state) => state.devUser.devPerPage);
+  const filtrados = useSelector((state) => state.devUser.filteredUsers);
+  const currentPage = useSelector((state) => state.devUser.page);
+  const devPerPage = useSelector((state) => state.devUser.devPerPage);
+  const allUsers = useSelector((state) => state.devUser.allUsers);
 
-  useEffect(() => {
-    dispatch(getUsersBd());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   if (!allUsers.length) dispatch(getUsersBd());
+  // }, [allUsers.length, dispatch, filtrados.length]);
 
   const indexOfLastDev = devPerPage * currentPage;
   const indexOfFirstDev = indexOfLastDev - devPerPage;
