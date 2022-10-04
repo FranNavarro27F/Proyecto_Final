@@ -83,9 +83,9 @@ export default function Contrato({
     );
   };
 
-  const sweetAlert = () => {
-    return Swal.fire("Good job!", "You clicked the button!", "success");
-  };
+  // const sweetAlert = () => {
+  //   return Swal.fire("Good job!", "You clicked the button!", "success");
+  // };
 
   const handlerSendPropuesta = (e) => {
     if (

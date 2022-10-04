@@ -11,7 +11,7 @@
   font-size: 2vh;
   line-height: 1vh;
   cursor: pointer;
-  width: 20vh;
+  width: 18vh;
   height: 5vh;
   margin-left: -30vh;
   border: "1px solid #a9a9a9";
@@ -23,17 +23,18 @@
   padding: 10px;
   margin: 4vh -10vh;
   min-height: 17vh;
-  min-width: 47vh;
+  min-width: 45vh;
 }
 .buttonDetalle:hover {
   transition-delay: 0.2s;
   transition: 0.8s;
   transform: scale(1.1);
   cursor: pointer;
+  margin-left: 2vh;
 }
 .divReviews {
-  margin-top: 12vh;
-  margin-left: -22vh;
-  width: 50vh;
+  margin-top: 68vh;
+  margin-left: -5vh;
+  width: 50vw;
   height: 50vh;
 }
