@@ -563,6 +563,11 @@ const setVisible = async (id, visible) => {
 const modifyUser = async (email, data) => {
   //
   try {
+    console.log(
+      "\n---------------DATA-------------\n",
+      data,
+      "\n---------------DATA-------------\n"
+    );
     const {
       profilePicture,
       //   isAdmin,

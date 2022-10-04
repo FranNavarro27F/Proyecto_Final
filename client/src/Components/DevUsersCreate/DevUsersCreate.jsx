@@ -25,7 +25,7 @@ import {
   putDevUser,
 } from "../../Redux/Actions/DevUser";
 
-//imagenes
+//imágenes
 import storage from "./Img-file/firebaseConfig.js";
 import Selectores from "../Selectores/Selectores";
 import useUser from "../../Hooks/useUser";
