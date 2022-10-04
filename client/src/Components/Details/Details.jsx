@@ -148,7 +148,7 @@ export default function Details() {
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea cancelar su suscripcion a Programax ?`,
       icon: "warning",
-      showCancelButton: true,
+       showCancelButton: true,
       confirmButtonColor: "#4faf00",
       cancelButtonColor: "#9b2b2b",
       confirmButtonText: "Cancelar Suscripcion",
