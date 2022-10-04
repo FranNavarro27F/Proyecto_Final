@@ -143,6 +143,7 @@ export default function Details() {
   const handlePremium = () => {
     setMostrarSub(!mostrarSub);
   };
+
   const handlePremiumOFF = () => {
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
@@ -236,7 +237,7 @@ export default function Details() {
   };
 
   const handleCleanAndBack = () => {
-    // dispatch(detailReset());
+    detailReset();
     navigate("/work");
   };
 
@@ -388,8 +389,8 @@ export default function Details() {
                       <span> Lenguajes: </span>
                       <span>
                         {userDetail?.lenguajes
-                          ? userDetail?.lenguajes?.map((e) => e)
-                          : userByEmail?.lenguajes?.map((e) => e)}
+                          ? userDetail?.lenguajes?.join(", ")
+                          : userByEmail?.lenguajes?.join(", ")}
                       </span>
                       <br />
                       <br />
@@ -397,8 +398,8 @@ export default function Details() {
                       <span> Servicios: </span>
                       <span>
                         {userDetail?.servicios
-                          ? userDetail?.servicios?.map((e) => e)
-                          : userByEmail?.servicios?.map((e) => e)}
+                          ? userDetail?.servicios?.join(", ")
+                          : userByEmail?.servicios?.join(", ")}
                       </span>
                       <br />
                       <br />
@@ -423,8 +424,8 @@ export default function Details() {
                       <span> Tecnologias: </span>
                       <span>
                         {userDetail?.tecnologias
-                          ? userDetail?.tecnologias?.map((e) => e)
-                          : userByEmail?.tecnologias?.map((e) => e)}
+                          ? userDetail?.tecnologias?.join(", ")
+                          : userByEmail?.tecnologias?.join(", ")}
                       </span>
                       <br />
                       <br />

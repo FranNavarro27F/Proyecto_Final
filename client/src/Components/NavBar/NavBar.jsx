@@ -17,7 +17,7 @@ import Selectores from "../Selectores/Selectores";
 
 export default function NavBar() {
   const animatedComponents = makeAnimated();
-
+  const dispatch = useDispatch();
   const {
     optionsOrderBudget,
     optionsOrderExp,
@@ -27,9 +27,8 @@ export default function NavBar() {
     optionsServices,
   } = Selectores();
 
-  const dispatch = useDispatch();
-
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
+
   // const [checked, setChecked] = useState(false);
   const [cacheFilter, setCacheFilter] = useLocalStorage({});
   const [actualFilter, setActualFilter] = useState({
@@ -47,7 +46,7 @@ export default function NavBar() {
       : [],
     OrderExp: cacheFilter?.OrderExp ? cacheFilter?.OrderExp : "",
     OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "",
-    name: "",
+    name: cacheFilter?.name ? cacheFilter?.name : "",
   });
 
   const refCountries = useRef();
@@ -123,6 +122,10 @@ export default function NavBar() {
       })
     : false;
 
+  // if (window.performance) {
+  //   console.info("window.performance works fine on this browser");
+  // }
+
   useEffect(() => {
     if (cacheFilter) dispatch(filtersOrders(actualFilter));
   }, [dispatch, actualFilter, cacheFilter]);
@@ -161,11 +164,11 @@ export default function NavBar() {
               e.preventDefault();
               setActualFilter({
                 ...actualFilter,
-                name: e.target.value.trim(),
+                name: e.target.value,
               });
               setCacheFilter({
                 ...cacheFilter,
-                name: e.target.value.trim(),
+                name: e.target.value,
               });
               // }
             }}
