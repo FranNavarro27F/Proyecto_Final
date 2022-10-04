@@ -542,9 +542,8 @@ export default function Details() {
                   </div>
                 </div>
               </div>
-              {
+              {contratosArenderizar && (
                 <div className={s.divScrollContracts}>
-                  {" "}
                   <button
                     className={s.scrollContracts}
                     onClick={() => scrollTo(refContracts)}
@@ -552,7 +551,7 @@ export default function Details() {
                     <BsChevronDoubleDown />
                   </button>
                 </div>
-              }
+              )}
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import s from "./Details.module.css";
 import { useNavigate } from "react-router-dom";
 import { emailer } from "../../Redux/Actions/Emailer";
 import Swal from "sweetalert2";
+import { Button } from "react-bootstrap";
 
 export default function Contrato({
   userByEmail,
@@ -93,11 +94,22 @@ export default function Contrato({
       !propuesta.description ||
       !propuesta.price
     )
-      sweetAlert();
-    // alert("Los campos no pueden estar vacíos.");
+      Swal.fire({
+        icon: "error",
+        title: "Uups...",
+        text: "Los campos no pueden estar vacios!",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
     else if (errors.description) alert(errors.description);
     else if (errors.price) alert(errors.price);
     else {
+      Swal.fire({
+        // position: "top-end",
+        icon: "success",
+        title: "Propuesta enviada correctamente",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       dispatch(setearContrato(propuesta));
       // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
       //  dispatch(
@@ -107,6 +119,7 @@ export default function Contrato({
       //       IDContratado: userDetail.id
       //     })
       //  );
+
       navigate("/work");
     }
   };
@@ -114,7 +127,6 @@ export default function Contrato({
   return (
     <div className={s.bodyPropuesta}>
       <div className={s.conteiner}>
-        <h1>Propuesta</h1>
         <h2>
           Contacta a {userDetail?.name} {userDetail?.lastName} y hazle una
           propuesta!
@@ -133,14 +145,14 @@ export default function Contrato({
                   // value={today}
                   min={setOrderDate(today)}
                   //min="2022-10-22"
-                  classname={s.todosInput}
+                  className={s.todosInput}
                   required
                   onChange={handleChangePropuesta}
                 />
                 <br />
                 <label>Fecha de finalizacion: </label>
                 <input
-                  classname={s.todosInput}
+                  className={s.todosInput}
                   type={"date"}
                   name="expiration_date"
                   onChange={handleChangePropuesta}
@@ -149,7 +161,7 @@ export default function Contrato({
                 <br />
                 <label>Presupuesto total en pesos: $</label>
                 <input
-                  classname={s.todosInput}
+                  className={s.todosInput}
                   type="number"
                   min="1"
                   max="1000000"
@@ -165,6 +177,9 @@ export default function Contrato({
                     className={s.textArea}
                     placeholder="Ingrese una descripción"
                     onChange={handleChangePropuesta}
+                    rows="10"
+                    cols="45"
+                    name="description"
                   />
                 </div>
               </div>
