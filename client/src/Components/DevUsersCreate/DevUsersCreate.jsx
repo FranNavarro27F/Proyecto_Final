@@ -96,21 +96,26 @@ export default function DevUsersCreate() {
       : cache?.englishLevel
       ? `${cache?.englishLevel}`
       : "Básico",
-    paiseId:
-      // userByEmail?.paiseId
-      // ? `${userByEmail?.paiseId}`
-      // : cache?.paiseId
-      // ? `${cache?.paiseId}`
-      //     :
-      "",
-    tecnologias: [],
-    // tecnologiasLabel: cache?.tecnologias ? cache?.tecnologias : [],
-    lenguajes:
-      // cache?.lenguajes ? cache?.lenguajes :
-      [],
-    servicios:
-      // cache?.servicios ? cache?.servicios :
-      [],
+    paiseId: userByEmail?.paiseId
+      ? `${userByEmail?.paiseId}`
+      : cache?.paiseId
+      ? `${cache?.paiseId}`
+      : "",
+    tecnologias: userByEmail?.tecnologias
+      ? `${userByEmail?.tecnologias}`
+      : cache?.tecnologias
+      ? `${cache?.tecnologias}`
+      : [],
+    lenguajes: userByEmail?.lenguajes
+      ? `${userByEmail?.lenguajes}`
+      : cache?.lenguajes
+      ? `${cache?.lenguajes}`
+      : [],
+    servicios: userByEmail?.servicios
+      ? `${userByEmail?.servicios}`
+      : cache?.servicios
+      ? `${cache?.servicios}`
+      : [],
     postulado: true,
   });
 
@@ -463,8 +468,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.name}
-              value={cache?.name}
+              defaultValue={input?.lastName && cache?.lastName}
+              value={input?.lastName && cache?.lastName}
               name="name"
               className={s.inputName}
               disabled={!edit}
@@ -484,7 +489,7 @@ export default function DevUsersCreate() {
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
               defaultValue={input?.lastName && cache?.lastName}
-              value={cache?.lastName}
+              value={input?.lastName && cache?.lastName}
               name="lastName"
               className={s.inputLastname}
               disabled={!edit}
