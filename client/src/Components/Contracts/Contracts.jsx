@@ -25,13 +25,11 @@ export default function Contracts({
   const usuarios=useSelector(state=> state.devUser.allUsers);
 
   const findNameEmployer= (id)=>{
-
     if(usuarios?.length){
       let employerObj= usuarios.find(cur=> cur.id === id);
       let name= employerObj?.name;
       return name;
     }
-
   }
   //----------------------------------------------------------------------
 

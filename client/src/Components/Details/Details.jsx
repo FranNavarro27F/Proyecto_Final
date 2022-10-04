@@ -114,7 +114,7 @@ export default function Details() {
     );
   };
   userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
-//---------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
 
   const handleContact = () => {
     if (isAuthenticated) {
@@ -174,7 +174,7 @@ export default function Details() {
   };
 
   const handleCleanAndBack = () => {
-    dispatch(detailReset());
+    // dispatch(detailReset());
     navigate("/work");
   };
 
@@ -486,6 +486,7 @@ export default function Details() {
             return (
               <div className={s.cardContrato}>
                 <Contracts
+                  idEmployer={cur.employer}
                   description={cur.description}
                   date={cur.date}
                   expiration_date={cur.expiration_date}
