@@ -23,7 +23,6 @@ class PaymentService {
           quantity: 1,
           unit_price: await price,
           // await price(id),
-
           installments: 12,
         },
       ],
