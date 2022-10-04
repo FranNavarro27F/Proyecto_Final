@@ -520,11 +520,12 @@ const postUserAuth = async (data) => {
 // -----------------------------------------------
 
 // SET SUBSCRIPTION ID
-const setSubscriptionId = async (id, subscription_id, status) => {
+const setSubscriptionId = async (id, subscription_id, status = null) => {
   //
   try {
     const user = await Usuarios.findByPk(id);
     user.subscription_id = subscription_id || null;
+    if (!subscription_id) status = null;
     user.premium = status === "authorized" ? true : false;
 
     await user.save();
