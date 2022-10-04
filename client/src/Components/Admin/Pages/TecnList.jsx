@@ -54,7 +54,7 @@ export default function TecList() {
             setDisabled(false)
         }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
     const separacionHab = (auxOrder)=>{

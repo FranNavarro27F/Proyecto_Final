@@ -54,7 +54,7 @@ export default function LengList() {
             setDisabled(false)
         }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
 
@@ -62,7 +62,7 @@ export default function LengList() {
        dispatch(cambioTabla(auxOrder))
     }
 
-    const handlePostPais = (e)=>{
+    const handlePostLenguaje = (e)=>{
         e.preventDefault()
         // if(newP.name === ""){
         //     setDisabled(false)
@@ -117,7 +117,7 @@ export default function LengList() {
                 />
             </div>
             <br/>
-            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostLenguaje(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )

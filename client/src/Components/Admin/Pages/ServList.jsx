@@ -55,7 +55,7 @@ export default function ServList() {
             setDisabled(false)
         }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
 
