@@ -69,7 +69,6 @@ class PaymentController {
     }
   }
   async editSubscription(req, res, id, status) {
-    console.log(id, status, "idddddddddddddd");
     try {
       const consult = await this.subscriptionService.createEditSubscription(
         id,
@@ -85,6 +84,6 @@ class PaymentController {
     }
   }
 }
-//
+///////
 
 module.exports = PaymentController;
