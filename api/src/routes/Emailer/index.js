@@ -12,4 +12,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/pagado", async (req, res) => {
+  try {
+    const { mailContrado, mailContratista, IDContrato } = req.body;
+    res.json(await main(mailContrado, mailContratista, IDContrato ));
+  } catch (e) {
+    res.status(400).send(`Error --→ ${e}`);
+  }
+});
+
+
 module.exports = router;

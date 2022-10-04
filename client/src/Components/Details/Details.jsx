@@ -37,6 +37,7 @@ import Swal from "sweetalert2";
 import { contratosVisibles } from "./LogicFunctions/ContratosVisibles";
 import { theDay } from "./LogicFunctions/Today";
 import { compararFechas } from "./LogicFunctions/CompararFechas";
+import { BubbleSort } from "./LogicFunctions/BubbleSort";
 ///--------------------------------------------------------------------------
 
 export default function Details() {
@@ -73,14 +74,49 @@ export default function Details() {
       behavior: "smooth",
     });
   };
+  //--- aca determinamos que solo se vean los contratos en los que estes implicado y los finalizados--
+  let contratosS = userDetail?.contratos !== undefined && userDetail.contratos;
+  let contratosArenderizar =
+    contratosS && user.user_id ? contratosVisibles(contratosS, user) : [];
+  //--------------------------------------------------------------------------------------------------
+
+  //--- aca filtramos contrtos-----------------------------------------------------------------
+  let ac_epera_de_pago = contratosArenderizar?.filter(
+    (cur) => cur.aceptado && !cur.pagado
+  );
+  let ac_y_pagado = contratosArenderizar?.filter(
+    (cur) => cur.aceptado && cur.pagado
+  );
+  let defaultt = contratosArenderizar;
+  //-------------------------------------------------------------------------------------------
+
+  //---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
+  let order_ac_epera_de_pago = BubbleSort(ac_epera_de_pago);
+  let order_ac_y_pagado = BubbleSort(ac_y_pagado);
+  let order_defaultt = BubbleSort(defaultt);
+  //-------------------------------------------------------------------------------------------
+
+  //este estado tiene los contraros que muestran-------------
+  let [ContratosOrder, setContratosOrder] = useState(order_defaultt);
+
+  if (order_defaultt.length && !ContratosOrder.length) {
+    setContratosOrder(order_defaultt);
+  }
+  //---------------------------------------------------------
+
+  //--- estos handlers determinan que se guarda en el estado local que renderiza---------------
+  const handler_ac_EsperaPago = () => {
+    setContratosOrder(order_ac_epera_de_pago);
+  };
+  const handler_ac_Ypagado = () => {
+    setContratosOrder(order_ac_y_pagado);
+  };
+  const handler_defaultt = () => {
+    setContratosOrder(order_defaultt);
+  };
+  //------------------------------------------------------------------------------------
 
   const refContracts = useRef(null);
-
-  //---esta funcion determina que contratos se muestran y cuales no del array de contratos-
-  let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
-  let contratosArenderizar =
-    contratosS && user.user_id && contratosVisibles(contratosS, user);
-  //------------------------------------------------------------------------------------
 
   //-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
   // deacuerdo a la fecha
@@ -107,13 +143,13 @@ export default function Details() {
   //------------------------------------------------------------------------------------
 
   //--esta funcion mapea y modifica en Db la propiedad status en los contratos----------
-  let fecha_de_hoy = theDay();
-  const mapeaYmodificaContratos = (fecha_de_hoy) => {
-    userDetail.contratos.forEach((cur) =>
-      SeteadoraStatusContratos(fecha_de_hoy, cur)
-    );
-  };
-  userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
+  // let fecha_de_hoy = theDay();
+  // const mapeaYmodificaContratos = (fecha_de_hoy) => {
+  //   userDetail.contratos.forEach((cur) =>
+  //     SeteadoraStatusContratos(fecha_de_hoy, cur)
+  //   );
+  // };
+  // userDetail?.contratos && mapeaYmodificaContratos(fecha_de_hoy);
   //-------------------------------------------------------------------------------------
 
   const handleContact = () => {
@@ -179,6 +215,7 @@ export default function Details() {
       }
     });
   };
+
   // useEffect(() => {
   //   dispatch(
   //     setSubscriptionId({
@@ -506,7 +543,7 @@ export default function Details() {
                               className={s.buttonSub}
                               onClick={handlePremiumOFF}
                             >
-                              CANCELAR SUSCRIPCION
+                              Cancelar Suscripcion
                             </button>
                           )}
                         </div>
@@ -539,9 +576,26 @@ export default function Details() {
             </div>
           </div>
         </div>
-        <div ref={refContracts}>
+        {/* botones o pestañas para ordenar contratos */}
+        <div ref={refContracts} className={s.buttonContratitos}>
+          <button className={s.button1} onClick={() => handler_defaultt()}>
+            Todas las propuestas
+          </button>
+
+          <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
+            Propuestas aceptadas
+          </button>
+
+          <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
+            Propuestas abonadas
+          </button>
+        </div>
+
+        {/* ----------------------------------------- */}
+
+        <div>
           {contratosArenderizar &&
-            contratosArenderizar.map((cur) => {
+            ContratosOrder.map((cur) => {
               return (
                 <div className={s.cardContrato}>
                   <Contracts
