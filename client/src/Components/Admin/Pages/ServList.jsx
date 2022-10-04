@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {cambioTabla, getServAd, putServiciosAdmin} from "../../../Redux/Actions/Admin";
+import {cambioTabla, getServAd, newServicioAdmin, putServiciosAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
 
 export default function ServList() {
 
     const dispatch = useDispatch()
 
-    let paisesAdmin = useSelector((state) => state.admin.servAdmin)
+    let servicioAdmin = useSelector((state) => state.admin.servAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
 
     var current = []
 
     // let aux = true
-    current = paisesAdmin.filter((curr)=> curr.habilitado === auxOrder)
+    current = servicioAdmin.filter((curr)=> curr.habilitado === auxOrder)
     
     let [newP, setNewP] = useState({
         name: ""
     })
+
+    let [disabled, setDisabled] = useState(true)
 
     useEffect(()=>{
         dispatch(getServAd())
@@ -47,6 +49,11 @@ export default function ServList() {
     }
 
     const handleNewServicio = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
             [e.target.name]: e.target.value})
     }
@@ -56,6 +63,15 @@ export default function ServList() {
        dispatch(cambioTabla(auxOrder))
     }
 
+
+    const handlePostServ = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newServicioAdmin(newP))
+        alert("¡Servicio ingresado correctamente! Que tenga un buen día")
+    }
 
   return (
     <div className={s.container}>
@@ -96,12 +112,13 @@ export default function ServList() {
                 <br/>
                 <input
                 type="text"
+                placeholder='Nuevo Servicio'
                 value={newP.name}
                 onChange={(e)=> handleNewServicio(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostServ(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )

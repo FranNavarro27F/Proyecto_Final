@@ -18,7 +18,7 @@ import "./SideBar/SideBar.css";
 import "../Work/SideMenuWork/SideMenuWork";
 import SideMenuWork from "../Work/SideMenuWork/SideMenuWork";
 import { TiGroupOutline} from "react-icons/ti";
-
+import s from "../Admin/Admin.module.css";
 
 export default function Admin(){
 
@@ -52,10 +52,9 @@ export default function Admin(){
         <div>
             
             <h1>Bienvenido a Panel de Admin</h1>
-            <div className="container">
-            <div className="sidebar">
-            <div className="sidebarWrapper">
-            <div className="sidebarMenu">
+            <div className={s.container}>
+            <div className={s.sidebarWrapper}>
+            <div className={s.sidebarMenu}>
             <SideMenuWork />
             <h3 className="title">Dashboard</h3>
             <ul className="sidebarList">
@@ -89,7 +88,6 @@ export default function Admin(){
             </ul>
         </div>
     </div>
-</div>
             {
                 tab === ""
                 ?

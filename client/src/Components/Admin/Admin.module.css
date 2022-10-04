@@ -1,0 +1,15 @@
+.container{
+    flex: 1;
+    /* background-color: rgb(189, 252, 0); */
+    display: flex;
+   
+}
+
+
+.sidebarWrapper{
+    background-color: #ff31be;
+    display: flex;
+    width: 15rem;
+    height: 40rem;
+    position: sticky;
+}
