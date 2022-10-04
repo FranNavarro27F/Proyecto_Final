@@ -86,6 +86,23 @@ class PaymentService {
 
     return subscription.data;
   }
+  async createEditSubscription(id, status) {
+    const url = `https://api.mercadopago.com/preapproval/${id}`;
+
+    const body = {
+      status: await status,
+    };
+
+    const subscriptionEdit = await axios.put(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+    });
+    console.log(url, body, subscriptionEdit, "llegueeeeeeeeee");
+
+    return subscriptionEdit.data;
+  }
 
   async createConsultSub(id) {
     const url = `https://api.mercadopago.com/preapproval/${id}`;

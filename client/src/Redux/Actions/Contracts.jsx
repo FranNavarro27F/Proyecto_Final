@@ -14,7 +14,6 @@ export function setearContrato(propuestaContrato) {
   return async function (dispatch) {
     try {
       let propuestaCont = await axios.post(`/contratos`, propuestaContrato);
-      console.log("****", propuestaCont, "*****");
     } catch (e) {
       console.log("error en el cach de setear contrato", e);
     }
@@ -35,9 +34,7 @@ export function getContratoId(idContrato) {
 export function aceptarContrato(id) {
   return async function (dispatch) {
     try {
-      //console.log(id,"actions contratos aceptar contrato")
       const contratoAceptado = await axios.put(`/contratos/accept/${id}`);
-      console.log(contratoAceptado);
     } catch (error) {
       console.error("Error en la Accion de aceptar contrato", error);
     }
@@ -47,9 +44,7 @@ export function aceptarContrato(id) {
 export function rechazarContrato(id) {
   return async function (dispatch) {
     try {
-      console.log(id, "actions contratos rechazar contrato");
-      const conrtatoRechazado = await axios.put(`/contratos/cancel/${id}`);
-      console.log(conrtatoRechazado);
+      await axios.put(`/contratos/cancel/${id}`);
     } catch (error) {
       console.error("Error en la Accion de rechazar contrato", error);
     }
@@ -57,7 +52,6 @@ export function rechazarContrato(id) {
 }
 
 export function putContrato(id, data) {
- 
   return async function (dispatch) {
     try {
       let modificacionContrato = await axios.put(`/contratos/${id}`, data);

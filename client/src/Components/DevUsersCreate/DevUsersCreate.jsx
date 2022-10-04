@@ -303,13 +303,17 @@ export default function DevUsersCreate() {
           `${
             userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
           }`),
-        paiseId: ("paiseId", ``),
-        // paiseIdLabel:
-        //   ("paiseIdLabel",
-        //   `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
-        tecnologias: ("tecnologias", []),
-        lenguajes: ("lenguajes", []),
-        servicios: ("servicios", []),
+        paiseId: ("paiseId", userByEmail?.paiseId ? userByEmail?.paiseId : ""),
+
+        tecnologias:
+          ("tecnologias",
+          `${userByEmail?.tecnologias ? userByEmail?.tecnologias : []}`),
+        lenguajes:
+          ("lenguajes",
+          `${userByEmail?.lenguajes ? userByEmail?.lenguajes : []}`),
+        servicios:
+          ("servicios",
+          `${userByEmail?.servicios ? userByEmail?.servicios : []}`),
         postulado: true,
       });
       setModal(true);
@@ -380,13 +384,17 @@ export default function DevUsersCreate() {
       englishLevel:
         ("englishLevel",
         `${userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"}`),
-      paiseId: ("paiseId", ``),
-      // paiseIdLabel:
-      //   ("paiseIdLabel",
-      //   `${userByEmail?.paiseIdLabel ? userByEmail?.paiseIdLabel : []}`),
-      tecnologias: ("tecnologias", []),
-      lenguajes: ("lenguajes", []),
-      servicios: ("servicios", []),
+      paiseId: ("paiseId", userByEmail?.paiseId ? userByEmail?.paiseId : ""),
+
+      tecnologias:
+        ("tecnologias",
+        `${userByEmail?.tecnologias ? userByEmail?.tecnologias : []}`),
+      lenguajes:
+        ("lenguajes",
+        `${userByEmail?.lenguajes ? userByEmail?.lenguajes : []}`),
+      servicios:
+        ("servicios",
+        `${userByEmail?.servicios ? userByEmail?.servicios : []}`),
       postulado: true,
     });
     setInput({
@@ -408,10 +416,17 @@ export default function DevUsersCreate() {
       englishLevel: `${
         userByEmail?.englishLevel ? userByEmail?.englishLevel : "Básico"
       }`,
-      paiseId: ``,
-      tecnologias: [],
-      lenguajes: [],
-      servicios: [],
+      paiseId: ("paiseId", userByEmail?.paiseId ? userByEmail?.paiseId : ""),
+
+      tecnologias:
+        ("tecnologias",
+        `${userByEmail?.tecnologias ? userByEmail?.tecnologias : []}`),
+      lenguajes:
+        ("lenguajes",
+        `${userByEmail?.lenguajes ? userByEmail?.lenguajes : []}`),
+      servicios:
+        ("servicios",
+        `${userByEmail?.servicios ? userByEmail?.servicios : []}`),
     });
     setLoader(false);
     setVerErrores(false);
@@ -468,8 +483,10 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.lastName && cache?.lastName}
-              value={input?.lastName && cache?.lastName}
+              // defaultValue={input?.name && cache?.name}
+              // value={input?.name}
+              defaultValue={input?.name}
+              value={cache?.name}
               name="name"
               className={s.inputName}
               disabled={!edit}
@@ -488,8 +505,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.lastName && cache?.lastName}
-              value={input?.lastName && cache?.lastName}
+              defaultValue={input?.lastName}
+              value={cache?.lastName}
               name="lastName"
               className={s.inputLastname}
               disabled={!edit}
@@ -513,7 +530,7 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  // defaultValue={cache?.profilePicture}
+                  defaultValue={cache?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -538,9 +555,11 @@ export default function DevUsersCreate() {
                     className={s.buttonImg}
                     onClick={() => {
                       setCache({
+                        ...cache,
                         profilePicture: ("profilePicture", ""),
                       });
                       setInput({
+                        ...input,
                         profilePicture: "",
                       });
                       setLoader(false);
@@ -731,7 +750,7 @@ export default function DevUsersCreate() {
               onChange={(e) => {
                 setInput({
                   ...input,
-                  paiseId: e?.value,
+                  paiseId: e?.label,
                 });
 
                 if (userByEmail?.postulado) {
@@ -752,7 +771,7 @@ export default function DevUsersCreate() {
 
                 setCache({
                   ...cache,
-                  paiseId: e?.value,
+                  paiseId: e?.label,
                 });
               }}
             />
