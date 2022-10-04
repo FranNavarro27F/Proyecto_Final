@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getLenAd, getPaisesAd, getServAd, getTecnAdmin, getUsersAdmin} from "../../Redux/Actions/Admin";
 // import SideBarAd from "./SideBar/SideBarAd";
-import "./Admin.css"
 import{
     BrowserRouter as Router,
     Routes,
@@ -14,11 +13,14 @@ import CountryList from "./Pages/CountryList";
 import LengList from "./Pages/LengList";
 import ServList from "./Pages/ServList";
 import TecnList from "./Pages/TecnList";
-import "./SideBar/SideBar.css";
 import "../Work/SideMenuWork/SideMenuWork";
 import SideMenuWork from "../Work/SideMenuWork/SideMenuWork";
 import { TiGroupOutline} from "react-icons/ti";
 import s from "../Admin/Admin.module.css";
+import {TiWorldOutline} from "react-icons/ti"
+import {TiMessages} from "react-icons/ti"
+import {TiDeviceLaptop} from "react-icons/ti"
+import { MdOutlineRoomService } from "react-icons/md"
 
 export default function Admin(){
 
@@ -50,44 +52,49 @@ export default function Admin(){
     return (
         <div>
         <div>
-            
-            <h1>Bienvenido a Panel de Admin</h1>
+            <br/>
+            <br/>
             <div className={s.container}>
+            <div className={s.sidebar}>
             <div className={s.sidebarWrapper}>
             <div className={s.sidebarMenu}>
             <SideMenuWork />
-            <h3 className="title">Dashboard</h3>
-            <ul className="sidebarList">
-                <li className="siderbarListItem"
+            
+            <h3 className={s.title}>Dashboard</h3>
+            <ul className={s.sidebarList}>
+                <li className={s.siderbarListItem}
                 onClick={openUsuarios}
                 >
-                  <TiGroupOutline/>
-                     Usuarios
+                  <TiGroupOutline/> Usuarios
+             
                 </li>
                 <li
-                 className="siderbarListItem"
+                 className={s.siderbarListItem}
                  onClick={openLenguajes}
                  >
-                   🗺 Lenguajes
+                  <TiMessages/> Lenguajes
                 </li>
-                <li className="siderbarListItem"
+                <li className={s.siderbarListItem}
                 onClick={openTecnologias}
                 >
-                    Tecnologias
+                   <TiDeviceLaptop/> Tecnologias
                 </li>
-                <li className="siderbarListItem"
+                <li className={s.siderbarListItem}
                 onClick={openServicios}
                 >
-                    Servicios
+                   <MdOutlineRoomService/> Servicios
                 </li>
-                <li className="siderbarListItem"
+                <li className={s.siderbarListItem}
                 onClick={openPaises}
                 >
-                    Paises
+                  <TiWorldOutline/> Paises
+                  
                 </li>
             </ul>
         </div>
     </div>
+    </div>
+    <div className={s.tablas}>
             {
                 tab === ""
                 ?
@@ -115,6 +122,7 @@ export default function Admin(){
                 :
                 null
             }
+            </div>
             </div>
     </div>  
 </div>

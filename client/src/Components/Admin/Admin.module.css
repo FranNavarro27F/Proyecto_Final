@@ -2,14 +2,64 @@
     flex: 1;
     /* background-color: rgb(189, 252, 0); */
     display: flex;
+    font-family: "Poppins";
    
 }
 
 
-.sidebarWrapper{
-    background-color: #ff31be;
-    display: flex;
-    width: 15rem;
-    height: 40rem;
+.sidebar{
+    /* flex: 1; */
+    height: calc(100vh - 200px);
+    /* background-color: rgba(67, 234, 231, 0.598); */
     position: sticky;
+    top: 55px;
+    margin-top: 30px;
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.sidebarWrapper{
+    background-color: #551885c8;
+    padding: 50px;
+    color: rgb(255, 255, 255);
+    border: 0.5rem double black;
+    border-radius: 2rem;
+ 
+    
+}
+
+.sidebarMenu{
+    margin-bottom: 10px;
+}
+
+.title{
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+}
+
+.sidebarList{
+    list-style: none;
+    padding: 5px; 
+    font-size: 25px
+}
+
+.siderbarListItem{
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+   ;
+}
+
+.siderbarListItem.active, .siderbarListItem:hover{
+    background-color: #2251a9f4;
+}
+
+.tablas{
+    flex: 4;
+    /* background-color: #222170; */
 }

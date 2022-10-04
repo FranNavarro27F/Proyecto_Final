@@ -76,10 +76,13 @@ export default function ServList() {
   return (
     <div className={s.container}>
         <div>
+        <div className={s.bigTitle}>
             <h1>Servicios</h1>
+        </div>
+        <div className={s.divButtones}>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
-            
+        </div>
             <div className={s.divlist}>
 
         {current?.map((curr)=>{
@@ -93,7 +96,7 @@ export default function ServList() {
                 {curr.name}
                 </h4>
                 </div>
-                <div className={s.divHabilitador}>
+                <div className={nh === "Habilitado" ? s.divHabilitador : s.divDeshabilitado}>
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>
@@ -107,7 +110,7 @@ export default function ServList() {
         })}
             </div>
             <br/>
-            <div>
+            <div className={s.agregarCosas}>
                 <h3>¿Desea agregar un nuevo servicio?</h3>
                 <br/>
                 <input
@@ -118,7 +121,9 @@ export default function ServList() {
                 />
             </div>
             <br/>
+            <div className={s.divButtones}>
             <button type="submit" onClick={(e) => handlePostServ(e)} disabled={disabled}>Confirmar</button>
+        </div>
         </div>
     </div>
   )

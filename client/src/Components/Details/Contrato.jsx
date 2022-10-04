@@ -5,7 +5,7 @@ import s from "./Details.module.css";
 import { useNavigate } from "react-router-dom";
 import { emailer } from "../../Redux/Actions/Emailer";
 import Swal from "sweetalert2";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 
 export default function Contrato({
   userByEmail,
