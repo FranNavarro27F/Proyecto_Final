@@ -520,7 +520,7 @@ const postUserAuth = async (data) => {
 // -----------------------------------------------
 
 // SET SUBSCRIPTION ID
-const setSubscriptionId = async (id, subscription_id, status) => {
+const setSubscriptionId = async (id, subscription_id, status = null) => {
   //
   try {
     const user = await Usuarios.findByPk(id);
