@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getUsersAdmin, putUsuarioAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
 
-
-
-
 export default function UsuariosList() {
 
     const dispatch = useDispatch()
@@ -29,7 +26,7 @@ export default function UsuariosList() {
 
 
 
-    const handleHabPaises = (id, habilitado)=>{
+    const handleHabUsers = (id, habilitado)=>{
         if(habilitado === true){
             habilitado = false
         }else{
@@ -43,17 +40,11 @@ export default function UsuariosList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del Usuario seleccionado Cambiado correctamente")
+        alert("Estado del usuario seleccionado cambiado correctamente")
         // dispatch(getPaisesAd())
         window.location.reload()
 
     }
-
-    const handleNewPais = (e)=>{
-        setNewP({
-            [e.target.name]: e.target.value})
-    }
-
 
     const separacionHab = (auxOrder)=>{
        dispatch(cambioTabla(auxOrder))
@@ -84,12 +75,10 @@ export default function UsuariosList() {
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>
-                <button onClick={(e) => handleHabPaises(curr.id, curr.habilitado)}>X</button>
+                <button onClick={(e) => handleHabUsers(curr.id, curr.habilitado)}>X</button>
                 </div>
                 </div>
-                
                 // </div>
-                
             )
         })}
             </div>

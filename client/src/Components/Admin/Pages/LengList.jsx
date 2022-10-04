@@ -1,17 +1,11 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {cambioTabla, getLenAd, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
-
-
-
+import {cambioTabla, getLenAd, newLenguajeAdmin, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
+import s from "./DashboardAdmin.module.css";
 
 export default function LengList() {
-
     const dispatch = useDispatch()
-    const navigate = useNavigate();
 
     let lenguajesAdmin = useSelector((state) => state.admin.lengAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
@@ -25,13 +19,15 @@ export default function LengList() {
         name: ""
     })
 
+    let [disabled, setDisabled] = useState(true)
+
     useEffect(()=>{
         dispatch(getLenAd())
     },[])
 
 
 
-    const handleHabPaises = (id, habilitado)=>{
+    const handleHabLeng = (id, habilitado)=>{
         if(habilitado === true){
             habilitado = false
         }else{
@@ -45,13 +41,18 @@ export default function LengList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del Lenguaje seleccionado Cambiado correctamente")
+        alert("Estado del lenguaje seleccionado cambiado correctamente")
         // dispatch(getPaisesAd())
         window.location.reload()
 
     }
 
-    const handleNewPais = (e)=>{
+    const handleNewLenguaje = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
             [e.target.name]: e.target.value})
     }
@@ -61,11 +62,20 @@ export default function LengList() {
        dispatch(cambioTabla(auxOrder))
     }
 
+    const handlePostPais = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newLenguajeAdmin(newP))
+        alert("¡Lenguaje ingresado correctamente! Que tenga un buen día")
+    }
+
 
   return (
     <div className={s.container}>
         <div>
-            <h1>Soy Lenguajes</h1>
+            <h1>Lenguajes</h1>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
             
@@ -86,7 +96,7 @@ export default function LengList() {
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>
-                <button onClick={(e) => handleHabPaises(curr.id, curr.habilitado)}>X</button>
+                <button onClick={(e) => handleHabLeng(curr.id, curr.habilitado)}>X</button>
                 </div>
                 </div>
                 
@@ -97,16 +107,17 @@ export default function LengList() {
             </div>
             <br/>
             <div>
-                <h3>¿Desea agregar un nuevo Pais?</h3>
+                <h3>¿Desea agregar un nuevo lenguaje?</h3>
                 <br/>
                 <input
                 type="text"
+                placeholder='Nuevo Lenguaje'
                 value={newP.name}
-                onChange={(e)=> handleNewPais(e)}
+                onChange={(e)=> handleNewLenguaje(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )

@@ -1,18 +1,13 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {cambioTabla, getPaisesAd, putPaisesAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
-
-
-
+import {cambioTabla, getPaisesAd, newPaisAdmin, putPaisesAdmin} from "../../../Redux/Actions/Admin";
+import s from "./DashboardAdmin.module.css";
 
 export default function CountryList() {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
-
+  
     let paisesAdmin = useSelector((state) => state.admin.paisAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
 
@@ -24,6 +19,8 @@ export default function CountryList() {
     let [newP, setNewP] = useState({
         name: ""
     })
+
+    let [disabled, setDisabled] = useState(true)
 
     useEffect(()=>{
         dispatch(getPaisesAd())
@@ -52,8 +49,13 @@ export default function CountryList() {
     }
 
     const handleNewPais = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
 
@@ -61,11 +63,21 @@ export default function CountryList() {
        dispatch(cambioTabla(auxOrder))
     }
 
+    const handlePostPais = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newPaisAdmin(newP))
+        alert("¡Pais ingresado correctamente! Que tenga un buen día")
+    }
+
+
 
   return (
     <div className={s.container}>
         <div>
-            <h1>Soy Paises</h1>
+            <h1>Paises</h1>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
             
@@ -97,16 +109,17 @@ export default function CountryList() {
             </div>
             <br/>
             <div>
-                <h3>¿Desea agregar un nuevo Pais?</h3>
+                <h3>¿Desea agregar un nuevo pais?</h3>
                 <br/>
                 <input
-                type="text"
+                type="input"
+                placeholder='Nuevo País'
                 value={newP.name}
                 onChange={(e)=> handleNewPais(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )
