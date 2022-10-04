@@ -80,12 +80,35 @@ export default function Details() {
   };
 
   const refContracts = useRef(null);
+///////-----aca hacemos los filtros && ordenamientos de contratos y vemos que se muestra--
+  let [ContratosOrder, setContratosOrder] = useState;
 
-  //---esta funcion determina que contratos se muestran y cuales no del array de contratos-
-  let contratosS = userDetail?.contratos !== undefined && userDetail?.contratos;
+  // <label>Estado: </label>
+  // {!detalleC?.pagado
+  //   ? detalleC?.aceptado === false
+  //     ? "No aceptado"
+  //     : `Aceptado en espera de pago ⚠`
+  //   : "Aceptado y pagado ✅ "}
+  // <br />
+
+  const filterByAceptadoEnEsperaDePago=()=>{
+    let ac_epera_de_pago= contratosS.filter(cur=>  cur.aceptado && !cur.pagado);
+    
+    if(ac_epera_de_pago.length){
+      setContratosOrder(ac_epera_de_pago);
+    }
+  }
+
+
+  
+  let contratosS = (userDetail?.contratos !== undefined) && userDetail.contratos;
+
   let contratosArenderizar =
     contratosS && user.user_id && contratosVisibles(contratosS, user);
-  //------------------------------------------------------------------------------------
+  
+
+///////----------------------------------------------------------------------------------
+
 
   //-esta funcion modifica en DB la propiedad status al contrato ingresado--------------
   // deacuerdo a la fecha
