@@ -12,27 +12,32 @@
   visibility: visible !important;
   animation-name: slideDown;
   -webkit-animation-name: slideDown;
+  animation-iteration-count: 1;
+  -webkit-animation: slideDown 0.5s normal forwards;
+  -moz-animation: slideDown 0.5s normal forwards;
+  -o-animation: slideDown 0.5s normal forwards;
 }
 
 @keyframes slideDown {
-  0% {
-    transform: translateX(-90%);
+  from {
+    opacity: 0;
+    transform: scale(0, 0);
   }
   50% {
-    /* transform: translateX(8%); */
+    opacity: 1;
+    transform: scale(1.1, 1.1);
   }
-  /* 65% {
-    transform: translateY(-4%);
+  to {
+    transform: scale(1, 1);
   }
-  80% {
-    transform: translateY(4%);
+}
+@keyframes hover {
+  from {
+    transform: scale(1, 1);
   }
-  95% {
-    transform: translateY(-2%);
+  to {
+    transform: scale(1.1, 1.1);
   }
-  100% {
-    transform: translateY(0%);
-  } */
 }
 .backMenu2 {
   z-index: 8;
@@ -118,4 +123,7 @@
 .buttonSearch {
   background: none;
   border: none;
+}
+.buttonScrollOff {
+  display: none;
 }

@@ -16,7 +16,11 @@ import "boxicons";
 import { useAuth0 } from "@auth0/auth0-react";
 import { emailer } from "../../Redux/Actions/Emailer";
 import { useState } from "react";
-import { consultSub, setSubscriptionId } from "../../Redux/Actions/MercadoPago";
+import {
+  consultSub,
+  editSuscriptionMp,
+  setSubscriptionId,
+} from "../../Redux/Actions/MercadoPago";
 import Iframe from "react-iframe";
 import { IoMdCloseCircle } from "react-icons/io";
 import Contrato from "./Contrato";
@@ -134,7 +138,7 @@ export default function Details() {
     } else {
       setUserPremium(false);
     }
-  }, [userDetail?.premium]);
+  }, [userDetail?.premium, userPremium]);
 
   const handlePremium = () => {
     setMostrarSub(!mostrarSub);
@@ -154,14 +158,29 @@ export default function Details() {
       backdropFilter: "blur(1px)",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(
-          setSubscriptionId({
-            user_id: userByEmail?.id,
-            subscription_id: consultaSub?.id,
-            status: "pending",
-          })
-        );
-        window.location.reload();
+        dispatch(editSuscriptionMp(consultaSub?.id, { status: "paused" }));
+        setTimeout(() => {
+          dispatch(consultSub(consultaSub?.id));
+        }, 1000);
+        setTimeout(() => {
+          dispatch(
+            setSubscriptionId({
+              user_id: userByEmail?.id,
+              subscription_id: consultaSub?.id,
+              status: consultaSub?.status,
+            })
+          );
+        }, 2000);
+        setTimeout(() => {
+          dispatch(getUserEmail(user?.email));
+        }, 2500);
+        Swal.fire({
+          // position: "top-end",
+          icon: "success",
+          title: "Suscripcion cancelada",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };
@@ -186,8 +205,14 @@ export default function Details() {
           status: consultaSub?.status,
         })
       );
+      console.log(`usuario premiun: ${userDetail?.premium} CERRADOOOOO`);
+
       setMostrarSub(false);
+      // window.location.reload();
     }, 1000);
+    setTimeout(() => {
+      dispatch(getUserEmail(user?.email));
+    }, 2000);
   };
 
   const handleCleanAndBack = () => {
@@ -274,9 +299,7 @@ export default function Details() {
                         userByEmail?.profilePicture ? (
                           <img
                             className={
-                              userPremium && userByEmail?.premium
-                                ? s.premium
-                                : s.imgRender
+                              userByEmail?.premium ? s.premium : s.imgRender
                             }
                             src={
                               userDetail?.profilePicture
@@ -443,6 +466,7 @@ export default function Details() {
                     >
                       HOME
                     </button> */}
+
                       {userProfile ? (
                         <div className={s.buttonsLogeado}>
                           <button
@@ -485,16 +509,17 @@ export default function Details() {
                     </div>
                   </div>
                 </div>
-                {contratosArenderizar && (
-                  <div className={s.divScrollContracts}>
+
+                <div className={s.divScrollContracts}>
+                  {
                     <button
                       className={s.scrollContracts}
                       onClick={() => scrollTo(refContracts)}
                     >
                       <BsChevronDoubleDown />
                     </button>
-                  </div>
-                )}
+                  }
+                </div>
               </div>
             </div>
           </div>
