@@ -158,22 +158,21 @@ export default function Details() {
       backdropFilter: "blur(1px)",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(editSuscriptionMp(consultaSub?.id, { status: "paused" }));
-        setTimeout(() => {
-          dispatch(consultSub(consultaSub?.id));
-        }, 1000);
-        setTimeout(() => {
-          dispatch(
-            setSubscriptionId({
-              user_id: userByEmail?.id,
-              subscription_id: consultaSub?.id,
-              status: consultaSub?.status,
-            })
-          );
-        }, 2000);
+        // dispatch(editSuscriptionMp(consultaSub?.id, { status: "paused" }));
+        dispatch(
+          setSubscriptionId({
+            user_id: userByEmail?.id,
+            subscription_id: null,
+            status: "cancel",
+          })
+        );
+        // setTimeout(() => {
+        //   dispatch(consultSub(consultaSub?.id));
+        // }, 1000);
+
         setTimeout(() => {
           dispatch(getUserEmail(user?.email));
-        }, 2500);
+        }, 800);
         Swal.fire({
           // position: "top-end",
           icon: "success",
@@ -209,10 +208,31 @@ export default function Details() {
 
       setMostrarSub(false);
       // window.location.reload();
-    }, 1000);
+    }, 1500);
     setTimeout(() => {
-      dispatch(getUserEmail(user?.email));
-    }, 2000);
+      let timerInterval;
+      Swal.fire({
+        title: "Procesando pago",
+        // html: "I will close in <b></b> milliseconds.",
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+          // const b = Swal.getHtmlContainer().querySelector("b");
+          // timerInterval = setInterval(() => {
+          //   b.textContent = Swal.getTimerLeft();
+          // }, 100);
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          dispatch(getUserEmail(user?.email));
+        }
+      });
+    }, 1500);
   };
 
   const handleCleanAndBack = () => {
