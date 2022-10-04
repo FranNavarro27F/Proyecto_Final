@@ -535,7 +535,7 @@ export default function Details() {
                             className={s.buttonSub}
                             onClick={handlePremiumOFF}
                           >
-                            CANCELAR SUSCRIPCION
+                            Cancelar Suscripción
                           </button>
                         )}
                       </div>
