@@ -750,7 +750,7 @@ export default function DevUsersCreate() {
               onChange={(e) => {
                 setInput({
                   ...input,
-                  paiseId: e?.label,
+                  paiseId: e?.value,
                 });
 
                 if (userByEmail?.postulado) {
@@ -771,7 +771,7 @@ export default function DevUsersCreate() {
 
                 setCache({
                   ...cache,
-                  paiseId: e?.label,
+                  paiseId: e?.value,
                 });
               }}
             />
