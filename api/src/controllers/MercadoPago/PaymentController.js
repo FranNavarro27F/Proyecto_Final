@@ -57,16 +57,30 @@ class PaymentController {
     }
   }
   async getSubscriptionConsult(req, res, id) {
-    console.log(id, "*************id********");
     try {
       const consult = await this.subscriptionService.createConsultSub(id);
       return res.json(consult);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
 
       return res
         .status(400)
         .json({ error: true, msg: "Failed to consult Subscription" });
+    }
+  }
+  async editSubscription(req, res, id, status) {
+    try {
+      const consult = await this.subscriptionService.createEditSubscription(
+        id,
+        status
+      );
+      return res.json(consult);
+    } catch (error) {
+      console.log(error);
+
+      return res
+        .status(400)
+        .json({ error: true, msg: "Failed to edit Subscription" });
     }
   }
 }

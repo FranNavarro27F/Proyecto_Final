@@ -63,7 +63,6 @@ export function consultPay(id) {
 
 export function setSubscriptionId(payload) {
   const { user_id, subscription_id, status } = payload;
-
   return async function (dispatch) {
     try {
       return dispatch({
@@ -77,6 +76,22 @@ export function setSubscriptionId(payload) {
       });
     } catch (e) {
       console.error(e, "error catch action SET ID MercadoPago");
+    }
+  };
+}
+
+export function editSuscriptionMp(id, status) {
+  return async function (dispatch) {
+    try {
+      if (id) {
+        return dispatch({
+          type: "EDIT_SUSCRIPTION",
+          payload: (await axios.put(`/pago/subscriptionEdit/${id}`, status))
+            .data,
+        });
+      }
+    } catch (e) {
+      console.error(e, "error catch action EDIT SUSCRIPTION MercadoPago");
     }
   };
 }
