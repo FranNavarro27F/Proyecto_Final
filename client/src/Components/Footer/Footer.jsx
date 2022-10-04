@@ -7,7 +7,7 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
   return (
     <div>
       <div className={s.Footer}>
-        {/* <PlanetaFooter1 /> */}
+        <PlanetaFooter1 />
         <div className={s.container}>
           <ul>
             <li onClick={() => scrollToSeccion(landing)} className={s.link}>
