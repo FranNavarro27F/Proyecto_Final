@@ -24,16 +24,16 @@ axios.defaults.baseURL = process.env.REACT_APP_API;
 //-----------------------------------------------------------
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Auth0Provider
-      domain="dev-mp-bx1eb.us.auth0.com"
-      clientId="Z0yFy4SxEZTYErE6Lji63C3bdWsmtWGK"
-      redirectUri={window.location.origin}
-    >
+  <Auth0Provider
+    domain="dev-mp-bx1eb.us.auth0.com"
+    clientId="Z0yFy4SxEZTYErE6Lji63C3bdWsmtWGK"
+    redirectUri={window.location.origin}
+  >
+    <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </Auth0Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Auth0Provider>,
   document.getElementById("root")
 );
