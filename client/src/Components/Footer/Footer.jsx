@@ -23,6 +23,8 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
               DESTACADOS
             </li>
           </ul>
+          <br />
+          <div className={s.supportContainer}>asd</div>
         </div>
         <svg
           className={s.svgFooter}
