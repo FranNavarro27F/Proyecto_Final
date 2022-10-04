@@ -100,7 +100,8 @@ let order_defaultt=  BubbleSort(defaultt)
 //-------------------------------------------------------------------------------------------
 
 //este estado tiene los contraros que muestran-------------
-let [ContratosOrder, setContratosOrder] = useState(defaultt);
+let [ContratosOrder, setContratosOrder] = useState(order_defaultt);
+
 if(order_defaultt.length && !ContratosOrder.length){
   setContratosOrder(order_defaultt);
 }
