@@ -368,8 +368,8 @@ export default function Details() {
                       <span> Lenguajes: </span>
                       <span>
                         {userDetail?.lenguajes
-                          ? userDetail?.lenguajes?.map((e) => e)
-                          : userByEmail?.lenguajes?.map((e) => e)}
+                          ? userDetail?.lenguajes?.join(", ")
+                          : userByEmail?.lenguajes?.join(", ")}
                       </span>
                       <br />
                       <br />
@@ -377,8 +377,8 @@ export default function Details() {
                       <span> Servicios: </span>
                       <span>
                         {userDetail?.servicios
-                          ? userDetail?.servicios?.map((e) => e)
-                          : userByEmail?.servicios?.map((e) => e)}
+                          ? userDetail?.servicios?.join(", ")
+                          : userByEmail?.servicios?.join(", ")}
                       </span>
                       <br />
                       <br />
@@ -403,8 +403,8 @@ export default function Details() {
                       <span> Tecnologias: </span>
                       <span>
                         {userDetail?.tecnologias
-                          ? userDetail?.tecnologias?.map((e) => e)
-                          : userByEmail?.tecnologias?.map((e) => e)}
+                          ? userDetail?.tecnologias?.join(", ")
+                          : userByEmail?.tecnologias?.join(", ")}
                       </span>
                       <br />
                       <br />
