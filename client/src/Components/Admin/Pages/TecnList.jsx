@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {cambioTabla, getTecnAdmin, putTecnologiasAdmin} from "../../../Redux/Actions/Admin";
+import {cambioTabla, getTecnAdmin, newTecnologiaAdmin, putTecnologiasAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
 
 export default function TecList() {
@@ -18,6 +18,8 @@ export default function TecList() {
     let [newP, setNewP] = useState({
         name: ""
     })
+
+    let [disabled, setDisabled] = useState(true)
 
     useEffect(()=>{
         dispatch(getTecnAdmin())
@@ -46,12 +48,26 @@ export default function TecList() {
     }
 
     const handleNewTec = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
             [e.target.name]: e.target.value})
     }
 
     const separacionHab = (auxOrder)=>{
        dispatch(cambioTabla(auxOrder))
+    }
+
+    const handlePostTec = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newTecnologiaAdmin(newP))
+        alert("¡Tecnología ingresada correctamente! Que tenga un buen día")
     }
 
   return (
@@ -93,12 +109,13 @@ export default function TecList() {
                 <br/>
                 <input
                 type="text"
+                placeholder='Nueva Tecnología'
                 value={newP.name}
                 onChange={(e)=> handleNewTec(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostTec(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )

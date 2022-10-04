@@ -9,7 +9,7 @@ import ServList from "./Pages/ServList";
 import TecnList from "./Pages/TecnList";
 import SideMenuWork from "../Work/SideMenuWork/SideMenuWork";
 import { TiGroupOutline} from "react-icons/ti";
-import s from "../Admin/Pages/DashboardAdmin.module.css";
+import s from "../Admin/Admin.module.css";
 
 export default function Admin(){
 
@@ -44,7 +44,6 @@ export default function Admin(){
             
             <h1>Bienvenido a Panel de Admin</h1>
             <div className={s.container}>
-            <div className={s.sidebar}>
             <div className={s.sidebarWrapper}>
             <div className={s.sidebarMenu}>
             <SideMenuWork />
@@ -80,7 +79,6 @@ export default function Admin(){
             </ul>
         </div>
     </div>
-</div>
             {
                 tab === ""
                 ?

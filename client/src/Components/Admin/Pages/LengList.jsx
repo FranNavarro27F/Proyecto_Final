@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {cambioTabla, getLenAd, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
+import {cambioTabla, getLenAd, newLenguajeAdmin, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css";
 
 export default function LengList() {
     const dispatch = useDispatch()
+
     let lenguajesAdmin = useSelector((state) => state.admin.lengAdmin)
     let auxOrder = useSelector((state)=> state.admin.auxOr)
 
@@ -17,6 +18,8 @@ export default function LengList() {
     let [newP, setNewP] = useState({
         name: ""
     })
+
+    let [disabled, setDisabled] = useState(true)
 
     useEffect(()=>{
         dispatch(getLenAd())
@@ -45,6 +48,11 @@ export default function LengList() {
     }
 
     const handleNewLenguaje = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
             [e.target.name]: e.target.value})
     }
@@ -52,6 +60,15 @@ export default function LengList() {
 
     const separacionHab = (auxOrder)=>{
        dispatch(cambioTabla(auxOrder))
+    }
+
+    const handlePostPais = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newLenguajeAdmin(newP))
+        alert("¡Lenguaje ingresado correctamente! Que tenga un buen día")
     }
 
 
@@ -94,12 +111,13 @@ export default function LengList() {
                 <br/>
                 <input
                 type="text"
+                placeholder='Nuevo Lenguaje'
                 value={newP.name}
                 onChange={(e)=> handleNewLenguaje(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )

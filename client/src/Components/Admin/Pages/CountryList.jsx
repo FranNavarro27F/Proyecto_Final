@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {cambioTabla, getPaisesAd, putPaisesAdmin} from "../../../Redux/Actions/Admin";
+import {cambioTabla, getPaisesAd, newPaisAdmin, putPaisesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css";
 
 export default function CountryList() {
@@ -19,6 +19,8 @@ export default function CountryList() {
     let [newP, setNewP] = useState({
         name: ""
     })
+
+    let [disabled, setDisabled] = useState(true)
 
     useEffect(()=>{
         dispatch(getPaisesAd())
@@ -47,14 +49,29 @@ export default function CountryList() {
     }
 
     const handleNewPais = (e)=>{
+        if(e.target.value === ""){
+            setDisabled(true)
+        }else{
+            setDisabled(false)
+        }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
 
     const separacionHab = (auxOrder)=>{
        dispatch(cambioTabla(auxOrder))
     }
+
+    const handlePostPais = (e)=>{
+        e.preventDefault()
+        // if(newP.name === ""){
+        //     setDisabled(false)
+        // }
+        dispatch(newPaisAdmin(newP))
+        alert("¡Pais ingresado correctamente! Que tenga un buen día")
+    }
+
 
 
   return (
@@ -95,13 +112,14 @@ export default function CountryList() {
                 <h3>¿Desea agregar un nuevo pais?</h3>
                 <br/>
                 <input
-                type="text"
+                type="input"
+                placeholder='Nuevo País'
                 value={newP.name}
                 onChange={(e)=> handleNewPais(e)}
                 />
             </div>
             <br/>
-            <button>Confirmar</button>
+            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
         </div>
     </div>
   )
