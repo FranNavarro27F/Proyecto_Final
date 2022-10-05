@@ -651,7 +651,6 @@ export default function Details() {
             Contratos abonados
           </button>
         </div>
-
         {/* ----------------------------------------- */}
 
         <div>
