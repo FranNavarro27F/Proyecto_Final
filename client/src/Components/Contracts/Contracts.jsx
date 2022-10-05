@@ -2,7 +2,7 @@ import React from "react";
 // import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getContratoId } from "../../Redux/Actions/Contracts";
 import s from "../Details/Details.module.css";
 // import DetalleContrato from "./DetalleContrato";
@@ -16,21 +16,18 @@ export default function Contracts({
   idContrato,
   status,
   description,
-  expiration_date
+  expiration_date,
 }) {
-
-
-
   //--- funcion para encontrar el nombre del employer de este contrato----
-  const usuarios=useSelector(state=> state.devUser.allUsers);
+  const usuarios = useSelector((state) => state.devUser.allUsers);
 
-  const findNameEmployer= (id)=>{
-    if(usuarios?.length){
-      let employerObj= usuarios.find(cur=> cur.id === id);
-      let name= employerObj?.name;
+  const findNameEmployer = (id) => {
+    if (usuarios?.length) {
+      let employerObj = usuarios.find((cur) => cur.id === id);
+      let name = employerObj?.name;
       return name;
     }
-  }
+  };
   //----------------------------------------------------------------------
 
   // let idContrato = contrato.cur.id;
@@ -48,44 +45,46 @@ export default function Contracts({
           <label>Estado: </label>
           {!pagado
             ? aceptado === false
-            ? "No aceptado"
-            : `Aceptado en espera de pago ⚠`
+              ? "No aceptado"
+              : `Aceptado en espera de pago ⚠`
             : "Aceptado y pagado ✅ "}
           {aceptado}
           <br />
-          
+
           <label>Fecha de Inicio: </label>
           {date}
           <br />
-         
+
           <label>Presupuesto: $ </label>
           {price}
           <br />
-          
-          <label>Propuesto por:  </label>
+
+          <label>Propuesto por: </label>
           {findNameEmployer(idEmployer)}
           <br />
-         
-            {/* <label>Id contrato: </label>
+
+          {/* <label>Id contrato: </label>
             {idContrato} */}
           {/* <label>Fecha de Finalización: </label>
           {expiration_date} */}
-         
+
           {/* <label>Status: </label>
           {status}
           <br /> */}
           {/* <label>Descripción: </label>
           {description}
-          <br /> */} 
+          <br /> */}
         </div>
-        <button
-          onClick={() => {
-            navigate(`/contrato/${idContrato}`);
-          }}
-          className={s.buttonDetalle}
-        >
-          Ver Detalle
-        </button>
+        <Link to={`/contrato/${idContrato}`}>
+          <button
+            // onClick={() => {
+            //   navigate(`/contrato/${idContrato}`);
+            // }}
+            className={s.buttonDetalle}
+          >
+            Ver Detalle
+          </button>
+        </Link>
       </div>
       )
     </div>
