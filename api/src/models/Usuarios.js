@@ -25,7 +25,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
-          isAlpha: true,
+          //   isAlpha: true,
+          is: /^[a-z\s]*$/gi,
         },
       },
 
@@ -33,7 +34,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
-          isAlpha: true,
+          //   isAlpha: true,
+          is: /^[a-z\s]*$/gi,
         },
       },
 
@@ -70,48 +72,48 @@ module.exports = (sequelize) => {
       linkedIn: {
         type: DataTypes.STRING(200),
         allowNull: true,
-        unique: true,
-        validate: {
-          isUrl: true,
-        },
+        // unique: true,
+        // validate: {
+        //   isUrl: true,
+        // },
       },
 
       gitHub: {
         type: DataTypes.STRING(200),
         allowNull: true,
-        unique: true,
-        validate: {
-          isUrl: true,
-        },
+        // unique: true,
+        // validate: {
+        //   isUrl: true,
+        // },
       },
 
       webSite: {
         type: DataTypes.STRING(200),
         allowNull: true,
-        unique: true,
-        validate: {
-          isUrl: true,
-        },
+        // unique: true,
+        // validate: {
+        //   isUrl: true,
+        // },
       },
 
       yearsOfExperience: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        validate: {
-          len: [1, 2], // no permitir mas de dos dígitos
-          min: 1, // valor mínimo: 1
-          max: 99, // valor máximo: 99
-        },
+        // validate: {
+        //   len: [1, 2], // no permitir mas de dos dígitos
+        //   min: 1, // valor mínimo: 1
+        //   max: 99, // valor máximo: 99
+        // },
       },
 
       dailyBudget: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        validate: {
-          len: [1, 3], // no permitir mas de dos dígitos
-          min: 1, // valor mínimo: 1
-          max: 999, // valor máximo: 99
-        },
+        // validate: {
+        //   len: [1, 3], // no permitir mas de dos dígitos
+        //   min: 1, // valor mínimo: 1
+        //   max: 999, // valor máximo: 99
+        // },
       },
 
       englishLevel: {
