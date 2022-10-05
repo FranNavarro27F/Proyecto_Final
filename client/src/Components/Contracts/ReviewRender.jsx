@@ -15,42 +15,16 @@ const colors = {
     
 };
 
-const [currentValue, setCurrentValue] = useState(0);
-const [hoverValue, setHoverValue] = useState(undefined);
+console.log(puntuacion, comentario )
+
+const [currentValue, setCurrentValue] = useState(puntuacion);
+const [hoverValue, setHoverValue] = useState(comentario);
 const [ input, setInput ] = useState({
     puntuacion: 0,
     comentario: ""
 })
   const stars = Array(5).fill(0)
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const handleClick = value => {
-    setCurrentValue(value)
-    setInput({
-        ...input,
-        puntuacion: value
-    })
-    //dispatch(setReputacion(value))
-  }
-
-  const handleMouseOver = newHoverValue => {
-    setHoverValue(newHoverValue)
-  };
-
-  const handleMouseLeave = () => {
-    setHoverValue(undefined)
-  }
-  const handleTeaxArea = (e)=>{
-    setInput({
-    ...input,
-    comentario: e.target.value
-
- })
-  }
  
-
   return (
     <div className={ s.divReviews}>
     <div style={styles.container}>
@@ -61,9 +35,9 @@ const [ input, setInput ] = useState({
             <FaStar
               key={index}
               size={24}
-              onClick={() => handleClick(index + 1)}
-              onMouseOver={() => handleMouseOver(index + 1)}
-              onMouseLeave={handleMouseLeave}
+            //   onClick={() => handleClick(index + 1)}
+            //   onMouseOver={() => handleMouseOver(index + 1)}
+            //   onMouseLeave={handleMouseLeave}
               color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
               style={{
                 marginRight: 10,
@@ -75,9 +49,6 @@ const [ input, setInput ] = useState({
       </div>
       <textarea 
       className={s.textarea}
-        placeholder="Cómo fue tu experiencia?"
-        // style={styles.textarea}
-        onChange={(e)=>handleTeaxArea(e)}
       />
 
     </div>

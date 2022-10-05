@@ -228,14 +228,10 @@ export default function DetalleContrato() {
 
               {/* ---puntuacion del usuario al contrato (comentario)--- */}
               
-                {/* {detalleC?.puntuacion}
-                {detalleC?.comentario} */}
                 <ReviewRender 
                 puntuacion={detalleC?.puntuacion}
                 comentario={detalleC?.comentario}
                 />
-              
-
               {/* ----------------------------------------------------- */}
 
              
