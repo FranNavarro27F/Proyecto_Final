@@ -724,7 +724,7 @@ input:checked + .slider_round:before {
 
 .back {
   /* background-color: #813c8f; */
-  margin-top: 1vh;
+  margin-top: 2vh;
 }
 
 .divCardContrato {
@@ -741,6 +741,9 @@ input:checked + .slider_round:before {
   border: 2px solid rgba(0, 0, 0, 0.075);
   display: flex;
   flex-direction: column;
+  -webkit-box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
+-moz-box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
+box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
 }
 
 .textCardContrato {
@@ -762,16 +765,20 @@ input:checked + .slider_round:before {
 
 /* ---------- este es el estilo de las navigation tabs----------- */
 .buttonContratitos {
+  padding-top: 3vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 80vw;
   margin-left: 9vw;
   margin-top: 6vh;
-  margin-bottom: 3vh;
+  margin-bottom: 7vh;
 }
 
 .button1 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
   font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
@@ -796,6 +803,10 @@ button:focus {
 }
 
 .button2 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
+  
   font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
@@ -816,12 +827,17 @@ button:focus {
 }
 
 .button3 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
+  
+
   font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
   border-top-left-radius: 0vh;
   cursor: pointer;
-  width: 25vw;
+  width: 20vw;
   height: 8vh;
   /* border-bottom: none;
     border-left: none; */
