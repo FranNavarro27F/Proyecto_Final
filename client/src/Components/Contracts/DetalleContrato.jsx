@@ -105,7 +105,7 @@ export default function DetalleContrato() {
     }
   }, [dispatch, id, searchParams]);
 
-  console.log(detalleC?.pagado, "detallec.pagado");
+  //console.log(detalleC?.pagado, "detallec.pagado");
   // const nombreDeveloper =
 
   
