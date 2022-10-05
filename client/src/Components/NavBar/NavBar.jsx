@@ -165,11 +165,11 @@ export default function NavBar() {
               e.preventDefault();
               setActualFilter({
                 ...actualFilter,
-                search: e.target.value,
+                search: e.target.value.toLowerCase(),
               });
               setCacheFilter({
                 ...cacheFilter,
-                search: e.target.value,
+                search: e.target.value.toLowerCase(),
               });
               // }
             }}

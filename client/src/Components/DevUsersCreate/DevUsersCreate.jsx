@@ -461,10 +461,10 @@ export default function DevUsersCreate() {
       postulado: true,
     });
     setInput({
-      name: `${userByEmail?.name}`,
-      lastName: `${userByEmail?.lastname}`,
-      profilePicture: `${userByEmail?.profilePicture}`,
-      email: `${userByEmail?.email}`,
+      name: `${user?.given_name}`,
+      lastName: `${user?.family_name}`,
+      profilePicture: `${user?.picture}`,
+      email: `${user?.email}`,
       linkedIn: `${userByEmail?.linkedIn ? userByEmail?.linkedIn : null}`,
       gitHub: `${userByEmail?.gitHub ? userByEmail?.gitHub : null}`,
       webSite: `${userByEmail?.webSite ? userByEmail?.webSite : null}`,
