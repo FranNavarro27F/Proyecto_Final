@@ -77,10 +77,13 @@ export default function CountryList() {
   return (
     <div className={s.container}>
         <div>
+        <div className={s.bigTitle}>
             <h1>Paises</h1>
+        </div>
+        <div className={s.divButtones}>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
-            
+            </div>
             <div className={s.divlist}>
 
         {current?.map((curr)=>{
@@ -108,7 +111,7 @@ export default function CountryList() {
         })}
             </div>
             <br/>
-            <div>
+            <div className={s.agregarCosas}>
                 <h3>¿Desea agregar un nuevo pais?</h3>
                 <br/>
                 <input
@@ -119,7 +122,9 @@ export default function CountryList() {
                 />
             </div>
             <br/>
+            <div className={s.divButtones}>
             <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
+        </div>
         </div>
     </div>
   )

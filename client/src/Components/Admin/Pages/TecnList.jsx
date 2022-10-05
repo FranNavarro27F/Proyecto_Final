@@ -54,7 +54,7 @@ export default function TecList() {
             setDisabled(false)
         }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
     const separacionHab = (auxOrder)=>{
@@ -73,10 +73,13 @@ export default function TecList() {
   return (
     <div className={s.container}>
         <div>
+        <div className={s.bigTitle}>
             <h1>Tecnologías</h1>
+        </div>
+        <div className={s.divButtones}>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
-            
+        </div>
             <div className={s.divlist}>
 
         {current?.map((curr)=>{
@@ -90,7 +93,7 @@ export default function TecList() {
                 {curr.name}
                 </h4>
                 </div>
-                <div className={s.divHabilitador}>
+                <div className={nh === "Habilitado" ? s.divHabilitador : s.divDeshabilitado}>
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>
@@ -104,7 +107,7 @@ export default function TecList() {
         })}
             </div>
             <br/>
-            <div>
+            <div className={s.agregarCosas}>
                 <h3>¿Desea agregar una nueva tecnología?</h3>
                 <br/>
                 <input
@@ -115,7 +118,9 @@ export default function TecList() {
                 />
             </div>
             <br/>
+            <div className={s.divButtones}>
             <button type="submit" onClick={(e) => handlePostTec(e)} disabled={disabled}>Confirmar</button>
+        </div>
         </div>
     </div>
   )
