@@ -103,6 +103,7 @@ export default function Contrato({
     else if (errors.description) alert(errors.description);
     else if (errors.price) alert(errors.price);
     else {
+      dispatch(setearContrato(propuesta));
       Swal.fire({
         // position: "top-end",
         icon: "success",
@@ -110,7 +111,7 @@ export default function Contrato({
         showConfirmButton: false,
         timer: 2000,
       });
-      dispatch(setearContrato(propuesta));
+      navigate("/work");
       // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
       //  dispatch(
       //     emailer({
@@ -119,7 +120,6 @@ export default function Contrato({
       //       IDContratado: userDetail.id
       //     })
       //  );
-      navigate("/work");
     }
   };
 

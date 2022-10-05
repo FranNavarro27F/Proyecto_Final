@@ -14,7 +14,8 @@ export function emailer(payload) {
 export function emailerPagado(payload) {
   return async function() {
     try {
-      await axios.post(`/emailer/pagado`, payload)
+      let response= await axios.post(`/emailer/pagado`, payload)
+      console.log("++++del back, empailer pagado",response,"del back, empailer pagado++++")
     } catch(e) {
       console.error(e, "error catch action emailer de pagado");
     }
@@ -24,10 +25,11 @@ export function emailerPagado(payload) {
 export function traerUsuarioID(id) {
   return async function(dispatch) {
     try {
-      let info = await axios.get(`/usuarios/${id}`)
+      let info = (await axios.get(`/usuarios/${id}`)).data;
+      
       return dispatch({
         type: "TRAER_USUARIO_ID",
-        payload: info,
+        payload: info
       })
     } catch(e) {
       console.error(e, "error catch action TRAER USUARIO ID");
@@ -36,12 +38,14 @@ export function traerUsuarioID(id) {
 }
 
 export function traerDeveloperID(id) {
+  
   return async function(dispatch) {
     try {
-      let info = await axios.get(`/usuarios/${id}`)
+      let info = (await axios.get(`/usuarios/${id}`)).data;
+      
       return dispatch({
         type: "TRAER_DEVELOPER_ID",
-        payload: info,
+        payload: info
       })
     } catch(e) {
       console.error(e, "error catch action TRAER DEVELOPER ID");

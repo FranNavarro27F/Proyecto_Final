@@ -16,7 +16,7 @@ class PaymentController {
       return res.json(payment);
       //
     } catch (error) {
-      console.log(`${ERROR}getPaymentLink --> ${error}`);
+      console.error(`${ERROR}getPaymentLink --> ${error}`);
 
       return res
         .status(400)
@@ -34,7 +34,7 @@ class PaymentController {
       return res.json(consult);
       //
     } catch (error) {
-      console.log(`${ERROR}getPaymentConsult --> ${error}`);
+      console.error(`${ERROR}getPaymentConsult --> ${error}`);
       return res
         .status(400)
         .json({ error: true, msg: "Failed to consult Payment" });
@@ -62,7 +62,7 @@ class PaymentController {
       }
       //
     } catch (error) {
-      console.log(`${ERROR}getSubscriptionLink --> ${error}`);
+      console.error(`${ERROR}getSubscriptionLink --> ${error}`);
 
       return res
         .status(400)
@@ -79,7 +79,7 @@ class PaymentController {
       return res.json(consult);
       //
     } catch (error) {
-      console.log(`${ERROR}getSubscriptionConsult --> ${error}`);
+      console.error(`${ERROR}getSubscriptionConsult --> ${error}`);
 
       return res
         .status(400)
@@ -99,7 +99,7 @@ class PaymentController {
       return res.json(consult);
       //
     } catch (error) {
-      console.log(`${ERROR}editSubscription --> ${error}`);
+      console.error(`${ERROR}editSubscription --> ${error}`);
 
       return res
         .status(400)
