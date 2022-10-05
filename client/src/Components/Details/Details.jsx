@@ -53,11 +53,14 @@ export default function Details() {
 
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
-    dispatch(getUserId(id));
-    dispatch(getUserEmail(user?.email));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [dispatch, id, user?.email, userByEmail?.id]);
+  }, [id, userByEmail?.id]);
 
+  useEffect(() => {
+    dispatch(getUserId(id));
+  }, [dispatch, id]);
+
+  // dispatch(getUserEmail(user?.email));
   const userDetail = useSelector((state) => state.devUser.details);
 
   const consultaSub = useSelector(
