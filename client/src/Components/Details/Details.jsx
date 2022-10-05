@@ -361,7 +361,7 @@ export default function Details() {
                       </h2>
                       <br />
                       <div className={s.imageBox}>
-                        {userDetail?.profilePicture &&
+                        {userDetail?.profilePicture ||
                         userByEmail?.profilePicture ? (
                           <img
                             className={
@@ -370,9 +370,8 @@ export default function Details() {
                                 : s.imgRender
                             }
                             src={
-                              userDetail?.profilePicture
-                                ? userDetail?.profilePicture
-                                : userByEmail?.profilePicture
+                              userDetail?.profilePicture ??
+                              userByEmail?.profilePicture
                             }
                             alt={
                               userDetail?.name

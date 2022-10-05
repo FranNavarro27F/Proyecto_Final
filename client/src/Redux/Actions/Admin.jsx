@@ -60,7 +60,7 @@ export function putPaisesAdmin(payload){
     return async function(dispatch){
         try {
             let putPais = await axios.put(`/admin/paises`, payload)
-            console.log("Ingrese y ¿modifique?", putPais.data)
+            //console.log("Ingrese y ¿modifique?", putPais.data)
             return dispatch({
                 type: "PUT_PAISES_ADMIN",
                 payload: putPais.data

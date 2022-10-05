@@ -24,9 +24,10 @@
   transform: translateY(-10px);
 }
 .imgCard {
-  width: 6vw;
-  height: 9.5vh;
-  object-fit: cover;
+  margin-top: 0.5vh;
+  /* object-fit: cover; */
+  width: 7.8vw;
+  /* height: 12vh; */
 }
 
 .user_picture {

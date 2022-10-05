@@ -54,7 +54,7 @@ export default function LengList() {
             setDisabled(false)
         }
         setNewP({
-            [e.target.name]: e.target.value})
+            name: e.target.value})
     }
 
 
@@ -62,7 +62,7 @@ export default function LengList() {
        dispatch(cambioTabla(auxOrder))
     }
 
-    const handlePostPais = (e)=>{
+    const handlePostLenguaje = (e)=>{
         e.preventDefault()
         // if(newP.name === ""){
         //     setDisabled(false)
@@ -75,10 +75,13 @@ export default function LengList() {
   return (
     <div className={s.container}>
         <div>
+        <div className={s.bigTitle}>
             <h1>Lenguajes</h1>
+        </div>
+        <div className={s.divButtones}>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
-            
+        </div>
             <div className={s.divlist}>
 
         {current?.map((curr)=>{
@@ -86,13 +89,13 @@ export default function LengList() {
             curr.habilitado === true? nh = "Habilitado" : nh = "Deshabilitado"
             return (
                 // <div className={s.divlist}>
-                    <div className={s.divIndiv}>
+                    <div className={ s.divIndiv }>
                         <div className={s.divNombre}>
                 <h4>
                 {curr.name}
                 </h4>
                 </div>
-                <div className={s.divHabilitador}>
+                <div className={nh === "Habilitado" ? s.divHabilitador : s.divDeshabilitado}>
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>
@@ -106,7 +109,7 @@ export default function LengList() {
         })}
             </div>
             <br/>
-            <div>
+            <div className={s.agregarCosas}>
                 <h3>¿Desea agregar un nuevo lenguaje?</h3>
                 <br/>
                 <input
@@ -117,7 +120,9 @@ export default function LengList() {
                 />
             </div>
             <br/>
-            <button type="submit" onClick={(e) => handlePostPais(e)} disabled={disabled}>Confirmar</button>
+            <div className={s.divButtones}>
+            <button type="submit" onClick={(e) => handlePostLenguaje(e)} disabled={disabled}>Confirmar</button>
+        </div>
         </div>
     </div>
   )

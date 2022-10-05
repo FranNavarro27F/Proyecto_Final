@@ -90,7 +90,7 @@ const [ input, setInput ] = useState({
         style={styles.button}
         className={s.buttonDetalle}
       >
-        Submit
+        Enviar comentario
       </button>
     </div>
     </div>

@@ -113,7 +113,7 @@ export default function devUser(state = initialState, action) {
       //-----------------searchBar----------------------
       if (search) {
         let nameFilter = filtro.filter((cur) =>
-          cur.search?.toLowerCase().includes(search?.toLowerCase())
+          cur.name?.toLowerCase().includes(search?.toLowerCase())
         );
 
         let lastNameFilter = filtro.filter((cur) =>
@@ -194,7 +194,7 @@ export default function devUser(state = initialState, action) {
     case "SEARCH_INPUT":
       let Usuarios = [...state.usuariosSB];
 
-      console.log(action.payload);
+      //console.log(action.payload);
 
       let nameFilter = Usuarios.filter((cur) =>
         cur.name?.toLowerCase().includes(action.payload.toLowerCase())
@@ -290,6 +290,7 @@ export default function devUser(state = initialState, action) {
         ...state,
         details: [],
         userByEmail: [],
+        idDev: "",
       };
     case "GET_USER_SEARCHBAR":
       return {
