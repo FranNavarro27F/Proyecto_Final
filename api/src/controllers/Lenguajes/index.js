@@ -35,7 +35,11 @@ const saveLanguage = async (language) => {
 // Ver JSON de todos los lenguajes de programación
 const getLanguages = async () => {
   try {
-    let lenguajes = await Lenguajes.findAll();
+    let lenguajes = await Lenguajes.findAll({
+      where: {
+        habilitado: true
+      }
+    });
     return lenguajes;
   } catch (e) {
     console.error(`${ERROR}getLanguage --> ${e}`);

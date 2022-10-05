@@ -26,7 +26,11 @@ const guardarTecnologiasDB = async () => {
 const todasLasTecnologias = async () => {
   //
   try {
-    allTec = await Tecnologias.findAll();
+    allTec = await Tecnologias.findAll({
+      where: {
+        habilitado: true
+      }
+    });
     return allTec;
     //
   } catch (e) {
