@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 import { putContrato } from '../../Redux/Actions/Contracts';
 import { useNavigate } from 'react-router-dom';
-import s from "./Reviews.module.css"
+import s from "./ReviewRender.module.css";
 
 
 
-export default function ReviewRender({id, puntuacion, comentario}) {
+export default function ReviewRender({ puntuacion, comentario}) {
+  // console.log("+++++++8++++++++",puntuacion, comentario,"+++++++8++++")
 
 const colors = {
     orange: "#FFBA5A",
@@ -18,17 +19,17 @@ const colors = {
 console.log(puntuacion, comentario )
 
 const [currentValue, setCurrentValue] = useState(puntuacion);
-const [hoverValue, setHoverValue] = useState(comentario);
+const [hoverValue, setHoverValue] = useState(undefined);
 const [ input, setInput ] = useState({
-    puntuacion: 0,
-    comentario: ""
+    puntuacion: puntuacion,
+    comentario: comentario
 })
   const stars = Array(5).fill(0)
  
   return (
-    <div className={ s.divReviews}>
+    <div className={ s.div_general_reviewRender}>
     <div style={styles.container}>
-      <h2>Puntuación</h2>
+      <h2>Reseña</h2>
       <div style={styles.stars}>
         {stars.map((_, index) => {
           return (
@@ -48,7 +49,8 @@ const [ input, setInput ] = useState({
         })}
       </div>
       <textarea 
-      className={s.textarea}
+      value={comentario}
+      className={s.textarea_reviewRender}
       />
 
     </div>
