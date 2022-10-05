@@ -7,6 +7,7 @@ import {
   detailReset,
   getUserEmail,
   getUserId,
+  getUsersBd,
   setUserVisible,
 } from "../../Redux/Actions/DevUser";
 import diamantess from "../Home/Assets/Diamante/diamante.png";
@@ -28,7 +29,7 @@ import useUser from "../../Hooks/useUser";
 import Contracts from "../Contracts/Contracts";
 import useFetchConsultSub from "../../Hooks/useFetchConsultSub";
 import { putContrato } from "../../Redux/Actions/Contracts";
-import { BsChevronDoubleDown } from "react-icons/bs";
+import { BsChevronDoubleDown, BsQuestionCircleFill } from "react-icons/bs";
 import ScrollTopDetail from "./ScrollTopDetail";
 import SvgChica from "./SvgChica";
 import Swal from "sweetalert2";
@@ -52,11 +53,14 @@ export default function Details() {
 
   const [userProfile, setUserProfile] = useState(false);
   useEffect(() => {
-    dispatch(getUserId(id));
-    dispatch(getUserEmail(user?.email));
     id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [dispatch, id, user?.email, userByEmail?.id]);
+  }, [id, userByEmail?.id]);
 
+  useEffect(() => {
+    dispatch(getUserId(id));
+  }, [dispatch, id]);
+
+  // dispatch(getUserEmail(user?.email));
   const userDetail = useSelector((state) => state.devUser.details);
 
   const consultaSub = useSelector(
@@ -176,6 +180,7 @@ export default function Details() {
   };
 
   const handlePremiumOFF = () => {
+    // dispatch(detailSubscription_Reset());
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea cancelar su suscripcion a Programax ?`,
@@ -216,17 +221,7 @@ export default function Details() {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     setSubscriptionId({
-  //       user_id: userByEmail?.id,
-  //       subscription_id: consultaSub?.id,
-  //       status: consultaSub?.status,
-  //     })
-  //   );
-  // }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
-
-  const handleCloseSub = () => {
+  useEffect(() => {
     dispatch(consultSub(consultaSub?.id));
     setTimeout(() => {
       dispatch(
@@ -236,17 +231,33 @@ export default function Details() {
           status: consultaSub?.status,
         })
       );
+    }, 500);
+    // setTimeout(() => {
+    //   dispatch(getUserEmail(user?.email));
+    // }, 800);
+  }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
+
+  const handleCloseSub = () => {
+    setTimeout(() => {
+      dispatch(consultSub(consultaSub?.id));
+      // dispatch(
+      //   setSubscriptionId({
+      //     user_id: userByEmail?.id,
+      //     subscription_id: consultaSub?.id,
+      //     status: consultaSub?.status,
+      //   })
+      // );
       console.log(`usuario premiun: ${userDetail?.premium} CERRADOOOOO`);
 
       setMostrarSub(false);
       // window.location.reload();
-    }, 1500);
+    }, 500);
     setTimeout(() => {
       let timerInterval;
       Swal.fire({
         title: "Procesando pago",
         // html: "I will close in <b></b> milliseconds.",
-        timer: 2000,
+        timer: 1000,
         timerProgressBar: true,
         didOpen: () => {
           Swal.showLoading();
@@ -264,7 +275,7 @@ export default function Details() {
           dispatch(getUserEmail(user?.email));
         }
       });
-    }, 1500);
+    }, 800);
   };
 
   const handleCleanAndBack = () => {
@@ -274,6 +285,9 @@ export default function Details() {
 
   const handleVisible = (e) => {
     dispatch(setUserVisible(e.target.checked, id));
+    setTimeout(() => {
+      dispatch(getUsersBd());
+    }, 200);
   };
 
   return isAuthenticated ? (
@@ -351,7 +365,9 @@ export default function Details() {
                         userByEmail?.profilePicture ? (
                           <img
                             className={
-                              userByEmail?.premium ? s.premium : s.imgRender
+                              userProfile && userByEmail?.premium
+                                ? s.premium
+                                : s.imgRender
                             }
                             src={
                               userDetail?.profilePicture
@@ -530,13 +546,28 @@ export default function Details() {
                               : `Postularme`}
                           </button>
                           {userByEmail?.premium !== true ? (
-                            <button
-                              // href={linkPago}
-                              className={s.buttonSub}
-                              onClick={handlePremium}
-                            >
-                              Suscripción
-                            </button>
+                            <div className={s.divMegaPremium}>
+                              <button
+                                // href={linkPago}
+                                className={s.buttonSub}
+                                onClick={handlePremium}
+                              >
+                                Suscripción
+                              </button>
+                              <button
+                                onClick={() =>
+                                  Swal.fire({
+                                    text: `Suscribete al servicio premium y destaca tu perfil !`,
+                                    icon: "question",
+                                    background: "#bebebe71",
+                                    color: "white",
+                                  })
+                                }
+                                className={s.buttonQuestion}
+                              >
+                                <BsQuestionCircleFill />
+                              </button>
+                            </div>
                           ) : (
                             <button
                               // href={linkPago}
@@ -579,15 +610,15 @@ export default function Details() {
         {/* botones o pestañas para ordenar contratos */}
         <div ref={refContracts} className={s.buttonContratitos}>
           <button className={s.button1} onClick={() => handler_defaultt()}>
-            Por defecto
+            Todas las propuestas
           </button>
 
           <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
-            Aceptado en espera de pago
+            Propuestas aceptadas
           </button>
 
           <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Aceptado y pagado
+            Propuestas abonadas
           </button>
         </div>
 

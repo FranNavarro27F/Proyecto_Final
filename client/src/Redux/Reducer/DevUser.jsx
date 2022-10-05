@@ -11,6 +11,8 @@ const initialState = {
   employer: [],
   loader: true,
   usersPremium: [],
+  employer_contrato: {},
+  developer_contrato: {},
 };
 
 export default function devUser(state = initialState, action) {
@@ -306,7 +308,18 @@ export default function devUser(state = initialState, action) {
         ...state,
         employer: action.payload,
       };
+    
+    case "TRAER_USUARIO_ID":
+      return {
+        ...state,
+        employer_contrato: action.payload,
+      };
 
+    case "TRAER_DEVELOPER_ID":
+      return {
+        ...state,
+        developer_contrato: action.payload,
+      }
     default:
       return state;
   }
