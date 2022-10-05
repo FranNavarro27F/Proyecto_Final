@@ -93,10 +93,13 @@ body {
 .imageBox {
   /* background-color: #C961DE; */
   width: 22vw;
-  height: 30vh;
+  height: 33vh;
   position: absolute;
   margin-top: -2vh;
-  right: -88vh;
+  right: -80vh;
+  /* background-color: red; */
+  overflow: hidden;
+  object-fit: cover;
 }
 .imgSvg,
 .imgRender {
