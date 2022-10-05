@@ -7,7 +7,7 @@ const {
   Contratos,
 } = require("../../db.js");
 
-const { traerPaisPorId } = require("../Paises");
+const { getCountryByName } = require("../Paises");
 
 const { Op } = require("sequelize");
 
@@ -600,13 +600,14 @@ const modifyUser = async (email, data) => {
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
     const u = await getByEmail(email);
+    console.log(`\n\n${await getCountryByName(u.paiseId)}\n\n`);
 
     await Usuarios.update(
       {
         profilePicture: profilePicture ?? u.profilePicture,
         // isAdmin: isAdmin ?? u.isAdmin,
-        name: name,
-        lastName: lastName,
+        name: name ?? u.name,
+        lastName: lastName ?? u.lastName,
         city: city ?? u.city,
         linkedIn: linkedIn ?? u.linkedIn,
         gitHub: gitHub ?? u.gitHub,
@@ -626,8 +627,8 @@ const modifyUser = async (email, data) => {
         cvu: cvu ?? u.cvu,
         // visible,
         // postulado,
-        paiseId,
-        // paiseId: paiseId ?? c.id,
+        // paiseId,
+        paiseId: paiseId ?? (await getCountryByName(u.paiseId)),
       },
       {
         where: { email },

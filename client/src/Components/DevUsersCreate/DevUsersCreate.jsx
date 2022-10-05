@@ -16,6 +16,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { AiOutlineUserAdd, AiOutlineCloseCircle } from "react-icons/ai";
 import Loader from "../Loader/Loader";
 // import useFetchAllData from "../../Hooks/useFetchAllData";
+import { detailReset } from "../../Redux/Actions/DevUser";
 
 //actions
 import {
@@ -52,15 +53,13 @@ export default function DevUsersCreate() {
   }, [dispatch, user?.email]);
 
   const [errors, setErrors] = useState({});
-
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: user?.name ? `${user?.name}` : `${cache?.name}`,
+    name: user?.given_name ? `${user?.given_name}` : `${cache?.name}`,
     // name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
-    lastName: user?.lastName ? `${user?.lastName}` : `${cache?.lastName}`,
-
-    profilePicture: userByEmail?.profilePicture
-      ? `${userByEmail?.profilePicture}`
+    lastName: user?.family_name ? `${user?.family_name}` : `${cache?.lastName}`,
+    profilePicture: user?.picture
+      ? `${user?.picture}`
       : cache?.profilePicture
       ? `${cache?.profilePicture}`
       : null,
@@ -133,71 +132,77 @@ export default function DevUsersCreate() {
   }, [errors]);
 
   //   const regex = /[a-z]*\D\S/gi;
-  const regex = /^[a-z\s]*$/gi;
+  //   const regex = /^[a-z\s]*$/gi;
 
   const handleName = (e) => {
-    if (regex.test(e.target.value)) {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value.trim() || userByEmail?.name,
-      });
-      setCache({
-        ...input,
-        [e.target.name]: e.target.value.trim() || userByEmail?.name,
-      });
+    // if (regex.test(e.target.value)) {
+    setInput({
+      ...input,
+      //   [e.target.name]: e.target.value || userByEmail?.name,
+      [e.target.name]: e.target.value,
+    });
+    setCache({
+      ...input,
+      //   [e.target.name]: e.target.value || userByEmail?.name,
+      [e.target.name]: e.target.value,
+    });
+    // }
+    // else {
+    if (userByEmail.postulado) {
+      setErrors(
+        validacionesEdit({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
     } else {
-      if (userByEmail.postulado) {
-        setErrors(
-          validacionesEdit({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      } else {
-        setErrors(
-          validaciones({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      }
+      setErrors(
+        validaciones({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+      );
     }
+    // }
   };
 
   const handleLastName = (e) => {
-    if (regex.test(e.target.value)) {
-      setInput({
-        ...input,
-        [e.target.name]: e.target.value.trim() || userByEmail?.lastName,
-      });
-      setCache({
-        ...input,
-        [e.target.name]: e.target.value.trim() || userByEmail?.lastName,
-      });
-    } else {
-      if (userByEmail.postulado) {
-        setErrors(
-          validacionesEdit({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      } else {
-        setErrors(
-          validaciones({
-            ...input,
-            [e.target.name]: e.target.value,
-          })
-        );
-      }
-    }
+    // if (regex.test(e.target.value)) {
+    setInput({
+      ...input,
+      //   [e.target.name]: e.target.value || userByEmail?.lastName,
+      [e.target.name]: e.target.value,
+    });
+    setCache({
+      ...input,
+      //   [e.target.name]: e.target.value || userByEmail?.lastName,
+      [e.target.name]: e.target.value,
+    });
+    // }
+    // else {
+    // if (userByEmail.postulado) {
+    //   setErrors(
+    //     validacionesEdit({
+    //       ...input,
+    //       [e.target.name]: e.target.value,
+    //     })
+    //   );
+    // } else {
+    //   setErrors(
+    //     validaciones({
+    //       ...input,
+    //       [e.target.name]: e.target.value,
+    //     })
+    //   );
+    // }
+    // }
   };
 
   const handleChangeInput = (e) => {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value.trim() || null,
+      [e.target.name]: e.target.value.trim(),
     });
     if (userByEmail.postulado) {
       setErrors(
@@ -335,8 +340,10 @@ export default function DevUsersCreate() {
     setVerErrores(true);
     if (Object.keys(errors).length === 0) {
       setTimeout(() => {
+        dispatch(getUsersBd());
+        dispatch(detailReset());
         navigate("/work");
-      }, 1500);
+      }, 2000);
       dispatch(
         putDevUser(
           {
@@ -347,8 +354,8 @@ export default function DevUsersCreate() {
         )
       );
       setCache({
-        name: ("name", `${userByEmail?.name}`),
-        lastName: ("lastName", `${userByEmail?.lastName}`),
+        name: ("name", `${user?.given_name}`),
+        lastName: ("lastName", `${user?.family_name}`),
         profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
         email: ("email", `${userByEmail?.email}`),
         linkedIn:
@@ -380,7 +387,7 @@ export default function DevUsersCreate() {
         postulado: true,
       });
       setModal(true);
-      // dispatch(getUsersBd());
+      dispatch(getUsersBd());
     } else {
       console.log(`hay errores`, errors);
     }
@@ -427,10 +434,10 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${userByEmail?.name}`),
-      lastName: ("lastName", `${userByEmail?.lastName}`),
-      profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
-      email: ("email", `${userByEmail?.email}`),
+      name: ("name", `${user?.given_name}`),
+      lastName: ("lastName", `${user?.family_name}`),
+      profilePicture: ("profilePicture", `${user?.picture}`),
+      email: ("email", `${user?.email}`),
       linkedIn:
         ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : null}`),
       gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : null}`),
@@ -532,10 +539,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Nombre..."
               autoComplete="on"
               onChange={(e) => handleName(e)}
-              // defaultValue={input?.name && cache?.name}
+              defaultValue={userByEmail?.name || cache?.name}
               // value={input?.name}
-              defaultValue={input?.name}
-              value={cache?.name}
               name="name"
               className={s.inputName}
               disabled={!edit}
@@ -554,8 +559,8 @@ export default function DevUsersCreate() {
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleLastName(e)}
-              defaultValue={input?.lastName}
-              value={cache?.lastName}
+              defaultValue={userByEmail?.lastName || cache?.lastName}
+              //   value={input?.lastName}
               name="lastName"
               className={s.inputLastname}
               disabled={!edit}
@@ -632,7 +637,7 @@ export default function DevUsersCreate() {
               type="email"
               placeholder="Tu Email..."
               autoComplete="on"
-              onChange={(e) => handleChangeInput(e)}
+              //   onChange={(e) => handleChangeInput(e)}
               value={`${user?.email}`}
               name="email"
               className={s.inputEmail}
@@ -651,8 +656,8 @@ export default function DevUsersCreate() {
               placeholder="Tu LinkedIn..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.linkedIn}
-              value={cache?.linkedIn}
+              defaultValue={userByEmail?.linkedIn || cache?.linkedIn}
+              //   value={cache?.linkedIn}
               name="linkedIn"
               className={s.inputLinkedin}
               disabled={!edit}
@@ -670,8 +675,8 @@ export default function DevUsersCreate() {
               placeholder="Tu GitHub..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.gitHub}
-              value={cache?.gitHub}
+              defaultValue={userByEmail?.gitHub || cache?.gitHub}
+              //   value={cache?.gitHub}
               name="gitHub"
               className={s.inputGithub}
               disabled={!edit}
@@ -689,8 +694,8 @@ export default function DevUsersCreate() {
               placeholder="Tu webSite..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.webSite}
-              value={cache?.webSite}
+              defaultValue={userByEmail?.webSite || cache?.webSite}
+              //   value={cache?.webSite}
               name="webSite"
               className={s.inputWebsite}
               disabled={!edit}
@@ -711,8 +716,10 @@ export default function DevUsersCreate() {
               onChange={(e) => handleChangeInput(e)}
               name="yearsOfExperience"
               className={s.inputExperience}
-              defaultValue={input?.yearsOfExperience}
-              value={cache?.yearsOfExperience}
+              defaultValue={
+                userByEmail?.yearsOfExperience || cache?.yearsOfExperience
+              }
+              //   value={cache?.yearsOfExperience}
               disabled={!edit}
               // step=".01"
             />
@@ -730,8 +737,8 @@ export default function DevUsersCreate() {
               max="999"
               autoComplete="off"
               onChange={(e) => handleChangeInput(e)}
-              defaultValue={input?.dailyBudget}
-              value={cache?.dailyBudget}
+              defaultValue={userByEmail?.dailyBudget || cache?.dailyBudget}
+              //   value={cache?.dailyBudget}
               name="dailyBudget"
               // step=".01"
               disabled={!edit}
@@ -753,7 +760,7 @@ export default function DevUsersCreate() {
               max="5"
               onChange={(e) => handleChangeEnglish(e)}
               name="englishLevel"
-              defaultValue={cache?.englishLevel}
+              defaultValue={userByEmail?.englishLevel || cache?.englishLevel}
               // value={cache?.englishLevel}
               className={s.inputEnglish}
               disabled={!edit}
@@ -786,7 +793,8 @@ export default function DevUsersCreate() {
             <Select
               // ref={refCountries}
               components={animatedComponents}
-              set-value={cache?.paiseId}
+              // defaultValue={userByEmail?.paiseId || cache?.piseId}
+              set-value={input?.paiseId || userByEmail?.paiseId}
               className={s.select}
               options={optionsCountries}
               isClearable={false}
@@ -794,7 +802,6 @@ export default function DevUsersCreate() {
               isMulti={false}
               styles={customStyles}
               placeholder="Selecciona un pais"
-              // defaultValue={handleDefaultCountrie}
               isDisabled={!edit}
               onChange={(e) => {
                 setInput({
@@ -836,7 +843,7 @@ export default function DevUsersCreate() {
               closeMenuOnSelect={false}
               components={animatedComponents}
               ref={refTecnologies}
-              set-value={cache?.tecnologias}
+              set-value={input?.tecnologias}
               className={s.select}
               isDisabled={!edit}
               options={optionsTecnologias}
@@ -887,7 +894,7 @@ export default function DevUsersCreate() {
               ref={refLanguajes}
               closeMenuOnSelect={false}
               components={animatedComponents}
-              set-value={cache?.lenguajes}
+              set-value={input?.lenguajes}
               className={s.select}
               isDisabled={!edit}
               options={optionsLanguajes}
@@ -936,7 +943,7 @@ export default function DevUsersCreate() {
               ref={refServices}
               closeMenuOnSelect={false}
               components={animatedComponents}
-              set-value={cache?.servicios}
+              set-value={input?.servicios}
               className={s.select}
               isDisabled={!edit}
               options={optionsServices}

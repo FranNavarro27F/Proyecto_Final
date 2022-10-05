@@ -25,7 +25,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
-          isAlpha: true,
+          //   isAlpha: true,
+          is: /^[a-z\s]*$/gi,
         },
       },
 
@@ -33,7 +34,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false,
         validate: {
-          isAlpha: true,
+          //   isAlpha: true,
+          is: /^[a-z\s]*$/gi,
         },
       },
 
