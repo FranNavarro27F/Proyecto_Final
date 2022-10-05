@@ -27,7 +27,11 @@ const guardarServiciosEnDB = async () => {
 
 const todosLosServicios = async () => {
   try {
-    let servi = await Servicios.findAll();
+    let servi = await Servicios.findAll({
+      where: {
+        habilitado: true
+      }
+    });
     return servi;
   } catch (e) {
     console.error(`${ERROR}todosLosServicios --> ${e}`);
@@ -39,7 +43,6 @@ const todosLosServicios = async () => {
 const deleteService = async (id) => {
   try {
     const service = await Servicios.destroy({ where: { id } });
-    // Destroy returns an integer (amount of rows destroyed)
     if (service > 0) {
       console.log(`Service (${id}) deleted successfully`);
     } else console.error(`Service does not exist`);
