@@ -47,6 +47,13 @@ export default function ButtonProfile({
             <Link to={`/work/details/${userByEmail?.id}`}>
               <button className={s.buttonSelect}>PERFIL</button>
             </Link>
+            {userByEmail?.admin && (
+              <Link to={`/admin`}>
+                <button className={s.buttonSelect} value="">
+                  PANEL ADMIN
+                </button>
+              </Link>
+            )}
             <button
               onClick={() => logout({ returnTo: window.location.origin })}
               className={s.buttonSelect}

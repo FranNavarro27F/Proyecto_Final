@@ -95,3 +95,8 @@ export function editSuscriptionMp(id, status) {
     }
   };
 }
+export function detailSubscription_Reset() {
+  return {
+    type: "SUBSCRIPTION_RESET",
+  };
+}
