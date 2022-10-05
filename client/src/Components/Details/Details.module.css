@@ -95,8 +95,8 @@ body {
   width: 22vw;
   height: 30vh;
   position: absolute;
-  margin-top: -7vh;
-  right: -82vh;
+  margin-top: -2vh;
+  right: -88vh;
 }
 .imgSvg,
 .imgRender {
@@ -292,7 +292,7 @@ body {
 
 .buttonSub {
   position: absolute;
-  left: 110vh;
+  left: 105vh;
   top: 1vh;
   box-sizing: border-box;
   /* padding: 1.5vh; */
@@ -308,6 +308,22 @@ body {
   cursor: pointer;
   margin-right: 0.9rem;
   text-decoration: none;
+}
+
+.buttonQuestion {
+  right: 2vh;
+  position: absolute;
+  /* color: red; */
+  background: none;
+  border: none;
+  width: 5vh;
+  height: 5vh;
+  font-size: 3vh;
+  cursor: pointer;
+}
+[aria-hidden="true"] {
+  transition: 0.1s filter;
+  filter: blur(5px);
 }
 
 .buttonSub:hover {
@@ -688,7 +704,7 @@ input:checked + .slider_round:before {
 /* ------carta de contrato en detalle de usuario---------- */
 
 /* .back{ */
-  /* background-color: #813c8f; */
+/* background-color: #813c8f; */
 
 /* } */
 
@@ -725,76 +741,69 @@ input:checked + .slider_round:before {
 
 /* -------------------------------------------------------- */
 
-
 /* ---------- este es el estilo de las navigation tabs----------- */
-.buttonContratitos{
+.buttonContratitos {
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 80vw;
   margin-left: 9vw;
   margin-top: 6vh;
-  
- 
-  }
+}
 
-  .button1{
-    border-radius: 2vh;
-    border-bottom-right-radius: 0vh;
-    border-top-left-radius: 0vh;
-    cursor: pointer;
-    width: 20vw;
-    height: 8vh;
-    border: none;
-    font-size: 2.5vh;
-    /* border-bottom: none;
+.button1 {
+  border-radius: 2vh;
+  border-bottom-right-radius: 0vh;
+  border-top-left-radius: 0vh;
+  cursor: pointer;
+  width: 20vw;
+  height: 8vh;
+  border: none;
+  font-size: 2.5vh;
+  /* border-bottom: none;
     border-left: none; */
-    background: linear-gradient(
-      290.74deg,
-      #5eaaaf 6.83%,
-      #2f2e6c 52.53%,
-      #251f3e 85.61%
-    );
-  }
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+}
 
-  
-  .button2{
-    border-radius: 2vh;
-    border-bottom-right-radius: 0vh;
-    border-top-left-radius: 0vh;
-    cursor: pointer;
-    width: 20vw;
-    height: 8vh;
-    /* border-bottom: none;
+.button2 {
+  border-radius: 2vh;
+  border-bottom-right-radius: 0vh;
+  border-top-left-radius: 0vh;
+  cursor: pointer;
+  width: 20vw;
+  height: 8vh;
+  /* border-bottom: none;
     border-left: none; */
-    font-size: 2.3vh;
-    border: none;
-    background: linear-gradient(
-      290.74deg,
-      #5eaaaf 6.83%,
-      #2f2e6c 52.53%,
-      #251f3e 85.61%
-    );
-  }
+  font-size: 2.3vh;
+  border: none;
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+}
 
-  
-  .button3{
-    border-radius: 2vh;
-    border-bottom-right-radius: 0vh;
-    border-top-left-radius: 0vh;
-    cursor: pointer;
-    width: 25vw;
-    height: 8vh;
-    /* border-bottom: none;
+.button3 {
+  border-radius: 2vh;
+  border-bottom-right-radius: 0vh;
+  border-top-left-radius: 0vh;
+  cursor: pointer;
+  width: 25vw;
+  height: 8vh;
+  /* border-bottom: none;
     border-left: none; */
-    font-size: 2.5vh;
-    border: none;
-    background: linear-gradient(
-      290.74deg,
-      #5eaaaf 6.83%,
-      #2f2e6c 52.53%,
-      #251f3e 85.61%
-    );
-    
-  }
-
+  font-size: 2.5vh;
+  border: none;
+  background: linear-gradient(
+    290.74deg,
+    #5eaaaf 6.83%,
+    #2f2e6c 52.53%,
+    #251f3e 85.61%
+  );
+}
