@@ -54,10 +54,13 @@ export default function UsuariosList() {
   return (
     <div className={s.container}>
         <div>
+            <div className={s.bigTitle}>
             <h1>Lista de Usuarios</h1>
+            </div>
+            <div className={s.divButtones}>
             <button onClick={(e) => separacionHab(true)}>Ver Habilitados</button>
             <button onClick={(e) => separacionHab(false)}>Ver Deshabilitados</button>
-            
+            </div>
             <div className={s.divlist}>
 
         {current?.map((curr)=>{
@@ -71,7 +74,7 @@ export default function UsuariosList() {
                 {curr.name}
                 </h4>
                 </div>
-                <div className={s.divHabilitador}>
+                <div className={nh === "Habilitado" ? s.divHabilitador : s.divDeshabilitado}>
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>

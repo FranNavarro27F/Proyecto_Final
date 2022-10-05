@@ -11,8 +11,8 @@ export const useFetchUsers = (email) => {
   useEffect(() => {
     // dispatch(getUsersBd());
     if (!allUsers.length) dispatch(getUsersBd());
-    if (!userByEmail.length && email) dispatch(getUserEmail(email));
-  }, [allUsers.length, dispatch, email, userByEmail.length]);
+    dispatch(getUserEmail(email));
+  }, [allUsers.length, dispatch, email]);
 
   return { allUsers, userByEmail };
 };
