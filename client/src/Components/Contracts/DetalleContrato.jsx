@@ -29,6 +29,7 @@ export default function DetalleContrato() {
     }
   }, [dispatch, user.email]);
 
+
   let usuarioActual = useSelector((state) => state.devUser.userByEmail)?.id;
 
   const { id } = useParams();
@@ -39,20 +40,20 @@ export default function DetalleContrato() {
   const link_de_pago = detalleC?.payment_id;
   let [pagar, setPagar] = useState(false);
 
-
-  useEffect(() => {
-    dispatch(traerUsuarioID(detalleC?.employer))
-    dispatch(traerDeveloperID(detalleC?.developer))
-  })
-  // employer_contrato: {},
-  // developer_contrato: {},
-  const objDeveloper = useSelector((state) => state.devUser.developer);
+  const objDeveloper = useSelector((state) => state.devUser.developer_contrato);
   const mailDeveloper = objDeveloper?.email;
-  const objEmployer = useSelector((state) => state.devUser.employer);
+  const objEmployer = useSelector((state) => state.devUser.employer_contrato);
   const mailEmployer = objEmployer?.email;
-
-
-  console.log("payment", link_de_pago);
+    console.log("8888888",objDeveloper,objEmployer ,"88888888")
+    
+  ////------------------------------------------------
+      useEffect(()=>{
+        if (!objDeveloper.length) dispatch(traerUsuarioID(detalleC?.employer))
+        if (!objEmployer.length) dispatch(traerDeveloperID(detalleC?.developer))
+        },[detalleC?.developer, detalleC?.employer, dispatch, objDeveloper.length, objEmployer.length])
+  ////-----------------------------------------------
+       
+  // console.log("payment", link_de_pago);
   // console.log("payment", paymentContract )
   const navigate = useNavigate();
 
@@ -60,6 +61,7 @@ export default function DetalleContrato() {
     detalleC?.price && dispatch(pagosMp({ price: Number(detalleC.price) }, id));
     dispatch(getContratoId(id));
   }, [dispatch, id, detalleC.aceptado]);
+ 
 
   //aca el handle del aceptar contrato
   const handleAceptar = () => {
@@ -102,14 +104,17 @@ export default function DetalleContrato() {
       dispatch(putContrato(id, { pagado: true }));
     }
   }, [dispatch, id, searchParams]);
+
   console.log(detalleC?.pagado, "detallec.pagado");
   // const nombreDeveloper =
 
+  
   const handlePagar = () => {
     dispatch(emailerPagado({
       mailContrado: mailDeveloper, 
       mailContratista: mailEmployer, 
-      IDContrato: detalleC?.id}))
+      IDContrato: detalleC?.id})
+      );
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea realizar el pago del contrato por ${detalleC?.price} pesos ?`,

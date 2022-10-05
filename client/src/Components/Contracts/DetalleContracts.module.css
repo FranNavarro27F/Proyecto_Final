@@ -1,17 +1,10 @@
-/* .bodyyy{
-  background: linear-gradient(
-    290.74deg,
-    #5eaaaf 6.83%,
-    #2f2e6c 52.53%,
-    #251f3e 85.61%
-  );
-  
-} */
 
 .titulito {
   color: #ffffff;
-  margin-top: 8vh;
-  margin-left: 7vh;
+  margin-top: 5vh;
+  margin-left: 8vh;
+
+  
 }
 
 .buttonDetalle {
@@ -22,10 +15,11 @@
   font-weight: 400;
   font-size: 0.9vw;
   /* line-height: 23px; */
+
   cursor: pointer;
   width: 9vw;
   height: 5vh;
-  margin-right: 15px;
+  margin-left: 9vh;
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
@@ -42,7 +36,7 @@
   cursor: pointer;
   width: 9vw;
   height: 5vh;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .buttonDetalle:hover {
@@ -62,18 +56,18 @@
   background: rgba(47, 47, 138, 0.247);
   backdrop-filter: blur(2px);
   border: 2px solid rgba(0, 0, 0, 0.075);
-  width: 110vh;
-  height: 50vh;
-  margin-left: 10vh;
-  margin-top: 10vh;
+  width: 60vh;
+  height: 70vh;
+  margin-left: 5vh;
+  margin-top: 9vh;
   border-radius: 30px;
   overflow: hidden;
   backdrop-filter: blur(2px);
   border: 2px solid rgba(0, 0, 0, 0.075);
 }
 .textBox {
-  width: 30vw;
-  height: 2px;
+  width: 29vw;
+  height: 2vh;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
@@ -86,18 +80,19 @@
   margin-top: 5%;
 }
 .buttonUbi {
-  margin-left: 10vh;
-  display: flex;
-  margin-left: 50vh;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: -3vh;
+  margin-left: 5vh;
   cursor: pointer;
 }
 
 /* ----------------------------------- SVG CHICO---------------------------- */
 .chicoContrato {
-  width: 65vh;
-  height: 80vh;
-  margin-top: -55vh;
-  margin-left: 70vh;
+  width: 40vw;
+  height: 70vh;
+  margin-top: -100vh;
+  margin-left: 105vh;
 }
 
 .divReviews {
