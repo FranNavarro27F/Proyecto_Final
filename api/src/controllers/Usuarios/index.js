@@ -7,7 +7,7 @@ const {
   Contratos,
 } = require("../../db.js");
 
-const { traerPaisPorId } = require("../Paises");
+const { getCountryByName } = require("../Paises");
 
 const { Op } = require("sequelize");
 
@@ -576,7 +576,6 @@ const modifyUser = async (email, data) => {
       dailyBudget,
       englishLevel,
       bio,
-      postulado,
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
@@ -602,8 +601,8 @@ const modifyUser = async (email, data) => {
       {
         profilePicture: profilePicture ?? u.profilePicture,
         // isAdmin: isAdmin ?? u.isAdmin,
-        name: name,
-        lastName: lastName,
+        name: name ?? u.name,
+        lastName: lastName ?? u.lastName,
         city: city ?? u.city,
         linkedIn: linkedIn ?? u.linkedIn,
         gitHub: gitHub ?? u.gitHub,
@@ -612,7 +611,7 @@ const modifyUser = async (email, data) => {
         dailyBudget: dailyBudget ?? u.dailyBudget,
         englishLevel: englishLevel ?? u.englishLevel,
         bio: bio ?? u.bio,
-        postulado: postulado ?? u.postulado,
+        postulado: true,
         tarjeta_numero: tarjeta_numero ?? u.tarjeta_numero,
         tarjeta_nombreCompleto:
           tarjeta_nombreCompleto?.toUpperCase() ?? u.tarjeta_nombreCompleto,
@@ -623,8 +622,8 @@ const modifyUser = async (email, data) => {
         cvu: cvu ?? u.cvu,
         // visible,
         // postulado,
-        paiseId,
-        // paiseId: paiseId ?? c.id,
+        // paiseId,
+        paiseId: paiseId ?? (await getCountryByName(u.paiseId)),
       },
       {
         where: { email },
