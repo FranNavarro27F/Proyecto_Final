@@ -99,7 +99,7 @@ function App() {
           {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
           **<Route path="*" element={<Error404 />}></Route>**
           <Route path="/contrato/:id" element={<DetalleContrato />}></Route>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:id" element={<Admin />} />
         </Routes>
       </UserContext.Provider>
     </>
