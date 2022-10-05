@@ -82,39 +82,70 @@ export default function Details() {
   //--------------------------------------------------------------------------------------------------
 
   //--- aca filtramos contrtos-----------------------------------------------------------------
-  let ac_epera_de_pago = contratosArenderizar?.filter(
-    (cur) => cur.aceptado && !cur.pagado
-  );
+  let ac_epera_de_pago = contratosArenderizar?.filter((cur) =>!cur.pagado && cur.aceptado);
   let ac_y_pagado = contratosArenderizar?.filter(
     (cur) => cur.aceptado && cur.pagado
   );
   let defaultt = contratosArenderizar;
+  let propuestas= contratosArenderizar?.filter(cur=> !cur.aceptado && !cur.pagado);
   //-------------------------------------------------------------------------------------------
 
   //---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
   let order_ac_epera_de_pago = BubbleSort(ac_epera_de_pago);
   let order_ac_y_pagado = BubbleSort(ac_y_pagado);
   let order_defaultt = BubbleSort(defaultt);
+  let order_propuestas= BubbleSort(propuestas);
   //-------------------------------------------------------------------------------------------
 
   //este estado tiene los contraros que muestran-------------
-  let [ContratosOrder, setContratosOrder] = useState(order_defaultt);
+  let [ContratosOrder, setContratosOrder] = useState(order_ac_y_pagado);
 
-  if (order_defaultt.length && !ContratosOrder.length) {
-    setContratosOrder(order_defaultt);
+  if (order_ac_y_pagado.length && !ContratosOrder.length) {
+    setContratosOrder(order_ac_y_pagado);
   }
   //---------------------------------------------------------
 
   //--- estos handlers determinan que se guarda en el estado local que renderiza---------------
   const handler_ac_EsperaPago = () => {
-    setContratosOrder(order_ac_epera_de_pago);
+    if(order_ac_epera_de_pago.length){
+      setContratosOrder(order_ac_epera_de_pago.length ? order_ac_epera_de_pago : []);
+    }else{
+
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes contratos aceptados ",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
   const handler_ac_Ypagado = () => {
-    setContratosOrder(order_ac_y_pagado);
+    if(order_ac_y_pagado.length){
+      setContratosOrder(order_ac_y_pagado.length ? order_ac_y_pagado : []);
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes contratos abonados",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
-  const handler_defaultt = () => {
-    setContratosOrder(order_defaultt);
-  };
+  const handler_propuestas= ()=>{
+    if(order_propuestas.length){
+      setContratosOrder(order_propuestas);
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes propuestas por ahora",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
+  }
+  // const handler_defaultt = () => {
+  //   setContratosOrder(order_defaultt);
+  // };
   //------------------------------------------------------------------------------------
 
   const refContracts = useRef(null);
@@ -605,23 +636,25 @@ export default function Details() {
         </div>
         {/* botones o pestañas para ordenar contratos */}
         <div ref={refContracts} className={s.buttonContratitos}>
-          <button className={s.button1} onClick={() => handler_defaultt()}>
+          {/* <button className={s.button1} onClick={() => handler_defaultt()}>
             Todas las propuestas
+          </button> */}
+          <button className={s.button1} onClick={() => handler_propuestas()}>
+            Propuestas
           </button>
 
           <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
-            Propuestas aceptadas
+            Contratos aceptados
           </button>
 
           <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Propuestas abonadas
+            Contratos abonados
           </button>
         </div>
-
         {/* ----------------------------------------- */}
 
         <div>
-          {contratosArenderizar &&
+          {order_propuestas &&
             ContratosOrder.map((cur) => {
               return (
                 <div className={s.cardContrato}>

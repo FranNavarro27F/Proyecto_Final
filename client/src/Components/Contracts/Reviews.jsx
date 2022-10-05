@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { putContrato } from '../../Redux/Actions/Contracts';
 import { useNavigate } from 'react-router-dom';
 import s from "./Reviews.module.css"
-
+import Swal from "sweetalert2";
 
 
 export default function Reviews({id}) {
@@ -51,7 +51,14 @@ const [ input, setInput ] = useState({
   }
   const handleEnvio = (e)=>{
     dispatch(putContrato(id,input))
-    alert("Su reseña fue enviada correctamente")
+    Swal.fire({
+      // position: "top-end",
+      icon: "success",
+      title: "Comentario enviado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    
     navigate("/work")
   }
 

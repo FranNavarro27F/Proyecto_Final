@@ -42,6 +42,9 @@ export default function Contracts({
     <div className={s.back}>
       <div className={s.divCardContrato}>
         <div className={s.textCardContrato}>
+          <label>Descripción: </label>
+          {description}
+          <br />
           <label>Estado: </label>
           {!pagado
             ? aceptado === false
@@ -70,9 +73,6 @@ export default function Contracts({
 
           {/* <label>Status: </label>
           {status}
-          <br /> */}
-          {/* <label>Descripción: </label>
-          {description}
           <br /> */}
         </div>
         <Link to={`/contrato/${idContrato}`}>
