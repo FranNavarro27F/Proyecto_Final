@@ -576,7 +576,6 @@ const modifyUser = async (email, data) => {
       dailyBudget,
       englishLevel,
       bio,
-      postulado,
       tarjeta_numero,
       tarjeta_nombreCompleto,
       tarjeta_vencimiento,
@@ -590,6 +589,10 @@ const modifyUser = async (email, data) => {
       lenguajes,
       tecnologias,
     } = data;
+
+    console.log(
+      `-------------------\n${Object.entries(data)}\n-------------------`
+    );
 
     // --------------------------------------------
 
@@ -612,7 +615,7 @@ const modifyUser = async (email, data) => {
         dailyBudget: dailyBudget ?? u.dailyBudget,
         englishLevel: englishLevel ?? u.englishLevel,
         bio: bio ?? u.bio,
-        postulado: postulado ?? u.postulado,
+        postulado: true,
         tarjeta_numero: tarjeta_numero ?? u.tarjeta_numero,
         tarjeta_nombreCompleto:
           tarjeta_nombreCompleto?.toUpperCase() ?? u.tarjeta_nombreCompleto,

@@ -57,7 +57,7 @@ export default function devUser(state = initialState, action) {
 
     case "FILTERS_ORDERS":
       let {
-        name,
+        search,
         filterTecnologies,
         filterServices,
         filterLanguajes,
@@ -111,26 +111,26 @@ export default function devUser(state = initialState, action) {
       }
 
       //-----------------searchBar----------------------
-      if (name) {
+      if (search) {
         let nameFilter = filtro.filter((cur) =>
-          cur.name?.toLowerCase().includes(name?.toLowerCase())
+          cur.search?.toLowerCase().includes(search?.toLowerCase())
         );
 
         let lastNameFilter = filtro.filter((cur) =>
-          cur.lastName?.toLowerCase().includes(name?.toLowerCase())
+          cur.lastName?.toLowerCase().includes(search?.toLowerCase())
         );
 
         let dailyBudgetFilter = filtro.filter(
-          (cur) => cur.dailyBudget === name
+          (cur) => cur.dailyBudget === search
         );
 
         let paisesFilter = filtro.filter((cur) =>
-          cur.paiseId?.toLowerCase().includes(name?.toLowerCase())
+          cur.paiseId?.toLowerCase().includes(search?.toLowerCase())
         );
 
         let lenguajesFilter6 = filtro.filter((cur) => {
           let hayL = cur.lenguajes?.filter((curr) =>
-            curr.toLowerCase().includes(name?.toLowerCase())
+            curr.toLowerCase().includes(search?.toLowerCase())
           );
           if (hayL.length !== 0) {
             return true;
@@ -140,7 +140,7 @@ export default function devUser(state = initialState, action) {
         });
         let serviciosFilter = filtro.filter((cur) => {
           let hayS = cur.servicios?.filter((cur) =>
-            cur.toLowerCase().includes(name?.toLowerCase())
+            cur.toLowerCase().includes(search?.toLowerCase())
           );
           if (hayS.length !== 0) {
             return true;
@@ -150,7 +150,7 @@ export default function devUser(state = initialState, action) {
         });
         let tecnologiasFilter = filtro.filter((cur) => {
           let hayT = cur.tecnologias?.filter((cur) =>
-            cur.toLowerCase().includes(name?.toLowerCase())
+            cur.toLowerCase().includes(search?.toLowerCase())
           );
           if (hayT.length !== 0) {
             return true;
@@ -308,7 +308,7 @@ export default function devUser(state = initialState, action) {
         ...state,
         employer: action.payload,
       };
-    
+
     case "TRAER_USUARIO_ID":
       return {
         ...state,
@@ -319,7 +319,7 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         developer_contrato: action.payload,
-      }
+      };
     default:
       return state;
   }
