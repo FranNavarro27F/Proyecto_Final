@@ -46,6 +46,7 @@ function App() {
     picture: `${user?.picture}`,
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
+    postulado: `${userByEmail?.postulado}`,
   };
 
   useEffect(() => {

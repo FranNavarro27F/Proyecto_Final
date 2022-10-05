@@ -50,17 +50,14 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
-
   const [userProfile, setUserProfile] = useState(false);
-  useEffect(() => {
-    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
-  }, [id, userByEmail?.id]);
 
   useEffect(() => {
     dispatch(getUserId(id));
-  }, [dispatch, id]);
+    dispatch(getUserEmail(user?.email));
+    id === userByEmail?.id ? setUserProfile(true) : setUserProfile(false);
+  }, [dispatch, id, user?.email, userByEmail?.id]);
 
-  // dispatch(getUserEmail(user?.email));
   const userDetail = useSelector((state) => state.devUser.details);
 
   const consultaSub = useSelector(
@@ -86,38 +83,74 @@ export default function Details() {
 
   //--- aca filtramos contrtos-----------------------------------------------------------------
   let ac_epera_de_pago = contratosArenderizar?.filter(
-    (cur) => cur.aceptado && !cur.pagado
+    (cur) => !cur.pagado && cur.aceptado
   );
   let ac_y_pagado = contratosArenderizar?.filter(
     (cur) => cur.aceptado && cur.pagado
   );
   let defaultt = contratosArenderizar;
+  let propuestas = contratosArenderizar?.filter(
+    (cur) => !cur.aceptado && !cur.pagado
+  );
   //-------------------------------------------------------------------------------------------
 
   //---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
   let order_ac_epera_de_pago = BubbleSort(ac_epera_de_pago);
   let order_ac_y_pagado = BubbleSort(ac_y_pagado);
   let order_defaultt = BubbleSort(defaultt);
+  let order_propuestas = BubbleSort(propuestas);
   //-------------------------------------------------------------------------------------------
 
   //este estado tiene los contraros que muestran-------------
-  let [ContratosOrder, setContratosOrder] = useState(order_defaultt);
+  let [ContratosOrder, setContratosOrder] = useState(order_ac_y_pagado);
 
-  if (order_defaultt.length && !ContratosOrder.length) {
-    setContratosOrder(order_defaultt);
+  if (order_ac_y_pagado.length && !ContratosOrder.length) {
+    setContratosOrder(order_ac_y_pagado);
   }
   //---------------------------------------------------------
 
   //--- estos handlers determinan que se guarda en el estado local que renderiza---------------
   const handler_ac_EsperaPago = () => {
-    setContratosOrder(order_ac_epera_de_pago);
+    if (order_ac_epera_de_pago.length) {
+      setContratosOrder(
+        order_ac_epera_de_pago.length ? order_ac_epera_de_pago : []
+      );
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes contratos aceptados ",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
   const handler_ac_Ypagado = () => {
-    setContratosOrder(order_ac_y_pagado);
+    if (order_ac_y_pagado.length) {
+      setContratosOrder(order_ac_y_pagado.length ? order_ac_y_pagado : []);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes contratos abonados",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
-  const handler_defaultt = () => {
-    setContratosOrder(order_defaultt);
+  const handler_propuestas = () => {
+    if (order_propuestas.length) {
+      setContratosOrder(order_propuestas);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes propuestas por ahora",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
+  // const handler_defaultt = () => {
+  //   setContratosOrder(order_defaultt);
+  // };
   //------------------------------------------------------------------------------------
 
   const refContracts = useRef(null);
@@ -236,6 +269,7 @@ export default function Details() {
     //   dispatch(getUserEmail(user?.email));
     // }, 800);
   }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
+  const [backIframe, setBackIframe] = useState(false);
 
   const handleCloseSub = () => {
     setTimeout(() => {
@@ -258,6 +292,7 @@ export default function Details() {
         title: "Procesando pago",
         // html: "I will close in <b></b> milliseconds.",
         timer: 1000,
+        // customClass: "s.swal-back",
         timerProgressBar: true,
         didOpen: () => {
           Swal.showLoading();
@@ -276,18 +311,20 @@ export default function Details() {
         }
       });
     }, 800);
+    setBackIframe(true);
   };
 
   const handleCleanAndBack = () => {
     dispatch(detailReset());
     navigate("/work");
+    // navigate
   };
 
   const handleVisible = (e) => {
     dispatch(setUserVisible(e.target.checked, id));
     setTimeout(() => {
       dispatch(getUsersBd());
-    }, 200);
+    }, 300);
   };
 
   return isAuthenticated ? (
@@ -321,6 +358,7 @@ export default function Details() {
             </div>
             {
               <Iframe
+                key={linkPago}
                 // style={}
                 loading="CARGANDOOOOOOOOOOOOOOO..."
                 className={s.iframe}
@@ -519,31 +557,30 @@ export default function Details() {
                       <span>Reputacion: </span>
                       <span>
                         {userDetail
-                          ? "⭐".repeat(Math.floor(userDetail?.reputacion))
-                          : "⭐".repeat(Math.floor(userByEmail?.reputacion))}
+                          ? "⭐".repeat(Math.ceil(userDetail?.reputacion))
+                          : "⭐".repeat(Math.ceil(userByEmail?.reputacion))}
                       </span>
                     </div>
                     <div className={s.bodyButtons}>
-                      {/* <button
-                      className={s.buttonBack}
-                      onClick={() => {
-                        dispatch(detailReset());
-                        navigate("/");
-                      }}
-                    >
-                      HOME
-                    </button> */}
-
+                      <button
+                        className={s.buttonBack}
+                        onClick={handleCleanAndBack}
+                      >
+                        POSTULACIONES
+                      </button>
                       {userProfile ? (
                         <div className={s.buttonsLogeado}>
                           <button
                             className={s.buttonBack}
-                            onClick={() => navigate("/create")}
+                            onClick={() => {
+                              navigate("/create");
+                            }}
                           >
                             {userByEmail?.postulado
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
+
                           {userByEmail?.premium !== true ? (
                             <div className={s.divMegaPremium}>
                               <button
@@ -584,68 +621,94 @@ export default function Details() {
                       )}
                       <button
                         className={s.buttonBack}
-                        onClick={handleCleanAndBack}
+                        onClick={() => {
+                          dispatch(detailReset());
+                          navigate("/");
+                        }}
                       >
-                        Volver
+                        HOME
                       </button>
                     </div>
                   </div>
                 </div>
 
                 <div className={s.divScrollContracts}>
-                  {
-                    <button
-                      className={s.scrollContracts}
-                      onClick={() => scrollTo(refContracts)}
-                    >
-                      <BsChevronDoubleDown />
-                    </button>
-                  }
+                  {ContratosOrder.length ? (
+                    <span className={s.spanButton}>
+                      <BsChevronDoubleDown
+                        className={s.scrollContracts}
+                        onClick={() => scrollTo(refContracts)}
+                      />
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* botones o pestañas para ordenar contratos */}
-        <div ref={refContracts} className={s.buttonContratitos}>
-          <button className={s.button1} onClick={() => handler_defaultt()}>
+        {ContratosOrder.length ? (
+          <div>
+            {ContratosOrder.length ? (
+              <div ref={refContracts} className={s.buttonContratitos}>
+                {/* <button className={s.button1} onClick={() => handler_defaultt()}>
             Todas las propuestas
-          </button>
+          </button> */}
+                <button
+                  className={s.button1}
+                  onClick={() => handler_propuestas()}
+                >
+                  Propuestas
+                </button>
 
-          <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
-            Propuestas aceptadas
-          </button>
+                <button
+                  className={s.button2}
+                  onClick={() => handler_ac_EsperaPago()}
+                >
+                  Contratos aceptados
+                </button>
 
-          <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Propuestas abonadas
-          </button>
-        </div>
+                <button
+                  className={s.button3}
+                  onClick={() => handler_ac_Ypagado()}
+                >
+                  Contratos abonados
+                </button>
+              </div>
+            ) : (
+              <span></span>
+            )}
+            {/* ----------------------------------------- */}
 
-        {/* ----------------------------------------- */}
-
-        <div>
-          {contratosArenderizar &&
-            ContratosOrder.map((cur) => {
-              return (
-                <div className={s.cardContrato}>
-                  <Contracts
-                    idEmployer={cur.employer}
-                    description={cur.description}
-                    date={cur.date}
-                    expiration_date={cur.expiration_date}
-                    status={cur.status}
-                    price={cur.price}
-                    aceptado={cur.aceptado}
-                    idContrato={cur.id}
-                    pagado={cur.pagado}
-                  />
-                </div>
-              );
-            })}
-          <div className={s.buttonTop}>
-            <ScrollTopDetail className={s.buttonTop} />
+            <div className={s.bodyDeContratos}>
+              {order_propuestas &&
+                ContratosOrder.map((cur) => {
+                  return (
+                    <div className={s.cardContrato}>
+                      <Contracts
+                        idEmployer={cur.employer}
+                        description={cur.description}
+                        date={cur.date}
+                        expiration_date={cur.expiration_date}
+                        status={cur.status}
+                        price={cur.price}
+                        aceptado={cur.aceptado}
+                        idContrato={cur.id}
+                        pagado={cur.pagado}
+                      />
+                    </div>
+                  );
+                })}
+              <div className={s.buttonTop}>
+                <ScrollTopDetail className={s.buttonTop} />
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <span></span>
+        )}
       </div>
     )
   ) : (

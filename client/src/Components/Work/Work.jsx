@@ -21,7 +21,6 @@ export default function Work() {
   const filtrados = useSelector((state) => state.devUser.filteredUsers);
   const currentPage = useSelector((state) => state.devUser.page);
   const devPerPage = useSelector((state) => state.devUser.devPerPage);
-  const allUsers = useSelector((state) => state.devUser.allUsers);
 
   // useEffect(() => {
   //   if (!allUsers.length) dispatch(getUsersBd());
@@ -49,9 +48,11 @@ export default function Work() {
             return (
               <div key={e.id}>
                 <Card
+                  reputacion={e.reputacion}
                   name={e.name + " " + e.lastName}
                   img={e.profilePicture}
                   tecnologies={e.tecnologias}
+                  servicios={e.servicios}
                   website={e.webSite}
                   gitHub={e.gitHub}
                   linkedIn={e.linkedIn}

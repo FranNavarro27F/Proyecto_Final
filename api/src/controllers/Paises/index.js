@@ -26,7 +26,11 @@ const jsonPaises = async () => {
 const getPaises = async () => {
   //
   try {
-    datosPais = await Paises.findAll();
+    datosPais = await Paises.findAll({
+      where: {
+        habilitado: true
+      }
+    });
     return datosPais;
     //
   } catch (e) {
@@ -54,14 +58,12 @@ const getCountryByName = async (name) => {
 // -----------------------------------------------
 
 const postPaises = async (name) => {
-  //
   try {
     datosPais = await Paises.findOrCreate({
       where: {
         name,
       },
     });
-    //
   } catch (e) {
     console.error(`${ERROR}postPaises --→ ${e}`);
   }
@@ -70,14 +72,14 @@ const postPaises = async (name) => {
 // -----------------------------------------------
 
 const deletePaises = async (id) => {
-  //
+  
   try {
     await Paises.destroy({
       where: { id },
     });
     console.log(`Country(${id}) deleted successfully`);
     return `Country (${id}) deleted successfully`;
-    //
+    
   } catch (e) {
     console.error(`${ERROR}deletePaises --→ ${e}`);
   }
@@ -86,7 +88,7 @@ const deletePaises = async (id) => {
 // -----------------------------------------------
 
 const putPaises = async (id, name) => {
-  //
+
   try {
     await Paises.update(
       { name },
@@ -96,7 +98,7 @@ const putPaises = async (id, name) => {
     );
     console.log(`Country (${id}) updated successfully`);
     return `Country (${id}) updated successfully`;
-    //
+    
   } catch (e) {
     console.error(`${ERROR}putPaises --→ ${e}`);
   }
@@ -105,11 +107,11 @@ const putPaises = async (id, name) => {
 // -----------------------------------------------
 
 const traerPaisPorId = async (id) => {
-  //
+  
   try {
     let paisPorId = await Paises.findByPk(id);
     return paisPorId;
-    //
+
   } catch (e) {
     console.error(`${ERROR}traerPaisPorId --→ ${e}`);
   }

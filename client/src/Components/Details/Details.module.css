@@ -13,9 +13,10 @@ body {
   );
 
   width: 100vw;
-  /* height: 100vh; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .Custom_Cancel > .sa-button-container > .cancel {
   background-color: #dd6b55;
@@ -92,19 +93,22 @@ body {
 }
 .imageBox {
   /* background-color: #C961DE; */
-  width: 22vw;
-  height: 33vh;
+  /* width: 10vw; */
   position: absolute;
   margin-top: -2vh;
-  right: -80vh;
+  right: -70vh;
   /* background-color: red; */
-  overflow: hidden;
-  object-fit: cover;
+  /* overflow: hidden; */
+  /* object-fit: cover; */
+  max-height: 25vh;
+  min-height: 25vh;
 }
 .imgSvg,
 .imgRender {
-  width: 16vw;
-  height: 30vh;
+  /* min-width: 6vw; */
+  max-height: 25vh;
+  min-height: 25vh;
+  /* min-height: 30vh; */
   border-radius: 10%;
   border: 1vh solid rgba(47, 47, 138, 0.6);
   -webkit-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
@@ -115,7 +119,8 @@ body {
 
 .premium {
   width: 16vw;
-  height: 30vh;
+  max-height: 30vh;
+  min-height: 30vh;
   border-radius: 10%;
   border: 1vh solid rgba(47, 47, 138, 0.6);
   -webkit-box-shadow: 10px 10px 20px 0px rgba(180, 17, 17, 0.75);
@@ -142,6 +147,7 @@ body {
   cursor: pointer;
   margin-right: 0.9rem;
   border: white;
+  z-index: 999;
 }
 .buttonL:disabled {
   box-sizing: border-box;
@@ -161,6 +167,7 @@ body {
   cursor: pointer;
   color: rgb(0, 0, 0);
   border: 1px solid black;
+  z-index: 999;
 }
 .buttonBack {
   position: relative;
@@ -180,6 +187,7 @@ body {
   cursor: pointer;
   margin-right: 0.7rem;
   border: white;
+  z-index: 999;
 }
 
 .buttonBack:hover,
@@ -189,10 +197,12 @@ body {
   transform: scale(1.1);
   cursor: pointer;
   border: white;
+  z-index: 999;
 }
 
 .divButton {
   display: flex;
+  z-index: 999;
 }
 
 .svg {
@@ -324,10 +334,10 @@ body {
   font-size: 3vh;
   cursor: pointer;
 }
-[aria-hidden="true"] {
+/* .swal-back [aria-hidden="true"] {
   transition: 0.1s filter;
   filter: blur(5px);
-}
+} */
 
 .buttonSub:hover {
   transition-delay: 0.2s;
@@ -590,7 +600,8 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: -10vh;
+  margin-top: 2vh;
+  /* bottom: -10vh; */
 }
 .divVisible label {
   font-size: 2vh;
@@ -661,27 +672,36 @@ input:checked + .slider_round:before {
 .scrollContracts {
   background: none;
   border: none;
-  width: 5vh;
   color: wheat;
-  /* position: absolute; */
-  font-size: 4vh;
+  /* width: 5vh; */
+  border-radius: 50%;
+  /* background-color: white; */
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  font-size: 4vh;
+  margin-bottom: 1vh;
+  z-index: 9999999;
+}
+.spanButton {
+  /* position: absolute; */
+  margin-bottom: 5vh;
+  z-index: 9999;
 }
 
 .divScrollContracts {
+  z-index: -99;
   /* left: 6vw; */
-  margin-top: 94vh;
+  /* display: none; */
+  /* margin-top: 94vh; */
+  /* height: 100vh; */
   animation: MoveUpDown 0.8s linear infinite;
   position: relative;
-  left: 0;
-  margin-bottom: 8vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color: red; */
+  border: none;
+  max-height: 100vh;
+  left: 50vw;
+  margin-bottom: 5vh;
+  /* margin-bottom: 8vh; */
+  position: absolute;
 }
 
 @keyframes MoveUpDown {
@@ -706,10 +726,10 @@ input:checked + .slider_round:before {
 
 /* ------carta de contrato en detalle de usuario---------- */
 
-/* .back{ */
-/* background-color: #813c8f; */
-
-/* } */
+.back {
+  /* background-color: #813c8f; */
+  margin-top: 2vh;
+}
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
@@ -718,21 +738,24 @@ input:checked + .slider_round:before {
   width: 67vw;
   height: 20vh;
   margin-left: 30vh;
-  margin-top: 10vh;
+  margin-top: 2vh;
   border-radius: 30px;
   overflow: hidden;
   backdrop-filter: blur(2px);
   border: 2px solid rgba(0, 0, 0, 0.075);
   display: flex;
   flex-direction: column;
+  -webkit-box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
+  -moz-box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
+  box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
 }
 
 .textCardContrato {
   max-height: 20vh;
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 500;
-  font-size: 2vh;
+  font-weight: 590;
+  font-size: 2.2vh;
   line-height: 143.2%;
   color: #ffffff;
   z-index: 1;
@@ -746,15 +769,21 @@ input:checked + .slider_round:before {
 
 /* ---------- este es el estilo de las navigation tabs----------- */
 .buttonContratitos {
+  padding-top: 3vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 80vw;
   margin-left: 9vw;
   margin-top: 6vh;
+  margin-bottom: 7vh;
 }
 
 .button1 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
+  font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
   border-top-left-radius: 0vh;
@@ -763,6 +792,7 @@ input:checked + .slider_round:before {
   height: 8vh;
   border: none;
   font-size: 2.5vh;
+
   /* border-bottom: none;
     border-left: none; */
   background: linear-gradient(
@@ -772,8 +802,16 @@ input:checked + .slider_round:before {
     #251f3e 85.61%
   );
 }
+button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(44, 44, 87);
+}
 
 .button2 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
+
+  font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
   border-top-left-radius: 0vh;
@@ -793,11 +831,16 @@ input:checked + .slider_round:before {
 }
 
 .button3 {
+  -webkit-box-shadow: -5px 1px 8px 3px white;
+  -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
+  box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
+
+  font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
   border-top-left-radius: 0vh;
   cursor: pointer;
-  width: 25vw;
+  width: 20vw;
   height: 8vh;
   /* border-bottom: none;
     border-left: none; */
@@ -809,4 +852,8 @@ input:checked + .slider_round:before {
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
+}
+
+.bodyDeContratos {
+  min-height: 100vh;
 }

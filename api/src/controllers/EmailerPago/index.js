@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const { GMAILPW, GMAILUSER } = process.env;
 
 
-async function pagado(mailContrado, mailContratista, IDContrato) {
+async function main(mailContrado, mailContratista, IDContrato) {
     console.log("+1+1+1+1+",mailContrado, mailContratista, IDContrato,"+1+1+1+1+1+")
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -42,6 +42,6 @@ async function pagado(mailContrado, mailContratista, IDContrato) {
   }
 
   module.exports = {
-    pagado
+    main
   };
   

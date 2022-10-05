@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import s from "./Card.module.css";
 
@@ -6,15 +7,19 @@ export default function Card({
   name,
   img,
   tecnologies,
+  reputacion,
+  servicios,
   website,
   gitHub,
   linkedIn,
   email,
   id,
 }) {
+  const filtrados = useSelector((state) => state.devUser.filteredUsers);
   return (
     <div>
       <div className={s.card_client}>
+        {/* <span>{"⭐".repeat(Math.floor(reputacion))}</span> */}
         <Link to={`details/${id}`} className={s.link}>
           <div className={s.user_picture}>
             {img ? (
@@ -27,7 +32,7 @@ export default function Card({
           </div>
           <p className={s.name_client}>{name}</p>
           <div className={s.divTecnologias}>
-            <span>{tecnologies?.join(", ")} </span>
+            <span>{servicios?.join(", ")} </span>
           </div>
         </Link>
 

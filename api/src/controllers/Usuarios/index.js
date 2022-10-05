@@ -28,7 +28,7 @@ const capitalize = (str) => {
     .trim()
     .toLowerCase()
     .split(" ")
-    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .map((word) => word[0].toUpperCase() + word.slice(1))  
     .join(" ");
 };
 
@@ -215,8 +215,38 @@ const getUsers = async () => {
           attributes: ["name"],
           through: { attributes: [] },
         },
+        {
+          model: Contratos,
+        },
       ],
     });
+
+     //-----esta funcion se encarga de calcular el promedio de puntuacion de un usuario--
+     const promedio = (arrContratos) => {
+      let contratos_con_puntuacion = arrContratos.length
+        ? arrContratos.filter((cur) => {
+            if (cur.comentario && cur.comentario.length) {
+              return true;
+            }
+          })
+        : [];
+
+      if (contratos_con_puntuacion.length) {
+        let cantidad_de_puntuaciones = contratos_con_puntuacion.length;
+        let array_de_puntuaciones = contratos_con_puntuacion.map(
+          (cur) => cur.puntuacion
+        );
+        let suma_de_puntuaciones = array_de_puntuaciones.reduce(
+          (acc, cur) => acc + cur
+        );
+
+        return suma_de_puntuaciones / cantidad_de_puntuaciones;
+        //si quieren numero redondo-->
+        //return Math.round(suma_de_puntuaciones / cantidad_de_puntuaciones)
+      } else {
+        return 1.0;
+      }
+    };//----------------------------
 
     let arrUsers = usuarios.map((cur) => cur.dataValues);
     let arrUsersListo = arrUsers.map(async (cur) => {
@@ -248,7 +278,7 @@ const getUsers = async () => {
         tarjeta_codigoSeguridad: cur.tarjeta_codigoSeguridad,
         cbu: cur.cbu,
         cvu: cur.cvu,
-        reputacion: cur.reputacion,
+        reputacion: promedio(cur.contratos),
         paiseId: cur.paise ? cur.paise.dataValues.name : "",
         servicios: cur.servicios
           ? cur.servicios.map((cur) => cur.dataValues).map((cur) => cur.name)
@@ -261,7 +291,7 @@ const getUsers = async () => {
           : [],
       };
     });
-
+                      //+++++---------------------------------+++++//
     return await Promise.all(arrUsersListo);
     //
   } catch (e) {
@@ -319,7 +349,7 @@ const getPremiumUsers = async () => {
 // -----------------------------------------------
 
 // GET USER (BY ID) → DETAILS
-const getUserById = async (id) => {
+const getUserById = async (id) => { 
   //
   try {
     let User = await Usuarios.findByPk(id, {

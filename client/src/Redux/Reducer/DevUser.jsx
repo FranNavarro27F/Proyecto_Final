@@ -6,6 +6,7 @@ const initialState = {
   devPerPage: 10,
   usuariosSB: [],
   userByEmail: [],
+  detailPropio: [],
   flag: true,
   idDev: "",
   employer: [],
@@ -283,6 +284,7 @@ export default function devUser(state = initialState, action) {
       return {
         ...state,
         userByEmail: action.payload,
+        detailPropio: action.payload,
       };
 
     case "DETAIL_RESET":
