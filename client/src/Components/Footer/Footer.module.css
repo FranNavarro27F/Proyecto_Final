@@ -3,7 +3,6 @@
   position: absolute;
   background: #1c1c65;
   width: 100%;
-  
 }
 .container {
   display: flex;
@@ -16,7 +15,6 @@
   height: 10vh;
   left: 28vw;
   top: 7vh;
-  
 }
 
 .link {
