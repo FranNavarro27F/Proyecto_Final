@@ -269,6 +269,7 @@ export default function Details() {
     //   dispatch(getUserEmail(user?.email));
     // }, 800);
   }, [consultaSub?.id, consultaSub?.status, dispatch, userByEmail?.id]);
+  const [backIframe, setBackIframe] = useState(false);
 
   const handleCloseSub = () => {
     setTimeout(() => {
@@ -291,6 +292,7 @@ export default function Details() {
         title: "Procesando pago",
         // html: "I will close in <b></b> milliseconds.",
         timer: 1000,
+        // customClass: "s.swal-back",
         timerProgressBar: true,
         didOpen: () => {
           Swal.showLoading();
@@ -309,11 +311,12 @@ export default function Details() {
         }
       });
     }, 800);
+    setBackIframe(true);
   };
 
   const handleCleanAndBack = () => {
     dispatch(detailReset());
-    navigate("/work");
+    !backIframe ? navigate(-1) : navigate("/work");
   };
 
   const handleVisible = (e) => {
@@ -354,6 +357,7 @@ export default function Details() {
             </div>
             {
               <Iframe
+                key={user?.user_id}
                 // style={}
                 loading="CARGANDOOOOOOOOOOOOOOO..."
                 className={s.iframe}

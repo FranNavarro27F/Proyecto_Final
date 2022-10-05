@@ -345,7 +345,7 @@ export default function DevUsersCreate() {
       setTimeout(() => {
         dispatch(getUsersBd());
         dispatch(detailReset());
-        navigate("/work");
+        navigate(`/work/details/${user?.user_id}`);
       }, 2000);
       dispatch(
         putDevUser(
@@ -995,7 +995,7 @@ export default function DevUsersCreate() {
               <span className={s.button_top}>RESETEAR FORMULARIO</span>
             </button>
           ) : (
-            <button className={s.buttonReset} onClick={() => navigate("/")}>
+            <button className={s.buttonReset} onClick={() => navigate(-1)}>
               VOLVER
             </button>
           )}
