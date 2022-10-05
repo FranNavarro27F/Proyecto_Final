@@ -15,7 +15,7 @@ export function emailerPagado(payload) {
   return async function() {
     try {
       let response= await axios.post(`/emailer/pagado`, payload)
-      console.log("++++del back, empailer pagado",response,"del back, empailer pagado++++")
+     // console.log("++++del back, empailer pagado",response,"del back, empailer pagado++++")
     } catch(e) {
       console.error(e, "error catch action emailer de pagado");
     }

@@ -12,7 +12,7 @@ export function putDevUser(payload, email) {
         payload: json,
       });
     } catch (error) {
-      console.log("Catch del post");
+      //console.log("Catch del post");
       console.error(error.message, "error en el post: actions");
     }
   };
@@ -26,7 +26,7 @@ export function postDevUser(payload) {
         payload: json,
       });
     } catch (error) {
-      console.log("Catch del post");
+     // console.log("Catch del post");
       console.error(error.message, "error en el post: actions");
     }
   };
