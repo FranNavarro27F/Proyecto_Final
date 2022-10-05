@@ -590,17 +590,12 @@ const modifyUser = async (email, data) => {
       tecnologias,
     } = data;
 
-    console.log(
-      `-------------------\n${Object.entries(data)}\n-------------------`
-    );
-
     // --------------------------------------------
 
     // SI EL FORMULARIO DEL FRONT NO TOMA VALORES PREVIOS:
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
     const u = await getByEmail(email);
-    console.log(`\n\n${await getCountryByName(u.paiseId)}\n\n`);
 
     await Usuarios.update(
       {

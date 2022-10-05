@@ -53,13 +53,16 @@ export default function DevUsersCreate() {
   }, [dispatch, user?.email]);
 
   const [errors, setErrors] = useState({});
+
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: user?.given_name ? `${user?.given_name}` : `${cache?.name}`,
+    name: `${userByEmail?.name}` || `${cache?.name}`,
+    // name: userByEmail?.name ? `${userByEmail?.name}` : `${cache?.name}`,
     // name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
-    lastName: user?.family_name ? `${user?.family_name}` : `${cache?.lastName}`,
-    profilePicture: user?.picture
-      ? `${user?.picture}`
+    lastName: `${userByEmail?.lastName}` || `${cache?.lastName}`,
+    // lastName: userByEmail?.lastName ? `${userByEmail?.lastName}` : `${cache?.lastName}`,
+    profilePicture: userByEmail?.profilePicture
+      ? `${userByEmail?.profilePicture}`
       : cache?.profilePicture
       ? `${cache?.profilePicture}`
       : null,
@@ -354,8 +357,8 @@ export default function DevUsersCreate() {
         )
       );
       setCache({
-        name: ("name", `${user?.given_name}`),
-        lastName: ("lastName", `${user?.family_name}`),
+        name: ("name", `${userByEmail?.name}`),
+        lastName: ("lastName", `${userByEmail?.lastName}`),
         profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
         email: ("email", `${userByEmail?.email}`),
         linkedIn:
@@ -434,10 +437,10 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${user?.given_name}`),
-      lastName: ("lastName", `${user?.family_name}`),
-      profilePicture: ("profilePicture", `${user?.picture}`),
-      email: ("email", `${user?.email}`),
+      name: ("name", `${userByEmail?.name}`),
+      lastName: ("lastName", `${userByEmail?.lastName}`),
+      profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
+      email: ("email", `${userByEmail?.email}`),
       linkedIn:
         ("linkedIn", `${userByEmail?.linkedIn ? userByEmail?.linkedIn : null}`),
       gitHub: ("gitHub", `${userByEmail?.gitHub ? userByEmail?.gitHub : null}`),
@@ -461,10 +464,10 @@ export default function DevUsersCreate() {
       postulado: true,
     });
     setInput({
-      name: `${user?.given_name}`,
-      lastName: `${user?.family_name}`,
-      profilePicture: `${user?.picture}`,
-      email: `${user?.email}`,
+      name: `${userByEmail?.name}`,
+      lastName: `${userByEmail?.lastname}`,
+      profilePicture: `${userByEmail?.profilePicture}`,
+      email: `${userByEmail?.email}`,
       linkedIn: `${userByEmail?.linkedIn ? userByEmail?.linkedIn : null}`,
       gitHub: `${userByEmail?.gitHub ? userByEmail?.gitHub : null}`,
       webSite: `${userByEmail?.webSite ? userByEmail?.webSite : null}`,
