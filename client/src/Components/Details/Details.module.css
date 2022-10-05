@@ -93,7 +93,7 @@ body {
 .imageBox {
   /* background-color: #C961DE; */
   width: 22vw;
-  height: 33vh;
+  height: 40vh;
   position: absolute;
   margin-top: -2vh;
   right: -80vh;
@@ -590,7 +590,8 @@ body {
   display: flex;
   align-items: center;
   position: absolute;
-  bottom: -10vh;
+  margin-top: 2vh;
+  /* bottom: -10vh; */
 }
 .divVisible label {
   font-size: 2vh;
