@@ -1,0 +1,23 @@
+.div_general_reviewRender{
+
+    /* height: 40vh;
+    width: 15vw;
+
+    background-color: blueviolet; */
+    /* margin-top: 62vh;
+    margin-left: -5vh; */
+
+    width: 50vw;
+    height: 50vh;
+}
+
+.textarea_reviewRender{
+    border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 4vh -10vh;
+  min-height: 17vh;
+  min-width: 45vh;
+  font-size: 17px;
+  font-weight: 700;
+}

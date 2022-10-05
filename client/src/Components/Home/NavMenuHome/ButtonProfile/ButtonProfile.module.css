@@ -8,15 +8,21 @@
   top: 3vh;
   width: 4vw;
   height: 8vh;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .picture {
-  object-fit: cover;
-  width: 4vw;
-  height: 8vh;
+  /* object-fit: cover; */
+  max-width: 6vw;
+  /* max-height: 8vh; */
   image-rendering: auto;
   z-index: 99999;
   position: absolute;
 }
+
 .bodySelect {
   margin-top: 12vh;
   /* max-height: 20vh; */

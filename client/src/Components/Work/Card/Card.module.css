@@ -133,6 +133,7 @@
 
 .divTecnologias {
   overflow: hidden;
-  /* min-height: 4rem; */
+  min-height: 4.8rem;
+  max-height: 4.8rem;
   overflow-y: scroll;
 }

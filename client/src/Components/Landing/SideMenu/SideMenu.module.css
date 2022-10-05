@@ -17,6 +17,15 @@
   -moz-animation: slideDown 0.5s normal forwards;
   -o-animation: slideDown 0.5s normal forwards;
 }
+.backMenuBug {
+  z-index: 8;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  border-radius: 25%;
+  margin-top: 15vh;
+  visibility: visible !important;
+}
 
 @keyframes slideDown {
   from {
@@ -44,7 +53,7 @@
   position: absolute;
   border-radius: 25%;
   margin-top: 75vh;
-
+  animation-iteration-count: 1;
   /* margin-top: 15vh; */
 }
 
