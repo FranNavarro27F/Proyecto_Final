@@ -11,7 +11,7 @@ const stripeRouter = require("../routes/Stripe/Stripe");
 const emailerRouter = require("../routes/Emailer/index");
 const mercadopagoRouter = require("../routes/MercadoPago/MercadoPago");
 const adminRouter = require("../routes/Admin/index");
-
+const emailerPagoRouter= require("../routes/EmailerPago/index")
 const router = Router();
 
 // -----------------------------------------
@@ -24,6 +24,7 @@ router.use("/servicios", serviciosRouter);
 router.use("/contratos", contratosRouter);
 router.use("/checkout", stripeRouter);
 router.use("/emailer", emailerRouter);
+router.use("/emailerPago", emailerPagoRouter);
 router.use("/pago", mercadopagoRouter);
 router.use("/admin", adminRouter);
 

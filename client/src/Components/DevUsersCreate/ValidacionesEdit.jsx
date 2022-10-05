@@ -1,21 +1,22 @@
 function validacionesEdit(input) {
   const errors = {};
   //name
-
+  if (!input.name.length) errors.name = "Tu nombre no puede estar vacío, DOWN!";
   if (/[^\w\s]/.test(input.name))
     errors.name = "El nombre no debe contener caracteres especiales!";
   if (/[1-9]/.test(input.name))
     errors.name = "El nombre no debe contener numeros!";
-  if (/[\s]/.test(input.name))
-    errors.name = "El nombre no debe contener espacios!";
+  //   if (/[\s]/.test(input.name))
+  //     errors.name = "El nombre no debe contener espacios!";
   //lastName
-
+  if (input.lastName === "")
+    errors.lastName = "El apellido no puede estar vacio";
   if (/[^\w\s]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener caracteres especiales!";
   if (/[1-9]/.test(input.lastName))
     errors.lastName = "El apellido no debe contener numeros!";
-  if (/[\s]/.test(input.lastName))
-    errors.lastName = "El apellido no debe contener espacios!";
+  //   if (/[\s]/.test(input.lastName))
+  //     errors.lastName = "El apellido no debe contener espacios!";
   //image
 
   if (/[\s]/.test(input.email))

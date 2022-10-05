@@ -46,7 +46,7 @@ export default function NavBar() {
       : [],
     OrderExp: cacheFilter?.OrderExp ? cacheFilter?.OrderExp : "",
     OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "",
-    name: cacheFilter?.name ? cacheFilter?.name : "",
+    search: cacheFilter?.search ? cacheFilter?.search : "",
   });
 
   const refCountries = useRef();
@@ -73,13 +73,13 @@ export default function NavBar() {
     });
 
     setActualFilter({
-      name: "",
       filterTecnologies: [],
       filterServices: [],
       filterLanguajes: [],
       filterCountries: [],
       OrderExp: "",
       OrderBud: "",
+      search: "",
     });
     setCacheFilter({
       filterTecnologies: ("filterTecnologies", []),
@@ -88,7 +88,7 @@ export default function NavBar() {
       filterCountries: ("filterCountries", []),
       OrderExp: ("OrderExp", ""),
       OrderBud: ("OrderBud", ""),
-      name: ("name", ""),
+      search: ("search", ""),
     });
   };
   const handleDefault = cacheFilter?.filterLanguajes
@@ -151,10 +151,11 @@ export default function NavBar() {
           </span>
 
           <input
-            value={cacheFilter?.name}
+            value={cacheFilter?.search}
             className={s.searchBar}
             type={"search"}
             placeholder={"Buscar..."}
+            name="search"
             onChange={(e) => {
               // if(!checked){
               //   dispatch( searchInput(e.target.value) )
@@ -164,11 +165,11 @@ export default function NavBar() {
               e.preventDefault();
               setActualFilter({
                 ...actualFilter,
-                name: e.target.value,
+                search: e.target.value.toLowerCase(),
               });
               setCacheFilter({
                 ...cacheFilter,
-                name: e.target.value,
+                search: e.target.value.toLowerCase(),
               });
               // }
             }}
