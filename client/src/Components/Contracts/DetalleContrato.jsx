@@ -17,7 +17,11 @@ import { pagosMp } from "../../Redux/Actions/MercadoPago";
 import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from "./Reviews";
 import Swal from "sweetalert2";
-import { emailerPagado, traerDeveloperID, traerUsuarioID } from "../../Redux/Actions/Emailer";
+import {
+  emailerPagado,
+  traerDeveloperID,
+  traerUsuarioID,
+} from "../../Redux/Actions/Emailer";
 import ReviewRender from "./ReviewRender";
 
 export default function DetalleContrato() {
@@ -29,7 +33,6 @@ export default function DetalleContrato() {
       dispatch(getUserEmail(user.email));
     }
   }, [dispatch, user.email]);
-
 
   let usuarioActual = useSelector((state) => state.devUser.userByEmail)?.id;
 
@@ -45,15 +48,21 @@ export default function DetalleContrato() {
   const mailDeveloper = objDeveloper?.email;
   const objEmployer = useSelector((state) => state.devUser.employer_contrato);
   const mailEmployer = objEmployer?.email;
-   // console.log("8888888",objDeveloper,objEmployer ,"88888888")
-    
+  // console.log("8888888",objDeveloper,objEmployer ,"88888888")
+
   ////------------------------------------------------
-      useEffect(()=>{
-        if (!objDeveloper.length) dispatch(traerUsuarioID(detalleC?.employer))
-        if (!objEmployer.length) dispatch(traerDeveloperID(detalleC?.developer))
-        },[detalleC?.developer, detalleC?.employer, dispatch, objDeveloper.length, objEmployer.length])
+  useEffect(() => {
+    if (!objDeveloper.length) dispatch(traerUsuarioID(detalleC?.employer));
+    if (!objEmployer.length) dispatch(traerDeveloperID(detalleC?.developer));
+  }, [
+    detalleC?.developer,
+    detalleC?.employer,
+    dispatch,
+    objDeveloper.length,
+    objEmployer.length,
+  ]);
   ////-----------------------------------------------
-       
+
   // console.log("payment", link_de_pago);
   // console.log("payment", paymentContract )
   const navigate = useNavigate();
@@ -62,7 +71,6 @@ export default function DetalleContrato() {
     detalleC?.price && dispatch(pagosMp({ price: Number(detalleC.price) }, id));
     dispatch(getContratoId(id));
   }, [dispatch, id, detalleC.aceptado]);
- 
 
   //aca el handle del aceptar contrato
   const handleAceptar = () => {
@@ -92,7 +100,8 @@ export default function DetalleContrato() {
   };
   const handleBack = () => {
     if (detallePerfil) {
-      navigate(`/work/details/${detallePerfil.id}`);
+      // navigate(`/work/details/${detallePerfil.id}`);
+      navigate(-1);
     }
     dispatch(resetContract());
   };
@@ -109,13 +118,14 @@ export default function DetalleContrato() {
   //console.log(detalleC?.pagado, "detallec.pagado");
   // const nombreDeveloper =
 
-  
   const handlePagar = () => {
-    dispatch(emailerPagado({
-      mailContrado: mailDeveloper, 
-      mailContratista: mailEmployer, 
-      IDContrato: detalleC?.id})
-      );
+    dispatch(
+      emailerPagado({
+        mailContrado: mailDeveloper,
+        mailContratista: mailEmployer,
+        IDContrato: detalleC?.id,
+      })
+    );
     Swal.fire({
       // title: `Estas a un paso de contratar a Luisina`,
       text: `Desea realizar el pago del contrato por ${detalleC?.price} pesos ?`,
@@ -227,14 +237,13 @@ export default function DetalleContrato() {
               }
 
               {/* ---puntuacion del usuario al contrato (comentario)--- */}
-              
-                {/* <ReviewRender 
+
+              {/* <ReviewRender 
                 puntuacion={detalleC?.puntuacion}
                 comentario={detalleC?.comentario}
                 /> */}
               {/* ----------------------------------------------------- */}
 
-             
               {/* -------------------------- SVG CHICO------------------------- */}
               <div className={s.chicoContrato}>
                 <svg
