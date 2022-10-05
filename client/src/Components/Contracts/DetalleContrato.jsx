@@ -18,6 +18,7 @@ import s from "../Contracts/DetalleContracts.module.css";
 import Reviews from "./Reviews";
 import Swal from "sweetalert2";
 import { emailerPagado, traerDeveloperID, traerUsuarioID } from "../../Redux/Actions/Emailer";
+import ReviewRender from "./ReviewRender";
 
 export default function DetalleContrato() {
   const user = useUser();
@@ -224,13 +225,16 @@ export default function DetalleContrato() {
                     </div>
                   )
               }
-              {/* {detalleC.aceptado &&
-                usuarioActual &&
-                usuarioActual === detalleC.employer && (
-                  <div>
-                    <Reviews id={id} />
-                  </div>
-                )} */}
+
+              {/* ---puntuacion del usuario al contrato (comentario)--- */}
+              
+                <ReviewRender 
+                puntuacion={detalleC?.puntuacion}
+                comentario={detalleC?.comentario}
+                />
+              {/* ----------------------------------------------------- */}
+
+             
               {/* -------------------------- SVG CHICO------------------------- */}
               <div className={s.chicoContrato}>
                 <svg
