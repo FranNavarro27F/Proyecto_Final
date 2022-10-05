@@ -6,7 +6,21 @@
 
   
 }
-
+/* desde aca posicionamos el ReviewRender */
+.div_general_reviewRender{
+  /* position: relative;
+  top: -50vh;
+  right: -34vw;
+  background-color: aqua;
+  width: 15.5vw; */
+  /* background-color: #3645a0; */
+  position: relative;
+  left: 37vw;
+  top: -45vh;
+  width: 32vw;
+  height: 37vh;
+}
+/* --------------------------------------- */
 .buttonDetalle {
   background: linear-gradient(101.81deg, #c961de 25.84%, #3645a0 98.95%);
   border-radius: 2.1vw;
@@ -91,8 +105,8 @@
 .chicoContrato {
   width: 40vw;
   height: 70vh;
-  margin-top: -100vh;
-  margin-left: 105vh;
+  margin-top: -135vh;
+  margin-left: 110vh;
 }
 
 .divReviews {
