@@ -34,13 +34,13 @@ export function consultSub(id) {
     try {
       if (id !== undefined || id !== null) {
         const response = (await axios.get(`/pago/consultSub/${id}`)).data;
-        console.log(response);
+        // console.log(response);
         return dispatch({
           type: "MP_SUBSCRIPTION_CONSULT",
           payload: response,
         });
       } else {
-        console.log("el id esta undefined");
+        // console.log("el id esta undefined");
       }
     } catch (e) {
       console.error(e, "error catch action subscription consult MercadoPago");
