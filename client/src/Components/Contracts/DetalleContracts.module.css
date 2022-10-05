@@ -103,10 +103,14 @@
 
 /* ----------------------------------- SVG CHICO---------------------------- */
 .chicoContrato {
+  position:absolute;
   width: 40vw;
   height: 70vh;
-  margin-top: -135vh;
-  margin-left: 110vh;
+  top: 3vh;
+  left: 60vw;
+  /* margin-top: -100vh;
+  margin-left: 110vh; */
+
 }
 
 .divReviews {

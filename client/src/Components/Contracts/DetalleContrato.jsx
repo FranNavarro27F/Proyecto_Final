@@ -227,27 +227,31 @@ export default function DetalleContrato() {
               )}
               {
                 // detalleC.aceptado &&
-                detalleC.pagado &&
+                
+                detalleC.pagado && !detalleC.comentario ?
                   usuarioActual === detalleC.employer &&
                   detalleC?.comentario === "" && (
                     <div className={s.divReviews}>
                       <Reviews id={id} />
                     </div>
                   )
-              }
+                  
+                    :
+                    detalleC?.comentario &&
+                  
+                    <div className={s.div_general_reviewRender}>
+                      <ReviewRender 
+                        puntuacion={detalleC?.puntuacion}
+                        comentario={detalleC?.comentario}
+                        />
+                      </div>
+                  
+                    
+                  }
 
               {/* ---puntuacion del usuario al contrato (comentario)--- */}
-              {  detalleC?.comentario ?
-
-
-                <div className={s.div_general_reviewRender}>
-                <ReviewRender 
-                  puntuacion={detalleC?.puntuacion}
-                  comentario={detalleC?.comentario}
-                  />
-                </div>
-                :  <div  className={s.div_general_reviewRender}></div>
-
+                  {
+                    
               }
 
               {/* ----------------------------------------------------- */}
