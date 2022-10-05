@@ -13,9 +13,10 @@ body {
   );
 
   width: 100vw;
-  /* height: 100vh; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .Custom_Cancel > .sa-button-container > .cancel {
   background-color: #dd6b55;
@@ -142,6 +143,7 @@ body {
   cursor: pointer;
   margin-right: 0.9rem;
   border: white;
+  z-index: 999;
 }
 .buttonL:disabled {
   box-sizing: border-box;
@@ -161,6 +163,7 @@ body {
   cursor: pointer;
   color: rgb(0, 0, 0);
   border: 1px solid black;
+  z-index: 999;
 }
 .buttonBack {
   position: relative;
@@ -180,6 +183,7 @@ body {
   cursor: pointer;
   margin-right: 0.7rem;
   border: white;
+  z-index: 999;
 }
 
 .buttonBack:hover,
@@ -189,10 +193,12 @@ body {
   transform: scale(1.1);
   cursor: pointer;
   border: white;
+  z-index: 999;
 }
 
 .divButton {
   display: flex;
+  z-index: 999;
 }
 
 .svg {
@@ -662,27 +668,36 @@ input:checked + .slider_round:before {
 .scrollContracts {
   background: none;
   border: none;
-  width: 5vh;
   color: wheat;
-  /* position: absolute; */
-  font-size: 4vh;
+  /* width: 5vh; */
+  border-radius: 50%;
+  /* background-color: white; */
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  font-size: 4vh;
+  margin-bottom: 1vh;
+  z-index: 9999999;
+}
+.spanButton {
+  /* position: absolute; */
+  margin-bottom: 5vh;
+  z-index: 9999;
 }
 
 .divScrollContracts {
+  z-index: -99;
   /* left: 6vw; */
-  margin-top: 94vh;
+  /* display: none; */
+  /* margin-top: 94vh; */
+  /* height: 100vh; */
   animation: MoveUpDown 0.8s linear infinite;
   position: relative;
-  left: 0;
-  margin-bottom: 8vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color: red; */
+  border: none;
+  max-height: 100vh;
+  left: 50vw;
+  margin-bottom: 5vh;
+  /* margin-bottom: 8vh; */
+  position: absolute;
 }
 
 @keyframes MoveUpDown {
@@ -707,11 +722,10 @@ input:checked + .slider_round:before {
 
 /* ------carta de contrato en detalle de usuario---------- */
 
-.back{ 
-/* background-color: #813c8f; */
-margin-top: 1vh;
-
- }
+.back {
+  /* background-color: #813c8f; */
+  margin-top: 1vh;
+}
 
 .divCardContrato {
   background: rgba(47, 47, 138, 0.247);
@@ -767,7 +781,7 @@ margin-top: 1vh;
   height: 8vh;
   border: none;
   font-size: 2.5vh;
-  
+
   /* border-bottom: none;
     border-left: none; */
   background: linear-gradient(
@@ -776,7 +790,6 @@ margin-top: 1vh;
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
-  
 }
 button:focus {
   box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(44, 44, 87);
@@ -820,4 +833,8 @@ button:focus {
     #2f2e6c 52.53%,
     #251f3e 85.61%
   );
+}
+
+.bodyDeContratos {
+  min-height: 100vh;
 }

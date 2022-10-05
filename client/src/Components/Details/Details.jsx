@@ -82,19 +82,23 @@ export default function Details() {
   //--------------------------------------------------------------------------------------------------
 
   //--- aca filtramos contrtos-----------------------------------------------------------------
-  let ac_epera_de_pago = contratosArenderizar?.filter((cur) =>!cur.pagado && cur.aceptado);
+  let ac_epera_de_pago = contratosArenderizar?.filter(
+    (cur) => !cur.pagado && cur.aceptado
+  );
   let ac_y_pagado = contratosArenderizar?.filter(
     (cur) => cur.aceptado && cur.pagado
   );
   let defaultt = contratosArenderizar;
-  let propuestas= contratosArenderizar?.filter(cur=> !cur.aceptado && !cur.pagado);
+  let propuestas = contratosArenderizar?.filter(
+    (cur) => !cur.aceptado && !cur.pagado
+  );
   //-------------------------------------------------------------------------------------------
 
   //---aca ordenamos contratos deacuerdo a cual es mas antiguo con respecto al resto-----------
   let order_ac_epera_de_pago = BubbleSort(ac_epera_de_pago);
   let order_ac_y_pagado = BubbleSort(ac_y_pagado);
   let order_defaultt = BubbleSort(defaultt);
-  let order_propuestas= BubbleSort(propuestas);
+  let order_propuestas = BubbleSort(propuestas);
   //-------------------------------------------------------------------------------------------
 
   //este estado tiene los contraros que muestran-------------
@@ -107,10 +111,11 @@ export default function Details() {
 
   //--- estos handlers determinan que se guarda en el estado local que renderiza---------------
   const handler_ac_EsperaPago = () => {
-    if(order_ac_epera_de_pago.length){
-      setContratosOrder(order_ac_epera_de_pago.length ? order_ac_epera_de_pago : []);
-    }else{
-
+    if (order_ac_epera_de_pago.length) {
+      setContratosOrder(
+        order_ac_epera_de_pago.length ? order_ac_epera_de_pago : []
+      );
+    } else {
       Swal.fire({
         icon: "error",
         title: "Uups... ",
@@ -120,9 +125,9 @@ export default function Details() {
     }
   };
   const handler_ac_Ypagado = () => {
-    if(order_ac_y_pagado.length){
+    if (order_ac_y_pagado.length) {
       setContratosOrder(order_ac_y_pagado.length ? order_ac_y_pagado : []);
-    }else{
+    } else {
       Swal.fire({
         icon: "error",
         title: "Uups... ",
@@ -131,10 +136,10 @@ export default function Details() {
       });
     }
   };
-  const handler_propuestas= ()=>{
-    if(order_propuestas.length){
+  const handler_propuestas = () => {
+    if (order_propuestas.length) {
       setContratosOrder(order_propuestas);
-    }else{
+    } else {
       Swal.fire({
         icon: "error",
         title: "Uups... ",
@@ -142,7 +147,7 @@ export default function Details() {
         // footer: '<a href="">Why do I have this issue?</a>',
       });
     }
-  }
+  };
   // const handler_defaultt = () => {
   //   setContratosOrder(order_defaultt);
   // };
@@ -621,61 +626,82 @@ export default function Details() {
                 </div>
 
                 <div className={s.divScrollContracts}>
-                  {
-                    <button
-                      className={s.scrollContracts}
-                      onClick={() => scrollTo(refContracts)}
-                    >
-                      <BsChevronDoubleDown />
-                    </button>
-                  }
+                  {ContratosOrder.length ? (
+                    <span className={s.spanButton}>
+                      <BsChevronDoubleDown
+                        className={s.scrollContracts}
+                        onClick={() => scrollTo(refContracts)}
+                      />
+                    </span>
+                  ) : (
+                    <span></span>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* botones o pestañas para ordenar contratos */}
-        <div ref={refContracts} className={s.buttonContratitos}>
-          {/* <button className={s.button1} onClick={() => handler_defaultt()}>
+        {ContratosOrder.length ? (
+          <div>
+            {ContratosOrder.length ? (
+              <div ref={refContracts} className={s.buttonContratitos}>
+                {/* <button className={s.button1} onClick={() => handler_defaultt()}>
             Todas las propuestas
           </button> */}
-          <button className={s.button1} onClick={() => handler_propuestas()}>
-            Propuestas
-          </button>
+                <button
+                  className={s.button1}
+                  onClick={() => handler_propuestas()}
+                >
+                  Propuestas
+                </button>
 
-          <button className={s.button2} onClick={() => handler_ac_EsperaPago()}>
-            Contratos aceptados
-          </button>
+                <button
+                  className={s.button2}
+                  onClick={() => handler_ac_EsperaPago()}
+                >
+                  Contratos aceptados
+                </button>
 
-          <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Contratos abonados
-          </button>
-        </div>
-        {/* ----------------------------------------- */}
+                <button
+                  className={s.button3}
+                  onClick={() => handler_ac_Ypagado()}
+                >
+                  Contratos abonados
+                </button>
+              </div>
+            ) : (
+              <span></span>
+            )}
+            {/* ----------------------------------------- */}
 
-        <div>
-          {order_propuestas &&
-            ContratosOrder.map((cur) => {
-              return (
-                <div className={s.cardContrato}>
-                  <Contracts
-                    idEmployer={cur.employer}
-                    description={cur.description}
-                    date={cur.date}
-                    expiration_date={cur.expiration_date}
-                    status={cur.status}
-                    price={cur.price}
-                    aceptado={cur.aceptado}
-                    idContrato={cur.id}
-                    pagado={cur.pagado}
-                  />
-                </div>
-              );
-            })}
-          <div className={s.buttonTop}>
-            <ScrollTopDetail className={s.buttonTop} />
+            <div className={s.bodyDeContratos}>
+              {order_propuestas &&
+                ContratosOrder.map((cur) => {
+                  return (
+                    <div className={s.cardContrato}>
+                      <Contracts
+                        idEmployer={cur.employer}
+                        description={cur.description}
+                        date={cur.date}
+                        expiration_date={cur.expiration_date}
+                        status={cur.status}
+                        price={cur.price}
+                        aceptado={cur.aceptado}
+                        idContrato={cur.id}
+                        pagado={cur.pagado}
+                      />
+                    </div>
+                  );
+                })}
+              <div className={s.buttonTop}>
+                <ScrollTopDetail className={s.buttonTop} />
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <span></span>
+        )}
       </div>
     )
   ) : (
