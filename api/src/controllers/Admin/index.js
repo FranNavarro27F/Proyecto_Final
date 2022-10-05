@@ -191,7 +191,7 @@ const borrLogicTecnologias = async (id, habilitado) => {
         where: { id },
       }
     );
-    console.log(`Tecnologias (${id}) updated successfully`);
+    console.log(`Tecnologia (${id}) updated successfully`);
     return `Tecnologias (${id}) updated successfully`;
     //
   } catch (e) {

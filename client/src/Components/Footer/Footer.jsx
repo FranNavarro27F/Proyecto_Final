@@ -23,6 +23,7 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
               DESTACADOS
             </li>
           </ul>
+          {/* <br /> */}
         </div>
         <svg
           className={s.svgFooter}
@@ -30,7 +31,7 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect  fill="#1C1C65" />
+          <rect fill="#1C1C65" />
           {/* home */}
 
           {/* linea blanca con terms of service */}
@@ -184,6 +185,15 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
             </clipPath>
           </defs>
         </svg>
+        <div className={s.supportContainer}>
+          <span className={s.span}>
+            ¿Tienes algún problema con el sitio o alguna sugerencia?
+          </span>
+          <span className={s.span}> Envíanos un correo a: </span>
+          <a href="mailto:programaxsa@gmail.com" className={s.mailto}>
+            programaxsa@gmail.com
+          </a>
+        </div>
       </div>
     </div>
   );
