@@ -13,6 +13,7 @@ const stripe = new Stripe(
 router.use(cors({ origin: "https://programax.vercel.app" }));
 
 router.post("/", async (req, res) => {
+  //
   try {
     //aca me traigo todas las props del pago
     const {
@@ -28,7 +29,7 @@ router.post("/", async (req, res) => {
       amount,
       currency,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     //aca creo el pago en Stripe
     const payment = await stripe.paymentIntents.create({
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
       amount,
       currency,
     });
-    console.log(payment);
+    // console.log(payment);
 
     //aca creo el contrato en la Base de datos
     const contrato = await Contratos.create({

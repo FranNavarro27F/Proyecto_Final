@@ -1,19 +1,18 @@
 .divcarhome {
-  padding-top: 20vh;
+  margin-top: 30vh;
   height: 100vh;
   text-align: center;
   z-index: 1;
   display: flex;
   justify-content: center;
-  margin-top: -10vh;
- 
+  /* margin-top: 40vh; */
+  margin-bottom: 10vh;
 }
 .bodyCard {
   z-index: 99;
-  margin-top: 20vh;
-
+  /* pading-top: -10vh; */
 }
-.CArd{
+.CArd {
   margin-top: 45vh;
 }
 .titlew {
@@ -24,7 +23,7 @@ left: 513px;
 bottom: -40vh; */
   position: relative;
   /* left: 45vw; */
-  /* top: 220vh; */
+  top: 15vh;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;

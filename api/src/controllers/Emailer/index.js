@@ -43,6 +43,7 @@ async function main(nombreContratista, mailContrado, IDContratado) {
 }
 
 async function pagado(mailContrado, mailContratista, IDContrato) {
+  console.log("+1+1+1+1+",mailContrado, mailContratista, IDContrato,"+1+1+1+1+1+")
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,

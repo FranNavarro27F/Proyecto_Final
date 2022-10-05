@@ -34,6 +34,12 @@ export default function mercadoPago(state = initialState, action) {
         ...state,
         putSubscription: action.payload,
       };
+    case "SUBSCRIPTION_RESET":
+      return {
+        ...state,
+        putSubscription: [],
+        Subscription: [],
+      };
 
     default:
       return state;

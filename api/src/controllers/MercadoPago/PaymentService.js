@@ -43,6 +43,8 @@ class PaymentService {
     return payment.data;
   }
 
+  // -----------------------------------------------
+
   async createConsultPay(id) {
     const url = `https://api.mercadopago.com/checkout/preferences/${id}`;
 
@@ -54,6 +56,8 @@ class PaymentService {
     });
     return consult.data;
   }
+
+  // -----------------------------------------------
 
   async createSubscription(user_id) {
     const url = "https://api.mercadopago.com/preapproval";
@@ -84,6 +88,9 @@ class PaymentService {
 
     return subscription.data;
   }
+
+  // -----------------------------------------------
+
   async createEditSubscription(id, status) {
     const url = `https://api.mercadopago.com/preapproval/${id}`;
 
@@ -101,6 +108,8 @@ class PaymentService {
     return subscriptionEdit.data;
   }
 
+  // -----------------------------------------------
+
   async createConsultSub(id) {
     const url = `https://api.mercadopago.com/preapproval/${id}`;
 
@@ -114,4 +123,7 @@ class PaymentService {
     return consult.data;
   }
 }
+
+// -----------------------------------------------
+
 module.exports = PaymentService;
