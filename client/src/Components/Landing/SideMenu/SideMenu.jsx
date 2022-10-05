@@ -26,6 +26,7 @@ export default function SideMenu() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
+
   return (
     <div>
       {/* <div className={!showScrollTop ? s.backMenu : s.backMenu2}> */}
