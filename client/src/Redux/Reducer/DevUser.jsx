@@ -194,7 +194,7 @@ export default function devUser(state = initialState, action) {
     case "SEARCH_INPUT":
       let Usuarios = [...state.usuariosSB];
 
-      console.log(action.payload);
+      //console.log(action.payload);
 
       let nameFilter = Usuarios.filter((cur) =>
         cur.name?.toLowerCase().includes(action.payload.toLowerCase())
