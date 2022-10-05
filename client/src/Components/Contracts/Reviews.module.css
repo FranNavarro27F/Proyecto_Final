@@ -30,10 +30,10 @@
   transition: 0.8s;
   transform: scale(1.1);
   cursor: pointer;
-  margin-left: 2vh;
+  margin-left: 5vh;
 }
 .divReviews {
-  margin-top: 68vh;
+  margin-top: 62vh;
   margin-left: -5vh;
   width: 50vw;
   height: 50vh;
