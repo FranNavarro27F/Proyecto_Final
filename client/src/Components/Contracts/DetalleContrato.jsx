@@ -44,7 +44,7 @@ export default function DetalleContrato() {
   const mailDeveloper = objDeveloper?.email;
   const objEmployer = useSelector((state) => state.devUser.employer_contrato);
   const mailEmployer = objEmployer?.email;
-    console.log("8888888",objDeveloper,objEmployer ,"88888888")
+   // console.log("8888888",objDeveloper,objEmployer ,"88888888")
     
   ////------------------------------------------------
       useEffect(()=>{

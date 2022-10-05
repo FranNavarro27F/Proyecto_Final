@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export function putDevUser(payload, email) {
-  console.log(payload);
+ // console.log(payload);
   return async function (dispatch) {
-    console.log("PUT action", payload);
-    console.log(email, "emai");
+    // console.log("PUT action", payload);
+    // console.log(email, "emai");
     try {
       let json = (await axios.put(`/usuarios?email=${email}`, payload)).data;
       return dispatch({

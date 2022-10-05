@@ -11,9 +11,9 @@ export default function PurchaseCompleted() {
   const payment = searchParams;
 
   const Subscription = useSelector((state) => state.mercadoPago.Subscription);
-  console.log(Subscription);
-  console.log(paymentId, "PAYMENT");
-  console.log(payment, "PAYMENT");
+  // console.log(Subscription);
+  // console.log(paymentId, "PAYMENT");
+  // console.log(payment, "PAYMENT");
 
   return <div>Tu suscripcion se realizo correctamente!</div>;
 }
