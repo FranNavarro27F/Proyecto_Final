@@ -10,7 +10,7 @@ class PaymentController {
       const payment = await this.subscriptionService.createPayment(price, id);
       return res.json(payment);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(400)
@@ -24,7 +24,7 @@ class PaymentController {
 
       return res.json(consult);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(400)
         .json({ error: true, msg: "Failed to consult Payment" });
@@ -48,7 +48,7 @@ class PaymentController {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(400)
@@ -60,7 +60,7 @@ class PaymentController {
       const consult = await this.subscriptionService.createConsultSub(id);
       return res.json(consult);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(400)
@@ -75,7 +75,7 @@ class PaymentController {
       );
       return res.json(consult);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       return res
         .status(400)
