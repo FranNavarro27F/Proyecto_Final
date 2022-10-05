@@ -154,7 +154,7 @@ const createContract = async (data) => {
 
 // PUT (EXISTING) CONTRACT
 const modifyContract = async (id, data) => {
-  console.log("+++++++++++++++++++", id, data, "*************");
+  //
   try {
     //
     const {
