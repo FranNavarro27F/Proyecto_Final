@@ -316,14 +316,15 @@ export default function Details() {
 
   const handleCleanAndBack = () => {
     dispatch(detailReset());
-    !backIframe ? navigate(-1) : navigate("/work");
+    navigate("/work");
+    // navigate
   };
 
   const handleVisible = (e) => {
     dispatch(setUserVisible(e.target.checked, id));
     setTimeout(() => {
       dispatch(getUsersBd());
-    }, 200);
+    }, 300);
   };
 
   return isAuthenticated ? (
@@ -357,7 +358,7 @@ export default function Details() {
             </div>
             {
               <Iframe
-                key={user?.user_id}
+                key={linkPago}
                 // style={}
                 loading="CARGANDOOOOOOOOOOOOOOO..."
                 className={s.iframe}
@@ -425,7 +426,7 @@ export default function Details() {
                             <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
                           </svg>
                         )}
-                        {userProfile && userByEmail?.postulado && (
+                        {userProfile && user?.postulado && (
                           <div className={s.divVisible}>
                             <label htmlFor="">
                               Hacer visible mi postulacion
@@ -561,26 +562,25 @@ export default function Details() {
                       </span>
                     </div>
                     <div className={s.bodyButtons}>
-                      {/* <button
-                      className={s.buttonBack}
-                      onClick={() => {
-                        dispatch(detailReset());
-                        navigate("/");
-                      }}
-                    >
-                      HOME
-                    </button> */}
-
+                      <button
+                        className={s.buttonBack}
+                        onClick={handleCleanAndBack}
+                      >
+                        POSTULACIONES
+                      </button>
                       {userProfile ? (
                         <div className={s.buttonsLogeado}>
                           <button
                             className={s.buttonBack}
-                            onClick={() => navigate("/create")}
+                            onClick={() => {
+                              navigate("/create");
+                            }}
                           >
                             {userByEmail?.postulado
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
+
                           {userByEmail?.premium !== true ? (
                             <div className={s.divMegaPremium}>
                               <button
@@ -621,9 +621,12 @@ export default function Details() {
                       )}
                       <button
                         className={s.buttonBack}
-                        onClick={handleCleanAndBack}
+                        onClick={() => {
+                          dispatch(detailReset());
+                          navigate("/");
+                        }}
                       >
-                        Volver
+                        HOME
                       </button>
                     </div>
                   </div>

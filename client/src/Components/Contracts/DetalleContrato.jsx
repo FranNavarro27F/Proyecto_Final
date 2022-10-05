@@ -28,11 +28,11 @@ export default function DetalleContrato() {
   const user = useUser();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (user?.email) {
-      dispatch(getUserEmail(user.email));
-    }
-  }, [dispatch, user.email]);
+  // useEffect(() => {
+  //   if (user?.email) {
+  //     dispatch(getUserEmail(user.email));
+  //   }
+  // }, [dispatch, user.email]);
 
   let usuarioActual = useSelector((state) => state.devUser.userByEmail)?.id;
 
@@ -51,16 +51,16 @@ export default function DetalleContrato() {
   // console.log("8888888",objDeveloper,objEmployer ,"88888888")
 
   ////------------------------------------------------
-  useEffect(() => {
-    if (!objDeveloper.length) dispatch(traerUsuarioID(detalleC?.employer));
-    if (!objEmployer.length) dispatch(traerDeveloperID(detalleC?.developer));
-  }, [
-    detalleC?.developer,
-    detalleC?.employer,
-    dispatch,
-    objDeveloper.length,
-    objEmployer.length,
-  ]);
+  // useEffect(() => {
+  //   if (!objDeveloper.length) dispatch(traerUsuarioID(detalleC?.employer));
+  //   if (!objEmployer.length) dispatch(traerDeveloperID(detalleC?.developer));
+  // }, [
+  //   detalleC?.developer,
+  //   detalleC?.employer,
+  //   dispatch,
+  //   objDeveloper.length,
+  //   objEmployer.length,
+  // ]);
   ////-----------------------------------------------
 
   // console.log("payment", link_de_pago);
