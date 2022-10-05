@@ -49,9 +49,11 @@ export default function Work() {
             return (
               <div key={e.id}>
                 <Card
+                  reputacion={e.reputacion}
                   name={e.name + " " + e.lastName}
                   img={e.profilePicture}
                   tecnologies={e.tecnologias}
+                  servicios={e.servicios}
                   website={e.webSite}
                   gitHub={e.gitHub}
                   linkedIn={e.linkedIn}

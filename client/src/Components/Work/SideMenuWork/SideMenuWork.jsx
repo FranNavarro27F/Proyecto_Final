@@ -7,9 +7,14 @@ import { useSelector } from "react-redux";
 
 export default function SideMenuWork() {
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const [bug, setBug] = useState(false);
+
+  setTimeout(() => {
+    setBug(true);
+  }, 600);
   return (
     <div>
-      <div className={s.backMenu}>
+      <div className={!bug ? s.backMenu : s.backMenuBug}>
         <svg
           className={s.svg}
           viewBox="0 0 99 740"

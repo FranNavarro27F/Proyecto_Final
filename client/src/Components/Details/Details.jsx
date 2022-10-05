@@ -50,8 +50,8 @@ export default function Details() {
 
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const user = useUser();
-
   const [userProfile, setUserProfile] = useState(false);
+
   useEffect(() => {
     dispatch(getUserId(id));
     dispatch(getUserEmail(user?.email));
@@ -516,8 +516,8 @@ export default function Details() {
                       <span>Reputacion: </span>
                       <span>
                         {userDetail
-                          ? "⭐".repeat(Math.floor(userDetail?.reputacion))
-                          : "⭐".repeat(Math.floor(userByEmail?.reputacion))}
+                          ? "⭐".repeat(Math.ceil(userDetail?.reputacion))
+                          : "⭐".repeat(Math.ceil(userByEmail?.reputacion))}
                       </span>
                     </div>
                     <div className={s.bodyButtons}>

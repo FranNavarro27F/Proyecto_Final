@@ -93,24 +93,24 @@ body {
 .imageBox {
   /* background-color: #C961DE; */
   width: 22vw;
-  height: 40vh;
+  min-height: 40vh;
   position: absolute;
   margin-top: -2vh;
   right: -80vh;
   /* background-color: red; */
   overflow: hidden;
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 .imgSvg,
 .imgRender {
   width: 16vw;
-  height: 30vh;
+  max-height: 30vh;
   border-radius: 10%;
   border: 1vh solid rgba(47, 47, 138, 0.6);
   -webkit-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 
 .premium {
