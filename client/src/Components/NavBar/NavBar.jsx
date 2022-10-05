@@ -44,8 +44,15 @@ export default function NavBar() {
     filterCountries: cacheFilter?.filterCountries
       ? cacheFilter?.filterCountries
       : [],
-    OrderExp: cacheFilter?.OrderExp ? cacheFilter?.OrderExp : "",
-    OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "",
+
+    OrderExp: cacheFilter?.OrderExp ? cacheFilter?.OrderExp : "default",
+    OrderExplab: cacheFilter?.OrderExplab
+      ? cacheFilter?.OrderExplab
+      : "Ordenar por experiencia",
+    OrderBud: cacheFilter?.OrderBud ? cacheFilter?.OrderBud : "default",
+    OrderBudLab: cacheFilter?.OrderBudLab
+      ? cacheFilter?.OrderBudLab
+      : "Ordenar por presupuesto diario",
     search: cacheFilter?.search ? cacheFilter?.search : "",
   });
 
@@ -65,7 +72,7 @@ export default function NavBar() {
     refTecnologies.current.clearValue();
     refExperience.current.setValue({
       value: "default",
-      label: "Ordenar por costo diario",
+      label: "Ordenar por experiencia",
     });
     refBudget.current.setValue({
       value: "default",
@@ -77,8 +84,10 @@ export default function NavBar() {
       filterServices: [],
       filterLanguajes: [],
       filterCountries: [],
-      OrderExp: "",
-      OrderBud: "",
+      OrderExp: "default",
+      OrderExplab: "Ordenar por experiencia",
+      OrderBud: "default",
+      OrderBudLab: "Ordenar por presupuesto diario",
       search: "",
     });
     setCacheFilter({
@@ -86,8 +95,10 @@ export default function NavBar() {
       filterServices: ("filterServices", []),
       filterLanguajes: ("filterLanguajes", []),
       filterCountries: ("filterCountries", []),
-      OrderExp: ("OrderExp", ""),
-      OrderBud: ("OrderBud", ""),
+      OrderExp: ("OrderExp", "default"),
+      OrderExplab: ("OrderExplab", "Ordenar por experiencia"),
+      OrderBud: ("OrderBud", "default"),
+      OrderBudLab: ("OrderBudLab", "Ordenar por presupuesto diario"),
       search: ("search", ""),
     });
   };
@@ -121,6 +132,18 @@ export default function NavBar() {
         };
       })
     : false;
+  const handleDefaultOrderBud = [
+    {
+      value: cacheFilter?.OrderBud,
+      label: cacheFilter?.OrderBudLab,
+    },
+  ];
+  const handleDefaultOrderExp = [
+    {
+      value: cacheFilter?.OrderExp,
+      label: cacheFilter?.OrderExplab,
+    },
+  ];
 
   // if (window.performance) {
   //   console.info("window.performance works fine on this browser");
@@ -349,14 +372,17 @@ export default function NavBar() {
             components={animatedComponents}
             ref={refExperience}
             set-value={cacheFilter?.OrderExp}
+            defaultValue={handleDefaultOrderExp}
             onChange={(e) => {
               setActualFilter({
                 ...actualFilter,
                 OrderExp: e.value,
+                OrderExplab: e.label,
               });
               setCacheFilter({
                 ...cacheFilter,
                 OrderExp: e.value,
+                OrderExplab: e.label,
               });
             }}
             theme={(theme) => ({
@@ -392,16 +418,19 @@ export default function NavBar() {
               setActualFilter({
                 ...actualFilter,
                 OrderBud: e.value,
+                OrderBudLab: e.label,
               });
               setCacheFilter({
                 ...cacheFilter,
                 OrderBud: e.value,
+                OrderBudLab: e.label,
               });
             }}
             set-value={cacheFilter?.OrderBud}
             className={s.select}
             isDisabled={false}
             options={optionsOrderBudget}
+            defaultValue={handleDefaultOrderBud}
             isClearable={false}
             isSearchable={false}
             isMulti={false}
