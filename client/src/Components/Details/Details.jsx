@@ -100,28 +100,48 @@ export default function Details() {
   //este estado tiene los contraros que muestran-------------
   let [ContratosOrder, setContratosOrder] = useState(order_ac_y_pagado);
 
-  // if (order_ac_y_pagado.length && !ContratosOrder.length) {
-  //   setContratosOrder(order_ac_y_pagado);
-  // }
+  if (order_ac_y_pagado.length && !ContratosOrder.length) {
+    setContratosOrder(order_ac_y_pagado);
+  }
   //---------------------------------------------------------
 
   //--- estos handlers determinan que se guarda en el estado local que renderiza---------------
   const handler_ac_EsperaPago = () => {
     if(order_ac_epera_de_pago.length){
       setContratosOrder(order_ac_epera_de_pago.length ? order_ac_epera_de_pago : []);
+    }else{
+
       Swal.fire({
         icon: "error",
         title: "Uups... ",
-        text: "no tienes contratos aceptados en espera de pago",
+        text: "no tienes contratos aceptados ",
         // footer: '<a href="">Why do I have this issue?</a>',
       });
     }
   };
   const handler_ac_Ypagado = () => {
-    setContratosOrder(order_ac_y_pagado.length ? order_ac_y_pagado : []);
+    if(order_ac_y_pagado.length){
+      setContratosOrder(order_ac_y_pagado.length ? order_ac_y_pagado : []);
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes contratos abonados",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
   const handler_propuestas= ()=>{
-    setContratosOrder(order_propuestas.length ? order_propuestas : []);
+    if(order_propuestas.length){
+      setContratosOrder(order_propuestas);
+    }else{
+      Swal.fire({
+        icon: "error",
+        title: "Uups... ",
+        text: "no tienes propuestas por ahora",
+        // footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   }
   // const handler_defaultt = () => {
   //   setContratosOrder(order_defaultt);
@@ -628,7 +648,7 @@ export default function Details() {
           </button>
 
           <button className={s.button3} onClick={() => handler_ac_Ypagado()}>
-            Propuestas abonadas
+            Contratos abonadas
           </button>
         </div>
 
