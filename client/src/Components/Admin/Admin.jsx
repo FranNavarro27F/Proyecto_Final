@@ -41,9 +41,6 @@ export default function Admin() {
   const openPaises = () => setTab("paises");
   const detailPropio = useSelector((state) => state.devUser.detailPropio);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [active, setActive] = useState(false);
 
   // let lenAdmin = useSelector((state) => state.admin.lengAdmin)
   // let paisesAdmin = useSelector((state) => state.admin.paisAdmin)
