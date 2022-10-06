@@ -623,7 +623,7 @@ export default function DevUsersCreate() {
             </div>
           </div>
           <div className={s.inputContainer}>
-            <p>Website: </p>
+            <p>Sitio Web: </p>
             <input
               type="url"
               placeholder="Tu webSite..."

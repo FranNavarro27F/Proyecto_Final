@@ -57,8 +57,8 @@ function validaciones(input) {
 
   //Website
   // if (input.webSite === "") errors.webSite = "Ingresa la url de tu webSite!";
-  if (/[\s]/.test(input.webSite))
-    errors.webSite = "El url no debe contener espacios!";
+  // if (/[\s]/.test(input.webSite))
+  //   errors.webSite = "El url no debe contener espacios!";
 
   if (
     !/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/.test(
