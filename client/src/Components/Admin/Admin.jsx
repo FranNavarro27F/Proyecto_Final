@@ -9,7 +9,12 @@ import {
   getUsersAdmin,
 } from "../../Redux/Actions/Admin";
 // import SideBarAd from "./SideBar/SideBarAd";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import UserList from "./Pages/UserList";
 import CountryList from "./Pages/CountryList";
 import LengList from "./Pages/LengList";
@@ -24,6 +29,7 @@ import { TiMessages } from "react-icons/ti";
 import { TiDeviceLaptop } from "react-icons/ti";
 import { MdOutlineRoomService } from "react-icons/md";
 import InicioDash from "./Pages/InicioDash";
+import Error404 from "../error404/error404";
 
 export default function Admin() {
   const [tab, setTab] = useState("");
@@ -33,8 +39,9 @@ export default function Admin() {
   const openTecnologias = () => setTab("tecnologias");
   const openServicios = () => setTab("servicios");
   const openPaises = () => setTab("paises");
-
+  const detailPropio = useSelector((state) => state.devUser.detailPropio);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [active, setActive] = useState(false);
 
@@ -52,7 +59,9 @@ export default function Admin() {
     dispatch(getUsersAdmin());
   }, [dispatch]);
 
-  return (
+  return !detailPropio?.isAdmin ? (
+    <Error404 />
+  ) : (
     <div>
       <div>
         <br />
