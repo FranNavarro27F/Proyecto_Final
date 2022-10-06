@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getPaisesAd, newPaisAdmin, putPaisesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css";
+import Swal from 'sweetalert2';
 
 export default function CountryList() {
 
@@ -42,9 +43,19 @@ export default function CountryList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del Pais seleccionado Cambiado correctamente")
-        // dispatch(getPaisesAd())
-        window.location.reload()
+        // alert("Estado del Pais seleccionado Cambiado correctamente")
+        // // dispatch(getPaisesAd())
+        // window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getPaisesAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "Estado del país seleccionado cambiado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          })
 
     }
 
@@ -69,8 +80,18 @@ export default function CountryList() {
         //     setDisabled(false)
         // }
         dispatch(newPaisAdmin(newP))
-        alert("¡Pais ingresado correctamente! Que tenga un buen día")
-        window.location.reload()
+        // alert("¡Pais ingresado correctamente! Que tenga un buen día")
+        // window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getPaisesAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "¡País ingresado correctamente! Que tenga un buen día",
+            showConfirmButton: false,
+            timer: 1000
+          })
     }
 
 
