@@ -55,7 +55,7 @@
    ;
 }
 
-.siderbarListItem.active, .siderbarListItem:hover{
+.siderbarListItem:hover{
     background-color: #2251a9f4;
 }
 

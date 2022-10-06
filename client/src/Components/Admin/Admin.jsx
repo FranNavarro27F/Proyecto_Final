@@ -22,6 +22,7 @@ import {TiMessages} from "react-icons/ti"
 import {TiDeviceLaptop} from "react-icons/ti"
 import { MdOutlineRoomService } from "react-icons/md"
 import InicioDash from "./Pages/InicioDash";
+import {TbArrowBigLeftLines} from "react-icons/tb"
 
 export default function Admin(){
 
