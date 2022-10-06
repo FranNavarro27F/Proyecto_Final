@@ -58,9 +58,9 @@ export default function Contracts({
           {date}
           <br />
 
-          <label>Presupuesto: $ </label>
-          {price}
-          <br />
+          {/* <label>Presupuesto: $ </label>
+          {price} */}
+          {/* <br /> */}
 
           <label>Propuesto por: </label>
           {findNameEmployer(idEmployer)}
