@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getServAd, newServicioAdmin, putServiciosAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
+import s from "./DashboardAdmin.module.css";
+import Swal from "sweetalert2"
 
 export default function ServList() {
 
@@ -42,9 +43,18 @@ export default function ServList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del servicio seleccionado cambiado correctamente")
-        // dispatch(getPaisesAd())
-        window.location.reload()
+        // alert("Estado del servicio seleccionado cambiado correctamente")
+        // // dispatch(getPaisesAd())
+        // window.location.reload()
+        setTimeout(() => {
+            dispatch(getServAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "Estado del servicio seleccionado cambiado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          })
 
     }
 
@@ -70,8 +80,18 @@ export default function ServList() {
         //     setDisabled(false)
         // }
         dispatch(newServicioAdmin(newP))
-        alert("¡Servicio ingresado correctamente! Que tenga un buen día")
-        window.location.reload()
+        // alert("¡Servicio ingresado correctamente! Que tenga un buen día")
+        // window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getServAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "¡Servicio ingresado correctamente! Que tenga un buen día",
+            showConfirmButton: false,
+            timer: 1000
+          })
     }
 
   return (

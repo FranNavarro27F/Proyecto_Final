@@ -57,7 +57,7 @@ export default function ButtonProfile({
             <Link to={`/work/details/${userByEmail?.id}`}>
               <button className={s.buttonSelect}>PERFIL</button>
             </Link>
-            {userByEmail?.isAdmin && (
+            {!userByEmail?.isAdmin && (
               <Link to={`/admin/${user?.user_id}`}>
                 <button className={s.buttonSelect} value="">
                   PANEL ADMIN
