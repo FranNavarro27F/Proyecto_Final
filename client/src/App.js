@@ -22,6 +22,7 @@ import Error404 from "./Components/error404/error404";
 import PurchaseCompleted from "./Components/MercadoPago/PurchaseCompleted/PurchaseCompleted.jsx";
 import Loader from "./Components/Loader/Loader";
 import Admin from "./Components/Admin/Admin";
+import About from "./Components/About/About";
 
 import DetalleContrato from "./Components/Contracts/DetalleContrato";
 import { useEffect } from "react";
@@ -46,6 +47,7 @@ function App() {
     picture: `${user?.picture}`,
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
+    postulado: `${userByEmail?.postulado}`,
   };
 
   useEffect(() => {
@@ -97,9 +99,10 @@ function App() {
           <Route path="/purchase" element={<Users />} />
           <Route path="/purchase-completed" element={<PurchaseCompleted />} />
           {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
-          **<Route path="*" element={<Error404 />}></Route>**
           <Route path="/contrato/:id" element={<DetalleContrato />}></Route>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:id" element={<Admin />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Error404 />}></Route>
         </Routes>
       </UserContext.Provider>
     </>

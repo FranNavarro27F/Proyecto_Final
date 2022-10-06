@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getLenAd, newLenguajeAdmin, putLenguajesAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css";
+import Swal from 'sweetalert2';
 
 export default function LengList() {
     const dispatch = useDispatch()
@@ -41,9 +42,18 @@ export default function LengList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del lenguaje seleccionado cambiado correctamente")
-        // dispatch(getPaisesAd())
-        window.location.reload()
+        // alert("Estado del lenguaje seleccionado cambiado correctamente")
+        // // dispatch(getPaisesAd())
+        // window.location.reload()
+        setTimeout(() => {
+            dispatch(getLenAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "Estado del lenguaje seleccionado cambiado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          })
 
     }
 
@@ -68,7 +78,18 @@ export default function LengList() {
         //     setDisabled(false)
         // }
         dispatch(newLenguajeAdmin(newP))
-        alert("¡Lenguaje ingresado correctamente! Que tenga un buen día")
+        // alert("¡Lenguaje ingresado correctamente! Que tenga un buen día")
+        // window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getLenAd())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "¡Lenguaje ingresado correctamente! Que tenga un buen día",
+            showConfirmButton: false,
+            timer: 1000
+          })
     }
 
 

@@ -6,9 +6,9 @@ import s from "./error404.module.css";
 export default function Error404() {
   const navigate = useNavigate();
   return (
-    <div>
-      <h1 className={s.titulo}> 404 Error</h1>
-      <p className={s.zoom_area}>El url que solicita no existe.</p>
+    <div className={s.container}>
+      <h1 className={s.titulo}>ERROR</h1>
+      {/* <p className={s.zoom_area}>Página no encontrada</p> */}
       <section className={s.error_container}>
         <span>
           <span>4</span>
@@ -25,7 +25,7 @@ export default function Error404() {
           className={s.more_link}
           rel="noreferrer"
         >
-          VOLVER
+          HOME
         </button>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router";
 // import { Link } from "react-router-dom";
 import s from "./Footer.module.css";
 import PlanetaFooter1 from "./PlanetasFooter/PlanetaFooter1";
 
 export default function Footer({ scrollToSeccion, work, home, landing }) {
+  const navigate = useNavigate();
   return (
     <div>
       <div className={s.Footer}>
@@ -13,17 +15,16 @@ export default function Footer({ scrollToSeccion, work, home, landing }) {
             <li onClick={() => scrollToSeccion(landing)} className={s.link}>
               BIENVENIDO
             </li>
-            <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              INICIO
+            <li onClick={() => navigate("/about")} className={s.link}>
+              ACERCA DE
             </li>
             <li onClick={() => scrollToSeccion(home)} className={s.link}>
-              ACERCA DE
+              SOBRE NOSOTROS
             </li>
             <li onClick={() => scrollToSeccion(work)} className={s.link}>
               DESTACADOS
             </li>
           </ul>
-          {/* <br /> */}
         </div>
         <svg
           className={s.svgFooter}

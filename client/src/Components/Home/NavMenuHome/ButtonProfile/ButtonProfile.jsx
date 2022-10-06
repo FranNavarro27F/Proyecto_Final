@@ -19,6 +19,7 @@ export default function ButtonProfile({
   const dispatch = useDispatch();
   const user = useUser();
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
+  const detailPropio = useSelector((state) => state.devUser.detailPropio);
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -57,8 +58,10 @@ export default function ButtonProfile({
             <Link to={`/work/details/${userByEmail?.id}`}>
               <button className={s.buttonSelect}>PERFIL</button>
             </Link>
-            {userByEmail?.admin && (
-              <Link to={`/admin`}>
+
+            {detailPropio?.isAdmin && (
+
+              <Link to={`/admin/${user?.user_id}`}>
                 <button className={s.buttonSelect} value="">
                   PANEL ADMIN
                 </button>

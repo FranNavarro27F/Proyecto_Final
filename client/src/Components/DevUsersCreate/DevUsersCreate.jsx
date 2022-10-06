@@ -56,11 +56,13 @@ export default function DevUsersCreate() {
 
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: `${userByEmail?.name}` || `${cache?.name}`,
-    // name: userByEmail?.name ? `${userByEmail?.name}` : `${cache?.name}`,
+    // name: `${userByEmail?.name}` || `${cache?.name}`,
+    name: userByEmail?.name ? `${userByEmail?.name}` : `${cache?.name}`,
     // name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
-    lastName: `${userByEmail?.lastName}` || `${cache?.lastName}`,
-    // lastName: userByEmail?.lastName ? `${userByEmail?.lastName}` : `${cache?.lastName}`,
+    // lastName: `${userByEmail?.lastName}` || `${cache?.lastName}`,
+    lastName: userByEmail?.lastName
+      ? `${userByEmail?.lastName}`
+      : `${cache?.lastName}`,
     profilePicture: userByEmail?.profilePicture
       ? `${userByEmail?.profilePicture}`
       : cache?.profilePicture
@@ -128,84 +130,11 @@ export default function DevUsersCreate() {
     postulado: true,
   });
 
-  const [errorsCache, setErrorsCache] = useState(localStorage.getItem(errors));
-
-  useEffect(() => {
-    setErrorsCache(errors);
-  }, [errors]);
-
-  //   const regex = /[a-z]*\D\S/gi;
-  //   const regex = /^[a-z\s]*$/gi;
-
-  const handleName = (e) => {
-    // if (regex.test(e.target.value)) {
-    setInput({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.name,
-      [e.target.name]: e.target.value,
-    });
-    setCache({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.name,
-      [e.target.name]: e.target.value,
-    });
-    // }
-    // else {
-    if (userByEmail.postulado) {
-      setErrors(
-        validacionesEdit({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    } else {
-      setErrors(
-        validaciones({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    }
-    // }
-  };
-
-  const handleLastName = (e) => {
-    // if (regex.test(e.target.value)) {
-    setInput({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.lastName,
-      [e.target.name]: e.target.value,
-    });
-    setCache({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.lastName,
-      [e.target.name]: e.target.value,
-    });
-    // }
-    // else {
-    // if (userByEmail.postulado) {
-    //   setErrors(
-    //     validacionesEdit({
-    //       ...input,
-    //       [e.target.name]: e.target.value,
-    //     })
-    //   );
-    // } else {
-    //   setErrors(
-    //     validaciones({
-    //       ...input,
-    //       [e.target.name]: e.target.value,
-    //     })
-    //   );
-    // }
-    // }
-  };
-
   const handleChangeInput = (e) => {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     if (userByEmail.postulado) {
       setErrors(
@@ -224,7 +153,7 @@ export default function DevUsersCreate() {
     }
     setCache({
       ...cache,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     // } else {
     //   setVerErrores(true);
@@ -390,7 +319,9 @@ export default function DevUsersCreate() {
         postulado: true,
       });
       setModal(true);
+
       dispatch(getUsersBd());
+      dispatch(getUserEmail(userByEmail?.email));
     } else {
       console.log(`hay errores`, errors);
     }
@@ -431,13 +362,13 @@ export default function DevUsersCreate() {
     //   value: "default",
     //   label: "Selecciona un país...",
     // });
-    refName.current.value = "";
-    reflastName.current.value = "";
+    // refName.current.value = "";
+    // reflastName.current.value = "";
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${userByEmail?.name}`),
+      name: ("name", `${userByEmail?.name && userByEmail?.name}`),
       lastName: ("lastName", `${userByEmail?.lastName}`),
       profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
       email: ("email", `${userByEmail?.email}`),
@@ -465,6 +396,7 @@ export default function DevUsersCreate() {
     });
     setInput({
       name: `${userByEmail?.name}`,
+
       lastName: `${userByEmail?.lastname}`,
       profilePicture: `${userByEmail?.profilePicture}`,
       email: `${userByEmail?.email}`,
@@ -541,12 +473,13 @@ export default function DevUsersCreate() {
               type="text"
               placeholder="Tu Nombre..."
               autoComplete="on"
-              onChange={(e) => handleName(e)}
+              onChange={(e) => handleChangeInput(e)}
               defaultValue={userByEmail?.name || cache?.name}
               // value={input?.name}
               name="name"
               className={s.inputName}
               disabled={!edit}
+              // maxlength="20"
             />
             <div className={s.divErrors}>
               {verErrores && errors.name && (
@@ -559,9 +492,10 @@ export default function DevUsersCreate() {
             <input
               ref={reflastName}
               type="text"
+              // maxlength="20"
               placeholder="Tu Apellido..."
               autoComplete="on"
-              onChange={(e) => handleLastName(e)}
+              onChange={(e) => handleChangeInput(e)}
               defaultValue={userByEmail?.lastName || cache?.lastName}
               //   value={input?.lastName}
               name="lastName"
@@ -587,7 +521,6 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  defaultValue={cache?.profilePicture}
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -613,11 +546,11 @@ export default function DevUsersCreate() {
                     onClick={() => {
                       setCache({
                         ...cache,
-                        profilePicture: ("profilePicture", ""),
+                        profilePicture: ("profilePicture", null),
                       });
                       setInput({
                         ...input,
-                        profilePicture: "",
+                        profilePicture: null,
                       });
                       setLoader(false);
                     }}
@@ -691,7 +624,7 @@ export default function DevUsersCreate() {
             </div>
           </div>
           <div className={s.inputContainer}>
-            <p>Website: </p>
+            <p>Sitio Web: </p>
             <input
               type="url"
               placeholder="Tu webSite..."

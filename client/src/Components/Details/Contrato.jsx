@@ -111,15 +111,15 @@ export default function Contrato({
         showConfirmButton: false,
         timer: 2000,
       });
-      navigate("/work");
+      navigate(`/work/details/${userDetail?.id}`);
       // DESCOMENTAR PARA QUE FUNCIONE EL EMAILER.
-      //  dispatch(
-      //     emailer({
-      //       nombreContratista: userByEmail?.name,
-      //       mailContrado: userDetail.email,
-      //       IDContratado: userDetail.id
-      //     })
-      //  );
+       dispatch(
+          emailer({
+            nombreContratista: userByEmail?.name,
+            mailContrado: userDetail.email,
+            IDContratado: userDetail.id
+          })
+       );
     }
   };
 

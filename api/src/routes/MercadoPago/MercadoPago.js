@@ -42,4 +42,4 @@ router.put("/subscriptionEdit/:id", function (req, res, next) {
 });
 
 module.exports = router;
-// OTRA VEZ //
+//MERCADO PAGO//
