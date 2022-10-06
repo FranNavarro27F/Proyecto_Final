@@ -597,7 +597,12 @@ export default function Details() {
                                     icon: "question",
                                     background: "#bebebe71",
                                     color: "white",
-                                    backdrop: "swal2-backdrop-show",
+                                    //                                   backdrop: `
+                                    //   rgba(0,0,123,0.4)
+                                    //   url("/images/nyan-cat.gif")
+                                    //   left top
+                                    //   no-repeat
+                                    // `,
                                   })
                                 }
                                 className={s.buttonQuestion}
@@ -689,6 +694,7 @@ export default function Details() {
                   return (
                     <div className={s.cardContrato}>
                       <Contracts
+                        userByEmail={userByEmail}
                         idEmployer={cur.employer}
                         description={cur.description}
                         date={cur.date}
