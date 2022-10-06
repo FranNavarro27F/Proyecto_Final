@@ -108,12 +108,16 @@ export default function DetalleContrato() {
       if (result.isConfirmed) {
         Swal.fire({
           title:'La propuesta ha sido cancelada!',
-          icon:'success'
+          icon:'success',
+          timer:1000
         }
-         )
+        )
+       setTimeout(() => {
+         navigate(`/work`);
+        
+       }, 300);
       }
     })
-    navigate(`/work`);
   };
   const handleBack = () => {
     if (detallePerfil) {
