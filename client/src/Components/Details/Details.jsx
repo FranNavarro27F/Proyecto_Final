@@ -327,6 +327,8 @@ export default function Details() {
     }, 300);
   };
 
+  const [verContracts, setVerContracts] = useState(false);
+
   return isAuthenticated ? (
     contratoDetail ? (
       <Contrato
@@ -594,7 +596,7 @@ export default function Details() {
                                 onClick={() =>
                                   Swal.fire({
                                     text: `Suscribete al servicio premium y destaca tu perfil !`,
-                                    icon: "question",
+                                    icon: "info",
                                     background: "#bebebe71",
                                     color: "white",
                                     //                                   backdrop: `
@@ -643,7 +645,12 @@ export default function Details() {
                     <span className={s.spanButton}>
                       <BsChevronDoubleDown
                         className={s.scrollContracts}
-                        onClick={() => scrollTo(refContracts)}
+                        onClick={() => {
+                          setVerContracts(true);
+                          setTimeout(() => {
+                            scrollTo(refContracts);
+                          }, 100);
+                        }}
                       />
                     </span>
                   ) : (
@@ -655,8 +662,8 @@ export default function Details() {
           </div>
         </div>
         {/* botones o pestañas para ordenar contratos */}
-        {ContratosOrder.length ? (
-          <div>
+        {ContratosOrder.length && verContracts ? (
+          <div className={s.noVercontracts}>
             {ContratosOrder.length ? (
               <div ref={refContracts} className={s.buttonContratitos}>
                 {/* <button className={s.button1} onClick={() => handler_defaultt()}>

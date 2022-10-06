@@ -27,7 +27,7 @@ async function main(nombreContratista, mailContrado, IDContratado) {
     subject: "Te han contactado!", // Subject line
     // text: `Hola! ${nombreContratista} te ha contactado! Esto es texto`, // plain text body
     // BORRAMOS EL TEXT. OJO.
-    html: `<h4>Hola! <strong>${nombreContratista}</strong> te ha hecho una propuesta de trabajo! Ingresa al siguiente link para ver la propuesta. </h4>
+    html: `<h4> ¡Hola! ¡Te han hecho una propuesta de trabajo! Ingresa al siguiente link para ver la propuesta. </h4>
     <br> <br/>
     <a href=${URL_DEPLOY}> PROPUESTA </a>
     `,

@@ -95,8 +95,29 @@ export default function DetalleContrato() {
     dispatch(putContrato(id, { habilitado: false })).then(
       (data) => usuarioDetailID && dispatch(getUserId(usuarioDetailID))
     );
-    alert("La propuesta ha sido rechazada correctamente");
-    navigate(`/work`);
+    Swal.fire({
+      title: 'Desea cancelar la propuesta?',
+      text: "Si cancelas la propuesta no podras volver a aceptarla.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si!',
+      cancelButtonText: 'No!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title:'La propuesta ha sido cancelada!',
+          icon:'success',
+          timer:1000
+        }
+        )
+       setTimeout(() => {
+         navigate(`/work`);
+        
+       }, 300);
+      }
+    })
   };
   const handleBack = () => {
     if (detallePerfil) {
@@ -107,11 +128,17 @@ export default function DetalleContrato() {
   };
 
   let [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("status"), "STATUS PAGO");
 
   useEffect(() => {
     if (searchParams.get("status") === "approved") {
       dispatch(putContrato(id, { pagado: true }));
+      Swal.fire({
+        // position: "top-end",
+        icon: "success",
+        title: "Su pago fue enviado correctamente al desarrollador",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }, [dispatch, id, searchParams]);
 
@@ -160,8 +187,15 @@ export default function DetalleContrato() {
             <label>Fecha de Finalización: </label>
             {detalleC?.expiration_date}
             <br />
-            <label>Presupuesto: $ </label>
-            {detalleC?.price}
+            {
+             usuarioActual === detalleC.employer &&
+             <div> 
+             <label>
+             Presupuesto: $ </label>
+             {detalleC?.price}
+              </div>
+            }
+              
             <br />
             <label>Status: </label>
             {detalleC?.status}
@@ -227,32 +261,26 @@ export default function DetalleContrato() {
               )}
               {
                 // detalleC.aceptado &&
-                
-                detalleC.pagado && !detalleC.comentario ?
-                  usuarioActual === detalleC.employer &&
-                  detalleC?.comentario === "" && (
-                    <div className={s.divReviews}>
-                      <Reviews id={id} />
-                    </div>
-                  )
-                  
-                    :
-                    detalleC?.comentario &&
-                  
-                    <div className={s.div_general_reviewRender}>
-                      <ReviewRender 
-                        puntuacion={detalleC?.puntuacion}
-                        comentario={detalleC?.comentario}
+
+                detalleC.pagado && !detalleC.comentario
+                  ? usuarioActual === detalleC.employer &&
+                    detalleC?.comentario === "" && (
+                      <div className={s.divReviews}>
+                        <Reviews id={id} />
+                      </div>
+                    )
+                  : detalleC?.comentario && (
+                      <div className={s.div_general_reviewRender}>
+                        <ReviewRender
+                          puntuacion={detalleC?.puntuacion}
+                          comentario={detalleC?.comentario}
                         />
                       </div>
-                  
-                    
-                  }
+                    )
+              }
 
               {/* ---puntuacion del usuario al contrato (comentario)--- */}
-                  {
-                    
-              }
+              {}
 
               {/* ----------------------------------------------------- */}
 
