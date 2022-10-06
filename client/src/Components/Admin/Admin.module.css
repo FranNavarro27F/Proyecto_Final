@@ -58,3 +58,7 @@
   flex: 4;
   /* background-color: #222170; */
 }
+
+.noVercontracts {
+  display: none;
+}

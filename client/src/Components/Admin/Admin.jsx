@@ -30,6 +30,7 @@ import { TiDeviceLaptop } from "react-icons/ti";
 import { MdOutlineRoomService } from "react-icons/md";
 import InicioDash from "./Pages/InicioDash";
 import Error404 from "../error404/error404";
+import { useRef } from "react";
 
 export default function Admin() {
   const [tab, setTab] = useState("");
@@ -50,6 +51,10 @@ export default function Admin() {
   // let tecAdmin = useSelector((state)=> state.admin.tecnAdmin)
   // let servAdmin = useSelector((state)=>state.admin.servAdmin)
   // let usuariosAdmin = useSelector((state)=> state.admin.allUserAdmin)
+
+  const liService = useRef();
+
+  console.log(liService);
 
   useEffect(() => {
     dispatch(getLenAd());
@@ -74,19 +79,40 @@ export default function Admin() {
 
                 <h3 className={s.title}>Dashboard</h3>
                 <ul className={s.sidebarList}>
-                  <li className={s.siderbarListItem} onClick={openUsuarios}>
+                  <li
+                    id="Usuarios"
+                    className={s.siderbarListItem}
+                    onClick={openUsuarios}
+                  >
                     <TiGroupOutline /> Usuarios
                   </li>
-                  <li className={s.siderbarListItem} onClick={openLenguajes}>
+                  <li
+                    id="Usuarios"
+                    className={s.siderbarListItem}
+                    onClick={openLenguajes}
+                  >
                     <TiMessages /> Lenguajes
                   </li>
-                  <li className={s.siderbarListItem} onClick={openTecnologias}>
+                  <li
+                    id="Lenguajes"
+                    className={s.siderbarListItem}
+                    onClick={openTecnologias}
+                  >
                     <TiDeviceLaptop /> Tecnologias
                   </li>
-                  <li className={s.siderbarListItem} onClick={openServicios}>
+                  <li
+                    id="Tecnologias"
+                    className={s.siderbarListItem}
+                    onClick={openServicios}
+                  >
                     <MdOutlineRoomService /> Servicios
                   </li>
-                  <li className={s.siderbarListItem} onClick={openPaises}>
+                  <li
+                    ref={liService}
+                    id="Servicios"
+                    className={s.siderbarListItem}
+                    onClick={openPaises}
+                  >
                     <TiWorldOutline /> Paises
                   </li>
                 </ul>

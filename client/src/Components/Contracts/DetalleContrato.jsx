@@ -107,7 +107,6 @@ export default function DetalleContrato() {
   };
 
   let [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("status"), "STATUS PAGO");
 
   useEffect(() => {
     if (searchParams.get("status") === "approved") {
@@ -227,32 +226,26 @@ export default function DetalleContrato() {
               )}
               {
                 // detalleC.aceptado &&
-                
-                detalleC.pagado && !detalleC.comentario ?
-                  usuarioActual === detalleC.employer &&
-                  detalleC?.comentario === "" && (
-                    <div className={s.divReviews}>
-                      <Reviews id={id} />
-                    </div>
-                  )
-                  
-                    :
-                    detalleC?.comentario &&
-                  
-                    <div className={s.div_general_reviewRender}>
-                      <ReviewRender 
-                        puntuacion={detalleC?.puntuacion}
-                        comentario={detalleC?.comentario}
+
+                detalleC.pagado && !detalleC.comentario
+                  ? usuarioActual === detalleC.employer &&
+                    detalleC?.comentario === "" && (
+                      <div className={s.divReviews}>
+                        <Reviews id={id} />
+                      </div>
+                    )
+                  : detalleC?.comentario && (
+                      <div className={s.div_general_reviewRender}>
+                        <ReviewRender
+                          puntuacion={detalleC?.puntuacion}
+                          comentario={detalleC?.comentario}
                         />
                       </div>
-                  
-                    
-                  }
+                    )
+              }
 
               {/* ---puntuacion del usuario al contrato (comentario)--- */}
-                  {
-                    
-              }
+              {}
 
               {/* ----------------------------------------------------- */}
 
