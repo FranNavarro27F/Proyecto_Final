@@ -763,7 +763,7 @@ input:checked + .slider_round:before {
   line-height: 143.2%;
   color: #ffffff;
   z-index: 1;
-  width: 30vw;
+  width: 50vw;
   height: 1px;
   margin-top: 2%;
   margin-left: 10vh;

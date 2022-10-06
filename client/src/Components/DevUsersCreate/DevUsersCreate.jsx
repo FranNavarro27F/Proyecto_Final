@@ -139,7 +139,7 @@ export default function DevUsersCreate() {
     if (userByEmail.postulado) {
       setErrors(
         validacionesEdit({
-          ...cache,
+          ...input,
           [e.target.name]: e.target.value,
         })
       );
@@ -319,6 +319,7 @@ export default function DevUsersCreate() {
         postulado: true,
       });
       setModal(true);
+
       dispatch(getUsersBd());
       dispatch(getUserEmail(userByEmail?.email));
     } else {
@@ -623,7 +624,7 @@ export default function DevUsersCreate() {
             </div>
           </div>
           <div className={s.inputContainer}>
-            <p>Website: </p>
+            <p>Sitio Web: </p>
             <input
               type="url"
               placeholder="Tu webSite..."
