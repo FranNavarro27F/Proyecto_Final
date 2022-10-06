@@ -184,8 +184,15 @@ export default function DetalleContrato() {
             <label>Fecha de Finalización: </label>
             {detalleC?.expiration_date}
             <br />
-            <label>Presupuesto: $ </label>
-            {detalleC?.price}
+            {
+             usuarioActual === detalleC.employer &&
+             <div> 
+             <label>
+             Presupuesto: $ </label>
+             {detalleC?.price}
+              </div>
+            }
+              
             <br />
             <label>Status: </label>
             {detalleC?.status}
