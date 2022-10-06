@@ -597,6 +597,7 @@ export default function Details() {
                                     icon: "question",
                                     background: "#bebebe71",
                                     color: "white",
+                                    backdrop: "swal2-backdrop-show",
                                   })
                                 }
                                 className={s.buttonQuestion}

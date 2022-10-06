@@ -319,6 +319,7 @@ export default function DevUsersCreate() {
         postulado: true,
       });
       setModal(true);
+
       dispatch(getUsersBd());
       dispatch(getUserEmail(userByEmail?.email));
     } else {
