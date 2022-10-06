@@ -68,6 +68,7 @@ export default function TecList() {
         // }
         dispatch(newTecnologiaAdmin(newP))
         alert("¡Tecnología ingresada correctamente! Que tenga un buen día")
+        window.location.reload()
     }
 
   return (

@@ -21,6 +21,7 @@ import {TiWorldOutline} from "react-icons/ti"
 import {TiMessages} from "react-icons/ti"
 import {TiDeviceLaptop} from "react-icons/ti"
 import { MdOutlineRoomService } from "react-icons/md"
+import InicioDash from "./Pages/InicioDash";
 
 export default function Admin(){
 
@@ -100,7 +101,7 @@ export default function Admin(){
             {
                 tab === ""
                 ?
-                null
+                <InicioDash/>
                 :
                 tab === "usuarios"
                 ?

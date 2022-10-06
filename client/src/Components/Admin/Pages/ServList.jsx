@@ -71,6 +71,7 @@ export default function ServList() {
         // }
         dispatch(newServicioAdmin(newP))
         alert("¡Servicio ingresado correctamente! Que tenga un buen día")
+        window.location.reload()
     }
 
   return (
