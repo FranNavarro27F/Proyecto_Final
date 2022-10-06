@@ -432,8 +432,8 @@ export default function DevUsersCreate() {
     //   value: "default",
     //   label: "Selecciona un país...",
     // });
-    refName.current.value = "";
-    reflastName.current.value = "";
+    // refName.current.value = "";
+    // reflastName.current.value = "";
     refServices.current.clearValue();
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
@@ -465,8 +465,8 @@ export default function DevUsersCreate() {
       postulado: true,
     });
     setInput({
-      // name: `${userByEmail?.name}`,
-      name: `${userByEmail?.name && userByEmail?.name}`,
+      name: `${userByEmail?.name}`,
+
       lastName: `${userByEmail?.lastname}`,
       profilePicture: `${userByEmail?.profilePicture}`,
       email: `${userByEmail?.email}`,
@@ -549,7 +549,7 @@ export default function DevUsersCreate() {
               name="name"
               className={s.inputName}
               disabled={!edit}
-              maxlength="20"
+              // maxlength="20"
             />
             <div className={s.divErrors}>
               {verErrores && errors.name && (
@@ -562,7 +562,7 @@ export default function DevUsersCreate() {
             <input
               ref={reflastName}
               type="text"
-              maxlength="20"
+              // maxlength="20"
               placeholder="Tu Apellido..."
               autoComplete="on"
               onChange={(e) => handleChangeInput(e)}
@@ -591,10 +591,6 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  // defaultValue={cache?.profilePicture}
-                  defaultValue={
-                    userByEmail?.profilePicture || cache?.profilePicture
-                  }
                 />
                 <AiOutlineUserAdd />
               </label>
@@ -620,11 +616,11 @@ export default function DevUsersCreate() {
                     onClick={() => {
                       setCache({
                         ...cache,
-                        profilePicture: ("profilePicture", ""),
+                        profilePicture: ("profilePicture", null),
                       });
                       setInput({
                         ...input,
-                        profilePicture: "",
+                        profilePicture: null,
                       });
                       setLoader(false);
                     }}
