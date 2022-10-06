@@ -139,7 +139,7 @@ export default function DevUsersCreate() {
     if (userByEmail.postulado) {
       setErrors(
         validacionesEdit({
-          ...cache,
+          ...input,
           [e.target.name]: e.target.value,
         })
       );
