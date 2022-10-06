@@ -594,7 +594,7 @@ export default function Details() {
                                 onClick={() =>
                                   Swal.fire({
                                     text: `Suscribete al servicio premium y destaca tu perfil !`,
-                                    icon: "question",
+                                    icon: "info",
                                     background: "#bebebe71",
                                     color: "white",
                                     //                                   backdrop: `
