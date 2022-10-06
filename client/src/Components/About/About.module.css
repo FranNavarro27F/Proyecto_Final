@@ -23,21 +23,28 @@
 
 .subTitle {
   font-size: 30px;
-  margin: 16px 0;
+  margin: 15px 0;
+}
+
+.paragraphContainer {
+  width: 80%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .paragraph {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.subTitle {
+  margin-bottom: 20px;
 }
 
 .teamContainer {
   width: 80%;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 10px;
 }
 
 .memberContainer {
