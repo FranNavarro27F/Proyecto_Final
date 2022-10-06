@@ -53,6 +53,7 @@ export default function SideMenu() {
             </g>
 
             <NavLink to="/">
+              {/* <div className={s.divSvg}> */}
               <path
                 d="M39 112.19L44 116.69V124.5H42V118.5H36V124.5H34V116.69L39 112.19ZM39 109.5L29 118.5H32V126.5H38V120.5H40V126.5H46V118.5H49L39 109.5Z"
                 fill="#0F103F"
@@ -60,6 +61,7 @@ export default function SideMenu() {
               {/* <div className={s.iconHome}>
                 <GrHome />
               </div> */}
+              {/* </div> */}
             </NavLink>
 
             <Link to={`/work/details/${detailPropio?.id}`}>

@@ -34,7 +34,6 @@ export default function Card({
           </div>
           <p className={s.name_client}>{name}</p>
           <div className={s.divTecnologias}>
-            <br />
             {/* <span>{servicios?.join(", ")} </span> */}
             <label>Presupuesto Diario ${dailyBudget}</label>
             <br />
