@@ -62,6 +62,8 @@
 }
 
 .divTextHome {
+  margin-left: 20px;
+  margin-top: -20px;
   position: absolute;
   max-width: 20vw;
   min-height: 35vh;
@@ -82,6 +84,11 @@
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
+
+.textP {
+  margin-top: 25px;
+}
+
 .divTextHome p {
   font-size: 1vw;
 }

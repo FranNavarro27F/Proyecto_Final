@@ -1,0 +1,71 @@
+.containerD{
+   background-color: rgba(5, 32, 122, 0.758);
+   flex: 4;
+   height: 43rem;
+   display: flex;
+   justify-content: center;
+   border: 10px solid black;
+   border-radius: 2rem;
+   border-style: double;
+   filter: drop-shadow(5px 5px 10px rgb(200, 4, 254));
+
+}
+
+
+
+.primerDiv{
+    /* background-color: #94573b; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60rem;
+    
+    
+}
+
+
+
+.segundoDiv{
+    /* background-color: #04ffd9; */
+    color: #fff;
+    width: 55rem;
+    height: 40rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-family: "Poppins";
+}
+
+.segundoDiv h1{
+    font-size: 4rem;
+    /* font-style:oblique; */
+    font-weight: 900;
+    color: rgb(191, 59, 224);
+}
+
+.segundoDiv h3{
+    font-size: 2.5rem;
+    color: rgb(59, 155, 224);
+}
+
+.reacticon{
+    font-size: 10rem;
+    color: rgba(220, 48, 254, 0.897);
+    text-shadow: 10px 10px;
+}
+
+.contIcon{
+    /* background-color: #fff; */
+    width: 50rem;
+    height: 15rem;
+    display: flex;
+    justify-content: start;
+}
+
+.reacticon:hover{
+    color: rgba(31, 187, 222, 0.856);
+    transform: scale(2, 2);
+    
+
+}

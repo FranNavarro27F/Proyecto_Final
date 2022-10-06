@@ -69,6 +69,7 @@ export default function LengList() {
         // }
         dispatch(newLenguajeAdmin(newP))
         alert("¡Lenguaje ingresado correctamente! Que tenga un buen día")
+        window.location.reload()
     }
 
 
