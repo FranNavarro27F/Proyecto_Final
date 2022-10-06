@@ -134,12 +134,12 @@ export default function DevUsersCreate() {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     if (userByEmail.postulado) {
       setErrors(
         validacionesEdit({
-          ...input,
+          ...cache,
           [e.target.name]: e.target.value,
         })
       );
@@ -153,7 +153,7 @@ export default function DevUsersCreate() {
     }
     setCache({
       ...cache,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     // } else {
     //   setVerErrores(true);
