@@ -130,89 +130,16 @@ export default function DevUsersCreate() {
     postulado: true,
   });
 
-  const [errorsCache, setErrorsCache] = useState(localStorage.getItem(errors));
-
-  useEffect(() => {
-    setErrorsCache(errors);
-  }, [errors]);
-
-  //   const regex = /[a-z]*\D\S/gi;
-  //   const regex = /^[a-z\s]*$/gi;
-
-  const handleName = (e) => {
-    // if (regex.test(e.target.value)) {
-    setInput({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.name,
-      [e.target.name]: e.target.value,
-    });
-    setCache({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.name,
-      [e.target.name]: e.target.value,
-    });
-    // }
-    // else {
-    if (userByEmail.postulado) {
-      setErrors(
-        validacionesEdit({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    } else {
-      setErrors(
-        validaciones({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    }
-    // }
-  };
-
-  const handleLastName = (e) => {
-    // if (regex.test(e.target.value)) {
-    setInput({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.lastName,
-      [e.target.name]: e.target.value,
-    });
-    setCache({
-      ...input,
-      //   [e.target.name]: e.target.value || userByEmail?.lastName,
-      [e.target.name]: e.target.value,
-    });
-    // }
-    // else {
-    // if (userByEmail.postulado) {
-    //   setErrors(
-    //     validacionesEdit({
-    //       ...input,
-    //       [e.target.name]: e.target.value,
-    //     })
-    //   );
-    // } else {
-    //   setErrors(
-    //     validaciones({
-    //       ...input,
-    //       [e.target.name]: e.target.value,
-    //     })
-    //   );
-    // }
-    // }
-  };
-
   const handleChangeInput = (e) => {
     // if (/[a-z]+/gi.test(e.target.value)) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     if (userByEmail.postulado) {
       setErrors(
         validacionesEdit({
-          ...input,
+          ...cache,
           [e.target.name]: e.target.value,
         })
       );
@@ -226,7 +153,7 @@ export default function DevUsersCreate() {
     }
     setCache({
       ...cache,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
     // } else {
     //   setVerErrores(true);

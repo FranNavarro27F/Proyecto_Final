@@ -62,6 +62,8 @@
 
   font-size: 0.8vw;
 }
+.social_media {
+}
 
 .social_media:before {
   content: " ";
@@ -136,4 +138,5 @@
   min-height: 4.8rem;
   max-height: 4.8rem;
   overflow-y: scroll;
+  padding-top: 1vh;
 }
