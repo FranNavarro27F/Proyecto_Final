@@ -47,6 +47,7 @@ function App() {
     picture: `${user?.picture}`,
     subscription_id: `${subscription_id}`,
     user_id: `${user_id}`,
+    postulado: `${userByEmail?.postulado}`,
   };
 
   useEffect(() => {
@@ -99,7 +100,7 @@ function App() {
           <Route path="/purchase-completed" element={<PurchaseCompleted />} />
           {/* <Route path="/contratos" element={<Contracts/>}></Route> */}
           <Route path="/contrato/:id" element={<DetalleContrato />}></Route>
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:id" element={<Admin />} />
           <Route path="/about" element={<About />} />
           <Route path="*" element={<Error404 />}></Route>
         </Routes>

@@ -70,6 +70,7 @@ export default function CountryList() {
         // }
         dispatch(newPaisAdmin(newP))
         alert("¡Pais ingresado correctamente! Que tenga un buen día")
+        window.location.reload()
     }
 
 
@@ -97,7 +98,7 @@ export default function CountryList() {
                 {curr.name}
                 </h4>
                 </div>
-                <div className={s.divHabilitador}>
+                <div className={nh === "Habilitado" ? s.divHabilitador : s.divDeshabilitado}>
                 <h4>{nh}</h4>
                 </div>
                 <div className={s.buttonHab}>

@@ -316,14 +316,15 @@ export default function Details() {
 
   const handleCleanAndBack = () => {
     dispatch(detailReset());
-    !backIframe ? navigate(-1) : navigate("/work");
+    navigate("/work");
+    // navigate
   };
 
   const handleVisible = (e) => {
     dispatch(setUserVisible(e.target.checked, id));
     setTimeout(() => {
       dispatch(getUsersBd());
-    }, 200);
+    }, 300);
   };
 
   return isAuthenticated ? (
@@ -357,7 +358,7 @@ export default function Details() {
             </div>
             {
               <Iframe
-                key={user?.user_id}
+                key={linkPago}
                 // style={}
                 loading="CARGANDOOOOOOOOOOOOOOO..."
                 className={s.iframe}
@@ -561,26 +562,25 @@ export default function Details() {
                       </span>
                     </div>
                     <div className={s.bodyButtons}>
-                      {/* <button
-                      className={s.buttonBack}
-                      onClick={() => {
-                        dispatch(detailReset());
-                        navigate("/");
-                      }}
-                    >
-                      HOME
-                    </button> */}
-
+                      <button
+                        className={s.buttonBack}
+                        onClick={handleCleanAndBack}
+                      >
+                        POSTULACIONES
+                      </button>
                       {userProfile ? (
                         <div className={s.buttonsLogeado}>
                           <button
                             className={s.buttonBack}
-                            onClick={() => navigate("/create")}
+                            onClick={() => {
+                              navigate("/create");
+                            }}
                           >
                             {userByEmail?.postulado
                               ? `Editar postulación`
                               : `Postularme`}
                           </button>
+
                           {userByEmail?.premium !== true ? (
                             <div className={s.divMegaPremium}>
                               <button
@@ -621,9 +621,12 @@ export default function Details() {
                       )}
                       <button
                         className={s.buttonBack}
-                        onClick={handleCleanAndBack}
+                        onClick={() => {
+                          dispatch(detailReset());
+                          navigate("/");
+                        }}
                       >
-                        Volver
+                        HOME
                       </button>
                     </div>
                   </div>

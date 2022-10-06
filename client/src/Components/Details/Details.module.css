@@ -93,32 +93,38 @@ body {
 }
 .imageBox {
   /* background-color: #C961DE; */
-  width: 22vw;
-  min-height: 40vh;
+  /* width: 10vw; */
   position: absolute;
   margin-top: -2vh;
-  right: -80vh;
+  right: -76vh;
   /* background-color: red; */
-  overflow: hidden;
+  /* overflow: hidden; */
   /* object-fit: cover; */
+  max-height: 25vh;
+  min-height: 25vh;
+  min-width: 20vw;
+  /* background-color: red; */
+  margin-right: 2vh;
 }
 .imgSvg,
 .imgRender {
-  width: 16vw;
-  max-height: 30vh;
-  min-height: 22vh;
+  min-width: 20vw;
+  /* min-width: 6vw; */
+  max-height: 35vh;
+  min-height: 25vh;
+  /* min-height: 30vh; */
   border-radius: 10%;
   border: 1vh solid rgba(47, 47, 138, 0.6);
   -webkit-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.75);
-  /* object-fit: cover; */
+  object-fit: cover;
 }
 
 .premium {
   width: 16vw;
   max-height: 30vh;
-  min-height: 22vh;
+  min-height: 30vh;
   border-radius: 10%;
   border: 1vh solid rgba(47, 47, 138, 0.6);
   -webkit-box-shadow: 10px 10px 20px 0px rgba(180, 17, 17, 0.75);
@@ -636,9 +642,9 @@ body {
   position: absolute;
   content: "";
   height: 20px;
-  width: 20px;
+  width: 22px;
   left: 4px;
-  bottom: 4px;
+  bottom: 3px;
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -743,9 +749,9 @@ input:checked + .slider_round:before {
   border: 2px solid rgba(0, 0, 0, 0.075);
   display: flex;
   flex-direction: column;
-  -webkit-box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
--moz-box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
-box-shadow: 6px 4px 20px -5px rgba(164,135,230,1);
+  -webkit-box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
+  -moz-box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
+  box-shadow: 6px 4px 20px -5px rgba(164, 135, 230, 1);
 }
 
 .textCardContrato {
@@ -808,7 +814,7 @@ button:focus {
   -webkit-box-shadow: -5px 1px 8px 3px white;
   -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
   box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
-  
+
   font-weight: 590;
   border-radius: 2vh;
   border-bottom-right-radius: 0vh;
@@ -832,7 +838,6 @@ button:focus {
   -webkit-box-shadow: -5px 1px 8px 3px white;
   -moz-box-shadow: -5px 1px 8px 3px rgb(141, 149, 202);
   box-shadow: -5px 1px 8px 3px rgba(170, 164, 219, 0.749);
-  
 
   font-weight: 590;
   border-radius: 2vh;

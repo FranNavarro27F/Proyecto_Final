@@ -6,6 +6,8 @@ import s from "./Card.module.css";
 export default function Card({
   name,
   img,
+  dailyBudget,
+  yearsOfExperience,
   tecnologies,
   reputacion,
   servicios,
@@ -32,7 +34,11 @@ export default function Card({
           </div>
           <p className={s.name_client}>{name}</p>
           <div className={s.divTecnologias}>
-            <span>{servicios?.join(", ")} </span>
+            <br />
+            {/* <span>{servicios?.join(", ")} </span> */}
+            <label>Presupuesto Diario ${dailyBudget}</label>
+            <br />
+            <label>{yearsOfExperience} Años de Experiencia</label>
           </div>
         </Link>
 

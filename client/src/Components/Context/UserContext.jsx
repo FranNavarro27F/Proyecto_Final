@@ -7,6 +7,7 @@ const UserContext = createContext({
   picture: null,
   subscription_id: null,
   user_id: null,
+  postulado: null,
 });
 
 export default UserContext;

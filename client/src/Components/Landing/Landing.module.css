@@ -4,8 +4,9 @@
 .textLanding {
   position: absolute;
   width: 50vw;
-  left: 50vh;
+  /* left: 50vh; */
   top: 32vh;
+  text-align: center;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -khtml-user-select: none; /* Konqueror */
@@ -19,7 +20,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 3.75vw;
+  font-size: 3.5vw;
   background: -webkit-linear-gradient(
     rgb(97, 18, 150),
     rgb(150, 18, 252),
@@ -32,12 +33,15 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  width: 130%;
+  /* width: 130%; */
+  min-width: 100vw;
   letter-spacing: 1.5px;
   margin-left: -5%;
+  text-align: center;
 }
 
 .text1landing {
+  text-align: center;
   /* margin-left: 5%; */
 }
 
@@ -47,6 +51,7 @@
   text-shadow: 0px 0px 2px #cf2ac0;
   font-style: italic;
   margin-left: 0;
+  text-align: center;
 }
 
 .programax {
@@ -75,7 +80,5 @@
   cursor: pointer;
 }
 .divbuttonDown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 }
