@@ -58,6 +58,8 @@ export default function Work() {
                   linkedIn={e.linkedIn}
                   email={e.email}
                   id={e.id}
+                  yearsOfExperience={e.yearsOfExperience}
+                  dailyBudget={e.dailyBudget}
                 />
               </div>
             );
