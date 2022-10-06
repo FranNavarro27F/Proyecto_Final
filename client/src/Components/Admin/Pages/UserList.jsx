@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getUsersAdmin, putUsuarioAdmin} from "../../../Redux/Actions/Admin";
 import s from "./DashboardAdmin.module.css"
+import Swal from "sweetalert2"
 
 export default function UsuariosList() {
 
@@ -40,9 +41,18 @@ export default function UsuariosList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del usuario seleccionado cambiado correctamente")
-        // dispatch(getPaisesAd())
-        window.location.reload()
+        // alert("Estado del usuario seleccionado cambiado correctamente")
+        setTimeout(() => {
+            dispatch(getUsersAdmin())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "Estado del usuario seleccionado cambiado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        
+        // window.location.reload()
 
     }
 
