@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {cambioTabla, getTecnAdmin, newTecnologiaAdmin, putTecnologiasAdmin} from "../../../Redux/Actions/Admin";
-import s from "./DashboardAdmin.module.css"
+import s from "./DashboardAdmin.module.css";
+import Swal from "sweetalert2"
 
 export default function TecList() {
 
@@ -41,9 +42,20 @@ export default function TecList() {
             id: id,
             habilitado: habilitado
         }))
-        alert("Estado del servicio seleccionado cambiado correctamente")
-        // dispatch(getPaisesAd())
-        window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getTecnAdmin())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "Estado de la tecnología seleccionada cambiado correctamente",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        
+        // alert("Estado del servicio seleccionado cambiado correctamente")
+        // // dispatch(getPaisesAd())
+        // window.location.reload()
 
     }
 
@@ -67,8 +79,19 @@ export default function TecList() {
         //     setDisabled(false)
         // }
         dispatch(newTecnologiaAdmin(newP))
-        alert("¡Tecnología ingresada correctamente! Que tenga un buen día")
-        window.location.reload()
+
+        setTimeout(() => {
+            dispatch(getTecnAdmin())
+        }, 300);
+        Swal.fire({
+            icon: 'success',
+            title: "¡Tecnología ingresada correctamente! Que tenga un buen día",
+            showConfirmButton: false,
+            timer: 1000
+          })
+        
+        // alert("¡Tecnología ingresada correctamente! Que tenga un buen día")
+        // window.location.reload()
     }
 
   return (

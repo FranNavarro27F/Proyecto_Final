@@ -596,7 +596,7 @@ export default function Details() {
                                 onClick={() =>
                                   Swal.fire({
                                     text: `Suscribete al servicio premium y destaca tu perfil !`,
-                                    icon: "question",
+                                    icon: "info",
                                     background: "#bebebe71",
                                     color: "white",
                                     //                                   backdrop: `
@@ -701,6 +701,7 @@ export default function Details() {
                   return (
                     <div className={s.cardContrato}>
                       <Contracts
+                        userByEmail={userByEmail}
                         idEmployer={cur.employer}
                         description={cur.description}
                         date={cur.date}
