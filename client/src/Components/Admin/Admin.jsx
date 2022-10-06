@@ -29,11 +29,7 @@ import { TiMessages } from "react-icons/ti";
 import { TiDeviceLaptop } from "react-icons/ti";
 import { MdOutlineRoomService } from "react-icons/md";
 import InicioDash from "./Pages/InicioDash";
-<<<<<<< HEAD
-import {TbArrowBigLeftLines} from "react-icons/tb"
-=======
 import Error404 from "../error404/error404";
->>>>>>> 4537c19bb1ae009b6fba3dab9afd8245bef1b84d
 
 export default function Admin() {
   const [tab, setTab] = useState("");
