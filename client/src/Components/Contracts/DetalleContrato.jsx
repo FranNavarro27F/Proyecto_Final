@@ -95,7 +95,24 @@ export default function DetalleContrato() {
     dispatch(putContrato(id, { habilitado: false })).then(
       (data) => usuarioDetailID && dispatch(getUserId(usuarioDetailID))
     );
-    alert("La propuesta ha sido rechazada correctamente");
+    Swal.fire({
+      title: 'Desea cancelar la propuesta?',
+      text: "Si cancelas la propuesta no podras volver a aceptarla.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si!',
+      cancelButtonText: 'No!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title:'La propuesta ha sido cancelada!',
+          icon:'success'
+        }
+         )
+      }
+    })
     navigate(`/work`);
   };
   const handleBack = () => {
@@ -112,6 +129,13 @@ export default function DetalleContrato() {
   useEffect(() => {
     if (searchParams.get("status") === "approved") {
       dispatch(putContrato(id, { pagado: true }));
+      Swal.fire({
+        // position: "top-end",
+        icon: "success",
+        title: "Su pago fue enviado correctamente al desarrollador",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }, [dispatch, id, searchParams]);
 
