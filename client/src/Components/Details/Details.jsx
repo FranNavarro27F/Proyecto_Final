@@ -689,6 +689,7 @@ export default function Details() {
                   return (
                     <div className={s.cardContrato}>
                       <Contracts
+                        userByEmail={userByEmail}
                         idEmployer={cur.employer}
                         description={cur.description}
                         date={cur.date}
