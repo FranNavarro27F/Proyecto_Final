@@ -20,7 +20,7 @@ export default function ButtonProfile({
   const user = useUser();
   const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const detailPropio = useSelector((state) => state.devUser.detailPropio);
-
+  //
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
@@ -60,7 +60,6 @@ export default function ButtonProfile({
             </Link>
 
             {detailPropio?.isAdmin && (
-
               <Link to={`/admin/${user?.user_id}`}>
                 <button className={s.buttonSelect} value="">
                   PANEL ADMIN
