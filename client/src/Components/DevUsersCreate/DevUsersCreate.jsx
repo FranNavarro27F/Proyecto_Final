@@ -391,6 +391,7 @@ export default function DevUsersCreate() {
       });
       setModal(true);
       dispatch(getUsersBd());
+      dispatch(getUserEmail(userByEmail?.email));
     } else {
       console.log(`hay errores`, errors);
     }
@@ -437,7 +438,7 @@ export default function DevUsersCreate() {
     refLanguajes.current.clearValue();
     refTecnologies.current.clearValue();
     setCache({
-      name: ("name", `${userByEmail?.name}`),
+      name: ("name", `${userByEmail?.name && userByEmail?.name}`),
       lastName: ("lastName", `${userByEmail?.lastName}`),
       profilePicture: ("profilePicture", `${userByEmail?.profilePicture}`),
       email: ("email", `${userByEmail?.email}`),
@@ -464,7 +465,8 @@ export default function DevUsersCreate() {
       postulado: true,
     });
     setInput({
-      name: `${userByEmail?.name}`,
+      // name: `${userByEmail?.name}`,
+      name: `${userByEmail?.name && userByEmail?.name}`,
       lastName: `${userByEmail?.lastname}`,
       profilePicture: `${userByEmail?.profilePicture}`,
       email: `${userByEmail?.email}`,
@@ -541,12 +543,13 @@ export default function DevUsersCreate() {
               type="text"
               placeholder="Tu Nombre..."
               autoComplete="on"
-              onChange={(e) => handleName(e)}
+              onChange={(e) => handleChangeInput(e)}
               defaultValue={userByEmail?.name || cache?.name}
               // value={input?.name}
               name="name"
               className={s.inputName}
               disabled={!edit}
+              maxlength="20"
             />
             <div className={s.divErrors}>
               {verErrores && errors.name && (
@@ -559,9 +562,10 @@ export default function DevUsersCreate() {
             <input
               ref={reflastName}
               type="text"
+              maxlength="20"
               placeholder="Tu Apellido..."
               autoComplete="on"
-              onChange={(e) => handleLastName(e)}
+              onChange={(e) => handleChangeInput(e)}
               defaultValue={userByEmail?.lastName || cache?.lastName}
               //   value={input?.lastName}
               name="lastName"
@@ -587,7 +591,10 @@ export default function DevUsersCreate() {
                   type="file"
                   onChange={(e) => getFile(e.target.files[0])}
                   name="profilePicture"
-                  defaultValue={cache?.profilePicture}
+                  // defaultValue={cache?.profilePicture}
+                  defaultValue={
+                    userByEmail?.profilePicture || cache?.profilePicture
+                  }
                 />
                 <AiOutlineUserAdd />
               </label>

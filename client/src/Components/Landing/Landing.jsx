@@ -8,6 +8,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 // import Loader from "../Loader/Loader";
 // import { BsChevronDoubleDown } from "react-icons/bs";
 import ButtonScrollSection from "../Home/ButtonScrollSection";
+import { useSelector } from "react-redux";
+
 // import { useSelector } from "react-redux";
 
 export default function Landing({
@@ -19,8 +21,8 @@ export default function Landing({
 }) {
   // const { user, isAuthenticated, isLoading, loginWithRedirect, home } =
   //   useAuth0();
-    const { user} =
-    useAuth0();
+  const { user } = useAuth0();
+  const detailPropio = useSelector((state) => state.devUser.detailPropio);
   // console.log(user);
 
   return (
@@ -30,13 +32,21 @@ export default function Landing({
       {/* <SideMenu /> */}
 
       <div className={s.textLanding}>
-        <p className={s.text1landing}>
-          {user?.given_name
-            ? ` ${user?.given_name} bienvenido a `
-            : `Bienvenido a `}
-          <span className={s.programax}>Programax</span>
-          <i>!</i>
-        </p>
+        <div className={s.text1landing}>
+          {user ? (
+            <span>
+              <span className={s.programax}>
+                {detailPropio?.name || user?.name},
+              </span>{" "}
+              bienvenido de nuevo !
+            </span>
+          ) : (
+            <span>
+              Bienvenido a <span className={s.programax}>Programax</span>
+              <i>!</i>
+            </span>
+          )}
+        </div>
         <p className={s.text1landing2}>
           Regístrate, postulate, navega y contrata. Todas tus necesidades al
           alcance de un click<span className={s.puntos}> ...</span>
