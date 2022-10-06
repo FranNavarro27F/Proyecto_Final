@@ -56,11 +56,13 @@ export default function DevUsersCreate() {
 
   const [cache, setCache] = useLocalStorage({});
   const [input, setInput] = useState({
-    name: `${userByEmail?.name}` || `${cache?.name}`,
-    // name: userByEmail?.name ? `${userByEmail?.name}` : `${cache?.name}`,
+    // name: `${userByEmail?.name}` || `${cache?.name}`,
+    name: userByEmail?.name ? `${userByEmail?.name}` : `${cache?.name}`,
     // name: user?.name ? `${user?.name}` : cache?.name ? `${cache?.name}` : "",
-    lastName: `${userByEmail?.lastName}` || `${cache?.lastName}`,
-    // lastName: userByEmail?.lastName ? `${userByEmail?.lastName}` : `${cache?.lastName}`,
+    // lastName: `${userByEmail?.lastName}` || `${cache?.lastName}`,
+    lastName: userByEmail?.lastName
+      ? `${userByEmail?.lastName}`
+      : `${cache?.lastName}`,
     profilePicture: userByEmail?.profilePicture
       ? `${userByEmail?.profilePicture}`
       : cache?.profilePicture
