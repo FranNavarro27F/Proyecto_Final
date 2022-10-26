@@ -5,9 +5,9 @@ const path = require("path");
 const {
   PGDATABASE,
   PGHOST,
-  PGPASSWORD,
   PGPORT,
   PGUSER,
+  PGPASSWORD,
   LOCAL_USER,
   LOCAL_PASSWORD,
   LOCAL_HOST,
