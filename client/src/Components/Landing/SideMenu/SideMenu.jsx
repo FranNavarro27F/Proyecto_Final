@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import s from "./SideMenu.module.css";
 // import { GrHome } from "react-icons/gr";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useUser from "../../../Hooks/useUser";
+import { detailReset } from "../../../Redux/Actions/DevUser";
 
 export default function SideMenu() {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -17,7 +18,7 @@ export default function SideMenu() {
       }
     });
   }, []);
-
+  const dispatch = useDispatch();
   const [bug, setBug] = useState(false);
 
   setTimeout(() => {
@@ -52,7 +53,7 @@ export default function SideMenu() {
               />
             </g>
 
-            <NavLink to="/">
+            <NavLink onClick={() => dispatch(detailReset())} to="/">
               {/* <div className={s.divSvg}> */}
               <path
                 d="M39 112.19L44 116.69V124.5H42V118.5H36V124.5H34V116.69L39 112.19ZM39 109.5L29 118.5H32V126.5H38V120.5H40V126.5H46V118.5H49L39 109.5Z"

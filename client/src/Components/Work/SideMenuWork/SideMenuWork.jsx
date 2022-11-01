@@ -3,14 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import s from "./SideMenuWork.module.css";
 import { GrHome } from "react-icons/gr";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useUser from "../../../Hooks/useUser";
+import { detailReset } from "../../../Redux/Actions/DevUser";
 
 export default function SideMenuWork() {
   // const userByEmail = useSelector((state) => state.devUser.userByEmail);
   const detailPropio = useSelector((state) => state.devUser.detailPropio);
   const [bug, setBug] = useState(false);
+  const dispatch = useDispatch();
 
   const user = useUser();
   console.log(user);
@@ -42,7 +44,7 @@ export default function SideMenuWork() {
               />
             </g>
 
-            <NavLink to="/">
+            <Link onClick={() => dispatch(detailReset())} to="/">
               <path
                 d="M39 112.19L44 116.69V124.5H42V118.5H36V124.5H34V116.69L39 112.19ZM39 109.5L29 118.5H32V126.5H38V120.5H40V126.5H46V118.5H49L39 109.5Z"
                 fill="#0F103F"
@@ -50,7 +52,7 @@ export default function SideMenuWork() {
               {/* <div className={s.iconHome}>
                 <GrHome />
               </div> */}
-            </NavLink>
+            </Link>
 
             <Link to={`/work/details/${detailPropio?.id}`}>
               <path
