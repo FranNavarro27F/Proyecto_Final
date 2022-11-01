@@ -49,9 +49,8 @@
   border-radius: 10px;
 }
 
-.siderbarListItem.active,
-.siderbarListItem:hover {
-  background-color: #2251a9f4;
+.siderbarListItem:hover{
+    background-color: #2251a9f4;
 }
 
 .tablas {

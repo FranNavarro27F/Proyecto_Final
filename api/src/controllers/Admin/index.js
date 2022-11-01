@@ -31,6 +31,9 @@ const capitalize = (str) => {
 const postLenguajes = async (name) => {
   //
   try {
+
+    console.log("Entrando al post de Lenguajes cuack cuack")
+
     const [row, created] = await Lenguajes.findOrCreate({
       where: { name },
     });
